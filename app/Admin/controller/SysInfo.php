@@ -3,16 +3,23 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use think\App;
 use think\facade\Request;
 use think\facade\View;
+
 
 /**
  * [系统基本参数]
  * Class SysInfo
  * @package app\Admin\controller
  */
-class SysInfo
+class SysInfo extends Base
 {
+    public function __construct(App $app)
+    {
+        // 控制器初始化
+        $this->initialize();
+    }
     /**
      * 显示资源列表
      *

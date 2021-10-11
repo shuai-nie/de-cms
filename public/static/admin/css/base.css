@@ -1,0 +1,16 @@
+@charset "utf-8";
+table thead th{padding:5px 0;border-top:none;border-left:none;position:relative;min-height:20px;font-size:14px;
+border-width:1px;
+    border-style:solid;
+    border-color:#eee;
+}
+table tbody td{padding:5px 0;border-top:none;border-left:none;position:relative;min-height:20px;font-size:14px;
+    border-width:1px;
+    border-style:solid;
+    border-color:#eee;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    position: relative;
+    box-sizing: border-box;
+}
