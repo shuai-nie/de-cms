@@ -6,6 +6,7 @@ namespace app\Admin\controller;
 use think\App;
 use think\facade\Request;
 use think\facade\View;
+use app\Admin\model\Sysconfig as  SysconfigModel;
 
 
 /**
@@ -27,6 +28,9 @@ class SysInfo extends Base
      */
     public function index()
     {
+        $data = SysconfigModel::where(['groupid'=>1])->select()->toArray();
+
+        View::assign('_sysconfig', $data);
         return View::fetch('index');
     }
 

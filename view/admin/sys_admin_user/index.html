@@ -1,0 +1,48 @@
+{extend name="public:base" /}
+
+{block name="content"}
+<table>
+    <thead>
+    <tr>
+        <th>登录ID</th>
+        <th>笔名</th>
+        <th>级别</th>
+        <th>频道</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="_user" id="vo"}
+    <tr>
+        <td>{$vo['userid']}</td>
+        <td>{$vo['uname']}</td>
+        <td>{$vo['typename']}</td>
+    </tr>
+    {/volist}
+
+    </tbody>
+
+
+
+</table>
+
+<div class="layui-form-item">
+    <div class="layui-input-block">
+        <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+    </div>
+</div>
+
+{/block}
+
+
+{block name="script"}
+<script type="text/javascript">
+    // layui.use(['element', 'layer', 'util', 'table'], function(){
+    //     var table = layui.table;
+    //     table.init('demo', {
+    //         height: 315
+    //         ,limit: 10
+    //     });
+    // })
+
+</script>
+{/block}

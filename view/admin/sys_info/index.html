@@ -1,32 +1,49 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table lay-filter="demo">
+<table>
     <thead>
     <tr>
-        <th lay-data="{field:'username', width:100}">昵称</th>
-        <th lay-data="{field:'experience', width:80, sort:true}">积分</th>
-        <th lay-data="{field:'sign'}">签名</th>
+        <th >昵称</th>
+        <th >积分</th>
+        <th                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         >签名</th>
     </tr>
     </thead>
     <tbody>
+    {volist name="_sysconfig" id="vo"}
     <tr>
-        <td>贤心1</td>
-        <td>66</td>
-        <td>人生就像是一场修行a</td>
+        <td>{$vo['info']}</td>
+        <td>
+            {switch name="$vo['type']"}
+                {case value="string"}
+                <input type="text" value="{$vo['value']}" name="" class="layui-input" />
+                {/case}
+                {case value="bool"}
+                <input type="radio" class="np" name="" value="Y"  {if condition="$vo['value'] eq 'Y'"} checked{/if}  >是
+                <input type="radio" class="np" name="" value="N" {if condition="$vo['value'] eq 'N'"} checked{/if} >否
+                {/case}
+                {case value="bstring"}
+                <textarea cols="100" rows="10" class="layui-textarea" >{$vo['value']}</textarea>
+                {/case}
+                {default}
+            {/switch}
+
+        </td>
+        <td>{$vo['varname']}</td>
     </tr>
-    <tr>
-        <td>贤心2</td>
-        <td>88</td>
-        <td>人生就像是一场修行b</td>
-    </tr>
-    <tr>
-        <td>贤心3</td>
-        <td>33</td>
-        <td>人生就像是一场修行c</td>
-    </tr>
+    {/volist}
+
     </tbody>
+
+
+
 </table>
+
+<div class="layui-form-item">
+    <div class="layui-input-block">
+        <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+    </div>
+</div>
 
 {/block}
 

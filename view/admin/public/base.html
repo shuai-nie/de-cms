@@ -58,8 +58,8 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">系统</a>
                     <dl class="layui-nav-child">
-                        <dd class="layui-this"><a href="javascript:;">系统基本参数</a></dd>
-                        <dd><a href="javascript:;">系统用户管理</a></dd>
+                        <dd class="layui-this"><a href="{:url('admin/sys_info/index')}">系统基本参数</a></dd>
+                        <dd><a href="{:url('admin/sys_admin_user/index')}">系统用户管理</a></dd>
                         <dd><a href="javascript:;">用户设定</a></dd>
                         <dd><a href="">图片水印设置</a></dd>
                         <dd><a href="">自定义文档属性</a></dd>
@@ -106,6 +106,7 @@
         <div style="margin:10px;">
             {block name="content"}{/block}
         </div>
+        <div style="height:50px;"></div>
     </div>
 
     <div class="layui-footer">

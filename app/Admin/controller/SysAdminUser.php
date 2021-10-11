@@ -3,23 +3,24 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use think\Request;
+use think\facade\Request;
+use think\facade\View;
+use app\Admin\model\Admin as AdminModel;
 
 /**
  * [系统用户管理]
  * Class SysAdminUser
  * @package app\Admin\controller
  */
-class SysAdminUser
+class SysAdminUser extends Base
 {
-    /**
-     * 显示资源列表
-     *
-     * @return \think\Response
-     */
+
     public function index()
     {
-        //
+        //$data = AdminModel::where([])->select()->toArray();
+        $data = AdminModel::hasWhere('profile')->field('Admintype.typename')->select()->toArray();
+        View::assign('_user', $data);
+        return View::fetch();
     }
 
     /**
