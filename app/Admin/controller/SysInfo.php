@@ -16,11 +16,11 @@ use app\Admin\model\Sysconfig as  SysconfigModel;
  */
 class SysInfo extends Base
 {
-    public function __construct(App $app)
-    {
-        // 控制器初始化
-        $this->initialize();
-    }
+//    public function __construct(App $app)
+//    {
+//        // 控制器初始化
+//        $this->initialize();
+//    }
     /**
      * 显示资源列表
      *

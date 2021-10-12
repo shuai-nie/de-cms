@@ -1,12 +1,12 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table>
+<table lay-filter="demoSysInfoIndex">
     <thead>
     <tr>
-        <th >昵称</th>
-        <th >积分</th>
-        <th                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         >签名</th>
+        <th lay-data="{field:'username'}" >昵称</th>
+        <th lay-data="{field:'exper'}" >积分</th>
+        <th lay-data="{field:'sign'}" >签名</th>
     </tr>
     </thead>
     <tbody>
@@ -49,14 +49,9 @@
 
 
 {block name="script"}
+
 <script type="text/javascript">
-    // layui.use(['element', 'layer', 'util', 'table'], function(){
-    //     var table = layui.table;
-    //     table.init('demo', {
-    //         height: 315
-    //         ,limit: 10
-    //     });
-    // })
+
 
 </script>
 {/block}

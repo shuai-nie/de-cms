@@ -15,8 +15,6 @@ class Base extends BaseController
         $this->app     = $app;
         $this->request = $this->app->request;
 
-        View::display('public/base');
-
         // 控制器初始化
         $this->initialize();
     }

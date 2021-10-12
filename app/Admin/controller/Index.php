@@ -3,10 +3,17 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use think\Request;
+use think\App;
+use think\facade\View;
+use think\facade\Request;
 
-class Index
+class Index extends Base
 {
+    public function __construct(App $app)
+    {
+        // 控制器初始化
+        $this->initialize();
+    }
     /**
      * 显示资源列表
      *
@@ -14,7 +21,8 @@ class Index
      */
     public function index()
     {
-        return 'echo admin';
+        View::assign('_sysconfig', array());
+        return View::fetch('index');
     }
 
     /**

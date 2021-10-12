@@ -17,7 +17,6 @@ class SysAdminUser extends Base
 
     public function index()
     {
-        //$data = AdminModel::where([])->select()->toArray();
         $data = AdminModel::hasWhere('profile')->field('Admintype.typename')->select()->toArray();
         View::assign('_user', $data);
         return View::fetch();

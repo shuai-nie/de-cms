@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use think\facade\View;
 use think\Request;
 
 /**
@@ -19,7 +20,8 @@ class SysGroup
      */
     public function index()
     {
-        //
+        View::assign('_user', array());
+        return View::fetch('index');
     }
 
     /**
