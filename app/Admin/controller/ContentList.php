@@ -4,6 +4,8 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use think\Request;
+use think\facade\View;
+use app\admin\model\Archives as ArchivesModel;
 
 /**
  * [所有档案列表]
@@ -19,7 +21,11 @@ class ContentList extends Base
      */
     public function index()
     {
-        //
+        $length = 20;
+        $map = array();
+        $data = ArchivesModel::where($map)->paginate($length);
+        View::assign('_data', $data);
+        return View::fetch();
     }
 
     /**

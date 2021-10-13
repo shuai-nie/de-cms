@@ -4,6 +4,8 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use think\Request;
+use think\facade\View;
+use app\admin\model\Arcatt as ArcattModel;
 
 /**
  * [自定义文档属性]
@@ -19,7 +21,11 @@ class ContentAtt
      */
     public function index()
     {
-        //
+        $length = 20;
+        $map = array();
+        $data = ArcattModel::where($map)->order('sortid asc')->paginate($length);
+        View::assign('_data', $data);
+        return View::fetch();
     }
 
     /**

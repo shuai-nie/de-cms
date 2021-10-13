@@ -1,0 +1,25 @@
+{extend name="public:base" /}
+
+{block name="content"}
+<table lay-filter="demoCatalogMain">
+    <thead>
+    <tr>
+        <th lay-data="{field:'f1'}">ID</th>
+        <th lay-data="{field:'f2'}">排序</th>
+        <th lay-data="{field:'f3'}">属性</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="_data" id="vo"}
+    <tr>
+        <td>{$vo['att']}</td>
+        <td><input type="text " value="{$vo['sortid']}" class="layui-input" /></td>
+        <td><input type="text" value="{$vo['attname']}" class="layui-input" ></td>
+    </tr>
+    {/volist}
+
+    </tbody>
+
+</table>
+<div>{$_data|raw}</div>
+{/block}
