@@ -4,6 +4,8 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use think\Request;
+use think\facade\View;
+use app\Admin\model\Flink as FlinkModel;
 
 /**
  * [TAG 标签管理]
@@ -19,17 +21,24 @@ class TagsMain extends Base
      */
     public function index()
     {
-        //
+        $data = FlinkModel::where(array())->select()->toArray();
+        foreach ($data as $k=>$v){
+            if(!empty($v['logo'])){
+                $v['logo'] = '<img src="'.$v['logo'].'" width="40" height="40" />';
+            }else{
+                $v['logo'] = '无图标';
+            }
+            $data[$k] = $v;
+        }
+        View::assign('_data', $data);
+        return View::fetch();
+
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
+
     public function create()
     {
-        //
+
     }
 
     /**

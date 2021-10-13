@@ -4,6 +4,8 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use think\Request;
+use think\facade\View;
+use app\admin\model\Channeltype as ChanneltypeModel;
 
 /**
  * [内容模型管理]
@@ -19,29 +21,12 @@ class MyChannelMain
      */
     public function index()
     {
-        //
+        $data = ChanneltypeModel::where(array())->select()->toArray();
+        View::assign('_data', $data);
+        return View::fetch();
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
 
     /**
      * 显示指定的资源

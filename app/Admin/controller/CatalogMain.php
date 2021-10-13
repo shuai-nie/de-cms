@@ -4,7 +4,9 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use think\Request;
-
+use think\facade\View;
+use app\admin\model\Channeltype as ChanneltypeModel;
+use app\admin\model\Arctype as ArctypeModel;
 /**
  * [网站栏目管理]
  * Class CatalogMain
@@ -19,40 +21,21 @@ class CatalogMain
      */
     public function index()
     {
-        //
+        $data = ArctypeModel::where(array())->select()->toArray();
+        View::assign('_data', $data);
+        return View::fetch();
     }
 
     /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
+     * [增加子类]
+     * @author Dave 178698695@qq.com
      */
-    public function create()
+    public function catalog_add()
     {
-        //
+        return View::fetch();
     }
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
 
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
 
     /**
      * 显示编辑资源表单页.
@@ -62,7 +45,9 @@ class CatalogMain
      */
     public function edit($id)
     {
-        //
+        $channel = ChanneltypeModel::where("id<>-1 AND isshow=1 ")->order('id asc')->select();
+        View::assign('_channel', $channel);
+        return View::fetch();
     }
 
     /**

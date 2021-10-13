@@ -1,9 +1,9 @@
 
 layui.use(['element', 'layer', 'util', 'table'], function(){
-    element = layui.element;
-    layer = layui.layer;
-    util = layui.util;
-    $ = layui.$;
+    var element = layui.element,
+    layer = layui.layer,
+    util = layui.util,
+    $ = layui.$,
     table = layui.table;
 
     //头部事件
@@ -36,6 +36,22 @@ layui.use(['element', 'layer', 'util', 'table'], function(){
 
     table.init('demoFriendlinkMain', {
         limit:100
+    });
+
+    table.init('demoTagsMainIndex', {
+        limit:100
+    })
+
+    table.init('demoMyChannelMain', {
+        limit:10
+    })
+
+    table.init('demoCatalogMain', {
+        limit:10
+    })
+
+    element.on('tab(test)', function(data){
+        console.log(this, data);
     });
 
 

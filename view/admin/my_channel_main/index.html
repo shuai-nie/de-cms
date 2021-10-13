@@ -1,0 +1,33 @@
+{extend name="public:base" /}
+
+{block name="content"}
+<table lay-filter="demoMyChannelMain">
+    <thead>
+    <tr>
+        <th lay-data="{field:'f1'}">频道名称</th>
+        <th lay-data="{field:'f2'}">识别ID</th>
+        <th lay-data="{field:'f3'}">附加表</th>
+        <th lay-data="{field:'f4'}">状态</th>
+        <th lay-data="{field:'f5'}">模型</th>
+        <th lay-data="{field:'f6'}">管理</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="_data" id="vo"}
+    <tr>
+        <td>{$vo['typename']}</td>
+        <td>{$vo['nid']}</td>
+        <td>{$vo['addtable']}</td>
+        <td>{$vo['isshow']}</td>
+        <td>
+
+        </td>
+
+    </tr>
+    {/volist}
+
+    </tbody>
+
+</table>
+
+{/block}

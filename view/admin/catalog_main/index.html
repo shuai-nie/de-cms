@@ -1,0 +1,30 @@
+{extend name="public:base" /}
+
+{block name="content"}
+<table lay-filter="demoCatalogMain">
+    <thead>
+    <tr>
+        <th lay-data="{field:'f1'}">网站名称</th>
+        <th lay-data="{field:'f2'}">管理</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="_data" id="vo"}
+    <tr>
+        <td>{$vo['typename']}</td>
+        <td>
+            <a class="layui-btn layui-btn-xs" lay-event="detail">预览</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">内容</a>
+            <a href="{:url('catalog_add', ['id'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">增加子类</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">更改</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">移动</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </td>
+
+    </tr>
+    {/volist}
+
+    </tbody>
+
+</table>
+{/block}
