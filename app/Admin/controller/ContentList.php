@@ -10,7 +10,7 @@ use think\Request;
  * Class ContentList
  * @package app\Admin\controller
  */
-class ContentList
+class ContentList extends Base
 {
     /**
      * 显示资源列表

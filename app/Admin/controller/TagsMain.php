@@ -10,7 +10,7 @@ use think\Request;
  * Class TagsMain
  * @package app\Admin\controller
  */
-class TagsMain
+class TagsMain extends Base
 {
     /**
      * 显示资源列表

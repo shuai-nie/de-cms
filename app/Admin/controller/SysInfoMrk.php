@@ -10,7 +10,7 @@ use think\Request;
  * Class SysInfoMrk
  * @package app\Admin\controller
  */
-class SysInfoMrk
+class SysInfoMrk extends Base
 {
     /**
      * 显示资源列表
