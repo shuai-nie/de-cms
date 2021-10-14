@@ -21,6 +21,7 @@ class SysInfoMrk extends Base
     public function index()
     {
 
+
         return View::fetch();
     }
 
