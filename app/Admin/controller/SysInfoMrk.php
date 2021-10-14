@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use think\Request;
+use think\facade\View;
 
 /**
  * [水印设置]
@@ -19,72 +20,57 @@ class SysInfoMrk extends Base
      */
     public function index()
     {
-        //
+
+        return View::fetch();
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
+    public function dd()
     {
-        //
+        $allow_mark_types = array(
+            'image/gif',
+            'image/xpng',
+            'image/png',
+        );
+
+        $ImageWaterConfigFile = "/mark/inc_photowatermark_config.php";
+        $vars = array('photo_markup','photo_markdown','photo_marktype','photo_wwidth','photo_wheight','photo_waterpos','photo_watertext','photo_fontsize','photo_fontcolor','photo_marktrans','photo_diaphaneity');
+        $configstr = $shortname = "";
+        foreach($vars as $v)
+        {
+            ${$v} = str_replace("'", "", ${'get_'.$v});
+            $configstr .= "\${$v} = '".${$v}."';\r\n";
+        }
+        if(is_uploaded_file($newimg))
+        {
+            $imgfile_type = strtolower(trim($newimg_type));
+
+            if(!in_array($imgfile_type, $allow_mark_types))
+            {
+                ShowMsg("上传的图片格式错误，请使用 gif、png格式的其中一种！","-1");
+                exit();
+            }
+            if($imgfile_type=='image/xpng' || $imgfile_type=='image/png')
+            {
+                $shortname = ".png";
+            }
+            else if($imgfile_type=='image/gif')
+            {
+                $shortname = ".gif";
+            }
+            else
+            {
+                ShowMsg("水印图片仅支持gif、png格式的其中一种！","-1");
+                exit;
+            }
+            $photo_markimg = 'mark'.$shortname;
+            @move_uploaded_file($newimg,DEDEDATA."/mark/".$photo_markimg);
+        }
+        $configstr .= "\$photo_markimg = '{$photo_markimg}';\r\n";
+        $configstr = "<"."?php\r\n".$configstr."?".">\r\n";
+        $fp = fopen($ImageWaterConfigFile,"w") or die("写入文件 $ImageWaterConfigFile 失败，请检查权限！");
+        fwrite($fp, $configstr);
+        fclose($fp);
+        echo "<script>alert('修改配置成功！');</script>\r\n";
     }
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
-    }
 }

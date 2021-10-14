@@ -34,6 +34,10 @@ layui.use(['element', 'layer', 'util', 'table'], function(){
         limit: 100
     });
 
+    table.init('demoSysAdminUser2', {
+        limit: 100
+    });
+
     table.init('demoFriendlinkMain', {
         limit:100
     });

@@ -4,18 +4,23 @@
 <table lay-filter="demoSysAdminUser">
     <thead>
     <tr>
-        <th lay-data="{field:'u1'}">登录ID</th>
-        <th lay-data="{field:'u2'}">笔名</th>
-        <th lay-data="{field:'u3'}">级别</th>
-        <th lay-data="{field:'u4'}">频道</th>
+        <th lay-data="{field:'u1'}">Rank</th>
+        <th lay-data="{field:'u2'}">组名称</th>
+        <th lay-data="{field:'u3'}">管理</th>
     </tr>
     </thead>
     <tbody>
-    {volist name="_user" id="vo"}
+    {volist name="_data" id="vo"}
     <tr>
-        <td>{$vo['userid']}</td>
-        <td>{$vo['uname']}</td>
+        <td>{$vo['rank']}</td>
         <td>{$vo['typename']}</td>
+        <td>
+            <a href='{:url("sys_group_edit", ["rank"=>$vo["rank"]])}'>[权限设定]</a>
+            <a href='{:url("sys_admin_user", ["rank"=>$vo["rank"]])}'>[组用户]</a>
+            {if condition="$vo['system'] eq 0"}
+            <a href='{:url("sys_group_edit", ["dopost"=>"del","rank"=>$vo["rank"] ])}'>[删除组]</a>
+            {/if}
+        </td>
     </tr>
     {/volist}
 

@@ -5,6 +5,9 @@ namespace app\Admin\controller;
 
 use think\facade\View;
 use think\Request;
+use app\Admin\model\Admintype as AdmintypeModel;
+use app\Admin\model\Admin as AdminModel;
+use app\admin\model\Arctype as ArctypeModel;
 
 /**
  * [用户组设定]
@@ -20,29 +23,37 @@ class SysGroup
      */
     public function index()
     {
-        View::assign('_user', array());
+        $data = AdmintypeModel::where(array())->field('rank,typename,system')->select()->toArray();
+        View::assign('_data', $data);
         return View::fetch('index');
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
+    public function sys_group_edit($rank)
     {
-        //
+        $gouplists = file('inc/grouplist.txt');
+        $groupSet = AdmintypeModel::where(['rank'=>$rank])->find()->toArray();
+        View::assign('_groupSet', $groupSet);
+        View::assign('_gouplists', $gouplists);
+        return View::fetch();
+
     }
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
+    public function sys_admin_user($rank)
     {
-        //
+        $data = AdminModel::where(['usertype'=>$rank])->select()->toArray();
+        foreach ($data as $k=>$v){
+            if(!empty($v['typeid'])){
+                $ArctypeInfo = ArctypeModel::where(['id'=>$v['typeid']])->find()->toArray();
+                $v['typename'] = $ArctypeInfo['typename'];
+            }else{
+                $v['typename'] = "";
+            }
+            $data[$k] = $v;
+        }
+
+
+        View::assign('_data', $data);
+        return View::fetch();
     }
 
     /**

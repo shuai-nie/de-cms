@@ -1,0 +1,31 @@
+{extend name="public:base" /}
+
+{block name="content"}
+<table lay-filter="demoSysAdminUser2">
+    <thead>
+    <tr>
+        <th lay-data="{field:'u1'}">登录ID</th>
+        <th lay-data="{field:'u2'}">笔名</th>
+        <th lay-data="{field:'u3'}">级别</th>
+        <th lay-data="{field:'u4'}">频道</th>
+        <th lay-data="{field:'u5'}">管理项</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="_data" id="vo"}
+    <tr>
+        <td>{$vo['userid']}</td>
+        <td>{$vo['uname']}</td>
+        <td>{$vo['usertype']}</td>
+        <td>{$vo['typename']}</td>
+        <td>
+            <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}'>[更改]</a>
+            <a href='{:url("sys_admin_user_edit", ["userid"=>$vo["userid"],"dopost"=>"delete"])}'>[删除]</a>
+            <a href='{:url("content_list", ["id"=>$vo["id"]])}'>[文档]</a>
+        </td>
+    </tr>
+    {/volist}
+    </tbody>
+
+</table>
+{/block}
