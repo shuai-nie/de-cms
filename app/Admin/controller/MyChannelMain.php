@@ -12,8 +12,17 @@ use app\admin\model\Channeltype as ChanneltypeModel;
  * Class MyChannelMain
  * @package app\Admin\controller
  */
-class MyChannelMain
+class MyChannelMain extends Base
 {
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'核心', 'url'=>''),
+            array('title'=>'内容模型管理', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
      *

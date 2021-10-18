@@ -14,6 +14,15 @@ use app\admin\model\Archives as ArchivesModel;
  */
 class ContentList extends Base
 {
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'核心', 'url'=>''),
+            array('title'=>'所有档案列表', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
      *

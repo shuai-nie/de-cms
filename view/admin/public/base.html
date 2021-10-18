@@ -103,6 +103,20 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
+        <div class="layui-nav" style="background-color:#fff;color:#000000;line-height:30px;height:30px;">
+            <span class="layui-breadcrumb">
+                {volist name='nav' id='vo' key="k"}
+                    {if condition="(count($nav)-1) eq $k "}
+                    <a href="">{$vo['title']}</a>
+                    {else}
+                    <a><cite>{$vo['title']}</cite></a>
+                    {/if}
+                {/volist}
+
+            </span>
+        </div>
+
+
         <div style="margin:10px;">
             {block name="content"}{/block}
         </div>

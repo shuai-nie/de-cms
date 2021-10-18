@@ -14,8 +14,18 @@ use app\admin\model\Arctype as ArctypeModel;
  * Class SysGroup
  * @package app\Admin\controller
  */
-class SysGroup
+class SysGroup extends Base
 {
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'系统', 'url'=>''),
+            array('title'=>'用户组设定', 'url'=>''),
+        ));
+    }
+
+
     /**
      * 显示资源列表
      *

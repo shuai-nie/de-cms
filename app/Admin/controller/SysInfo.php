@@ -16,11 +16,17 @@ use app\Admin\model\Sysconfig as  SysconfigModel;
  */
 class SysInfo extends Base
 {
-//    public function __construct(App $app)
-//    {
-//        // 控制器初始化
-//        $this->initialize();
-//    }
+
+    public function initialize()
+    {
+
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'系统', 'url'=>''),
+            array('title'=>'系统基本参数', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
      *

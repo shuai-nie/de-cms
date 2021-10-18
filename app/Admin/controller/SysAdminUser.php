@@ -14,6 +14,14 @@ use app\Admin\model\Admin as AdminModel;
  */
 class SysAdminUser extends Base
 {
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'系统', 'url'=>''),
+            array('title'=>'系统用户管理', 'url'=>''),
+        ));
+    }
 
     public function index()
     {

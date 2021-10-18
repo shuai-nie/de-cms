@@ -12,8 +12,17 @@ use app\admin\model\Arctype as ArctypeModel;
  * Class CatalogMain
  * @package app\Admin\controller
  */
-class CatalogMain
+class CatalogMain extends Base
 {
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'核心', 'url'=>''),
+            array('title'=>'网站栏目管理', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
      *

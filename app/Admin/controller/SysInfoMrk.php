@@ -13,6 +13,16 @@ use think\facade\View;
  */
 class SysInfoMrk extends Base
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'系统', 'url'=>''),
+            array('title'=>'图片水印设置', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
      *

@@ -14,6 +14,15 @@ use app\Admin\model\Flink as FlinkModel;
  */
 class FriendlinkMain extends Base
 {
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'模块', 'url'=>''),
+            array('title'=>'友情链接', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
      * @return \think\Response

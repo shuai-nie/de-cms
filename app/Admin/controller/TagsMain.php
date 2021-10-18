@@ -14,9 +14,18 @@ use app\Admin\model\Flink as FlinkModel;
  */
 class TagsMain extends Base
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'核心', 'url'=>''),
+            array('title'=>'TAG 标签管理', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
-     *
      * @return \think\Response
      */
     public function index()

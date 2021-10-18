@@ -11,12 +11,12 @@ use think\template\driver\File;
 
 class Base extends BaseController
 {
-    public function __construct(App $app)
+    public function initialize()
     {
-        $this->app     = $app;
-        $this->request = $this->app->request;
-
-        self::initialize();
+        parent::initialize();
+//        $this->app     = $app;
+//        $this->request = $this->app->request;
+        View::assign('nav', array());
 
     }
 

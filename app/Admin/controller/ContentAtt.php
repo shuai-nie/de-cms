@@ -12,8 +12,17 @@ use app\admin\model\Arcatt as ArcattModel;
  * Class ContentAtt
  * @package app\Admin\controller
  */
-class ContentAtt
+class ContentAtt extends Base
 {
+    public function initialize()
+    {
+        parent::initialize();
+        View::assign('nav', array(
+            array('title'=>'系统', 'url'=>''),
+            array('title'=>'自定义文档属性', 'url'=>''),
+        ));
+    }
+
     /**
      * 显示资源列表
      *
