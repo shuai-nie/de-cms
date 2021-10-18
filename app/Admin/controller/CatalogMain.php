@@ -48,7 +48,6 @@ class CatalogMain extends Base
 
     /**
      * 显示编辑资源表单页.
-     *
      * @param  int  $id
      * @return \think\Response
      */
@@ -60,25 +59,22 @@ class CatalogMain extends Base
     }
 
     /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
+     * [更新栏目组缓存]
+     * @author Dave 178698695@qq.com
      */
-    public function update(Request $request, $id)
+    public function catalog_do()
     {
-        //
+
     }
 
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
+    public function makehtml_list()
     {
-        //
+
     }
+
+
+
+
+
+
 }

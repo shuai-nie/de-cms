@@ -6,6 +6,8 @@ namespace app\Admin\controller;
 use think\Request;
 use think\facade\View;
 use app\admin\model\Channeltype as ChanneltypeModel;
+use app\admin\model\Arcrank as ArcrankModel;
+use app\admin\model\MemberModel ;
 
 /**
  * [内容模型管理]
@@ -36,49 +38,18 @@ class MyChannelMain extends Base
     }
 
 
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
+    public function mychannel_edit()
     {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
+        $request = $this->request;
+        $id = $request->param('id');
+        $dopost = $request->param('dopost');
+        $data = ChanneltypeModel::where(array('id'=>$id))->find();
+        View::assign('data', $data);
+        $ArcrankAll = ArcrankModel::where("rank>=10")->select()->toArray();
+        View::assign('ArcrankAll', $ArcrankAll);
+        $MemberModelAll = MemberModel::where('')->select()->toArray();
+        View::assign('MemberModelAll', $MemberModelAll);
+        View::assign('id', $id);
+        return View::fetch();
     }
 }

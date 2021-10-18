@@ -1,6 +1,7 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<a class="layui-btn layui-btn-xs" lay-event="edit">增加新模型</a>
 <table lay-filter="demoMyChannelMain">
     <thead>
     <tr>
@@ -18,9 +19,11 @@
         <td>{$vo['typename']}</td>
         <td>{$vo['nid']}</td>
         <td>{$vo['addtable']}</td>
-        <td>{$vo['isshow']}</td>
+        <td>{$vo['isshow']|GetSta=###, $vo['id']}</td>
+        <td>{$vo['issystem']|IsSystem}</td>
         <td>
-
+            <a href="{:url('mychannel_edit', ['id'=>$vo['id'],'dopost'=>'edit'])}" class="layui-btn layui-btn-xs" lay-event="edit">更改</a>
+            <a href="{:url('mychannel_edit', ['id'=>$vo['id'],'dopost'=>'delete'])}" class="layui-btn layui-btn-xs" lay-event="edit">删除</a>
         </td>
 
     </tr>

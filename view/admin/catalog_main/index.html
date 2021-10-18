@@ -1,6 +1,11 @@
 {extend name="public:base" /}
 
 {block name="content"}
+
+<a href="{:url('catalog_add', ['listtype'=>'all'])}" class="layui-btn layui-btn-xs" lay-event="detail">增加顶级栏目组</a>
+<a href="{:url('catalog_do',['dopost'=>'upcatcache'])}" class="layui-btn layui-btn-xs" lay-event="detail">更新栏目组缓存</a>
+<a href="{:url('makehtml_list')}" class="layui-btn layui-btn-xs" lay-event="detail">更新栏目HTML</a>
+
 <table lay-filter="demoCatalogMain">
     <thead>
     <tr>
@@ -16,9 +21,9 @@
             <a class="layui-btn layui-btn-xs" lay-event="detail">预览</a>
             <a class="layui-btn layui-btn-xs" lay-event="edit">内容</a>
             <a href="{:url('catalog_add', ['id'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">增加子类</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">更改</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">移动</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            <a href="{:url('catalog_edit', ['id'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">更改</a>
+            <a href="{:url('catalog_do', ['dopost'=>'movecatalog','typeid'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">移动</a>
+            <a href="{:url('catalog_del', ['id'=>$vo['id'],'typeoldname'=>$vo['typename']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </td>
 
     </tr>
