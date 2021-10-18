@@ -14,10 +14,7 @@ class Base extends BaseController
     public function initialize()
     {
         parent::initialize();
-//        $this->app     = $app;
-//        $this->request = $this->app->request;
         View::assign('nav', array());
-
     }
 
     /**

@@ -14,4 +14,9 @@ class Admin extends Model
     {
         return $this->hasMany(Admintype::class, 'rank', 'usertype');
     }
+
+    public function profile2()
+    {
+        return $this->hasMany(Arctype::class, 'id', 'typeid');
+    }
 }

@@ -6,6 +6,9 @@ namespace app\Admin\controller;
 use think\facade\Request;
 use think\facade\View;
 use app\Admin\model\Admin as AdminModel;
+use app\admin\model\Arctype as ArctypeModel;
+use app\Admin\model\Admintype as AdmintypeModel;
+use think\facade\Config;
 
 /**
  * [系统用户管理]
@@ -25,20 +28,39 @@ class SysAdminUser extends Base
 
     public function index()
     {
-        $data = AdminModel::hasWhere('profile')->field('Admintype.typename')->select()->toArray();
+        $data = AdminModel::hasWhere('profile2')->field('Arctype.typename')->select()->toArray();
         View::assign('_user', $data);
         return View::fetch();
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        //
-    }
+   public function sys_admin_user_edit()
+   {
+       $request = $this->request;
+       $id = $request->param('id');
+       $dopost = $request->param('dopost');
+       if($dopost == 'edit'){
+           $adminInfo = AdminModel::where(['id'=>$id])->find()->toArray();
+           $arctypeAll = ArctypeModel::where("reid=0 AND (ispart=0 OR ispart=1)")->field('id,typename')->select()->toArray();
+           $AdmintypeAll = AdmintypeModel::where(array())->order('rank asc')->select()->toArray();
+           View::assign('adminInfo', $adminInfo);
+           View::assign('arctypeAll', $arctypeAll);
+           View::assign('AdmintypeAll', $AdmintypeAll);
+           $randcode = mt_rand(10000,99999);
+           $cfg_cookie_encode = Config::get('app.cfg_cookie_encode');
+           $safecode = substr(md5($cfg_cookie_encode.$randcode),0,24);
+           View::assign('randcode', $randcode);
+           View::assign('safecode', $safecode);
+
+
+       }
+
+       View::assign('nav', array(
+           array('title'=>'系统', 'url'=>''),
+           array('title'=>'系统用户管理', 'url'=>''),
+           array('title'=>'编辑用户管理', 'url'=>''),
+       ));
+       return View::fetch();
+   }
 
     /**
      * 保存新建的资源

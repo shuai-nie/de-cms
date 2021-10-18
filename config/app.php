@@ -29,4 +29,6 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => false,
+
+    'cfg_cookie_encode' => '7g2vbkvLtFtT6r51Y2r5HwWYTC7q',
 ];

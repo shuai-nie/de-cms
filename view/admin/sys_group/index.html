@@ -1,6 +1,7 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<a href='{:url("sys_group_add")}'>[增加用户组]</a>
 <table lay-filter="demoSysAdminUser">
     <thead>
     <tr>
@@ -30,11 +31,6 @@
 
 </table>
 
-<div class="layui-form-item">
-    <div class="layui-input-block">
-        <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
-    </div>
-</div>
 
 {/block}
 
