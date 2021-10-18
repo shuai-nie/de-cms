@@ -17,7 +17,7 @@
         <td>{$vo['userid']}</td>
         <td>{$vo['uname']}</td>
         <td>{$vo['usertype']|GetUserType}</td>
-        <td>{$vo['typename']}</td>
+        <td>{$vo['typename']|GetChannel}</td>
         <td>
             <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}'>[更改]</a>
             <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"userid"=>$vo["userid"],"dopost"=>"delete"])}'>[删除]</a>

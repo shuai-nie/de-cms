@@ -30,9 +30,14 @@ class SysAdminUser extends Base
     {
         $request = $this->request;
         $rank = $request->param('rank');
-        $data = AdminModel::hasWhere('profile2', '', 'Admin.*,Arctype.typename', 'left')->select()->toArray();
-//        echo (new AdminModel())->getLastSql();
-//        var_dump($data);exit();
+        $where = "";
+        if(!empty($rank)){
+            $where = " CONCAT(Admin.usertype)='$rank' ";
+        }
+
+        $data = AdminModel::hasWhere('profile2', $where, 'Admin.*,Arctype.typename', 'left')->select()->toArray();
+//        echo (new AdminModel())->getLastSql();exit();
+
 
         //$data = AdminModel::where(array())->select()->toArray();
 

@@ -12,3 +12,9 @@ function GetUserType($trank)
     if(isset($adminRanks[$trank])) return $adminRanks[$trank];
     else return "错误类型";
 }
+
+function GetChannel($c)
+{
+    if($c==""||$c==0) return "所有频道";
+    else return $c;
+}
