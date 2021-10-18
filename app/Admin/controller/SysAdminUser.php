@@ -28,7 +28,14 @@ class SysAdminUser extends Base
 
     public function index()
     {
-        $data = AdminModel::hasWhere('profile2')->field('Arctype.typename')->select()->toArray();
+        $request = $this->request;
+        $rank = $request->param('rank');
+        $data = AdminModel::hasWhere('profile2', '', 'Admin.*,Arctype.typename', 'left')->select()->toArray();
+//        echo (new AdminModel())->getLastSql();
+//        var_dump($data);exit();
+
+        //$data = AdminModel::where(array())->select()->toArray();
+
         View::assign('_user', $data);
         return View::fetch();
     }

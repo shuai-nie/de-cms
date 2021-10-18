@@ -12,7 +12,7 @@ class Admin extends Model
 {
     public function profile()
     {
-        return $this->hasMany(Admintype::class, 'rank', 'usertype');
+        return $this->has(Admintype::class, 'rank', 'usertype');
     }
 
     public function profile2()
