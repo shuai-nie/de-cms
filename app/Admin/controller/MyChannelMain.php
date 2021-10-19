@@ -50,6 +50,10 @@ class MyChannelMain extends Base
         $MemberModelAll = MemberModel::where('')->select()->toArray();
         View::assign('MemberModelAll', $MemberModelAll);
         View::assign('id', $id);
+
+
+
+
         return View::fetch();
     }
 }

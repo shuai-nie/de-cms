@@ -234,12 +234,13 @@ else
                             </tr>
                             <?php
 }
-$ds = file(DEDEADMIN."/inc/fieldtype.txt");
-foreach($ds as $d){
-	$dds = explode(',',trim($d));
-	$fieldtypes[$dds[0]] = $dds[1];
-}
-$fieldset = $row['fieldset'];
+$ds = file("storage/inc/fieldtype.txt");
+
+        foreach($ds as $d){
+            $dds = explode(',',trim($d));
+            $fieldtypes[$dds[0]] = $dds[1];
+        }
+$fieldset = $data['fieldset'];
 $dtp = new DedeTagParse();
 $dtp->SetNameSpace("field","<",">");
                             $dtp->LoadSource($fieldset);
