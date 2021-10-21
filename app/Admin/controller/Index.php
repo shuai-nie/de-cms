@@ -6,6 +6,7 @@ namespace app\Admin\controller;
 use think\App;
 use think\facade\View;
 use think\facade\Request;
+use think\facade\Session;
 
 class Index extends Base
 {

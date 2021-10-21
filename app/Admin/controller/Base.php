@@ -8,13 +8,24 @@ use think\App;
 use think\Request;
 use think\facade\View;
 use think\template\driver\File;
+use think\facade\Session;
 
 class Base extends BaseController
 {
     public function initialize()
     {
+        $this->isLogin();
         parent::initialize();
         View::assign('nav', array());
+    }
+
+    protected function isLogin()
+    {
+        //$stat = Session::get('user');
+        $stat = Session::has('user');
+        if(!$stat){
+            return redirect((string)url('Login/index'));
+        }
     }
 
     /**
