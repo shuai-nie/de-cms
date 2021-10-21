@@ -11,7 +11,7 @@
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black">layout demo</div>
+        <div class="layui-logo layui-hide-xs layui-bg-black">{$_nav_this}</div>
         <!-- 头部区域（可配合layui 已有的水平导航） -->
 <!--        <ul class="layui-nav layui-layout-left">-->
 <!--            &lt;!&ndash; 移动端显示 &ndash;&gt;-->
@@ -35,12 +35,12 @@
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:;">
 <!--                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">-->
-                    admin
+                    {$user['userid']}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">个人资料</a></dd>
                     <dd><a href="">设置</a></dd>
-                    <dd><a href="">退出</a></dd>
+                    <dd><a href="{:url('Login/Logout')}">退出</a></dd>
                 </dl>
             </li>
 <!--            <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>-->
@@ -58,29 +58,29 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">系统</a>
                     <dl class="layui-nav-child">
-                        <dd class="layui-this"><a href="{:url('admin/sys_info/index')}">系统基本参数</a></dd>
-                        <dd><a href="{:url('admin/sys_admin_user/index')}">系统用户管理</a></dd>
-                        <dd><a href="{:url('admin/sys_group/index')}">用户组设定</a></dd>
-                        <dd><a href="{:url('admin/sys_info_mrk/index')}">图片水印设置</a></dd>
-                        <dd><a href="{:url('admin/content_att/index')}">自定义文档属性</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysInfo_index' "} class="layui-this" {/if} ><a href="{:url('admin/sys_info/index')}">系统基本参数</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysAdminUser_index' "} class="layui-this" {/if}><a href="{:url('admin/sys_admin_user/index')}">系统用户管理</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysGroup_index' "} class="layui-this" {/if}><a href="{:url('admin/sys_group/index')}">用户组设定</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysInfoMrk_index' "} class="layui-this" {/if}><a href="{:url('admin/sys_info_mrk/index')}">图片水印设置</a></dd>
+                        <dd {if condition="$_nav_this eq 'ContentAtt_index' "} class="layui-this" {/if}><a href="{:url('admin/content_att/index')}">自定义文档属性</a></dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class=" " href="">核心</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="{:url('admin/catalog_main/index')}">网站栏目管理</a> </dd>
-                        <dd><a href="{:url('admin/content_list/index')}">所有档案列表</a> </dd>
-                        <dd><a href="{:url('admin/content_list/index', ['arcrank'=>-1])}">等审核的文档</a> </dd>
-                        <dd><a href="{:url('admin/my_channel_main/index')}">内容模型管理</a> </dd>
-                        <dd><a href="{:url('admin/tags_main/index')}">Tag标签管理</a> </dd>
+                        <dd {if condition="$_nav_this eq 'CatalogMain_index' "} class="layui-this" {/if}><a href="{:url('admin/catalog_main/index')}">网站栏目管理</a> </dd>
+                        <dd {if condition="$_nav_this eq 'ContentList_index' "} class="layui-this" {/if}><a href="{:url('admin/content_list/index')}">所有档案列表</a> </dd>
+                        <dd {if condition="$_nav_this eq 'ContentList_index' "} class="layui-this" {/if}><a href="{:url('admin/content_list/index', ['arcrank'=>-1])}">等审核的文档</a> </dd>
+                        <dd {if condition="$_nav_this eq 'MyChannelMain_index' "} class="layui-this" {/if}><a href="{:url('admin/my_channel_main/index')}">内容模型管理</a> </dd>
+                        <dd {if condition="$_nav_this eq 'TagsMain_index' "} class="layui-this" {/if}><a href="{:url('admin/tags_main/index')}">Tag标签管理</a> </dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item layui-nav-itemed">
                     <a>模块</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="{:url('friendlink_main/index')}">友情链接</a></dd>
+                        <dd {if condition="$_nav_this eq 'FriendLink_index' "} class="layui-this" {/if}><a href="{:url('friendlink_main/index')}">友情链接</a></dd>
                         <dd><a href="">生成网站地图</a></dd>
                     </dl>
                 </li>

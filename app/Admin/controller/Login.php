@@ -40,6 +40,12 @@ class Login
         return false;
     }
 
+    public function Logout()
+    {
+        Session::delete('user');
+        return redirect((string)url('Login/index'));
+    }
+
 
 
 }

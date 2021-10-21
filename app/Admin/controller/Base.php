@@ -16,16 +16,18 @@ class Base extends BaseController
     {
         $this->isLogin();
         parent::initialize();
+        View::assign('_nav_this', Request()->controller().'_'.Request()->action());
         View::assign('nav', array());
     }
 
     protected function isLogin()
     {
-        //$stat = Session::get('user');
         $stat = Session::has('user');
         if(!$stat){
-            return redirect((string)url('Login/index'));
+            redirect( (string)url('Login/index') )->send();
         }
+        $user = Session::get('user');
+        View::assign('user', $user);
     }
 
     /**
