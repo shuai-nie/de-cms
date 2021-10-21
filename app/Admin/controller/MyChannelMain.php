@@ -51,6 +51,11 @@ class MyChannelMain extends Base
         View::assign('MemberModelAll', $MemberModelAll);
         View::assign('id', $id);
 
+        $fieldset = $data['fieldset'];
+        var_dump($fieldset);exit();
+
+
+
 
 
 
