@@ -3,6 +3,8 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use app\admin\model\Arcrank;
+use app\Admin\model\SysEnum;
 use think\facade\Request;
 use think\facade\View;
 use app\admin\model\Channeltype as ChanneltypeModel;
@@ -52,6 +54,7 @@ class CatalogMain extends Base
         $topid = 0;
         $typedir = '';
         $moresite = 0;
+        View::assign('issend', $issend);
         View::assign('channelid', $channelid);
         if($id>0)
         {
@@ -66,6 +69,7 @@ class CatalogMain extends Base
 
         //父栏目是否为二级站点
         $moresite = empty($myrow['moresite']) ? 0 : $myrow['moresite'];
+        View::assign('moresite', $moresite);
         $row = ChanneltypeModel::where("id<>-1 AND isshow=1")->order("id asc")->select();
         $channelArray = array();
         foreach ($row as $k => $v){
@@ -77,6 +81,13 @@ class CatalogMain extends Base
             }
         }
         View::assign('channelArray', $channelArray);
+        //Select * from `#@__arcrank` where rank >= 0
+        $ArcrankAll = Arcrank::where("rank >= 0")->select();
+        View::assign('ArcrankAll', $ArcrankAll);
+
+        //SELECT * FROM `#@__sys_enum` WHERE egroup LIKE 'infotype' ORDER BY disorder ASC, id DESC
+        $SysEnumAll = SysEnum::where('')->order('disorder ASC, id DESC')->select();
+        View::assign('SysEnumAll', $SysEnumAll);
         return View::fetch();
     }
 
