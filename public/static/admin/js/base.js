@@ -54,9 +54,28 @@ layui.use(['element', 'layer', 'util', 'table'], function(){
         limit:10
     })
 
-    element.on('tab(test)', function(data){
+    var layid = location.hash.replace(/^#test1=/, '');
+    /***********************************/
+    element.on('tab(mychannel_edit)', function(data){
         console.log(this, data);
+        console.log(data.index);
     });
+    element.tabChange('mychannel_edit', layid);
+    element.on('tab(mychannel_edit)', function(){
+        location.hash = 'test1='+ this.getAttribute('lay-id');
+    });
+    /***********************************/
+    element.on('tab(CatalogMain_catalog_add)', function(data){
+        console.log(this, data);
+        console.log(data.index);
+    });
+    element.tabChange('CatalogMain_catalog_add', layid);
+    element.on('tab(CatalogMain_catalog_add)', function(){
+        location.hash = 'test1='+ this.getAttribute('lay-id');
+    });
+    /***********************************/
+
+
 
 
 

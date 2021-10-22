@@ -3,7 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use think\Request;
+use think\facade\Request;
 use think\facade\View;
 use app\admin\model\Channeltype as ChanneltypeModel;
 use app\admin\model\Arctype as ArctypeModel;
@@ -41,6 +41,42 @@ class CatalogMain extends Base
      */
     public function catalog_add()
     {
+
+        $id = Request::param('id', 0);
+        if(empty($dopost)) $dopost = '';
+        $nid = 'article';
+        $channelid = 1;
+        $issend = 1;
+        $corank = 0;
+        $reid = 0;
+        $topid = 0;
+        $typedir = '';
+        $moresite = 0;
+        View::assign('channelid', $channelid);
+        if($id>0)
+        {
+            //$myrow = $dsql->GetOne(" SELECT tp.*,ch.typename AS ctypename FROM `#@__arctype` tp LEFT JOIN `#@__channeltype` ch ON ch.id=tp.channeltype WHERE tp.id=$id ");
+            $myrow = ArctypeModel::hasWhere('profile', 'Arctype.id='.$id, 'Arctype.*,Channeltype.typename as ctypename', 'left')->find();
+            View::assign('channelid', $myrow['channeltype']);
+            View::assign('issennd', $myrow['issend']);
+            View::assign('corank', $myrow['corank']);
+            View::assign('topid', $myrow['topid']);
+            View::assign('typedir', $myrow['typedir']);
+        }
+
+        //父栏目是否为二级站点
+        $moresite = empty($myrow['moresite']) ? 0 : $myrow['moresite'];
+        $row = ChanneltypeModel::where("id<>-1 AND isshow=1")->order("id asc")->select();
+        $channelArray = array();
+        foreach ($row as $k => $v){
+            $channelArray[$v->id]['typename'] = $v->typename;
+            $channelArray[$v->id]['nid'] = $v->nid;
+            if($v->id == $channelid)
+            {
+                $nid = $v->nid;
+            }
+        }
+        View::assign('channelArray', $channelArray);
         return View::fetch();
     }
 

@@ -1,7 +1,7 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<div class="layui-tab" lay-filter="tabDemo" lay-allowClose="true">
+<div class="layui-tab" lay-filter="mychannel_edit" lay-allowClose="true">
     <ul class="layui-tab-title">
         <li class="layui-this" lay-id="1">基本设置</li>
         <li lay-id="2">字段</li>
@@ -37,31 +37,25 @@
                             <b>频道ID</b><br />
                             <span class="STYLE2" id='help1'>数字，创建后不可更改，并具有唯一性。</span>
                         </td>
-                        <td>
-                            {$data['id']}
-                        </td>
+                        <td>{$data['id']}</td>
                     </tr>
                 <tr>
                     <td>
                         <b>名字标识</b><br />
                         <span class="STYLE2" id="help2">与文档的模板相关连，建议由英文、数字或下划线组成，因为部份Unix系统无法识别中文文件，频道默认文档模板是 “default/article_名字标识.htm”，列表模板、封面模板类推。 </span>
                     </td>
-                    <td>
-                        {$data['nid']}
-                    </td>
+                    <td>{$data['nid']}</td>
                 </tr>
                 <tr>
                     <td>
                         <b>频道名称</b><br />
                         <span class="STYLE2" id="help3">频道的中文名称，在后台管理，前台发布等均使用此名字。</span>
                     </td>
-                    <td>
-                        <input name="typename" type="text" id="typename" value="{$data['typename']}" />
-                    </td>
+                    <td><input name="typename" type="text" id="typename" value="{$data['typename']}" /></td>
                 </tr>
                 <tr>
                     <td>
-                        b>附加表</b><br />
+                        <b>附加表</b>
                         <span class="STYLE2" id="help4">频道除主表以外其它自定义类型数据存放数据的表，如果您不使用主表关连的各种特性(推荐、会员权限等)，也可以使用完全以附加表作为存储数据。</span>
                     </td>
                     <td>
@@ -89,9 +83,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        许可投稿会员组
-                    </td>
+                    <td>许可投稿会员组</td>
                     <td>
                         {volist name="MemberModelAll" id='vo'}
                         <input type="radio" name="{$vo['name']}" />{$vo['name']}
@@ -201,11 +193,12 @@
         </div>
 
         <div class="layui-tab-item">
-            <table width="98%" id='adset' border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" style='display:none'>
+            <table width="98%" id='adset' border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" >
                 <tr>
                     <td height="28" bgcolor="#ffffff"><strong>模型字段配置(可视化模式)</strong></td>
                     <td bgcolor="#ffffff">
-                        <input name="fset" type="button" id="fset" value="添加新字段" onClick="location.href='mychannel_field_add.php?id=<?php echo $id; ?>'" class="coolbg np" />      </td>
+                        <input name="fset" type="button" id="fset" value="添加新字段" onClick="location.href='{:url('mychannel_field_add', ['id'=>$id])}'" class="coolbg np" />
+                    </td>
                 </tr>
                 <tr>
                     <td colspan='2'  bgcolor="#FFFFFF" style="padding:6px">
@@ -239,68 +232,70 @@
                                 $fieldtypes[$dds[0]] = $dds[1];
                             }
                             $fieldset = $data['fieldset'];
-                            $dtp = new DedeTagParse();
-                            $dtp->SetNameSpace("field","<",">");
-                            $dtp->LoadSource($fieldset);
-                            if(is_array($dtp->CTags)){
-                            foreach($dtp->CTags as $ctag)
-                            {
+                            #$dtp = new DedeTagParse();
+                            #$dtp->SetNameSpace("field","<",">");
+                            #$dtp->LoadSource($fieldset);
+                            #if(is_array($dtp->CTags)){
+                            #foreach($dtp->CTags as $ctag){
                             ?>
                             <tr align="center" bgcolor="#FFFFFF" height="26" align="center" onMouseMove="javascript:this.bgColor='#FCFDEE';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="24">
                             <td>
                                 <?php
-			                    $itname = $ctag->GetAtt('itemname');
-                                if($itname=='') echo "没指定";
-                                    else echo $itname;
+			                    #$itname = $ctag->GetAtt('itemname');
+                                #if($itname=='') echo "没指定";
+                                 #   else echo $itname;
                                 ?>
                             </td>
                             <td>
-                                <?php echo $ctag->GetTagName(); ?>      </td>
+                                <?php # echo $ctag->GetTagName(); ?>      </td>
                             <td>
                                 <?php
-			                    $ft = $ctag->GetAtt('type');
-                                if(isset($fieldtypes[$ft])) echo $fieldtypes[$ft];
-                                else  echo "系统专用类型";
-                                ?>			</td>
-                            <td>
-                                <?php
-			                    $ft = $ctag->GetAtt('autofield');
-                                if($ft=='' || $ft==0) {
-                                    echo "固化字段";
-                                }else {
-                                    echo "自动表单";
-                                }
+			                    # $ft = $ctag->GetAtt('type');
+                                # if(isset($fieldtypes[$ft])) echo $fieldtypes[$ft];
+                                # else  echo "系统专用类型";
                                 ?>
                             </td>
                             <td>
                                 <?php
-                                if($ft==1){
+			                    # $ft = $ctag->GetAtt('autofield');
+                                # if($ft=='' || $ft==0) {
+                                #    echo "固化字段";
+                                # }else {
+                                #    echo "自动表单";
+                                # }
                                 ?>
-                                <a href='mychannel_field_edit.php?id=<?php echo $id; ?>&fname=<?php echo $ctag->GetTagName(); ?>&issystem=<?php echo $row['issystem']; ?>'><img src='images/gtk-edit.png' alt='更改' title='更改' /></a>
-                                <?php if($row['issystem']!=1){ ?>
-                                | <a href='#' onClick='javascript:DelNote("mychannel_field_edit.php?id=<?php echo $id; ?>&fname=<?php echo $ctag->GetTagName(); ?>&action=delete");'><img src='images/gtk-del.png' alt='删除' title='删除' /></a>
-                                <?php } ?>
+                            </td>
+                            <td>
                                 <?php
-                                }else{
-                                    echo "禁止修改";
-                                }
+                                # if($ft==1){
+                                ?>
+                                <a href='mychannel_field_edit.php?id=&fname=&issystem='></a>
+                                <?php # if($row['issystem']!=1){ ?>
+                                | <a href='#' onClick='javascript:DelNote("mychannel_field_edit.php?id=&fname=&action=delete");'></a>
+                                <?php # } ?>
+                                <?php
+                                #}else{
+                                 #   echo "禁止修改";
+                                #}
                                 ?>
                             </td>
                         </tr>
                             <?php
-                             }}
+                             # }
+                             # }
                             ?>
                         </table>
                     </td>
                 </tr>
                 <tr>
                     <td height="24" width="35%" bgcolor="#FFFFFF">
-                        <strong>模型字段配置(文本模式)      	</strong><br />
+                        <strong>模型字段配置(文本模式)</strong>
                         修改配置文本可调整字段顺序，但不会更改字段属性！
                     </td>
                     <td  width="65%" bgcolor="#FFFFFF">
-                        <textarea name="fieldset"  style="width:99%;height:300px" rows="10" id="fieldset"><?php echo $row['fieldset']; ?></textarea>
+                        <textarea name="fieldset"  style="width:99%;height:300px" rows="10" id="fieldset">{$data['fieldset']}</textarea>
                     </td>
+
                 </tr>
             </table>
         </div>
