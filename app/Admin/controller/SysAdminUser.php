@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use app\admin\model\Arctype;
 use think\facade\Request;
 use think\facade\View;
 use app\Admin\model\Admin as AdminModel;
@@ -74,59 +75,35 @@ class SysAdminUser extends Base
        return View::fetch();
    }
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
+   public function sys_admin_user_add()
+   {
+       $ut = AdmintypeModel::where("")->order('rank asc')->select();
+       View::assign('_ut', $ut);
+       $randcode = mt_rand(10000, 99999);
+       $cfg_cookie_encode = Config::get('app.cfg_cookie_encode');
+       $safecode = substr(md5($cfg_cookie_encode.$randcode), 0, 24);
+       View::assign('_randcode', $randcode);
+       View::assign('_safecode', $safecode);
+       $this->typeOptions();
+       return View::fetch();
+   }
 
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
+   protected function typeOptions()
+   {
+       $typeOptions = "";
+       $data = ArctypeModel::where("reid=0 AND (ispart=0 or ispart=1)")->select();
+       foreach ($data as $k => $v){
+           $topc = $v->id;
+           $typeOptions .= "<option value='{$v->id}' class='btype'>{$v->typename}</option>\r\n";
+           $s = Arctype::where("reid={$v->id} and (ispart=0 or ispart=1)")->select();
+           foreach ($s as $k => $vo){
+               $typeOptions .= "<option value='{$vo->id}' class='stype'>—{$vo->typename}</option>\r\n";
+           }
+       }
+       View::assign('_typeOptions', $typeOptions);
 
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+   }
 
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
-    }
+
 }
