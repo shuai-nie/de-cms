@@ -20,6 +20,7 @@ class SysGroup extends Base
     public function initialize()
     {
         parent::initialize();
+        View::assign('_nav_this', 'SysGroup_index');
         View::assign('nav', array(
             array('title'=>'系统', 'url'=>''),
             array('title'=>'用户组设定', 'url'=>''),
@@ -46,6 +47,13 @@ class SysGroup extends Base
         $groupSet = AdmintypeModel::where(['rank'=>$rank])->find()->toArray();
         View::assign('_groupSet', $groupSet);
         View::assign('_gouplists', $gouplists);
+        $PlusAll = Plus::where("")->select();
+        View::assign('_PlusAll', $PlusAll);
+        View::assign('nav', array(
+            array('title'=>'系统', 'url'=>''),
+            array('title'=>'用户组设定', 'url'=>''),
+            array('title'=>'更改用户组', 'url'=>''),
+        ));
         return View::fetch();
 
     }

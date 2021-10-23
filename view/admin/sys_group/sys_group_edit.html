@@ -1,47 +1,78 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<form class="layui-form layui-form-pane1" action="" lay-filter="first">
-    <div class="layui-form-item">
-        <label class="layui-form-label">组名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" value="{$_groupSet['typename']}" lay-verify="required|title" lay-reqText="标题不能为空" required placeholder="请输入标题" autocomplete="off" class="layui-input" >
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">级别值</label>
-        <div class="layui-input-block">
-            <input type="text" name="title" value="{$_groupSet['rank']}" lay-verify="required|title" lay-reqText="标题不能为空" required placeholder="请输入标题" autocomplete="off" class="layui-input" >
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-    {volist name="_gouplists" id="vo" key="k"}
-    {if condition="preg_match('#^>>#', $vo)"}
-
-
-        <label class="layui-form-label"><?php echo str_replace('>>','',$vo); ?></label>
-        <div class="layui-input-block">
-            <input type="text" name="title" value="{$_groupSet['rank']}" lay-verify="required|title" lay-reqText="标题不能为空" required placeholder="请输入标题" autocomplete="off" class="layui-input" >
-        </div>
-
-    {elseif condition="preg_match('#^>#', $vo)"}
-        <?php
-            $ls = explode('>', $vo);
-            $tag = $ls[1];
-            $tagname = str_replace('[br]','',$ls[2]);
-        ?>
-        <input type="checkbox" name="purviews[]" lay-skin="primary" title="{$tagname}">
-    {/if}
-    {/volist}
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-        </div>
-    </div>
-</form>
+<table width="98%" border="1" cellpadding="2" cellspacing="1" bgcolor="#D6D6D6" align="center">
+    <form name='form1' action='sys_group_edit.php' method='post'>
+        <input type='hidden' name='dopost' value='save'>
+        <tr>
+            <td height="23" align="left" style="padding-left:10px;"><b><a href='sys_group.php'>系统用户组管理</a>&gt;&gt;更改用户组：</b></td>
+        </tr>
+        <tr>
+            <td valign="top" bgcolor="#FFFFFF" align="center">
+                <table width="98%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="9%" height="30">组名称：</td>
+                        <td width="91%" style="text-align:left;"> <input name="typename" type="text" id="typename" value="{$_groupSet['typename']}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="9%" height="30">级别值：</td>
+                        <td width="91%" style="text-align:left;">
+                            <input name="rank" type="hidden" id="rank" value="{$_groupSet['rank']}">
+                            {$_groupSet['rank']}
+                        </td>
+                    </tr>
+                    <?php
+        $start = 0;
+        $k = 0;
+        $gouplists = file('inc/grouplist.txt');
+        foreach($gouplists as $line)
+        {
+        	$line = trim($line);
+        	if($line=="") continue;
+        	if(preg_match("#^>>#", $line))
+                    {
+                    if($start>0) echo "        	 </td></tr>\r\n";
+                    $start++;
+                    $lhead = "
+                    <tr>
+                        <td height='25' colspan='2' bgcolor='#F9FAF3' style='text-align:left;'>".$start."、".str_replace('>>','',$line)."</td></tr>
+                    <tr><td height='25' colspan='2' style='text-align:left;'>
+                        ";
+                        echo $lhead;
+                        }
+                        else if(preg_match("#^>#", $line))
+                        {
+                        $ls = explode('>',$line);
+                        $tag = $ls[1];
+                        $tagname = str_replace('[br]','<br>',$ls[2]);
+                        if(!preg_match("#<br \/>#", $tagname) ) $tagname .= "<font color='#888888'>($tag)</font>";
+                        else $tagname = str_replace('<br />', "<font color='#888888'>($tag)</font><br />", $tagname);
+                        echo "          	<input name='purviews[]' type='checkbox' class='np' id='purviews".$k."' value='".$tag."'".$tag.">$tagname\r\n";
+                        $k++;
+                        }
+                        }
+                        $start++;
+                        ?>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td height='25' colspan='2' bgcolor='#F9FAF3' style="text-align:left;"><?php echo $start?>、插件权限</td>
+                    </tr>
+                    <tr>
+                        <td height='25' colspan='2' style="text-align:left;">
+                            {volist name="_PlusAll" id="vo" key="k"}
+                            <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}' >{$vo->plusname}
+                            {/volist}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="50" align="center">&nbsp;</td>
+                        <td height="50"><button class="layui-btn layui-btn-xs" lay-submit="" lay-filter="*">立即提交</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </form>
+</table>
 {/block}
