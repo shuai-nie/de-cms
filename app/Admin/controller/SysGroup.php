@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use app\Admin\model\Plus;
 use think\facade\View;
 use think\Request;
 use app\Admin\model\Admintype as AdmintypeModel;
@@ -35,6 +36,7 @@ class SysGroup extends Base
     {
         $data = AdmintypeModel::where(array())->field('rank,typename,system')->select()->toArray();
         View::assign('_data', $data);
+
         return View::fetch('index');
     }
 
@@ -70,6 +72,16 @@ class SysGroup extends Base
     {
         $gouplists = file('inc/grouplist.txt');
         View::assign('_gouplists', $gouplists);
+        $row = AdmintypeModel::where("")->select();
+        View::assign('_row', $row);
+        $PlusAll = Plus::where("")->select();
+        View::assign('_PlusAll', $PlusAll);
+
+        View::assign('nav', array(
+            array('title'=>'系统', 'url'=>''),
+            array('title'=>'用户组设定', 'url'=>''),
+            array('title'=>'增加用户组', 'url'=>''),
+        ));
         return View::fetch();
     }
 
