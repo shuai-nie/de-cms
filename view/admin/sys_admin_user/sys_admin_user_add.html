@@ -46,7 +46,7 @@
                         <td style="text-align:left;">
                             <select name="typeids[]" id="typeid" size='10' style="width:200px" multiple="true">
                                 <option value="0" class='alltype' selected>--所有频道--</option>
-                                {$_typeOptions}
+                                {$_typeOptions|raw}
                             </select>(按 Ctrl 可以进行多选)
                         </td>
                     </tr>

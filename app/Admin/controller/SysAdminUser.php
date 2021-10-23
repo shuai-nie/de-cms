@@ -25,6 +25,7 @@ class SysAdminUser extends Base
             array('title'=>'系统', 'url'=>''),
             array('title'=>'系统用户管理', 'url'=>''),
         ));
+        View::assign('_nav_this', 'SysAdminUser_index');
     }
 
     public function index()
@@ -85,6 +86,11 @@ class SysAdminUser extends Base
        View::assign('_randcode', $randcode);
        View::assign('_safecode', $safecode);
        $this->typeOptions();
+       View::assign('nav', array(
+           array('title'=>'系统', 'url'=>''),
+           array('title'=>'系统用户管理', 'url'=>''),
+           array('title'=>'新增账号', 'url'=>''),
+       ));
        return View::fetch();
    }
 

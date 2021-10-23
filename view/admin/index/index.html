@@ -1,7 +1,26 @@
 {extend name="public:base" /}
 
 {block name="content"}
-
+<table width="100%" class="dboxtable" border="1" style="width:200px;">
+    <tr>
+        <td width='50%' class='nline'  style="text-align:left"> 会员数： </td>
+        <td class='nline' style="text-align:left"> {$_memberCount} </td>
+    </tr>
+    <tr>
+        <td class='nline' style="text-align:left"> 文档数： </td>
+        <td class='nline' style="text-align:left"> {$_allArr} </td>
+    </tr>
+    {volist name="chArr" id="vo"}
+    <tr>
+        <td class='nline' style="text-align:left">{$vo->typename}： </td>
+        <td class='nline' style="text-align:left">{$vo->dd}</td>
+    </tr>
+    {/volist}
+    <tr>
+        <td style="text-align:left"> 评论数： </td>
+        <td style="text-align:left"> {$_feedbackCount} </td>
+    </tr>
+</table>
 
 {/block}
 
