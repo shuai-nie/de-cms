@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use app\Admin\model\Plus;
+use think\facade\Log;
 use think\facade\View;
 use think\Request;
 use app\Admin\model\Admintype as AdmintypeModel;
@@ -54,8 +55,11 @@ class SysGroup extends Base
             array('title'=>'用户组设定', 'url'=>''),
             array('title'=>'更改用户组', 'url'=>''),
         ));
-        return View::fetch();
+        View::assign('rank', $rank);
 
+
+
+        return View::fetch();
     }
 
     public function sys_admin_user($rank)

@@ -48,7 +48,7 @@
                         $tagname = str_replace('[br]','<br>',$ls[2]);
                         if(!preg_match("#<br \/>#", $tagname) ) $tagname .= "<font color='#888888'>($tag)</font>";
                         else $tagname = str_replace('<br />', "<font color='#888888'>($tag)</font><br />", $tagname);
-                        echo "          	<input name='purviews[]' type='checkbox' class='np' id='purviews".$k."' value='".$tag."'".$tag.">$tagname\r\n";
+                        echo "          	<input name='purviews[]' type='checkbox' class='np' id='purviews".$k."' value='".$tag."' ".CRank($tag, $rank)." >$tagname\r\n";
                         $k++;
                         }
                         }
@@ -62,7 +62,7 @@
                     <tr>
                         <td height='25' colspan='2' style="text-align:left;">
                             {volist name="_PlusAll" id="vo" key="k"}
-                            <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}' >{$vo->plusname}
+                            <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}' {$vo['plusname']|CRank='plus_'.###,$rank} >{$vo->plusname}
                             {/volist}
                         </td>
                     </tr>

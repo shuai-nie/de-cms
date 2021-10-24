@@ -28,7 +28,7 @@ class Login
     protected function checkUser($username, $userPwd)
     {
         $pwd = substr(md5($userPwd), 5, 20);
-        $loginip = GetIP();
+        $loginip = Request::ip();
         $time = time();
         $state = AdminModel::where(array('userid'=>$username, 'pwd'=>$pwd))->find();
         if($state != false){
