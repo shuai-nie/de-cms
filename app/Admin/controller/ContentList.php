@@ -3,7 +3,9 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use think\Request;
+use app\admin\model\Arcatt;
+use app\admin\model\Archives;
+use think\facade\Request;
 use think\facade\View;
 use app\admin\model\Archives as ArchivesModel;
 
@@ -17,6 +19,7 @@ class ContentList extends Base
     public function initialize()
     {
         parent::initialize();
+        View::assign('_nav_this', 'ContentList_index');
         View::assign('nav', array(
             array('title'=>'核心', 'url'=>''),
             array('title'=>'所有档案列表', 'url'=>''),
@@ -37,69 +40,30 @@ class ContentList extends Base
         return View::fetch();
     }
 
-    /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
+    public function article_add()
     {
-        //
+        $channelid = Request::param('channelid');
+        $cid = Request::param('cid');
+        $channelid = empty($channelid) ? 0 : intval($channelid);
+        $cid = empty($cid) ? 0 : intval($cid);
+        View::assign('channelid', $channelid);
+        View::assign('cid', $cid);
+        $geturl = Request::param('geturl');
+        if(empty($geturl)) $geturl = '';
+        View::assign('geturl', $geturl);
+        View::assign('title', '');
+        $ArcattAll = Arcatt::where("")->order('sortid asc')->select();
+        View::assign('ArcattAll', $ArcattAll);
+         $ArchivesCount = Archives::where("")->count();
+         View::assign('ArchivesCount', $ArchivesCount);
+         View::assign('source', '');
+         View::assign('writer', '');
+
+        return View::fetch();
     }
 
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
 
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
 
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * 删除指定资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function delete($id)
-    {
-        //
-    }
 }
