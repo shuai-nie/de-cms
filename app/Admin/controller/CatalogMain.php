@@ -3,7 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use app\admin\model\Arcrank;
+use app\Admin\model\Arcrank;
 use app\Admin\model\SysEnum;
 use think\facade\Request;
 use think\facade\View;
