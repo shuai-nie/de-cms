@@ -38,8 +38,6 @@ function IsSystem($s)
 
 
 function CRank($n, $rank){
-    $groupRanks = array();
-//    $n = "plus_".$n;
     $groupSet = AdmintypeModel::whereRaw("CONCAT(`rank`) = $rank")->find();
     $groupRanks = explode(' ', $groupSet['purviews']);
     return in_array($n, $groupRanks) ? 'checked' : '';
@@ -79,12 +77,13 @@ function GetOptionList($selid=0, $userCatalog=0, $channeltype=0)
         if($row['ispart']==1) $OptionArrayList .= "<option value='".$row['id']."' class='option1' selected='selected'>".$row['typename']."(封面频道)</option>\r\n";
         else $OptionArrayList .= "<option value='".$row['id']."' selected='selected'>".$row['typename']."</option>\r\n";
     }
+    $ArctypeGetName = \app\admin\model\Arctype::getTable();
 
     //是否限定用户管理的栏目
     if( $cfg_admin_channel=='array' )
     {
         if(count($admin_catalogs)==0){
-            $query = "SELECT id,typename,ispart,channeltype FROM `#@__arctype` WHERE 1=2 ";
+            $query = "SELECT id,typename,ispart,channeltype FROM $ArctypeGetName WHERE 1=2 ";
         }else{
             $admin_catalog = join(',', $admin_catalogs);
 //            $dsql->SetQuery("SELECT reid FROM `#@__arctype` WHERE id IN($admin_catalog) GROUP BY reid ");
@@ -106,39 +105,82 @@ function GetOptionList($selid=0, $userCatalog=0, $channeltype=0)
             $admin_catalogs = array_unique($admin_catalogs);
             $admin_catalog = join(',', $admin_catalogs);
             $admin_catalog = preg_replace("#,$#", '', $admin_catalog);
-            $query = "SELECT id,typename,ispart,channeltype FROM `#@__arctype` WHERE id IN($admin_catalog) AND reid=0 AND ispart<>2 ";
+
+            $query = "SELECT id,typename,ispart,channeltype FROM $ArctypeGetName WHERE id IN($admin_catalog) AND reid=0 AND ispart<>2 ";
+
         }
     }else{
-        $query = "SELECT id,typename,ispart,channeltype FROM `#@__arctype` WHERE ispart<>2 AND reid=0 ORDER BY sortrank ASC ";
+        $query = "SELECT id,typename,ispart,channeltype FROM $ArctypeGetName WHERE ispart<>2 AND reid=0 ORDER BY sortrank ASC ";
     }
 
-    $dsql->SetQuery($query);
-    $dsql->Execute('cc');
-
-    while($row=$dsql->GetObject('cc'))
-    {
+    $row = \think\facade\Db::query($query);
+    foreach ($row as $k => $v){
         $sonCats = '';
-        LogicGetOptionArray($row->id, '─', $channeltype, $dsql, $sonCats);
+        LogicGetOptionArray($v->id, '─', $channeltype, $dsql, $sonCats);
         if($sonCats != '')
         {
-            if($row->ispart==1) $OptionArrayList .= "<option value='".$row->id."' class='option1'>".$row->typename."(封面频道)</option>\r\n";
-            else if($row->ispart==2) $OptionArrayList .= '';
-            else if( empty($channeltype) && $row->ispart != 0 ) $OptionArrayList .= "<option value='".$row->id."' class='option2'>".$row->typename."(".$channels[$row->channeltype].")</option>\r\n";
-            else $OptionArrayList .= "<option value='".$row->id."' class='option3'>".$row->typename."</option>\r\n";
+            if($v->ispart==1) $OptionArrayList .= "<option value='".$v->id."' class='option1'>".$v->typename."(封面频道)</option>\r\n";
+            else if($v->ispart==2) $OptionArrayList .= '';
+            else if( empty($channeltype) && $v->ispart != 0 ) $OptionArrayList .= "<option value='".$v->id."' class='option2'>".$v->typename."(".$channels[$v->channeltype].")</option>\r\n";
+            else $OptionArrayList .= "<option value='".$v->id."' class='option3'>".$v->typename."</option>\r\n";
             $OptionArrayList .= $sonCats;
-        }
-        else
-        {
-            if($row->ispart==0 && (!empty($channeltype) && $row->channeltype == $channeltype) )
-            {
-                $OptionArrayList .= "<option value='".$row->id."' class='option3'>".$row->typename."</option>\r\n";
-            } else if($row->ispart==0 && empty($channeltype) )
-            {
+        }else{
+            if($v->ispart==0 && (!empty($channeltype) && $v->channeltype == $channeltype) ){
+                $OptionArrayList .= "<option value='".$v->id."' class='option3'>".$v->typename."</option>\r\n";
+            } else if($v->ispart==0 && empty($channeltype) ){
                 // 专题
-                $OptionArrayList .= "<option value='".$row->id."' class='option3'>".$row->typename."</option>\r\n";
+                $OptionArrayList .= "<option value='".$v->id."' class='option3'>".$v->typename."</option>\r\n";
             }
         }
     }
     return $OptionArrayList;
+}
 
+function LogicGetOptionArray($id,$step,$channeltype, &$dsql, &$sonCats)
+{
+    global $OptionArrayList, $channels, $cfg_admin_channel, $admin_catalogs;
+    //$dsql->SetQuery("Select id,typename,ispart,channeltype From `#@__arctype` where reid='".$id."' And ispart<>2 order by sortrank asc");
+    $row = \app\admin\model\Arctype::where("reid='".$id."' And ispart<>2 ")->order("sortrank asc")->select();
+    //$dsql->Execute($id);
+//    while($row=$dsql->GetObject($id))
+//    {
+    foreach ($row as $k => $v){
+        if($cfg_admin_channel != 'all' && !in_array($v->id, $admin_catalogs))
+        {
+            continue;
+        }
+        if($v->channeltype==$channeltype && $v->ispart==1)
+        {
+            $sonCats .= "<option value='".$v->id."' class='option1'>$step".$v->typename."</option>\r\n";
+        }
+        else if( ($v->channeltype==$channeltype && $v->ispart==0) || empty($channeltype) )
+        {
+            $sonCats .= "<option value='".$v->id."' class='option3'>$step".$v->typename."</option>\r\n";
+        }
+        LogicGetOptionArray($v->id,$step.'─',$channeltype,$dsql, $sonCats);
+
+    }
+}
+
+
+/**
+ *  获得某文档的所有tag
+ *
+ * @param     int     $aid  文档id
+ * @return    string
+ */
+if ( ! function_exists('GetTags'))
+{
+    function GetTags($aid)
+    {
+        global $dsql;
+        $tags = '';
+        $query = "SELECT tag FROM `#@__taglist` WHERE aid='$aid' ";
+        $row = \app\Admin\model\Taglist::where("aid=".$aid)->select();
+
+        foreach ($row as $k=>$v){
+            $tags .= ($tags=='' ? $v['tag'] : ','.$v['tag']);
+        }
+        return $tags;
+    }
 }

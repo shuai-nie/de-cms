@@ -1,11 +1,11 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<div class="layui-tab" lay-filter="CatalogMain_catalog_add" lay-allowClose="true">
+<div class="layui-tab" lay-filter="CatalogMain_catalog_add" >
     <ul class="layui-tab-title">
         <li class="layui-this" lay-id="1">常规选项</li>
         <li lay-id="2">高级选项</li>
-        <li lay-id="3">栏目内容</li>
+<!--        <li lay-id="3">栏目内容</li>-->
     </ul>
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
@@ -160,7 +160,125 @@
             </table>
 
         </div>
-        <div class="layui-tab-item">2</div>
+        <div class="layui-tab-item">
+            <table width="100%" border="1" cellspacing="0" cellpadding="0" style="border:1px solid #cfcfcf;background:#ffffff;text-align:left;" id="adset">
+                <?php
+          if($id==0)
+          {
+          ?>
+                <tr>
+                    <td class='bline' width="150" height="24" style="padding-left:10px;">多站点支持：</td>
+                    <td class='bline'>
+                        <input name="moresite" type="radio"  class="np" value="0" checked="checked"/>
+                        不启用
+                        <input type="radio" name="moresite" class="np" value="1"/>
+                        启用
+                    </td>
+                </tr>
+                <tr>
+                    <td height="24" bgcolor="#F3F7EA" style="padding-left:10px;">说明：</td>
+                    <td bgcolor="#F3F7EA">如果需要绑定二级域名，必须在“系统参数”中设定“支持多站点”。</td>
+                </tr>
+                <tr>
+                    <td class='bline' height="24" style="padding-left:10px;">绑定域名：</td>
+                    <td class='bline'>
+                        <input name="siteurl" type="text" id="siteurl" size="35" onChange="CheckPathSet();" class="pubinputs" />
+                        (需加 http://，一级或二级域名的根网址)
+                    </td>
+                </tr>
+                <tr>
+                    <td class='bline' height="24" style="padding-left:10px;">站点根目录：</td>
+                    <td class='bline'>
+                        为简化操作，站点根目录与当前栏目目录一致，请注意当前栏目文件保存目录的设置，域名需自行手工绑定到这个目录。
+                    </td>
+                </tr>
+                <?php
+          }
+          ?>
+                <tr id='helpvar1' >
+                    <td height="24" bgcolor="#F3F7EA" style="padding-left:10px;">支持变量： </td>
+                    <td bgcolor="#F3F7EA"> {tid}表示栏目ID，<br>
+                        {cid}表示频道模型的'名字ID' <font color='#888888'> （
+                            {volist name="channelArray" id="vo"}
+                                {$vo['typename']}({$vo['nid']})、
+                            {/volist}
+                            )
+                             </font> <br/>
+                        模板文件的默认位置是放在模板目录 "cms安装目录
+                        <?php echo $cfg_templets_dir ?>
+                        " 内。
+                        <input type='hidden' value='{style}' name='dfstyle' class="pubinputs" />
+                    </td>
+                </tr>
+                <tr>
+                    <td height="24" bgcolor="#F3F7EA" style="padding-left:10px;">规则选项：</td>
+                    <td bgcolor="#F3F7EA">按不同的内容类型设定相关模板及命名规则。</td>
+                </tr>
+                <tr>
+                    <td height="26" style="padding-left:10px;">封面模板：</td>
+                    <td> <input name="tempindex" type="text" value="{style}/index_<?php echo $nid?>.htm" class="pubinputs" style="width:300px"/>
+                        <input type="button" name="set1" value="浏览..." class="coolbg np" style="width:60px" onClick="SelectTemplets('form1.tempindex');" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td height="26" style="padding-left:10px;">列表模板：</td>
+                    <td> <input name="templist" type="text" value="{style}/list_<?php echo $nid?>.htm"  class="pubinputs" style="width:300px" />
+                        <input type="button" name="set3" value="浏览... "class="coolbg np" style="width:60px" onClick="SelectTemplets('form1.templist');" />
+                    </td>
+                </tr>
+                <tr>
+                    <td height="26" style="padding-left:10px;">文章模板：</td>
+                    <td><input name="temparticle" type="text" value="{style}/article_<?php echo $nid?>.htm" class="pubinputs"  style="width:300px" />
+                        <input type="button" name="set4" value="浏览..." class="coolbg np" style="width:60px" onClick="SelectTemplets('form1.temparticle');"/>
+                    </td>
+                </tr>
+                <tr id='helpvar2' style='display:none'>
+                    <td height="24" bgcolor="#F3F7EA" style="padding-left:10px;">支持变量： </td>
+                    <td height="24" bgcolor="#F3F7EA"> {Y}、{M}、{D} 年月日<br/>
+                        {timestamp} INT类型的UNIX时间戳<br/>
+                        {aid} 文章ID<br/>
+                        {pinyin} 拼音+文章ID<br/>
+                        {py} 拼音部首+文章ID<br/>
+                        {typedir} 栏目目录 <br/>
+                        {cc} 日期+ID混编后用转换为适合的字母 <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="26" style="padding-left:10px;">文章命名规则：</td>
+                    <td> <input name="namerule" type="text" id="namerule" value="<?php echo $cfg_df_namerule;?>" class="pubinputs"  style="width:250px" />
+
+                    </td>
+                </tr>
+                <tr id='helpvar3' style='display:none'>
+                    <td height="24" bgcolor="#F3F7EA" style="padding-left:10px;">支持变量： </td>
+                    <td bgcolor="#F3F7EA">{page} 列表的页码</td>
+                </tr>
+                <tr>
+                    <td height="26" style="padding-left:10px;">列表命名规则：</td>
+                    <td>
+                        <input name="namerule2" type="text" id="namerule2" value="{typedir}/list_{tid}_{page}.html"  class="pubinputs"  style="width:250px" />
+
+                </tr>
+                <tr>
+                    <td height="65" style="padding-left:10px;">SEO标题：</td>
+                    <td>
+                        <input name="seotitle" type="text" style="width:250px" id="seotitle" class="alltxt" value="" />
+                        (栏目模板里用{dede:field.seotitle /}调用)
+                    </td>
+                </tr>
+                <tr>
+                    <td height="65" style="padding-left:10px;">关键字：</td>
+                    <td>
+                        <textarea name="keywords" cols="70" rows="4" id="keywords" class="alltxt"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="65" style="padding-left:10px;">栏目描述：</td>
+                    <td height="65"> <textarea name="description" cols="70" style="height:50px" rows="4" id="description" class="alltxt"></textarea></td>
+                </tr>
+            </table>
+        </div>
         <div class="layui-tab-item">3</div>
     </div>
 </div>

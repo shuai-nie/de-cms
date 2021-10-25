@@ -18,8 +18,8 @@
     <tr>
         <td>{$vo['typename']}</td>
         <td>
-            <a class="layui-btn layui-btn-xs" lay-event="detail">预览</a>
-            <a class="layui-btn layui-btn-xs" lay-event="edit">内容</a>
+<!--            <a class="layui-btn layui-btn-xs" lay-event="detail">预览</a>-->
+<!--            <a class="layui-btn layui-btn-xs" lay-event="edit">内容</a>-->
             <a href="{:url('catalog_add', ['id'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">增加子类</a>
             <a href="{:url('catalog_edit', ['id'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">更改</a>
             <a href="{:url('catalog_do', ['dopost'=>'movecatalog','typeid'=>$vo['id']])}" class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">移动</a>

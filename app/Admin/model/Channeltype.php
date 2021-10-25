@@ -10,5 +10,8 @@ use think\Model;
  */
 class Channeltype extends Model
 {
-    //
+
+    public static function tableName(){
+        return self::getTable();
+    }
 }

@@ -19,6 +19,7 @@ class CatalogMain extends Base
     public function initialize()
     {
         parent::initialize();
+        View::assign('_nav_this', 'CatalogMain_index');
         View::assign('nav', array(
             array('title'=>'核心', 'url'=>''),
             array('title'=>'网站栏目管理', 'url'=>''),
@@ -80,7 +81,9 @@ class CatalogMain extends Base
                 $nid = $v->nid;
             }
         }
+
         View::assign('channelArray', $channelArray);
+
         //Select * from `#@__arcrank` where rank >= 0
         $ArcrankAll = Arcrank::where("rank >= 0")->select();
         View::assign('ArcrankAll', $ArcrankAll);
@@ -88,6 +91,15 @@ class CatalogMain extends Base
         //SELECT * FROM `#@__sys_enum` WHERE egroup LIKE 'infotype' ORDER BY disorder ASC, id DESC
         $SysEnumAll = SysEnum::where('')->order('disorder ASC, id DESC')->select();
         View::assign('SysEnumAll', $SysEnumAll);
+        View::assign('id', $id);
+        View::assign('nid', $nid);
+
+        $cfg_templets_dir = '/templets';
+        View::assign('cfg_templets_dir', $cfg_templets_dir);
+        //文档的默认命名规则
+        $art_shortname = $cfg_df_ext = '.html';
+        $cfg_df_namerule = '{typedir}/{Y}/{M}{D}/{aid}'.$cfg_df_ext;
+        View::assign('cfg_df_namerule', $cfg_df_namerule);
         return View::fetch();
     }
 
@@ -102,6 +114,44 @@ class CatalogMain extends Base
     {
         $channel = ChanneltypeModel::where("id<>-1 AND isshow=1 ")->order('id asc')->select();
         View::assign('_channel', $channel);
+        return View::fetch();
+    }
+
+    public function catalog_edit()
+    {
+        $id = Request::param('id');
+        $channelid = 1;
+
+        $ArcrankAll = Arcrank::where("rank >= 0")->select();
+        View::assign('ArcrankAll', $ArcrankAll);
+
+        $row = ChanneltypeModel::where("id<>-1 AND isshow=1")->order("id asc")->select();
+        $channelArray = array();
+        foreach ($row as $k => $v){
+            $channelArray[$v->id]['typename'] = $v->typename;
+            $channelArray[$v->id]['nid'] = $v->nid;
+            if($v->id == $channelid)
+            {
+                $nid = $v->nid;
+            }
+        }
+
+        $SysEnumAll = SysEnum::where('')->order('disorder ASC, id DESC')->select();
+        View::assign('SysEnumAll', $SysEnumAll);
+        View::assign('channelArray', $channelArray);
+
+
+        //SELECT tp.*,ch.typename as ctypename FROM `#@__arctype` tp LEFT JOIN `#@__channeltype` ch ON ch.id=tp.channeltype WHERE tp.id=$id
+        $myrow = ArctypeModel::hasWhere('profile', 'Arctype.id='.$id, 'Arctype.*,Channeltype.typename as ctypename', 'left')->find();
+        View::assign('myrow', $myrow);
+        View::assign('channelid', $channelid);
+        $cfg_templets_dir = '/templets';
+        View::assign('cfg_templets_dir', $cfg_templets_dir);
+        View::assign('nav', array(
+            array('title'=>'核心', 'url'=>''),
+            array('title'=>'网站栏目管理', 'url'=>''),
+            array('title'=>'修改栏目', 'url'=>''),
+        ));
         return View::fetch();
     }
 

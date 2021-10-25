@@ -9,10 +9,10 @@
 <table lay-filter="demoCatalogMain">
     <thead>
     <tr>
-        <th lay-data="{field:'f1'}">ID</th>
+        <th lay-data="{field:'f1',width:'80'}">ID</th>
         <th lay-data="{field:'f2'}">选择</th>
-        <th lay-data="{field:'f3'}">文章标题</th>
-        <th lay-data="{field:'f4'}">更新时间</th>
+        <th lay-data="{field:'f3',width:'180'}">文章标题</th>
+        <th lay-data="{field:'f4',width:'170'}">更新时间</th>
         <th lay-data="{field:'f5'}">类目</th>
         <th lay-data="{field:'f6'}">点击</th>
         <th lay-data="{field:'f7'}">html</th>
@@ -20,7 +20,7 @@
         <th lay-data="{field:'f9'}">Wap链接</th>
         <th lay-data="{field:'f10'}">权限</th>
         <th lay-data="{field:'f11'}">发布人</th>
-        <th lay-data="{field:'f12'}">操作</th>
+        <th lay-data="{field:'f12',width:'120'}">操作</th>
     </tr>
     </thead>
     <tbody>
@@ -38,9 +38,9 @@
         <td>{$vo['arcrank']}</td>
         <td>{$vo['mid']}</td>
         <td>
-            <a class="layui-btn layui-btn-xs" lay-event="detail">预览</a>
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑属性</a>
+<!--            <a class="layui-btn layui-btn-xs" lay-event="detail">预览</a>-->
+            <a href="{:url('article_edit', ['aid'=>$vo['id'] ])}" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<!--            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑属性</a>-->
         </td>
 
     </tr>
