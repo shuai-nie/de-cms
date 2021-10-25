@@ -31,4 +31,5 @@ return [
     'show_error_msg'   => false,
 
     'cfg_cookie_encode' => '7g2vbkvLtFtT6r51Y2r5HwWYTC7q',
+    'auto_multi_app'   => true,
 ];
