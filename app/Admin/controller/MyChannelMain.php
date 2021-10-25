@@ -7,9 +7,9 @@ use think\facade\Config;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
-use app\admin\model\Channeltype as ChanneltypeModel;
-use app\admin\model\Arcrank as ArcrankModel;
-use app\admin\model\MemberModel ;
+use app\Admin\model\Channeltype as ChanneltypeModel;
+use app\Admin\model\Arcrank as ArcrankModel;
+use app\Admin\model\MemberModel ;
 
 /**
  * [内容模型管理]

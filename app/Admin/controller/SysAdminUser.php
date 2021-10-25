@@ -3,11 +3,11 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use app\admin\model\Arctype;
+use app\Admin\model\Arctype;
 use think\facade\Request;
 use think\facade\View;
 use app\Admin\model\Admin as AdminModel;
-use app\admin\model\Arctype as ArctypeModel;
+use app\Admin\model\Arctype as ArctypeModel;
 use app\Admin\model\Admintype as AdmintypeModel;
 use think\facade\Config;
 

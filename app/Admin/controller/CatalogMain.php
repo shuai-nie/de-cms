@@ -7,8 +7,8 @@ use app\admin\model\Arcrank;
 use app\Admin\model\SysEnum;
 use think\facade\Request;
 use think\facade\View;
-use app\admin\model\Channeltype as ChanneltypeModel;
-use app\admin\model\Arctype as ArctypeModel;
+use app\Admin\model\Channeltype as ChanneltypeModel;
+use app\Admin\model\Arctype as ArctypeModel;
 /**
  * [网站栏目管理]
  * Class CatalogMain

@@ -5,7 +5,7 @@ namespace app\Admin\controller;
 
 use think\Request;
 use think\facade\View;
-use app\admin\model\Arcatt as ArcattModel;
+use app\Admin\model\Arcatt as ArcattModel;
 
 /**
  * [自定义文档属性]

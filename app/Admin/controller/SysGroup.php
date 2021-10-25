@@ -9,7 +9,7 @@ use think\facade\View;
 use think\Request;
 use app\Admin\model\Admintype as AdmintypeModel;
 use app\Admin\model\Admin as AdminModel;
-use app\admin\model\Arctype as ArctypeModel;
+use app\Admin\model\Arctype as ArctypeModel;
 
 /**
  * [用户组设定]

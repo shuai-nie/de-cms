@@ -3,16 +3,16 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use app\admin\model\Arcatt;
-use app\admin\model\Archives;
-use app\admin\model\Arcrank;
-use app\admin\model\Channeltype;
+use app\Admin\model\Arcatt;
+use app\Admin\model\Archives;
+use app\Admin\model\Arcrank;
+use app\Admin\model\Channeltype;
 use app\Admin\model\Uploads;
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
-use app\admin\model\Archives as ArchivesModel;
+use app\Admin\model\Archives as ArchivesModel;
 
 /**
  * [所有档案列表]
