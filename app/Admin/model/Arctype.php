@@ -1,10 +1,10 @@
 <?php
 declare (strict_types = 1);
 
-namespace app\admin\model;
+namespace app\Admin\model;
 
 use think\Model;
-use app\admin\model\Channeltype;
+use app\Admin\model\Channeltype;
 
 
 
