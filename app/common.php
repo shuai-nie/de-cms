@@ -61,7 +61,7 @@ function GetOptionList($selid=0, $userCatalog=0, $channeltype=0)
 //    $channels = Array();
 //    while($row = $dsql->GetObject('dd'))
 
-    $ChanneltypeAll = \app\admin\model\Channeltype::where("")->select();
+    $ChanneltypeAll = \app\Admin\model\Channeltype::where("")->select();
     $channels = Array();
     foreach ($ChanneltypeAll as $k => $v){
         $channels[$v->id] = $v->typename;
@@ -73,11 +73,11 @@ function GetOptionList($selid=0, $userCatalog=0, $channeltype=0)
     if($selid > 0)
     {
         //$row = $dsql->GetOne("SELECT id,typename,ispart,channeltype FROM `#@__arctype` WHERE id='$selid'");
-        $row  = \app\admin\model\Arctype::where(['id'=>$selid])->find();
+        $row  = \app\Admin\model\Arctype::where(['id'=>$selid])->find();
         if($row['ispart']==1) $OptionArrayList .= "<option value='".$row['id']."' class='option1' selected='selected'>".$row['typename']."(封面频道)</option>\r\n";
         else $OptionArrayList .= "<option value='".$row['id']."' selected='selected'>".$row['typename']."</option>\r\n";
     }
-    $ArctypeGetName = \app\admin\model\Arctype::getTable();
+    $ArctypeGetName = \app\Admin\model\Arctype::getTable();
 
     //是否限定用户管理的栏目
     if( $cfg_admin_channel=='array' )
@@ -140,10 +140,8 @@ function LogicGetOptionArray($id,$step,$channeltype, &$dsql, &$sonCats)
 {
     global $OptionArrayList, $channels, $cfg_admin_channel, $admin_catalogs;
     //$dsql->SetQuery("Select id,typename,ispart,channeltype From `#@__arctype` where reid='".$id."' And ispart<>2 order by sortrank asc");
-    $row = \app\admin\model\Arctype::where("reid='".$id."' And ispart<>2 ")->order("sortrank asc")->select();
-    //$dsql->Execute($id);
-//    while($row=$dsql->GetObject($id))
-//    {
+    $row = \app\Admin\model\Arctype::where("reid='".$id."' And ispart<>2 ")->order("sortrank asc")->select();
+
     foreach ($row as $k => $v){
         if($cfg_admin_channel != 'all' && !in_array($v->id, $admin_catalogs))
         {
