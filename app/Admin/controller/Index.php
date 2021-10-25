@@ -3,15 +3,14 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-
 use think\App;
 use think\facade\View;
 use think\facade\Request;
 use think\facade\Session;
-use app\admin\model\Arctiny;
-use app\admin\model\Channeltype;
-use app\admin\model\Feedback;
-use app\admin\model\Member;
+use app\Admin\model\Arctiny;
+use app\Admin\model\Channeltype;
+use app\Admin\model\Feedback;
+use app\Admin\model\Member;
 
 class Index extends Base
 {
