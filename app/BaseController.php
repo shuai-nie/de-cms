@@ -92,5 +92,9 @@ abstract class BaseController
     }
 
     use \liliuwei\think\Jump;
+    //return $this->error('error');
+    //return $this->success('success','index/index');
+    //return $this->redirect('/admin/index/index');
+    //$this->result(['username' => 'liliuwei', 'sex' => '男']);  
 
 }
