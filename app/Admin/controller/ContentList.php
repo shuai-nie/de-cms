@@ -3,16 +3,17 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use app\Admin\model\Arcatt;
-use app\Admin\model\Archives;
-use app\Admin\model\Arcrank;
-use app\Admin\model\Channeltype;
-use app\Admin\model\Uploads;
+
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
 use app\Admin\model\Archives as ArchivesModel;
+use app\Admin\model\Arcatt;
+use app\Admin\model\Archives;
+use app\Admin\model\Arcrank;
+use app\Admin\model\Channeltype;
+use app\Admin\model\Uploads;
 
 /**
  * [所有档案列表]
@@ -40,7 +41,16 @@ class ContentList extends Base
     {
         $length = 20;
         $map = array();
-        $data = ArchivesModel::where($map)->paginate($length);
+        $arcrank = Request::param('arcrank');
+        if(!empty($arcrank)){
+            View::assign('nav', array(
+                array('title'=>'核心', 'url'=>''),
+                array('title'=>'等审核的文档', 'url'=>''),
+            ));
+            View::assign('_nav_this', 'ContentList_index2');
+            $map['arcrank'] = $arcrank;
+        }
+        $data = ArchivesModel::where($map)->order('id desc')->paginate($length);
         View::assign('_data', $data);
         return View::fetch();
     }
@@ -49,6 +59,8 @@ class ContentList extends Base
     {
         $channelid = Request::param('channelid');
         $cid = Request::param('cid');
+
+
         $channelid = empty($channelid) ? 0 : intval($channelid);
         $cid = empty($cid) ? 0 : intval($cid);
         View::assign('channelid', $channelid);
@@ -86,16 +98,6 @@ class ContentList extends Base
         View::assign('ArchivesCount', $ArchivesCount);
 
         $aid = Request::param('aid');
-
-//        $query = "SELECT ch.typename AS channelname,ar.membername AS rankname,arc.*
-//            FROM `#@__archives` arc
-//            LEFT JOIN `#@__channeltype` ch ON ch.id=arc.channel
-//            LEFT JOIN `#@__arcrank` ar ON ar.rank=arc.arcrank WHERE arc.id='$aid' ";
-//        $arcRow = $dsql->GetOne($query);
-
-
-
-
         $arcRow = Archives::alias('A')
                 ->leftJoin(Channeltype::getTable()." B", "B.id=A.channel")
                 ->leftJoin(Arcrank::getTable()." C", "C.rank=A.arcrank")
