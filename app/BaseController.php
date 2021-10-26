@@ -95,6 +95,6 @@ abstract class BaseController
     //return $this->error('error');
     //return $this->success('success','index/index');
     //return $this->redirect('/admin/index/index');
-    //$this->result(['username' => 'liliuwei', 'sex' => '男']);  
+    //$this->result(['username' => 'liliuwei', 'sex' => '男']);
 
 }
