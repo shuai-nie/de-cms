@@ -1,34 +1,64 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<div>
+    <form name='form1' action="tags_main.php?action=fetch" method="post" style="margin-bottom:6px;">
+        <table width="98%" border="0" cellspacing="1" align="center" class="tbtitle" >
+            <tr>
+                <td height="20" align="left" bgcolor="#F0FBBD" background="images/wbg.gif" style="padding-left:10px;"><strong>提取TAG</strong></td>
+            </tr>
+            <tr>
+                <td height="30" align="center" bgcolor="#Ffffff">
+                    开始id:<input type="text" name="startaid" />
+                    结束id:<input type="text" name="endaid" />
+                    <input name="submit" type="submit" value="获取tags" class="np coolbg" />
+                    <small>(tag以文档关键词为准)</small>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
 <table lay-filter="demoTagsMainIndex">
     <thead>
     <tr>
-        <th lay-data="{field:'f1'}">网站名称</th>
-        <th lay-data="{field:'f2'}">网站Logo</th>
-        <th lay-data="{field:'f3'}">站长Email</th>
-        <th lay-data="{field:'f4'}">状态</th>
-        <th lay-data="{field:'f5'}">顺序</th>
-        <th lay-data="{field:'f6'}">管理</th>
+        <th lay-data="{field:'f1',width:'80'}">删</th>
+        <th lay-data="{field:'f2',width:'280'}">标签</th>
+        <th lay-data="{field:'f3',width:'80'}">点击</th>
+        <th lay-data="{field:'f4',width:'80'}">文档数</th>
+        <th lay-data="{field:'f5',width:'180'}">添加时间</th>
+        <th lay-data="{field:'f6',width:'180'}">操作</th>
     </tr>
     </thead>
     <tbody>
     {volist name="_data" id="vo"}
     <tr>
-        <td>{$vo['webname']}</td>
-        <td>{$vo['logo']}</td>
-        <td>{$vo['email']}</td>
-        <td>{$vo['webname']}</td>
-        <td>{$vo['sortrank']}</td>
+        <td><input type="checkbox" name="ids[]" value="{$vo['aid']}" lay-skin="primary" /></td>
+        <td>{$vo['tag']}</td>
+        <td>{$vo['count']}</td>
+        <td>{$vo['total']}</td>
+        <td>{$vo['addtime']|date='Y-m-d H:i:s'}</td>
         <td>
-
+            <a href="javascript:UpdateOne({$vo->id})" class="layui-btn layui-btn-xs" lay-event="">[更新]</a>
+            <a href="javascript:DeleteOne({$vo->id})" class="layui-btn layui-btn-xs" lay-event="">[删除]</a>
         </td>
-
     </tr>
     {/volist}
-
     </tbody>
-
 </table>
+<div>{$_data|raw}</div>
 
+{/block}
+
+{block name="script"}
+<script>
+function UpdateOne(tid){
+    location = "tags_main.php?action=update&count="+document.getElementById('count'+tid).value+"&tid="+tid;
+}
+
+
+function DeleteOne(tid){
+    location = "tags_main.php?action=delete&ids="+tid;
+}
+</script>
 {/block}
