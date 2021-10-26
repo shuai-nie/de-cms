@@ -1,0 +1,163 @@
+body, div,ul, li {
+	padding: 0;
+	margin: 0;
+	font-family: "微软雅黑";
+}
+ul, li {
+	list-style: none
+}
+.xw {
+	width: 100%;
+	height: auto;
+}
+.xw_header {
+	margin: auto;
+	width: 1180px;
+}
+.xw_header_zixun {
+	float: left;
+	width: 980px;
+	height: 30px;
+	text-align: center
+}
+.zixun_li1 {
+	font-size: 18px;
+	float: left;
+	text-align: center;
+}
+.zixun_li2 {
+	float: right;
+	margin-top: 5px;
+}
+.zixun_li2 a {
+	color: #F33
+}
+.xw_body {
+	height: auto;
+	width: 1180px;
+	margin-top: 20px;
+}
+.xw_body_left {
+	width: 250px;
+	min-height: 800px;
+	vertical-align: middle;
+	float: left
+}
+.xw_body_left p {
+	font-size: 22px;
+	color: #f00;
+}
+.xw_body_left ul {
+	float: left;
+	width: 320px;
+	height: 40px;
+}
+.xw_body_left1 .left_li1 {
+	float: left;
+	width: 15px;
+	height: 24px;
+}
+.xw_body_left1 .left_li2 {
+	float: left;
+	width: 305px;
+	height: 20px;
+}
+.xw_body_left1 .left_p {
+	width: 320px;
+	height: 30px;
+	float: left
+}
+.xw_body_left1 {
+	width: 320px;
+	height: 300px;
+	color: #F00;
+}
+.xw_body_left2 {
+	width: 320px;
+	height: 210px;
+	float: left;
+}
+.xw_body_left3{
+	width: 320px;
+	height: 210px;
+	float: left;
+}
+.artlelft{
+	margin-top:20px;
+}
+.artlelft li{
+	line-height:35px;
+}
+.left2_li1 {
+	float: left;
+	width: 45px;
+	height: 20px;
+}
+.left2_li2 {
+	float: left;
+	height: 20px;
+}
+.xw_body_right {
+	width: 800px;
+	height: auto;
+	float: right;
+	margin-bottom: 50px;
+}
+.xw_body_right .right1 {
+	width: 620px;
+	height: 80px;
+	text-align: center;
+	margin-top: 30px;
+}
+.xw_body_right .right1 .right1_li {
+	text-align: center;
+	width: 660px;
+	height: 40px;
+	font-size: 12px;
+	font-family: "微软雅黑";
+}
+.right1_li h2{
+	font-size:20px;
+    font-weight: bold;
+}
+.xw_body_right p,span{
+    line-height:32px;
+	font-size: 14px;
+}
+				.pagenumber a{	
+					display: inline-block;
+					font-size: 14px;
+					border: 1px solid #d1cdc8;
+					padding: 1px 8px;
+					margin-left: 2px;
+					margin-right: 5px;
+					border-radius: 3px;
+					box-shadow: 2px 2px 3px #ddd;
+					*vertical-align: middle
+				}
+				
+				.pagenumber a:hover{	
+						text-decoration: none;
+						color: #004c84;
+						border-color: #3c93e8;
+						box-shadow: 1px 1px 3px #add3f7;
+						transition: .3s
+				}
+			.pagenumber li{
+			    float: left;
+			    margin-top: 30px;
+			    padding: 0 2px;
+			}
+.left_li2 {
+	width: 100px;
+	float: left;
+	margin-top: 10px;
+	height: 40px;
+	line-height: 40px;
+}
+.left_li2 a {
+	margin-left: 40px;
+}
+.news li {
+	margin-left: 35px;
+}
