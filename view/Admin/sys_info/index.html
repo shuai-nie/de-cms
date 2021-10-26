@@ -1,29 +1,30 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table lay-filter="demoSysInfoIndex">
+<form action="{:url('')}" method="post" >
+<table lay-filter="demoSysInfoIndex1111111" border="1">
     <thead>
     <tr>
-        <th lay-data="{field:'username'}" >昵称</th>
-        <th lay-data="{field:'exper'}" >积分</th>
+        <th lay-data="{field:'username'}" >变量名称</th>
+        <th lay-data="{field:'exper'}" >变量值</th>
         <th lay-data="{field:'sign'}" >签名</th>
     </tr>
     </thead>
     <tbody>
     {volist name="_sysconfig" id="vo"}
-    <tr>
+    <tr {if condition="$vo['type'] eq 'bstring'"}style="height:100px;"{/if} >
         <td>{$vo['info']}</td>
         <td>
             {switch name="$vo['type']"}
                 {case value="string"}
-                <input type="text" value="{$vo['value']}" name="" class="layui-input" />
+                <input type="text" name="{$vo['varname']}" value="{$vo['value']}" name="" class="layui-input" />
                 {/case}
                 {case value="bool"}
-                <input type="radio" class="np" name="" value="Y"  {if condition="$vo['value'] eq 'Y'"} checked{/if}  >是
-                <input type="radio" class="np" name="" value="N" {if condition="$vo['value'] eq 'N'"} checked{/if} >否
+                <input type="radio" class="np" name="{$vo['varname']}" value="Y"  {if condition="$vo['value'] eq 'Y'"} checked{/if}  >是
+                <input type="radio" class="np" name="{$vo['varname']}" value="N" {if condition="$vo['value'] eq 'N'"} checked{/if} >否
                 {/case}
                 {case value="bstring"}
-                <textarea cols="100" rows="10" class="layui-textarea" >{$vo['value']}</textarea>
+                <textarea cols="100" rows="10" name="{$vo['varname']}" class="layui-textarea" >{$vo['value']}</textarea>
                 {/case}
                 {default}
             {/switch}
@@ -38,12 +39,9 @@
 
 
 </table>
+    <button class="layui-btn" type="submit" lay-submit lay-filter="*">立即提交</button>
+</form>
 
-<div class="layui-form-item">
-    <div class="layui-input-block">
-        <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
-    </div>
-</div>
 
 {/block}
 

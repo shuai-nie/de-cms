@@ -3,13 +3,19 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-use app\Admin\model\Arctype;
+
+
+use liliuwei\think\Jump;
 use think\facade\Request;
 use think\facade\View;
+use think\facade\Config;
 use app\Admin\model\Admin as AdminModel;
 use app\Admin\model\Arctype as ArctypeModel;
 use app\Admin\model\Admintype as AdmintypeModel;
-use think\facade\Config;
+use app\Admin\model\Arctype;
+use app\Admin\model\MemberModel;
+use app\Admin\model\Member;
+
 
 /**
  * [系统用户管理]
@@ -18,6 +24,8 @@ use think\facade\Config;
  */
 class SysAdminUser extends Base
 {
+
+
     public function initialize()
     {
         parent::initialize();
@@ -38,10 +46,6 @@ class SysAdminUser extends Base
         }
 
         $data = AdminModel::hasWhere('profile2', $where, 'Admin.*,Arctype.typename', 'left')->select()->toArray();
-//        echo (new AdminModel())->getLastSql();exit();
-
-
-        //$data = AdminModel::where(array())->select()->toArray();
 
         View::assign('_user', $data);
         return View::fetch();
@@ -78,6 +82,47 @@ class SysAdminUser extends Base
 
    public function sys_admin_user_add()
    {
+
+       if(Request::isPost()){
+           $param = Request::param();
+           $mpwd = md5($param['pwd']);
+           $pwd = substr(md5($param['pwd']), 5, 20);
+
+           $mid = Member::insert(array(
+               'mtype'        => '个人',
+               'userid'       => $param['userid'],
+               'pwd'          => $mpwd,
+               'uname'        => $param['uname'],
+               'sex'          => '男',
+               'rank'         => '100',
+               'money'        => '0',
+               'email'        => $param['email'],
+               'scores'       => '1000',
+               'matt'         => 10,
+               'face'         => '',
+               'safequestion' => 0,
+               'safeanswer'   => '',
+               'jointime'     => 0,
+               'joinip'       => 0,
+               'logintime'    => 0,
+               'loginip'      => 0,
+
+           ), true);
+
+           $typeid = join(',', $param['typeids']);
+
+           $adminId = AdminModel::insert(array(
+               'id'=>$mid,
+               'usertype' => $param['usertype'],
+               'userid' => $param['userid'],
+               'pwd' => $pwd,
+               'uname' => $param['uname'],
+               'typeid' => $typeid,
+           ), true);
+
+           return $this->success('成功', 'index');
+       }
+
        $ut = AdmintypeModel::where("")->order('rank asc')->select();
        View::assign('_ut', $ut);
        $randcode = mt_rand(10000, 99999);
@@ -93,6 +138,8 @@ class SysAdminUser extends Base
        ));
        return View::fetch();
    }
+
+
 
    protected function typeOptions()
    {

@@ -9,24 +9,27 @@ use think\Request;
 use think\facade\View;
 use think\template\driver\File;
 use think\facade\Session;
+use liliuwei\think\Jump;
+use think\Validate;
+
 
 class Base extends BaseController
 {
+
     public function initialize()
     {
         $this->isLogin();
-        parent::initialize();
         View::assign('_nav_this', Request()->controller().'_'.Request()->action());
         View::assign('nav', array());
     }
 
     protected function isLogin()
     {
-        $stat = Session::has('user');
+        $stat = Session::has('AdminUser');
         if(!$stat){
             redirect( (string)url('Login/index') )->send();
         }
-        $user = Session::get('user');
+        $user = Session::get('AdminUser');
         View::assign('user', $user);
     }
 

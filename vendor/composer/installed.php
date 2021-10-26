@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a56dbb452f7ee8563eb7099b0df195d8926db848',
+        'reference' => 'db5f1114a657cd9c576a46db770d7dd89b30b5bf',
         'name' => 'topthink/think',
         'dev' => true,
     ),
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../league/flysystem-cached-adapter',
             'aliases' => array(),
             'reference' => 'd1925efb2207ac4be3ad0c40b8277175f99ffaff',
+            'dev_requirement' => false,
+        ),
+        'liliuwei/thinkphp-jump' => array(
+            'pretty_version' => 'v1.5',
+            'version' => '1.5.0.0',
+            'type' => 'think-extend',
+            'install_path' => __DIR__ . '/../liliuwei/thinkphp-jump',
+            'aliases' => array(),
+            'reference' => '481d41b922095f08230609919be5d19354c50540',
             'dev_requirement' => false,
         ),
         'psr/cache' => array(
@@ -115,7 +124,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a56dbb452f7ee8563eb7099b0df195d8926db848',
+            'reference' => 'db5f1114a657cd9c576a46db770d7dd89b30b5bf',
             'dev_requirement' => false,
         ),
         'topthink/think-captcha' => array(

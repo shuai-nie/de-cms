@@ -25,6 +25,10 @@ class ComposerStaticInitacb7b6ac39ac135c331d42651ad45f97
             'think\\app\\' => 10,
             'think\\' => 6,
         ),
+        'l' => 
+        array (
+            'liliuwei\\think\\' => 15,
+        ),
         'a' => 
         array (
             'app\\' => 4,
@@ -73,6 +77,10 @@ class ComposerStaticInitacb7b6ac39ac135c331d42651ad45f97
             1 => __DIR__ . '/..' . '/topthink/think-helper/src',
             2 => __DIR__ . '/..' . '/topthink/think-orm/src',
             3 => __DIR__ . '/..' . '/topthink/think-template/src',
+        ),
+        'liliuwei\\think\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/liliuwei/thinkphp-jump/src',
         ),
         'app\\' => 
         array (
