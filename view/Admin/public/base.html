@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>dedecms</title>
+    <title>管理后台</title>
     <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
     {block name="style"}{/block}
     <link rel="stylesheet" href="/static/admin/css/base.css">
@@ -11,7 +11,7 @@
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black">{$_nav_this}</div>
+        <div class="layui-logo layui-hide-xs layui-bg-black">管理后台</div>
         <!-- 头部区域（可配合layui 已有的水平导航） -->
 <!--        <ul class="layui-nav layui-layout-left">-->
 <!--            &lt;!&ndash; 移动端显示 &ndash;&gt;-->
@@ -58,8 +58,8 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">系统</a>
                     <dl class="layui-nav-child">
-                        <dd {if condition="$_nav_this eq 'SysInfo_index' "} class="layui-this" {/if} ><a href="{:url('sys_info/index')}">系统基本参数</a></dd>
-                        <dd {if condition="$_nav_this eq 'SysAdminUser_index' "} class="layui-this" {/if}><a href="{:url('Admin/sys_admin_user/index')}">系统用户管理</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysInfo_index' "} class="layui-this" {/if} ><a href="{:url('SysInfo/index')}">系统基本参数</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysAdminUser_index' "} class="layui-this" {/if}><a href="{:url('SysAdminUser/index')}">系统用户管理</a></dd>
                         <dd {if condition="$_nav_this eq 'SysGroup_index' "} class="layui-this" {/if}><a href="{:url('Admin/sys_group/index')}">用户组设定</a></dd>
                         <dd {if condition="$_nav_this eq 'SysInfoMrk_index' "} class="layui-this" {/if}><a href="{:url('Admin/sys_info_mrk/index')}">图片水印设置</a></dd>
                         <dd {if condition="$_nav_this eq 'ContentAtt_index' "} class="layui-this" {/if}><a href="{:url('Admin/content_att/index')}">自定义文档属性</a></dd>
