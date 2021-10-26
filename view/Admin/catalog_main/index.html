@@ -3,13 +3,12 @@
 {block name="content"}
 
 <a href="{:url('catalog_add', ['listtype'=>'all'])}" class="layui-btn layui-btn-xs" lay-event="detail">增加顶级栏目组</a>
-<a href="{:url('catalog_do',['dopost'=>'upcatcache'])}" class="layui-btn layui-btn-xs" lay-event="detail">更新栏目组缓存</a>
 <a href="{:url('makehtml_list')}" class="layui-btn layui-btn-xs" lay-event="detail">更新栏目HTML</a>
-
+<a href="{:url('makehtml_archives')}" class="layui-btn layui-btn-xs" lay-event="detail">更新文档HTML</a>
 <table lay-filter="demoCatalogMain">
     <thead>
     <tr>
-        <th lay-data="{field:'f1'}">网站名称</th>
+        <th lay-data="{field:'f1'}">网站名称1</th>
         <th lay-data="{field:'f2'}">管理</th>
     </tr>
     </thead>
