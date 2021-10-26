@@ -35,4 +35,15 @@ return [
     'cfg_cookie_encode' => '7g2vbkvLtFtT6r51Y2r5HwWYTC7q',
     'auto_multi_app'   => true,
     'cfg_remote_site' => 'N',
+    'cfg_need_typeid2' => 'N',
+    'cfg_arc_autokeyword' => 'Y',
+    'cfg_rm_remote' => 'Y',
+    'cfg_arc_dellink' => 'N',
+    'cfg_arc_autopic' => 'Y',
+    'photo_markup' => '0',
+    'cfg_arcautosp' => 'N',
+    'cfg_arcautosp_size'=> 5,
+    'cfg_feedback_forbid'=> 'N',
+    'cfg_arc_click' => -1,
+
 ];

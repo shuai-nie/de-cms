@@ -132,13 +132,11 @@
                         <td width="90">&nbsp;文章主栏目：</td>
                         <td>
        <span id='typeidct'>
-       <?php
-          $typeOptions = GetOptionList($cid,$cuserLogin->getUserChannel(),$channelid);
-          echo "<select name='typeid' id='typeid' style='width:240px'>\r\n";
-          echo "<option value='0'>请选择栏目...</option>\r\n";
-          echo $typeOptions;
-          echo "</select>";
-			?></span>
+          <select name='typeid' id='typeid' style='width:240px'>
+          <option value='0'>请选择栏目...</option>
+
+          </select>
+        </span>
                             <img src='images//menusearch.gif' style='cursor:pointer;' onClick="ShowCatMap(event, this, <?php echo $channelid; ?>, 'typeid')" alt='快捷选择' title='快捷选择' />
                             &nbsp;
                             <?php
@@ -194,7 +192,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><?php PrintAutoFieldsAdd($cInfos['fieldset'],'autofield'); ?></td>
+            <td colspan="2"></td>
         </tr>
         <tr>
             <td height="28" colspan="2" bgcolor="#F9FCEF" class="bline2">
@@ -243,11 +241,7 @@
             </td>
         </tr>
         <tr>
-            <td width="100%" id="arcBody">
-                <?php
-        GetEditor("body",$body,450);
-	     ?>
-            </td>
+            <td width="100%" id="arcBody"></td>
             <td width="255" align="center" valign="top" bgcolor="#FFFFCC" id="mPic" style="display:none"><div class="multipic">
                 <div style="display: block;background-color:#E5F1CF; height:26px">
                     <span id="spanButtonPlaceholder"></span>
@@ -339,17 +333,13 @@
                 <table width="800" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="90">&nbsp;阅读权限：</td>
-                        <td width="240"> <select name="arcrank" id="arcrank" style="width:150px">
-                            <?php
-                $urank = $cuserLogin->getUserRank();
-                            $dsql->SetQuery("Select * from `#@__arcrank` where adminrank<='$urank'");
-                            $dsql->Execute();
-                            while($row = $dsql->GetObject())
-                            {
-                            echo "     <option value='".$row->rank."'>".$row->membername."</option>\r\n";
-                            }
-                            ?>
-                        </select> </td>
+                        <td width="240">
+                            <select name="arcrank" id="arcrank" style="width:150px">
+                            {volist name="ArcrankAll" id="vo"}
+                            <option value="{$vo->rank}">{$vo->membername}</option>
+                            {/volist}
+                            </select>
+                        </td>
                         <td width="90">消费金币：</td>
                         <td>
                             <input name="money" type="text" id="money" value="0" size="10"/>            	</td>
@@ -363,11 +353,8 @@
                     <tr>
                         <td width="90">&nbsp;发布时间：</td>
                         <td width="241">
-                            <?php
-          $nowtime = GetDateTimeMk(time());
-          echo "<input name=\"pubdate\" value=\"$nowtime\" type=\"text\" id=\"pubdate\" style=\"width:120px\">";
+                            <input name="pubdate" value="{$nowtime}" type="text" id="pubdate" style="width:120px">";
 
-                            ?>
                             <script language="javascript" type="text/javascript">
                                 var showX = getElementLeft($Obj("pubdate")) - 130;
                                 var showY = (window.navigator.userAgent.indexOf("MSIE") >=1 )? getElementTop($Obj("pubdate")) + 465 :  getElementTop($Obj("pubdate")) + 435;
