@@ -135,6 +135,7 @@ class ContentList extends Base
 
         $cInfos = Channeltype::where("id=".$arcRow['channel'])->find();
         $addtable = $cInfos['addtable'];
+
         $addRow = Db::query("SELECT * FROM `$addtable` WHERE aid='$aid'");
 
         $trow = Uploads::where("arcid =".$addRow[0]['aid'])->select();

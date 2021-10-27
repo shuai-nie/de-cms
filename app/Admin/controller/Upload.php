@@ -3,7 +3,7 @@ declare (strict_types = 1);
 
 namespace app\admin\controller;
 
-use think\Request;
+use think\facade\Request;
 use think\facade\Filesystem;
 use think\facade\View;
 
@@ -12,10 +12,10 @@ class Upload
 
     public function upload()
     {
-        $file = \request()->file('image');
-        $savename = Filesystem::putFile('image', $file);
-        var_dump($savename);
-        exit();
+        $file = Request::file('file');
+        $path = Filesystem::disk('public')->putFile('image', $file);
+        $picSrc = Filesystem::getDiskConfig('public', 'url').'/'.str_replace('\\', '/', $path);
+        return json(['code'=>0, 'msg'=>'成功','data'=>['src'=>$picSrc]]);
     }
 
     public function index()

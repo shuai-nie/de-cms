@@ -74,15 +74,31 @@
                         </table></td>
                     </tr>
                     <tr id="pictable">
-                        <td height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
+                        <td height="24" colspan="2" class="bline">
+                            <table width="800" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td width="90" height="81">&nbsp;缩 略 图：<br/></td>
                                 <td>
-                                    <input name="picname" type="text" id="picname" style="width:300px" value="<?php echo $arcRow["litpic"]?>">
-                                    <input type="button" name="Submit" value="浏览..." style="width:70px" >
-                                    <input type='checkbox' class='np' name='ddisremote' value='1' />远程
+                                    <div id="img">
+                                        <img src="{$arcRow['litpic']|default='images/pview.gif'}" width="100" height="100" />
+                                    </div>
+                                    <input name="picname" type="text" id="picname" style="width:300px" value="{$arcRow['litpic']}">
+
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label" style="margin:0;padding-left:0;padding-right:0;">封面图片</label>
+                                        <input type="hidden" name="cover_pic" >
+                                        <div class="layui-input-block">
+                                            <button type="button" class="layui-btn" id="test1">
+                                                <i class="layui-icon">&#xe67c;</i>上传图片
+                                            </button>
+                                        </div>
+                                    </div>
+
                                 </td>
-                                <td align="center"><img src="<?php if($arcRow["litpic"]!="") echo $arcRow["litpic"]; else echo "images/pview.gif";?>" width="150" height="100" id="picview" name="picview"></td>
+                                <td align="center">
+
+                                </td>
                             </tr>
                         </table></td>
                     </tr>
@@ -140,7 +156,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <script id="container" name="content" type="text/plain"></script>
+                            <script id="container" name="content" type="text/plain">{$addRow['body']|raw}</script>
                         </td>
                     </tr>
                     <tr>
@@ -348,5 +364,32 @@ var ue = UE.getEditor('container', {
         ]
     ],
 });
+
+layui.use(['form','upload','jquery'], function() {
+    var form = layui.form,
+        upload = layui.upload,
+        $ = layui.jquery;
+
+    var upload_url= "{:url('Upload/upload')}";
+    var upload_accept='images';
+    var upload_acceptMime='image/*';
+    var upload_size=3145728;
+    var uploadInst = upload.render({
+        elem: '#test1'
+        ,url: upload_url
+        ,accept: upload_accept
+        ,acceptMime:upload_acceptMime
+        ,size: upload_size
+        ,done: function(res){
+            $("#img").show();
+            $("#img img").attr('src', res.data.src);
+            $("input[name='cover_pic']").val(res.data.src);
+        }
+        ,error: function(){
+            //请求异常回调
+        }
+    });
+
+})
 </script>
 {/block}
