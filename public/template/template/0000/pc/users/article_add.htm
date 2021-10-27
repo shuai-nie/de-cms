@@ -196,7 +196,7 @@
                                           $(".images_upload:eq(0)").find('a:eq(1)').attr('onclick',"ClearPicArr2(this,'"+paths[i]+"')").text('');
                                           $(".images_upload:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
                                       }
-                                      
+
                                     if ($("#tab_imgupload input[type=hidden]").length > 0) {
                                         $('#tab_imgupload .images_upload_list').show();
                                     }
@@ -237,7 +237,7 @@
                                       ,stop: function( event, ui ) {
                                       }
                                   });
-                                  //因为他们要拖动，所以尽量设置他们的文字不能选择。 
+                                  //因为他们要拖动，所以尽量设置他们的文字不能选择。
                                   $( ".sort-list" ).disableSelection();
                             </script>
                             <span id="FieldAddonextitem"></span>
@@ -253,7 +253,7 @@
                                         GetAddonextitem(1, $(this).val(), true);
                                     });
                                 });
-                                
+
                                 function GetAddonextitem(init, typeidNew, is_destroy) {
                                     var channel = $("#typeid option:selected").attr('data-channel');
                                     $("input[name='channel']").val(channel)
@@ -401,7 +401,7 @@
                             window.location.href = res.url;
                         } else {
                             MsgOpen(res.msg);
-                            if (res.data) $('#'+res.data).focus(); 
+                            if (res.data) $('#'+res.data).focus();
                         }
                     }
                 });
@@ -439,7 +439,7 @@
                     });
                 } else {
                     layer.msg(res.msg, {time: 1500, icon: 5});
-                    if (res.data) $('#'+res.data).focus(); 
+                    if (res.data) $('#'+res.data).focus();
                 }
             },
             error : function(e) {
@@ -455,7 +455,7 @@
         $("#litpic_img").attr('src', fileurl_tmp);
     }
 
-</script> 
-{eyou:include file="users/users_footer.htm" /} 
+</script>
+{eyou:include file="users/users_footer.htm" /}
 
 <!-- 底部结束 -->

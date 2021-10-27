@@ -1,5 +1,10 @@
 {extend name="public:base" /}
 
+{block name="style"}
+<script type="text/javascript" src="/static/lib/ueditor1_4_3/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/lib/ueditor1_4_3/ueditor.all.js"></script>
+{/block}
+
 {block name="content"}
 <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FBFCE2" id="getone" style="<?php if(empty($geturl)) echo 'display:none'; ?>">
     <form name="getonepage" action="article_add.php" method="get">
@@ -91,13 +96,22 @@
                             <table width="100%" border="0" cellspacing="1" cellpadding="1">
                                 <tr>
                                     <td height="30">
-                                        <input name="picname" type="text" id="picname" style="width:240px" />
-                                        <input type="button"  value="本地上传" style="width:70px;cursor:pointer;" />
-                                        <iframe name='uplitpicfra' id='uplitpicfra' src='' width='200' height='200' style='display:none'></iframe>
-                                        <span class="litpic_span"><input name="litpic" type="file" id="litpic"  onChange="SeePicNew(this, 'divpicview', 'uplitpicfra', 165, 'article_add.php');" size="1" class='np coolbg'/></span>
-                                        <input type="button" name="Submit2" value="站内选择" style="margin-left:8px;" onClick="SelectImage('form1.picname','small');" class='np coolbg'/>
-                                        <input type="button" name="Submit2" value="裁剪" style="margin-left:8px;" onClick="imageCut('picname');" class='np coolbg'/>
-                                        <input type='checkbox' class='np' name='ddisremote' value='1' id='ddisremote'/>远程
+                                        <div id="img">
+                                            <img src="{$arcRow['litpic']|default='images/pview.gif'}" width="100" height="100" />
+                                        </div>
+                                        <input name="picname" type="text" id="picname" style="width:300px" value="{$arcRow['litpic']}">
+
+
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label" style="margin:0;padding-left:0;padding-right:0;">封面图片</label>
+                                            <input type="hidden" name="cover_pic" >
+                                            <div class="layui-input-block">
+                                                <button type="button" class="layui-btn" id="test1">
+                                                    <i class="layui-icon">&#xe67c;</i>上传图片
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </td>
                                 </tr>
                             </table>
@@ -131,27 +145,18 @@
                     <tr>
                         <td width="90">&nbsp;文章主栏目：</td>
                         <td>
-       <span id='typeidct'>
-          <select name='typeid' id='typeid' style='width:240px'>
-          <option value='0'>请选择栏目...</option>
-
-          </select>
-        </span>
-                            <img src='images//menusearch.gif' style='cursor:pointer;' onClick="ShowCatMap(event, this, <?php echo $channelid; ?>, 'typeid')" alt='快捷选择' title='快捷选择' />
-                            &nbsp;
-                            <?php
-			if($cfg_need_typeid2=='Y')
-			{
-				echo "<a href='javascript:AddTypeid2();'>【<u>选择副栏目</u>】</a>";
-                            }
-                            ?>
-                            <?php
-     			 if($cfg_remote_site=='Y')
-     			 {
-   				 ?> 　
-                            <input name="isremote" type="checkbox" id="isremote" value="1" <?php if($cfg_title_site=='Y') echo "checked";?>>是否同步远程发布  <?php GetFtp();?>     <?php
-     			 }
-    		?>  </td>
+                           <span id='typeidct'>
+                              <select name='typeid' id='typeid' style='width:240px'>
+                                    <option value="0">请选择</option>
+                                    {volist name="ArctypeAll" id="vo"}
+                                        <option value="{$vo->id}">{$vo->typename}</option>
+                                    {/volist}
+                                </select>
+                                {if condition="$cfg_remote_site eq 'Y'"}
+                                <input name="isremote" type="checkbox" id="isremote" value="1" {if condition="$cfg_title_site eq 'Y'"}checked{/if} >是否同步远程发布
+                                {/if}
+                            </span>
+                        </td>
                     </tr>
                 </table></td>
         </tr>
@@ -203,6 +208,11 @@
                 <div style='float:right;padding-right:8px'>
                     <input name="imageField" type="image" src="images/button_save.gif" width="60" height="22" class="np" border="0"  style="cursor:pointer;"/>
                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <script id="container" name="content" type="text/plain"></script>
             </td>
         </tr>
         <tr>
@@ -355,31 +365,7 @@
                         <td width="241">
                             <input name="pubdate" value="{$nowtime}" type="text" id="pubdate" style="width:120px">";
 
-                            <script language="javascript" type="text/javascript">
-                                var showX = getElementLeft($Obj("pubdate")) - 130;
-                                var showY = (window.navigator.userAgent.indexOf("MSIE") >=1 )? getElementTop($Obj("pubdate")) + 465 :  getElementTop($Obj("pubdate")) + 435;
-                                if((window.navigator.userAgent.indexOf("MSIE 7.0") >=1 )) {
-                                    showX = getElementLeft($Obj("pubdate"))+105;
-                                    showY = getElementTop($Obj("pubdate"))+1200;
-                                }
-                                if(window.navigator.userAgent.indexOf("MSIE 6.0")>=1)
-                                {
-                                    Calendar.setup({
-                                        inputField     :    "pubdate",
-                                        ifFormat       :    "%Y-%m-%d %H:%M:%S",
-                                        showsTime      :    true,
-                                        timeFormat     :    "24"
-                                    });
-                                } else {
-                                    Calendar.setup({
-                                        inputField     :    "pubdate",
-                                        ifFormat       :    "%Y-%m-%d %H:%M:%S",
-                                        showsTime      :    true,
-                                        position       :    [showX, showY],
-                                        timeFormat     :    "24"
-                                    });
-                                }
-                            </script>    </td>
+                            </td>
                         <td width="90">发布选项：</td>
                         <td width="379"><input name="ishtml" type="radio" class="np" value="1" checked="1" />
                             生成HTML
@@ -431,4 +417,61 @@
         </tr>
     </table>
 </form>
+{/block}
+
+{block name="script"}
+<script type="application/javascript">
+    var ue = UE.getEditor('container', {
+        autoHeightEnabled:false,
+        toolbars: [
+            [
+                'anchor','undo','redo','bold','indent','snapscreen', //截图
+                'italic','underline','strikethrough','subscript','fontborder', //字符边框
+                'superscript','formatmatch','source','blockquote','pasteplain', //纯文本粘贴模式
+                'selectall','print','preview','horizontal','removeformat','time', //时间
+                'date','unlink','insertrow','insertcol','mergeright','mergedown', //下合并单元格
+                'deleterow','deletecol','splittorows','splittocols','splittocells', //完全拆分单元格
+                'deletecaption','inserttitle','mergecells','deletetable','cleardoc', //清空文档
+                'insertparagraphbeforetable','fontfamily','fontsize','paragraph', //段落格式
+                'simpleupload','insertimage','edittable','edittd','link','emotion', //表情
+                'spechars','searchreplace','map','gmap','insertvideo','help', //帮助
+                'justifyleft','justifyright','justifycenter','justifyjustify', //两端对齐
+                'forecolor','backcolor','insertorderedlist','insertunorderedlist', //无序列表
+                'fullscreen','directionalityltr','directionalityrtl', //从右向左输入
+                'rowspacingtop','rowspacingbottom','pagebreak', //分页
+                'insertframe','imagenone','imageleft','imageright','attachment', //附件
+                'imagecenter','wordimage','lineheight','edittip ','customstyle', //自定义标题
+                'autotypeset','touppercase','tolowercase','background','template', //模板
+                'scrawl','music','inserttable','drafts','charts'
+            ]
+        ],
+    });
+
+    layui.use(['form','upload','jquery'], function() {
+        var form = layui.form,
+            upload = layui.upload,
+            $ = layui.jquery;
+
+        var upload_url= "{:url('Upload/upload')}";
+        var upload_accept='images';
+        var upload_acceptMime='image/*';
+        var upload_size=3145728;
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: upload_url
+            ,accept: upload_accept
+            ,acceptMime:upload_acceptMime
+            ,size: upload_size
+            ,done: function(res){
+                $("#img").show();
+                $("#img img").attr('src', res.data.src);
+                $("input[name='cover_pic']").val(res.data.src);
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+
+    })
+</script>
 {/block}
