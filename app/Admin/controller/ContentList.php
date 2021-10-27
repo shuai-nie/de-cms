@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 
+use app\Admin\model\Arctype;
 use think\facade\Config;
 use think\facade\Db;
 use think\facade\Request;
@@ -86,6 +87,7 @@ class ContentList extends Base
         $cfg_arc_click = Config::get('app.cfg_arc_click');
         $ArcrankAll = Arcrank::where("")->select();
         View::assign('nowtime', time());
+
         View::assign('ArcrankAll', $ArcrankAll);
         View::assign('cfg_arc_click', $cfg_arc_click);
         View::assign('cfg_feedback_forbid', $cfg_feedback_forbid);
@@ -140,7 +142,11 @@ class ContentList extends Base
         $user = Session::get('user');
         $cfg_remote_site = Config::get('app.cfg_remote_site');
         $cfg_need_typeid2 = Config::get('app.cfg_need_typeid2');
-        $ArcrankAll = Arcrank::where("")->select();
+        $ArcrankAll = Arcrank::where("")->select()->toArray();
+
+        $ArctypeAll = Arctype::where("")->select();
+
+        View::assign('ArctypeAll', $ArctypeAll);
         View::assign('arcRow', $arcRow);
         View::assign('addRow', $addRow[0]);
         View::assign('cfg_remote_site', $cfg_remote_site);
