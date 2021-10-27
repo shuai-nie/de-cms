@@ -86,7 +86,9 @@ class ContentList extends Base
         $cfg_feedback_forbid = Config::get('app.cfg_feedback_forbid');
         $cfg_arc_click = Config::get('app.cfg_arc_click');
         $ArcrankAll = Arcrank::where("")->select();
+        $ArctypeAll = Arctype::where("")->select();
         View::assign('nowtime', time());
+        View::assign('ArctypeAll', $ArctypeAll);
 
         View::assign('ArcrankAll', $ArcrankAll);
         View::assign('cfg_arc_click', $cfg_arc_click);
