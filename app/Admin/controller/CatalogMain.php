@@ -3,15 +3,17 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+
+use think\facade\Request;
+use think\facade\View;
+use think\facade\Config;
+use app\Admin\model\Channeltype as ChanneltypeModel;
+use app\Admin\model\Arctype as ArctypeModel;
 use app\Admin\model\Arcrank;
 use app\Admin\model\Arctype;
 use app\Admin\model\Channeltype;
 use app\Admin\model\SysEnum;
-use think\facade\Request;
-use think\facade\View;
-use app\Admin\model\Channeltype as ChanneltypeModel;
-use app\Admin\model\Arctype as ArctypeModel;
-use think\facade\Config;
+
 
 /**
  * [网站栏目管理]
@@ -48,6 +50,14 @@ class CatalogMain extends Base
      */
     public function catalog_add()
     {
+        if(Request::isPost()){
+            $param = Request::param('');
+
+            var_dump($param);
+
+            exit();
+
+        }
 
         $id = Request::param('id', 0);
         if(empty($dopost)) $dopost = '';

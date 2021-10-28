@@ -1,6 +1,11 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<form action="{:url('catalog_add')}" method="post">
+<input type="hidden" name="dopost" value="save" />
+<input type="hidden" name="reid" id="reid" value="{$id}" />
+<input type='hidden' name='topid' id='topid' value='{$topid}' />
+
 <div class="layui-tab" lay-filter="CatalogMain_catalog_add" >
     <ul class="layui-tab-title">
         <li class="layui-this" lay-id="1">常规选项</li>
@@ -9,12 +14,13 @@
     </ul>
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
+
             <table width="100%" border="1"  id="needset" cellspacing="0" cellpadding="0" style="text-align:left;border:1px solid #cfcfcf;background:#ffffff;">
                 <tr>
                     <td width="150" class='bline' height="26" style="padding-left:10px;">是否支持投稿：</td>
                     <td class='bline'>
-                        <input type='radio' name='issend' value='0' class='np' <?php if($issend==0) echo " checked='checked' ";?> />不支持&nbsp;
-                        <input type='radio' name='issend' value='1' class='np' <?php if($issend==1) echo " checked='checked' ";?> />支持
+                        <input type='radio' name='issend' value='0' class='np' {if condition="$issend eq 0"}checked='checked'{/if}/>不支持&nbsp;
+                        <input type='radio' name='issend' value='1' class='np' {if condition="$issend eq 1"}checked='checked'{/if} />支持
                     </td>
                 </tr>
                 <tr>
@@ -100,12 +106,9 @@
                 <tr>
                     <td height="26" style="padding-left:10px;">栏目列表选项：</td>
                     <td>
-                        <input type='radio' name='isdefault' value='1' class='np' checked="checked" />
-                        链接到默认页
-                        <input type='radio' name='isdefault' value='0' class='np' />
-                        链接到列表第一页
-                        <input type='radio' name='isdefault' value='-1' class='np' />
-                        使用动态页
+                        <input type='radio' name='isdefault' value='1' class='np' checked="checked" />链接到默认页
+                        <input type='radio' name='isdefault' value='0' class='np' />链接到列表第一页
+                        <input type='radio' name='isdefault' value='-1' class='np' />使用动态页
                     </td>
                 </tr>
                 <tr>
@@ -136,28 +139,30 @@
                 <tr>
                     <td style="padding-left:10px;">栏目交叉： <br />仅适用[最终列表栏目]</td>
                     <td style="padding:3px 0px 3px 0px">
-                        <input name="cross" type="radio" id="cross0" value="0" class='np' onClick="CheckCross()" checked='1' />
-                        不交叉
-                        <input name="cross" type="radio" id="cross1" value="1" class='np' onClick="CheckCross()" />
-                        自动获取同名栏目内容
-                        <input name="cross" type="radio" id="cross2" value="2" class='np' onClick="CheckCross()" />
-                        手工指定交叉栏目ID(用逗号分开)
+                        <input name="cross" type="radio" id="cross0" value="0" class='np' onClick="CheckCross()" checked='1' />不交叉
+                        <input name="cross" type="radio" id="cross1" value="1" class='np' onClick="CheckCross()" />自动获取同名栏目内容
+                        <input name="cross" type="radio" id="cross2" value="2" class='np' onClick="CheckCross()" />手工指定交叉栏目ID(用逗号分开)
                         <br />
                         <textarea name="crossid" cols="50" rows="3" id="crossid" style="display:none" class="alltxt"></textarea>
                     </td>
                 </tr>
-                <tr id='smclass' style='<?php echo ($channelid<0 ? '' : 'display:none'); ?>'>
-                <td class='bline' style="padding-left:10px;">绑定小分类：  <br />仅适用[分类信息模型]</td>
-                <td class='bline' style="padding:3px 0px 3px 0px">
-                    <select name='smalltype[]' size='5' style='width:120px' multiple='yes'>
-                        {volist name="SysEnumAll" id="vo"}
-                            <option value='{$vo['evalue']}'>{$vo['ename']}</option>
-                        {/volist}
+                <tr id='smclass' style='<?php echo ($channelid<0 ? "" : "display:none"); ?>'>
+                    <td class='bline' style="padding-left:10px;">绑定小分类：  <br />仅适用[分类信息模型]</td>
+                    <td class='bline' style="padding:3px 0px 3px 0px">
+                        <select name='smalltype[]' size='5' style='width:120px' multiple='yes'>
+                            {volist name="SysEnumAll" id="vo"}
+                                <option value='{$vo["evalue"]}'>{$vo["ename"]}</option>
+                            {/volist}
 
-                    按 Ctrl 多选，不选系统将调用全部分类，在<a href='stepselect_main.php'>“<u>联动类别管理</u>”</a>中管理
-                </td>
+                        按 Ctrl 多选，不选系统将调用全部分类，在<a href='stepselect_main.php'>“<u>联动类别管理</u>”</a>中管理
+                    </td>
                 </tr>
             </table>
+                <div>
+                    <button type="submit" class="layui-btn layui-btn-xs">提交</button>
+                </div>
+
+
 
         </div>
         <div class="layui-tab-item">
@@ -278,8 +283,13 @@
                     <td height="65"> <textarea name="description" cols="70" style="height:50px" rows="4" id="description" class="alltxt"></textarea></td>
                 </tr>
             </table>
+            <div>
+                <button type="submit" class="layui-btn layui-btn-xs">提交</button>
+            </div>
         </div>
         <div class="layui-tab-item">3</div>
     </div>
 </div>
+
+</form>
 {/block}
