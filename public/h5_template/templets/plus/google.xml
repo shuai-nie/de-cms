@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{dede:global.cfg_basehost/}</loc>
+        <lastmod>{dede:global.cfg_cmspath runphp=yes}@me = date("Y-m-d");{/dede:global.cfg_cmspath}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+	{dede:channel row=1000 type=top}
+    <url>
+        <loc>[field:global.cfg_basehost/][field:typelink /]</loc>
+        <lastmod>[field:id runphp=yes]@me = date("Y-m-d");[/field:id]</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+	{/dede:channel}
+	{dede:channelartlist row=1000 typeid=top}
+	{dede:channel type=son noself=yes}
+    <url>
+        <loc>[field:global.cfg_basehost/][field:typelink /]</loc>
+        <lastmod>[field:id runphp=yes]@me = date("Y-m-d");[/field:id]</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+	{/dede:channel}
+	{/dede:channelartlist}
+	{dede:arclist row=1000 titlelen=255 orderby=pubdate}
+    <url>
+        <loc>[field:global.cfg_basehost/][field:arcurl/]</loc>
+        <lastmod>[field:pubdate function="MyDate('Y-m-d',@me)"/]</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+	{/dede:arclist}
+</urlset>

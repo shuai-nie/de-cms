@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global name='cfg_soft_lang'/}" />
+<title>网站地图-{dede:global name='cfg_webname'/}</title>
+<style type="text/css">
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{padding:0; margin:0;}
+.header{width:100%;margin:auto;overflow:hidden;}
+.header .center{width:1200px;height:auto;margin:0 auto;}
+.logo{width:100%;margin:auto;overflow:hidden;}
+.logo .center{width:1200px;height:70px;margin:0 auto;background:url(/images/imgs/sitemapbg.jpg) no-repeat;}
+.logo img{width:auto;height:auto;;float:left;margin:20px 0 0 10px; }
+.lan{width:100%;margin:auto;overflow:hidden;}
+.lan .linkbox{width:1200px;height:auto;margin:0 auto;}
+.lan .linkbox h3 { display:block; clear:both; width:1198px; height:25px; line-height:25px; background:url(/images/imgs/titbg.jpg) left top repeat-x #f1f1f1; font-size:14px; font-weight:bold; color:#9c9795; border:1px solid #ccafa2; border-top:none; overflow:hidden; }
+.lan .linkbox h3 a {display:block; background:url(/images/imgs/h2bg.jpg) left top no-repeat; padding-left:19px; color:#4b4948; }
+.lan .linkbox h3 a:visited { color:#dd703f; }
+.lan .linkbox table{width:1200px;height:auto;margin:0 auto; padding-left:20px;border:1px solid #ccafa2;border-top:none; }
+.lan .linkbox table a{font-size:12px;line-height:24px;text-decoration:none;color:#333; }
+.wen{width:100%;margin:auto;overflow:hidden;}
+.wen table{width:1200px;height:auto;margin:0 auto; padding-left:20px;padding-top:10px;border:1px solid #ccafa2;border-top:none;border-bottom:none; }
+.wen a{font-size:12px;line-height:24px;text-decoration:none;color:#333; }
+.wen .linkbox{width:1200px;height:auto;margin:0 auto;}
+.wen .linkbox h3 { display:block; clear:both; width:1198px; height:25px; line-height:25px; background:url(/images/imgs/titbg.jpg) left top repeat-x #f1f1f1; font-size:14px; font-weight:bold; color:#9c9795; border:1px solid #ccafa2; border-top:none; overflow:hidden; }
+.wen .linkbox h3 a {display:block; background:url(/images/imgs/h2bg.jpg) left top no-repeat; padding-left:19px; color:#4b4948;font-size:14px; }
+.footer{width:100%;margin:auto;overflow:hidden;}
+.footer .right{width:1200px;height:auto;margin:0 auto;padding:10px 0 10px 5px; font-size:14px;}
+.wen .pinp .pp{width:326px;float:left}
+.wen .pinp{width:1178px;height:auto;margin:0 auto; padding-left:20px;padding-top:10px;border:1px solid #ccafa2;border-top:none; overflow:hidden;}
+
+.header{ width:1200px; margin:0 auto; height: 76px; padding:20px;}
+
+.logo{ width: 266px; height: 76px; float: left;}
+
+.search{ /*height: 36px;*/ width: 500px; float: right;/*background:url(../images/search.jpg) no-repeat;*/padding-right:5px;}
+
+.search .s1{
+
+	background: none repeat scroll 0 0 transparent;
+
+	border: 0 none;
+
+	height: 32px;
+
+	width: 360px;
+
+	overflow: hidden;
+
+	padding-top: 3px;
+
+	padding-left: 40px;
+
+	color:#999;
+
+}
+
+.search .s2{
+
+	background: none repeat scroll 0 0 transparent;
+
+	border: 0 none;
+
+	overflow: hidden;
+
+	color:#eee;
+
+	font-size:14px;
+
+	line-height:35px;
+
+	margin-left:20px;
+
+	cursor:pointer;
+
+}
+
+.search .s2:hover{
+
+	color:#000;
+
+}
+
+
+
+.nav{ height: 44px; ; list-style: none;}
+
+.nav ul{ width: 1180px; height: 44px; margin: 0 auto;}
+
+.nav ul li{ width: 141px; height: 44px;  display: block; float: left;}
+
+.nav ul li a{ line-height: 44px; text-align: center; display: block; font-size: 16px; color:#FFFFFF; text-decoration:none;}
+
+.nav ul li a:hover{ line-height: 42px;}
+
+.first{ width: 141px; }
+
+.last{ width: 24px !important; height:44px;}
+
+.navbottom{ width: 1178px; height: 33px; margin: 0 auto; background: #ffefef; border: 1px solid #ffd8d9; line-height: 33px;}
+
+.laba{ height: 34px; width: 400px; padding-left: 40px;  background-position: 5px;}
+
+</style>
+</head>
+<body>
+<!--header css-->
+<div class="header">
+  <div class="logo">
+    <h1><a title="" href="{dede:global.cfg_basehost/}"><img src="/images/logo.jpg"/ alt=""></a></h1>
+  </div>
+  <div class="search">
+
+  </div>
+</div>
+
+<div class="lan">
+{dede:channelartlist}
+<div class="linkbox">
+<h3><a href="{dede:field name='typeurl'/}">{dede:field name='typename'/}</a></h3>
+{dede:arclist row='' titlelen='60' orderby='id' flag='' idlist='' col='2'}[field:textlink/]{/dede:arclist}
+</div>
+{/dede:channelartlist}
+
+
+</div>
+
+<div class="wen">
+<div class="linkbox"><h3><a href="/">{dede:field name='typename'/}</a></h3></div>
+{dede:arclist row='99999' titlelen='60' orderby='id' idlist='' col='3'}[field:textlink/]{/dede:arclist}
+<div class="pinp">
+{dede:arclist  row='99999' titlelen='60' orderby='id' idlist='' typeid='' channelid='-8'}<div class="pp">[field:textlink/]</div>{/dede:arclist}
+</div>
+
+</div>
+
+        
+{dede:global name='maplist'/}
+
+<div class="footer">
+	<div class="right">本网站刊登的新闻、信息和文章资料，均为手游平台版权所有。{dede:global.tc_tongji/}</div>
+</div>
+
+<!--footer-->
+</body>
+</html>

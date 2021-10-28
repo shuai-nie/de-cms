@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<meta name="renderer" content="webkit">
+<title>云游戏平台哪个好_{dede:field.title/}_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/skin/base.css">
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/skin/sy_commen.css">
+
+<script type="text/javascript">
+if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {  
+	var s = window.location.href;
+	s = s.replace("http://www.", "http://m.");
+	window.location.href = s;
+}else{  
+    
+}</script>
+{dede:global.cfg_bd_ts/}
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="content">
+  <div class="crumb"> <i></i>您的位置：{dede:field.position/} </div>
+  <div class="Ranking">
+
+    <div class="sy_warp_d" style="width: 356px;float: left;">
+	    <div class="sy_warp_a">
+      <div class="QZ_title ">
+        <div> <span>近期热门</span> <a href="#" target="_blank" class="mor2"><i>+</i></a> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="net">
+	    {dede:arclist flag='' titlelen='60' row='10' typeid='2' orderby=''}
+		<a href="[field:arcurl/]" target="_blank"><i></i>[field:title/]</a>
+		{/dede:arclist}
+	  </div>
+    </div>
+      <div class="QZ_title ">
+        <div> <span>近期大作</span> <a href="#" target="_blank" class="mor2"><i>+</i></a> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="net">
+        <ul>
+		  {dede:arclist flag='' titlelen='50' row='6' typeid='1' channelid='1' addfields='leixing,size,zhongduan' orderby=''}
+            <li>
+              <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+              <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="p1">[field:title/]</a>
+                <p> <i>[field:zhongduan/]</i> <span>|</span><i>[field:leixing/]</i> </p>
+                <p><i>中文</i><span>|</span><i>[field:size/]</i></p>
+                <div class="font"></div>
+                <a href="[field:arcurl/]" target="_blank" class="bt">下载</a> </div>
+            </li>
+			{/dede:arclist}
+        </ul>
+      </div>
+    </div>
+  <hr size=1000 style="width: 1px; float: left; margin-left: 25px;background-color:#e4e4e4;border:none;">
+  
+    <div class="pan_right">
+	<p style="font-size:20px;height: 40px;font-weight: bold;text-align: center;margin-top: -40px; border-bottom: 2px solid #e4e4e4;">云游戏平台排行榜</p>
+      <div class="warp">
+
+		{dede:list pagesize='20' addfields='' channelid='1'}
+        <div class="item">
+          <div class="bt"><span class="sp on[field:global.autoindex/]">第[field:global.autoindex/]名</span><a href="[field:arcurl/]" target="_blank">[field:title /]</a></div>
+          <div class="p"><span>大小：[field:size/]</span><span>类型：[field:leixing/]</span><span>评分：<i>[field:yunpf /]</i></span></div>
+          <div class="text">[field:description function='cn_substr(@me,400)'/]</div>
+          <!-- <div class="bot">其他版本：<a href="#" target="_blank"><i class="az"></i>苹果版</a> <a href="#" target="_blank"><i class="iphone"></i>苹果版</a> <a href="#" target="_blank"><i class="pc"></i>PC版</a> <a href="#" target="_blank"><i class="tv"></i>TV版</a></div> -->
+          <a href="[field:arcurl/]" target="_blank" class="btn">下载</a> </div>
+		 {/dede:list} 
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+{dede:include filename="foot.htm"/}
+</body>
+</html>

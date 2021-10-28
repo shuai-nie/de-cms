@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{dede:field.title/}_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/skin/base.css">
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/skin/sy_commen.css">
+
+<script type="text/javascript">
+if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {  
+	var s = window.location.href;
+	s = s.replace("http://www.", "http://m.");
+	window.location.href = s;
+}else{  
+    
+}</script>
+{dede:global.cfg_bd_ts/}
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="content">
+  <div class="crumb"> <i></i>您的位置： {dede:field.position/}<a href="{dede:field.id
+runphp='yes'}$id=@me;@me='';$url=GetOneArchive($id);@me=$url['arcurl'];{/dede:field.id}">{dede:field.title/}</a></div>
+  <div class="Content_L dj_chinesemode">
+    <div class=" news_warp_top">
+      <h1 class="bt">{dede:field.title/}</h1>
+      <div class="time">时间：<span>{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}</span></div>
+      <ul class="intem">
+        <li>编辑：<span class="bianji">云游戏邵梦</span></li>
+      </ul>
+      <div class="pin" data-id="Comments_wrap"><span><i class="eye"></i><span class="views">{dede:field.click/}</span></span></div>
+      <div class="clear"></div>
+    </div>
+    <div class="news_warp_center">
+	{dede:field.body/}
+    </div>
+    <!-- 推广 --> 
+ 
+    <div class="QZ_title ">
+      <div> <span><i class="ico23"></i>相关内容</span> </div>
+      <div class="lin"></div>
+    </div>
+    <div class="news_warp_pf">
+      <div class="img"><a href="#" target="_blank" style="display: block;"><img src="http://www.icloudyouxi.com/skin/logo.svg" style="width: 100%; height: 100%;"></a></div>
+      <div class="tex">
+        <p class="p1"> <a href="#" target="_blank">云游戏平台</a> <i>《代号息壤》的全新版本</i> </p>
+        <span class="sp">类型：云游戏集合平台</span>
+		<span class="sp wid">厂商：iCloud云游戏</span>
+		<span class="sp">语言：中文\英文</span>
+		<span class="sp biaoqian">标签：<a>免费云游戏</a>，<a>云游戏下载</a>，<a>云游戏平台</a> </span>
+        <div class="data_pf">
+          <div class="scorewrap score_b">
+            <div class="score hover" onclick="getscore(125778, 'score_b')"><span style="width: 75%;"></span></div>
+            <div class="processingbar"><font>8.3</font></div>
+            <div class="txt"> 已有<span class="num1">137</span>人评分 <u class="myscore">您还未评分！</u> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="news_warp_nav"> 
+		<a href="#" style="background:#F0412A; color: #fff;">下载地址 :</a>
+		<a href="#" target="_blank">stadia云游戏平台</a>
+		<a href="#" target="_blank">网易云游戏平台</a>
+		<a href="#" target="_blank">yowa云游戏平台</a>
+		<a href="#" target="_blank">wegame云游戏平台</a>
+		<a href="#" target="_blank">桔子云游戏平台</a>
+<!--       <p class="p2">公众号<i><img src="https://shouyou.3dmgame.com/page/images/3dmapp.png"></i></p>
+      <p class="p1">手机上浏览<i><img src="https://shouyou.3dmgame.com/uploadimg/qrcode/gl/qrgl232423.png"></i></p> -->
+    </div>
+    <div class="news_warp_gon">
+      <div class="news_warp_bttop"> <span><i class="ico1"></i>相关新闻</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+      <div class="net"> 
+	    {dede:arclist flag='' titlelen='50' row='10' typeid='5' }
+		<a href="[field:arcurl/]" target="_blank"><i></i>[field:title/]</a>
+		{/dede:arclist}
+		</div>
+      <div class="clear"></div>
+    </div>
+    <div class="news_warp_game">
+      <div class="news_warp_bttop"> <span><i class="ico2"></i>类似游戏</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+      <div class="net">
+        <ul>
+		  {dede:arclist flag='' titlelen='50' row='9' typeid='1' channelid='1' addfields='leixing,size,zhongduan' orderby='rand'}
+            <li>
+              <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+              <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="a1">[field:title/]</a>
+                <p>[field:zhongduan/]</p>
+                <p ><i class="p">[field:leixing/]</i>|<i>[field:size/]</i></p>
+              </div>
+            </li>
+			{/dede:arclist}
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  <div class="Content_R">
+    <div class="sy_warp_a">
+      <div class="QZ_title ">
+        <div> <span><i class="ico3"></i>近期热门</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="net">
+	    {dede:arclist flag='' titlelen='50' row='10' typeid='6,9' orderby='hot'}
+		<a href="[field:arcurl/]" target="_blank"><i></i>[field:title/]</a>
+		{/dede:arclist}
+	  </div>
+    </div>
+    <div class="sy_warp_b pading_top">
+      <div class="QZ_title  pading_top">
+        <div> <span><i class="ico17"></i>热门电脑游戏</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="net">
+        <ul>
+		
+		  {dede:arclist flag='' titlelen='50' row='6' typeid='7' channelid='1' addfields='leixing,size'}
+		  <li>
+            <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+            <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="p1">[field:title/]</a> <span class="p2">[field:leixing/]<a class="a ioc_anzhu"></a> <a class="a ioc_iphone"></a> </span> <a href="[field:arcurl/]" target="_blank" class="btn">下载</a> </div>
+			</li>
+			{/dede:arclist}
+        </ul>
+      </div>
+    </div>
+    <div class="sy_warp_c">
+      <div class="QZ_title ">
+        <div> <span><i class="ico7"></i>原创推荐</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="net">
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='3' typeid='2' channelid='1' }
+          <li>
+            <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+            <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="p1">[field:title/]</a>
+              <p><i>日常安利 </i>|<span>小云</span></p>
+            </div>
+          </li>
+		  {/dede:arclist}
+
+        </ul>
+      </div>
+    </div>
+    <div class="sy_warp_d">
+      <div class="QZ_title ">
+        <div> <span><i class="ico13"></i>近期大作</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="net">
+        <ul>
+		  {dede:arclist flag='' titlelen='50' row='6' typeid='1' channelid='1' addfields='leixing,size,zhongduan' orderby='rand'}
+            <li>
+              <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+              <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="p1">[field:title/]</a>
+                <p> <i>[field:zhongduan/]</i> <span>|</span><i>[field:leixing/]</i> </p>
+                <p><i>中文</i><span>|</span><i>[field:size/]</i></p>
+                <div class="font"></div>
+                <a href="[field:arcurl/]" target="_blank" class="bt">下载</a> </div>
+            </li>
+			{/dede:arclist}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+
+
+{dede:include filename="foot.htm"/}
+</body>
+</html>

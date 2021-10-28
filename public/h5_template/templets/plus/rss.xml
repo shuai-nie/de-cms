@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<rss version="2.0">
+<channel>
+    <title>{dede:global.cfg_webname/}</title>
+    <description>{dede:global.cfg_description/}</description>
+    <link>{dede:global.cfg_basehost/}</link>
+    <generator>{dede:global.cfg_webname/}</generator>
+    <image>
+        <url>{dede:global.cfg_basehost/}/images/defaultpic.gif</url>
+        <title>{dede:global.cfg_webname/}</title>
+        <link>{dede:global.cfg_basehost/}</link>
+    </image>
+	{dede:arclist row=1000 orderby=pubdate titlelen=255}
+    <item>
+        <title><![CDATA[ [field:title/] ]]></title>
+        <link>[field:global.cfg_basehost runphp=yes]global $cfg_multi_site;@me = $cfg_multi_site == 'N' ? @me : '';[/field:global.cfg_basehost][field:arcurl/]</link>
+        <description><![CDATA[ [field:description/] ]]></description>
+		<category>[field:typename/]</category>
+        <source>[field:source runphp=yes]global $cfg_webname;@me = (empty(@me) ? "{$cfg_webname}" : "@me");[/field:source]</source>
+        <pubDate>[field:pubdate function='strftime("%a,%d %b %Y %H:%M:%S +0800",@me)'/]</pubDate>
+    </item>
+	{/dede:arclist}
+</channel>
+</rss>

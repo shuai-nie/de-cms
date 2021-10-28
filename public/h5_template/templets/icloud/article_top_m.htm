@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="wap-font-scale" content="no">
+<title>{dede:field.title/}下载安装_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/base_2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/comment-app.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/swiper4.css">
+<script src="{dede:global.cfg_basehost/}/mskin/jquery.min.js"></script>
+</head>
+<body>
+<div id="content">
+{dede:include filename="head_m.htm"/}
+    <div class="crumbs"> {dede:field.position/}<a href="{dede:field.id
+runphp='yes'}$id=@me;@me='';$url=GetOneArchive($id);@me=$url['arcurl'];{/dede:field.id}">{dede:field.title/}</a></div>
+  <!-- 下载 -->
+  <div class="downl_head">
+    <div class="info"> <img class="img" src="{dede:field.litpic/}" alt="{dede:field.title /}">
+      <div class="txt">
+        <h1>{dede:field.title /}</h1>
+        <p><span class="downnums">{dede:field.click/}</span>次下载 </p>
+      </div>
+      <div class="score_wrap"> <span>{dede:field.yunpf/}</span>
+        <div class="star"><i style="width: 60%"></i></div>
+      </div>
+    </div>
+    <div class="details_ul">
+      <div class="num"></div>
+      <ul>
+        <li>终端：<span>{dede:field.leixing /}</span></li>
+        <li>平台：<span>{dede:field.title /}</span></li>
+        <li>更新时间：<span>{dede:field name='pubdate' function='GetDateMk(@me)'/}</span></li>
+        <li>语言：<span>中文\英文</span></li>
+      </ul>
+    </div>
+  </div>
+  <!-- 版本 -->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">下载地址</div>
+    </div>
+    <div class="bblist" style="max-height: inherit;">
+	<a rel="nofollow" href="{dede:field.yunurl/}"><i class="android"></i>{dede:field.yunname /}</a>
+	</div>
+
+  </div>
+  <!-- 下载截图 -->
+  <div class="Gm-pic">
+    <!-- 简介 -->
+    <div class="title">
+      <div class="bt">游戏简介</div>
+    </div>
+	<base href="{dede:global.cfg_basehost/}">
+    <div class="Gm-desc">
+		{dede:field.body/}
+      
+    </div>
+    <div class="bqbox_1">
+      <div class="a_btn">
+        <ul class="clearfix">
+          <li><a href="#">模拟</a></li>
+          <li><a href="#">趣味</a></li>
+          <li><a href="#">建造</a></li>
+        </ul>
+      </div>
+      <!-- 进入专区 --> 
+    </div>
+  </div>
+  <!-- 相关攻略 -->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">相关攻略</div>
+      <a href="#" class="more">更多</a> </div>
+    <ul class="relevant_gl">
+	{dede:arclist flag='' titlelen='50' row='10' typeid='2' }
+      <li> <a href="[field:arcurl/]" class="img"><img src="[field:litpic/]" alt="[field:title/]"></a>
+        <div class="txt"> <a href="[field:arcurl/]" class="bt">[field:title/]</a>
+          <div class="info"> <span class="lis"><i class="time"></i>[field:pubdate function='strftime("%y-%m-%d",@me)'/]</span> <span class="lis"><i class="eye"></i><script src='{dede:field name='phpurl'/}/count.php?view=yes&aid={dede:field name='id'/}&mid={dede:field name='mid'/}'type='text/javascript' language='javascrip' ></script></span> </div>
+        </div>
+      </li>
+	 {/dede:arclist} 
+    </ul>
+  </div>
+  <!-- 相关下载 -->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">推荐下载</div>
+    </div>
+    <ul class="relevant_downl">
+	{dede:arclist flag='' titlelen='50' row='10' typeid='1' }
+      <li> <a href="[field:arcurl/]"> <img src="[field:litpic/]" alt="[field:title/]"> <span>[field:title/]</span> </a> </li>
+	  {/dede:arclist} 
+    </ul>
+  </div>
+  <link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/mskin/comments.css"/>
+  <script src="{dede:global.cfg_basehost/}/mskin/comments.js"></script> 
+  <script type="text/javascript" src="{dede:global.cfg_basehost/}/mskin/statistics.js"></script> 
+  <script src="{dede:global.cfg_basehost/}/mskin/swiper4.js"></script> 
+  <script src="{dede:global.cfg_basehost/}/mskin/comment2.0.js"></script>
+  <script src="{dede:global.cfg_basehost/}/mskin/common.js"></script>
+{dede:include filename="foot_m.htm"/}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="wap-font-scale" content="no">
+<title>云游戏平台哪个好_{dede:field.title/}_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/base_2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/comment2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/shouyou.css">
+<script src="{dede:global.cfg_basehost/}/mskin/jquery.min.js"></script>
+{dede:global.cfg_bd_ts/}
+<body>
+<div id="content">
+{dede:include filename="head_m.htm"/}
+  <div class="crumbs">{dede:field.position/}</div>
+
+
+  <div class="phb-item">
+  {dede:list pagesize='20' addfields='' channelid='1'}
+    <div class="item"> <a href="[field:arcurl/]" class="img"><img src="[field:litpic/]" alt=""></a>
+      <div class="info"> <a href="[field:arcurl/]" class="bt"><i>[field:global.autoindex/]</i>[field:yunname/]</a>
+        <div class="bq">终端：[field:leixing/]</div>
+        <div class="num">语言：中文\英文<span></span> <i></i>评分：[field:yunpf /]</div>
+        <a href="[field:arcurl/]" class="btn">下载</a> </div>
+    </div>
+	{/dede:list}
+    </div>
+
+  </div>
+
+{dede:include filename="foot_m.htm"/}
+
+ 
+</div>
+</body>
+</html>

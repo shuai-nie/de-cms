@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<meta name="renderer" content="webkit">
+<title>{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:global.cfg_keywords/}"/>
+<meta name="description" content="{dede:global.cfg_description/}"/>
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/skin/base.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/skin/sy_commen.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/skin/sy-index.css">
+<script src="{dede:global.cfg_basehost/}/skin/jq1.9.js"></script>
+<script type="text/javascript">
+if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {  
+	var s = window.location.href;
+	s = s.replace("http://www.", "http://m.");
+	window.location.href = s;
+}else{  
+    
+}</script>
+{dede:global.cfg_bd_ts/}
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<style>
+.Tonglan{width: 1160px; margin: 15px auto -10px;position: relative;}.Tonglan>div{margin: 0 auto;}
+</style>
+<div class="Tonglan"> <a hef="#"><img src="{dede:global.cfg_basehost/}/skin/bg01.png"></a> </div>
+<div class="content">
+  <div class="bq_item">
+    <div class="bq_L">
+      <div class="bq_top">
+        <h2>热门云游戏</h2>
+      </div>
+      <ul>
+	  {dede:arclist flag='' titlelen='50' row='32' typeid='1' }
+        <li><a class="" href="[field:arcurl/]" target="_blank">[field:title/]</a></li>
+		{/dede:arclist}
+      </ul>
+    </div>
+  </div>
+  <div class="tj_item">
+    <div class="btn_L on"> <i></i>
+      <h2>电脑云游戏推荐</h2>
+    </div>
+    <div class="itembox">
+      <div class="item">
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='8' typeid='7' }
+          <li> <a href="[field:arcurl/]" target="_blank">
+            <div class="img"><img src="[field:litpic/]" alt="[field:title/]"></div>
+            <p>[field:title/]</p>
+            </a> </li>
+		{/dede:arclist}
+        </ul>
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='8' typeid='8' }
+          <li> <a href="[field:arcurl/]" target="_blank">
+            <div class="img"><img src="[field:litpic/]" alt="[field:title/]"></div>
+            <p>[field:title/]</p>
+            </a> </li>
+		{/dede:arclist}
+        </ul>
+      </div>
+    </div>
+    <div class="btn_R"> <i></i>
+      <h2>手机云游戏推荐</h2>
+    </div>
+  </div>
+  <div class="Min_1">
+    <div class="Min1_L">
+      <div class="hd_wrap">
+        <div class="ban" id="hdlist">
+          <div class="ban2" id="ban_pic1">
+            <div class="lis"></div>
+            <ul>
+              <li> <a href="#" target="_blank"><img src="{dede:global.cfg_basehost/}/skin/stadia.jpg" alt="stadia（谷歌）云游戏平台" /></a>
+                <div class="bt"> <a href="#" target="_blank">stadia（谷歌）云游戏平台</a> </div>
+              </li>
+			  
+              <li> <a href="#" target="_blank"><img src="{dede:global.cfg_basehost/}/skin/wyy163.jpg" alt="网易云游戏平台" /></a>
+                <div class="bt"> <a href="#" target="_blank">网易云游戏平台</a> </div>
+              </li>
+              <li> <a href="#" target="_blank"><img src="{dede:global.cfg_basehost/}/skin/wegame.jpg" alt="wegame云游戏平台" /></a>
+                <div class="bt"> <a href="#" target="_blank">wegame云游戏平台</a> </div>
+              </li>
+              <li> <a href="#" target="_blank"><img src="{dede:global.cfg_basehost/}/skin/yowa.jpg" alt="yowa云游戏平台" /></a>
+                <div class="bt"> <a href="#" target="_blank">yowa云游戏平台</a> </div>
+              </li>
+              <li> <a href="#" target="_blank"><img src="{dede:global.cfg_basehost/}/skin/bkyun.jpg" alt="布卡云游戏平台" /></a>
+                <div class="bt"> <a href="#" target="_blank">布卡云游戏平台</a> </div>
+              </li>
+              <li> <a href="#" target="_blank"><img src="{dede:global.cfg_basehost/}/skin/swyun.jpg" alt="顺网云游戏平台" /></a>
+                <div class="bt"> <a href="#" target="_blank">顺网云游戏平台</a> </div>
+              </li>
+            </ul>
+          </div>
+          <div class="min_pic">
+            <div class="num clearfix" id="ban_num1">
+              <ul>
+                <li> <a href="javascript:;"><img src="{dede:global.cfg_basehost/}/skin/stadia.jpg" /></a> </li>
+                <li> <a href="javascript:;"><img src="{dede:global.cfg_basehost/}/skin/wyy163.jpg" /></a> </li>
+                <li> <a href="javascript:;"><img src="{dede:global.cfg_basehost/}/skin/wegame.jpg" /></a> </li>
+                <li> <a href="javascript:;"><img src="{dede:global.cfg_basehost/}/skin/yowa.jpg" /></a> </li>
+                <li> <a href="javascript:;"><img src="{dede:global.cfg_basehost/}/skin/bkyun.jpg" /></a> </li>
+                <li> <a href="javascript:;"><img src="{dede:global.cfg_basehost/}/skin/swyun.jpg" /></a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="Min1_R"> 
+	{dede:arclist flag='' titlelen='50' row='1' typeid='2' orderby='hot'}
+	<a href="[field:arcurl/]" class="bt_a" target="_blank">[field:title/]</a>
+	{/dede:arclist}
+      <div class="bt_b"> 
+	  {dede:arclist flag='' titlelen='50' row='2' typeid='2' orderby='rand'}
+	  <a href="[field:arcurl/]" target="_blank">[field:title/]</a>
+	  {/dede:arclist}
+	  </div>
+      <div class="tabwrap">
+        <div class="lis" style="display: block">
+          <ul>
+		  {dede:arclist flag='' titlelen='50' row='5' typeid='2' }
+            <li> <i></i><a href="[field:arcurl/]" target="_blank">[field:title/]</a> <span>[field:pubdate function="MyDate('m-d',@me)"/]</span> </li>
+			{/dede:arclist}
+          </ul>
+          <ul>
+		  {dede:arclist flag='' titlelen='50' row='5' typeid='2' orderby='rand'}
+            <li> <i></i><a href="[field:arcurl/]" target="_blank">[field:title/]</a> <span>[field:pubdate function="MyDate('m-d',@me)"/]</span> </li>
+			{/dede:arclist}
+          </ul>
+
+        </div>
+
+      </div>
+      <div class="tab_btn"> <span class="on"></span> <span></span> <span></span> </div>
+    </div>
+  </div>
+  <div class="Min_2">
+    <div class="Min2_L">
+      <div class="tist_data">
+        <div class="imglist"><i class="ico2"></i><h2>新闻资讯</h2></div>
+        <div class="rightlist"><i></i><a href="#" target="_blank">更多</a></div>
+      </div>
+      <div class="lis_a"> 
+	  {dede:arclist flag='' titlelen='50' row='1' typeid='9' orderby='rand'}
+	  <a href="[field:arcurl/]" target="_blank" class="img"><img src="[field:litpic/]" alt="[field:title/]"></a> 
+	  <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a> 
+	  {/dede:arclist}
+	  </div>
+      <div class="lis_b">
+	  {dede:arclist flag='' titlelen='50' row='5' typeid='2' }
+        <div class="lis selectpost"> <i></i> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a></div>
+		{/dede:arclist}
+      </div>
+    </div>
+    <div class="Min2_M">
+      <div class="tist_data">
+        <div class="imglist"><i class="ico4"></i><h2>新游预告</h2></div>
+        <div class="rightlist"><i></i><a href="#" target="_blank">更多</a></div>
+      </div>
+      <div class="item">
+	  {dede:arclist flag='' titlelen='50' row='8' typeid='6'}
+        <div class="lis"> <a href="[field:arcurl/]" target="_blank" class="img"><img src="[field:litpic/]" alt=""></a> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+          <div class="time"><i></i><span>[field:pubdate function="MyDate('m/d',@me)"/]</span></div>
+        </div>
+		{/dede:arclist}
+        </div>
+      </div>
+    </div>
+  <div class="Min_6">
+    <div class="tist_data">
+      <div class="imglist"><i class="ico9"></i><h2>云游戏推荐</h2></div>
+      <div class="rightlist"><i></i><a href="#" target="_blank">更多</a></div>
+    </div>
+    <div class="item">
+	{dede:arclist flag='' titlelen='50' row='12' typeid='1' channelid='1' addfields='leixing,size' orderby='rand'}
+      <div class="lis"> <a href="[field:arcurl/]" class="img" target="_blank"><img src="[field:litpic/]" alt=""></a> <a href="[field:arcurl/]" class="name" target="_blank">[field:title/]</a>
+        <div class="info"> <span>[field:leixing/]</span>
+          <p>[field:size/]</p>
+        </div>
+      </div>
+	  {/dede:arclist}
+    </div>
+  </div>
+  <div class="Min_7">
+    <div class="Min7_R" style="" id="L">
+      <div class="tist_data">
+        <div class="imglist"><i class="ico11"></i><h2>游戏攻略</h2></div>
+        <div class="rightlist"><i></i><a href="#" target="_blank">更多</a></div>
+      </div>
+      <div class="lis_a" style="">
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='10' typeid='5' }
+          <li><i></i><a href="[field:arcurl/]" target="_blank">[field:title/]</a><span>[field:pubdate function="MyDate('m/d',@me)"/]</span></li>
+		  {/dede:arclist}
+
+
+        </ul>
+      </div>
+    </div>
+    <div class="Min7_R">
+      <div class="tist_data">
+        <div class="imglist"><i class="ico11"></i><h2>常见问题</h2></div>
+        <div class="rightlist"><i></i><a href="#" target="_blank">更多</a></div>
+      </div>
+      <div class="lis_a">
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='10' typeid='4' }
+          <li><a href="[field:arcurl/]" target="_blank">[field:title/]</a><span>[field:pubdate function="MyDate('m/d',@me)"/]</span></li>
+		  {/dede:arclist}
+
+        </ul>
+        </ul>
+      </div>
+      <div class="lis_b">
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='4' typeid='4' orderby='hot'}
+          <li> <a href="[field:arcurl/]" target="_blank" class="img"><img src="[field:litpic/]" alt=""></a> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a> </li>
+		{/dede:arclist}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="Min_8">
+    <div class="ph_top"> <i></i>
+      <h2>云游戏排行榜</h2>
+      <a href="#" target="_blank" class="mor">更多</a> </div>
+    <div class="phwrap">
+      <div class="item item_a">
+        <div class="top_bg">安卓排行榜</div>
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='10' typeid='8' channelid='1' addfields='leixing,size' orderby='rand'}
+          <li class="">
+            <div class="lis_a"><span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" class="bt" target="_blank">[field:title/]</a> </div>
+            <div class="lis_b"><a href="[field:arcurl/]" class="img" target="_blank"><img src="[field:litpic/]" alt=""></a> <span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+              <div class="info">
+                <p>类型：[field:leixing/]</p>
+                <p>大小：[field:size/]</p>
+              </div>
+            </div>
+          </li>
+		 {/dede:arclist} 
+        </ul>
+      </div>
+      <div class="item item_b">
+        <div class="top_bg">苹果排行榜</div>
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='10' typeid='8' channelid='1' addfields='leixing,size'}
+          <li class="">
+            <div class="lis_a"><span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" class="bt" target="_blank">[field:title/]</a> </div>
+            <div class="lis_b"><a href="[field:arcurl/]" class="img" target="_blank"><img src="[field:litpic/]" alt=""></a> <span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+              <div class="info">
+                <p>类型：[field:leixing/]</p>
+                <p>大小：[field:size/]</p>
+              </div>
+            </div>
+          </li>
+		 {/dede:arclist} 
+        </ul>
+      </div>
+      <div class="item item_c">
+        <div class="top_bg">电脑排行榜</div>
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='10' typeid='7' channelid='1' addfields='leixing,size'}
+          <li class="">
+            <div class="lis_a"><span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" class="bt" target="_blank">[field:title/]</a> </div>
+            <div class="lis_b"><a href="[field:arcurl/]" class="img" target="_blank"><img src="[field:litpic/]" alt=""></a> <span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+              <div class="info">
+                <p>类型：[field:leixing/]</p>
+                <p>大小：[field:size/]</p>
+              </div>
+            </div>
+          </li>
+		 {/dede:arclist} 
+        </ul>
+      </div>
+      <div class="item item_d">
+        <div class="top_bg">云游戏平台排行榜</div>
+        <ul>
+		{dede:arclist flag='' titlelen='50' row='10' typeid='3' channelid='1' addfields='leixing,size'}
+          <li class="">
+            <div class="lis_a"><span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" class="bt" target="_blank">[field:title/]</a> </div>
+            <div class="lis_b"><a href="[field:arcurl/]" class="img" target="_blank"><img src="[field:litpic/]" alt=""></a> <span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+              <div class="info">
+                <p>类型：[field:leixing/]</p>
+                <p>大小：[field:size/]</p>
+              </div>
+            </div>
+          </li>
+		 {/dede:arclist} 
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+ </div>
+<div class="Linkwrap">
+  <div class="Yqlink">
+    <div class="link">
+      <p><i></i>友情链接</p>
+      {dede:flink row='24' type='text' titlelen="40"  typeid="0"}  
+  [field:link /]  
+  {/dede:flink} </div>
+  </div>
+  <div class="line"></div>
+</div>
+<script type="text/javascript" src="{dede:global.cfg_basehost/}/skin/commentlist.js"></script> 
+<script src="{dede:global.cfg_basehost/}/skin/pic_tab.js"></script> 
+<script src="{dede:global.cfg_basehost/}/skin/sy_comme.js"></script>
+<div class="footer">
+  <div class="footer-top clear">
+    <div class="center">
+      <div class="wrap">
+        <ul>
+		  <li><a href="{dede:global.cfg_basehost/}" target="_blank">云游戏</a></li>
+		  {dede:channel row="10" type="top" col="1"}
+		  <li> <a href="[field:typeurl/]" target="_blank">[field:typename/]</a> </li>
+			{/dede:channel}
+
+			{dede:channelartlist typeid='1,2'}
+
+			{dede:channel type='son' noself='yes'}
+			 
+			<li> <a href="[field:typelink/]">[field:typename/]</a></li>
+			 
+			{/dede:channel}
+			 
+			{/dede:channelartlist}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-link">
+	<a href="#" target="_blank">关于icloudyouxi.com</a>|
+	<a href="#" target="_blank">招聘信息</a>|
+	<a href="/sitemap.xml" target="_blank">网站地图</a>|
+	<a href="#" target="_blank">联系我们</a>
+    <p>网站备案：<a href="https://beian.miit.gov.cn" rel="nofollow" target="_blank">沪ICP备19019421号</a></p>
+      <p>CopyRight©2003-2021 <a href="http://www.icloudyouxi.com/">www.icloudyouxi.com</a> All Right Reserved QQ-2966857223</p>
+    </div>
+  </div>
+  <div style="display: none;"> 
+	{dede:global.cfg_bd_tj/}
+	</div>
+</div>
+</body>
+</html>

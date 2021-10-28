@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="wap-font-scale" content="no">
+<title>{dede:global.cfg_webname/}移动站</title>
+<meta name="keywords" content="{dede:global.cfg_keywords/}"/>
+<meta name="description" content="{dede:global.cfg_description/}"/>
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/base_2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/comment2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/swiper4.css">
+<script src="{dede:global.cfg_basehost/}/mskin/jquery.min.js"></script>
+</head>
+<body>
+<div id="content">
+  <div class="header_v2">
+    <h1 class="top"> <a href="http://m.icloudyouxi.com/" class="logo" title="{dede:global.cfg_webname/}"></a></h1>
+    <div class="box_b">
+      <div class="nav"> 
+	  <a href="/" class="on"><span>首页</span></a> 
+	  {dede:channel row="10" type="top" col="1"}
+	  <a href="[field:typeurl/]"><span>[field:typename/]</span></a> 
+	  {/dede:channel}
+	  </div>
+    </div>
+  </div>
+  <!--轮播-->
+  <div class="Min_swiper">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+		{dede:arclist flag='' titlelen='50' row='5' typeid='2' }
+        <div class="swiper-slide"> <a href="[field:arcurl/]"><img src="[field:litpic/]">
+          <div class="text">
+            <p>[field:title/]</p>
+          </div>
+          </a> </div>
+		{/dede:arclist}   
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination swiper-pagination-white"></div>
+    </div>
+  </div>
+  
+  <!--nav-->
+  <div class="Min_bj Min_nav mt_30">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><a href="/games/">
+          <div class="ico ico12"></div>
+          <p>中文版</p>
+          </a></div>
+        <div class="swiper-slide"><a href="/xinyouyugao/">
+          <div class="ico ico13"></div>
+          <p>新游预告</p>
+          </a></div>
+        <div class="swiper-slide"><a href="/cjwt/">
+          <div class="ico ico14"></div>
+          <p>问题答疑</p>
+          </a></div>
+        <div class="swiper-slide"><a href="/gonglue/">
+          <div class="ico ico15"></div>
+          <p>游戏攻略</p>
+          </a></div>
+        <div class="swiper-slide"><a href="/icloudtop/">
+          <div class="ico ico16"></div>
+          <p>云榜单</p>
+          </a></div>
+      </div>
+    </div>
+  </div>
+    <!--经典大作-->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">云游戏平台</div>
+    </div>
+    <div class="Min9">
+      <div class="swiper_Classic">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><a class="img"><img src="{dede:global.cfg_basehost/}/img/stadia.jpg"></a></div>
+            <div class="swiper-slide"><a class="img"><img src="{dede:global.cfg_basehost/}/img/wyy163.jpg"></a></div>
+            <div class="swiper-slide"><a class="img"><img src="{dede:global.cfg_basehost/}/img/wegame.jpg"></a></div>
+            <div class="swiper-slide"><a class="img"><img src="{dede:global.cfg_basehost/}/img/yowa.jpg"></a></div>
+            <div class="swiper-slide"><a class="img"><img src="{dede:global.cfg_basehost/}/img/bkyun.jpg"></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="item_box">
+        <div class="item on_box">
+          <div class="bt box_flex"> <a class="bt_name box_flex_1">stadia（谷歌）云游戏</a>
+            <div class="tab"><span>评分</span><i>8.5</i></div>
+          </div>
+          <ul class="clearfix">
+            <li><a>9500万份</a></li>
+            <li><a>GTA6创意</a></li>
+            <li><a>飙车绝技</a></li>
+            <li><a>2017畅销游戏</a></li>
+            <li><a>移植Switch</a></li>
+            <li><a>更新电台</a></li>
+            <li><a>酷炫视频</a></li>
+            <li><a>走私扩展包</a></li>
+          </ul>
+        </div>
+        <div class="item">
+          <div class="bt box_flex"> <a class="bt_name box_flex_1">网易云游戏</a>
+            <div class="tab"><span>评分</span><i>8.3</i></div>
+          </div>
+          <ul class="clearfix">
+            <li><a href="https://www.3dmgame.com/news/201808/3742859.html">国行版上线</a></li>
+            <li><a href="https://www.3dmgame.com/news/201808/3742844.html">创意工坊</a></li>
+            <li><a href="https://www.3dmgame.com/news/201808/3742735.html">秋祭典新装备</a></li>
+            <li><a href="https://www.3dmgame.com/news/201808/3742468.html">CJ提供试玩</a></li>
+            <li><a href="https://www.3dmgame.com/news/201807/3742284.html">CPU压力太大</a></li>
+            <li><a href="https://www.3dmgame.com/news/201807/3742242.html">载入速度对比</a></li>
+            <li><a href="https://www.3dmgame.com/news/201807/3741972.html">试玩视频</a></li>
+            <li><a href="https://www.3dmgame.com/news/201807/3740120.html">预约开始</a></li>
+          </ul>
+        </div>
+        <div class="item">
+          <div class="bt box_flex"> <a class="bt_name box_flex_1">wegame云游戏</a>
+            <div class="tab"><span>评分</span><i>7.5</i></div>
+          </div>
+          <ul class="clearfix">
+            <li><a href="https://www.3dmgame.com/news/201806/3738851.html">大逃杀模式</a></li>
+            <li><a href="https://www.3dmgame.com/news/201803/3723878.html">恐怖彩蛋</a></li>
+            <li><a href="https://www.3dmgame.com/news/201803/3720636.html">官方精美图片</a></li>
+            <li><a href="https://www.3dmgame.com/news/201802/3716754.html">自制薪王</a></li>
+            <li><a href="https://www.3dmgame.com/news/201802/3716279.html">新DLC暗示</a></li>
+            <li><a href="https://www.3dmgame.com/news/201801/3712678.html">蒙眼打BOSS</a></li>
+            <li><a href="https://www.3dmgame.com/news/201712/3705495.html">神秘新作</a></li>
+            <li><a href="https://www.3dmgame.com/news/201705/3654637.html">新更新补丁</a></li>
+          </ul>
+        </div>
+        <div class="item">
+          <div class="bt box_flex"> <a class="bt_name box_flex_1">yowa云游戏</a>
+            <div class="tab"><span>评分</span><i>7.9</i></div>
+          </div>
+          <ul class="clearfix">
+            <li><a href="https://www.3dmgame.com/news/201911/3775328.html">PC照相模式</a></li>
+            <li><a href="https://www.3dmgame.com/news/201810/3747978.html">实机视频</a></li>
+            <li><a href="https://www.3dmgame.com/news/201810/3747975.html">奖杯列表</a></li>
+            <li><a href="https://www.3dmgame.com/news/201810/3747955.html">官方动态图</a></li>
+            <li><a href="https://www.3dmgame.com/news/201810/3747942.html">助手APP</a></li>
+            <li><a href="https://www.3dmgame.com/news/201911/3775164.html">支持DX12</a></li>
+            <li><a href="https://www.3dmgame.com/news/201810/3747897.html">火拼和打猎</a></li>
+            <li><a href="https://www.3dmgame.com/news/201810/3747893.html">主角身世</a></li>
+          </ul>
+        </div>
+        <div class="item">
+          <div class="bt box_flex"> <a class="bt_name box_flex_1">布卡云游戏</a>
+            <div class="tab"><span>评分</span><i>8.3</i></div>
+          </div>
+          <ul class="clearfix">
+            <li><a href="https://dl.3dmgame.com/pc/127151.html">正版分流下载</a></li>
+            <li><a href="https://www.3dmgame.com/gl/3761415.html">预载缺失文件</a></li>
+            <li><a href="https://dl.3dmgame.com/patch/135929.html">exe启动补丁</a></li>
+            <li><a href="https://www.3dmgame.com/gl/3761418.html">新手连招套路</a></li>
+            <li><a href="https://www.3dmgame.com/gl/3761416.html">尼禄出招表</a></li>
+            <li><a href="https://www.3dmgame.com/gl/3761423.html">锁定技能操作</a></li>
+            <li><a href="https://www.3dmgame.com/gl/3761425.html">新手键盘改键</a></li>
+            <li><a href="https://www.3dmgame.com/gl/3761417.html">地区无法使用</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--新游上线-->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">新游上线</div>
+      <a href="#" class="more">更多</a> </div>
+    <div class="Min8">
+      <ul>
+	  {dede:arclist flag='' titlelen='50' row='10' typeid='1' addfields='leixing,size,zhongduan' channelid='1'}
+        <li class="box_flex"> <a href="[field:arcurl/]" class="img"><img src="[field:litpic/]"> </a>
+          <div class="infor box_flex_1"> <a href="[field:arcurl/]" class="name">[field:title/]</a><span class="mgame">[field:leixing/]/[field:size/]</br>[field:zhongduan/]/中文</span><a href="[field:arcurl/]" class="btn">下载</a> </div>
+        </li>
+		{/dede:arclist} 
+      </ul>
+    </div>
+  </div>
+  
+
+  
+  <!--汉化发布-->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">新闻</div>
+      <a href="#" class="more">更多</a> </div>
+    <div class="Min10">
+      <ul>
+	  {dede:arclist flag='' titlelen='50' row='10' typeid='6,9' }
+        <li class="box_flex"> <a href="[field:arcurl/]" class="box_flex_1 a">[field:title/]</a> <span>[field:pubdate function="MyDate('m-d',@me)"/]</span> </li>
+		{/dede:arclist}
+      </ul>
+    </div>
+  </div>
+  
+  <!--游戏攻略-->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">攻略</div>
+    </div>
+    <div class="Min10">
+      <div class="swiper_strategy">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+		  {dede:arclist flag='' titlelen='50' row='6' typeid='5' }
+            <div class="swiper-slide"><a href="[field:arcurl/]" class="img"><img src="[field:litpic/]">
+              <div class="tab">待续</div>
+              </a><a href="[field:arcurl/]" class="tex">[field:title/]</a></div>
+			{/dede:arclist}
+          </div>
+        </div>
+      </div>
+      <ul>
+	  {dede:arclist flag='' titlelen='50' row='8' typeid='5' }
+        <li class="box_flex"> <a href="[field:arcurl/]" class="box_flex_1 a">[field:title/]</a> <span>[field:pubdate function="MyDate('m-d',@me)"/]</span> </li>
+		{/dede:arclist}
+      </ul>
+    </div>
+  </div>
+  
+  <!--常见问题-->
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">常见问题</div>
+      <a href="#" class="more">更多</a> </div>
+    <div class="Min11">
+      <ul>
+	  {dede:arclist flag='' titlelen='50' row='6' typeid='4' }
+        <li class="box_flex"><a href="[field:arcurl/]" class="box_flex_1 tex">[field:title/]</a><span>[field:pubdate function="MyDate('m-d',@me)"/]</span></li>
+		{/dede:arclist}
+      </ul>
+    </div>
+  </div>
+{dede:include filename="foot_m.htm"/}
+</div>
+<script src="{dede:global.cfg_basehost/}/mskin/swiper4.js"></script> 
+<script src="{dede:global.cfg_basehost/}/mskin/comment2.0.js"></script>
+</body>
+</html>

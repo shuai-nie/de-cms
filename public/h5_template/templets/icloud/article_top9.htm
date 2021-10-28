@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<meta name="renderer" content="webkit">
+<title>{dede:field.title/}下载安装_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/skin/base.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/skin/sy_commen.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/skin/details.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/skin/sy-appoint.css">
+<script src="{dede:global.cfg_basehost/}/skin/jq1.9.js"></script>
+<script type="text/javascript">
+if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {  
+	var s = window.location.href;
+	s = s.replace("http://www.", "http://m.");
+	window.location.href = s;
+}else{  
+    
+}</script>
+{dede:global.cfg_bd_ts/}
+</head>
+<body>
+{dede:include filename="head.htm"/}
+
+<div class="content">
+  <div class="crumb"> <i></i>您的位置：
+    {dede:field.position/}<a href="{dede:field.id
+runphp='yes'}$id=@me;@me='';$url=GetOneArchive($id);@me=$url['arcurl'];{/dede:field.id}">{dede:field.title/}</a></div>
+  <div class="detail-top">
+    <div class="bt">
+      <h1>{dede:field.title/}</h1>
+     </div>
+    <div class="Gminfo">
+      <div class="img"><img src="{dede:field.litpic/}" alt="{dede:field.title/}"></div>
+      <ul class="lis">
+        <li>终端：电视、电脑、平板、手机</li>
+        <li>平台：{dede:field.title/}</li>
+        <li>语言：中文\英文</li>
+        <li>下载：{dede:field.click/}次</li>
+        <li>更新：{dede:field name='pubdate' function='GetDateMk(@me)'/}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="detail_cont">
+    <div class="cont_L">
+      <div class="QZ_title">
+        <div><span><i class="ico20"></i>下载地址</span></div>
+        <div class="lin"></div>
+      </div>
+      <div class="bb_item">
+	  <a href="{dede:field.yunurl/}" rel="nofollow" target="_blank"><i class="ios"></i><span>{dede:field.yunname/}</span></a>
+	  </div>
+      <div class="QZ_title">
+        <div><span><i class="ico21"></i>{dede:field.yunname/}介绍</span> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="detail-txt">
+	  {dede:field.body/}
+        
+      </div>
+<!--      <div class="QZ_title">
+        <div><span><i class="ico9"></i>游戏截图</span> </div>
+        <div class="lin"></div>
+      </div>
+       <div class="pic-c">
+        <div class="snapShotWrap" id="snapShotWrap"> <a id="shotNext" class="snap-shot-btn next" title="下一张" href="javascript:void(0);"><i></i></a> <a id="shotPrev" class="snap-shot-btn prev" title="上一张" href="javascript:void(0);"><i></i></a>
+          <ul class="snapShotCont">
+			<li class="snopshot"><img src="{dede:field.jt01/}"><span class="elementOverlays"></span></li>
+            <li class="snopshot"><img src="{dede:field.jt02/}"><span class="elementOverlays"></span></li>
+            <li class="snopshot"><img src="{dede:field.jt03/}"><span class="elementOverlays"></span></li>
+            <li class="snopshot"><img src="{dede:field.jt04/}"><span class="elementOverlays"></span></li>
+          </ul>
+        </div>
+      </div> -->
+      <div class="news_warp_gon">
+        <div class="news_warp_bttop"> <span><i class="ico1"></i>相关攻略</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="net"> 
+		{dede:arclist flag='' titlelen='50' row='10' typeid='5' }
+		<a href="[field:arcurl/]" target="_blank"><i></i>[field:title/]</a>
+		{/dede:arclist}
+		</div>
+        <div class="clear"></div>
+      </div>
+      <div class="news_warp_game">
+        <div class="news_warp_bttop"> <span><i class="ico2"></i>类似游戏</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="net">
+          <ul>
+		  {dede:arclist flag='' titlelen='50' row='9' typeid='1' addfields='leixing,size,zhongduan' channelid='1' orderby='rand'}
+            <li>
+              <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+              <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="a1">[field:title/]</a>
+                <p>[field:zhongduan/]</p>
+                <p ><i class="p">[field:leixing/]</i>|<i>[field:size/]</i></p>
+              </div>
+            </li>
+			{/dede:arclist}
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+    <div class="cont_R">
+      <div class="itemr_b">
+        <div class="QZ_title ">
+          <div> <span><i class="ico7"></i>新游动态</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+          <div class="lin"></div>
+        </div>
+        <div class="item">
+		{dede:arclist flag='' titlelen='50' row='9' typeid='2' }
+          <div class="lis"> <a href="[field:arcurl/]" target="_blank" class="img"><img src="[field:litpic/]" alt=""></a> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+            <p class="time"><i></i>[field:pubdate function='strftime("%y-%m-%d",@me)'/]</p>
+          </div>
+		{/dede:arclist}
+          </div>
+        </div>
+      
+      <div class="ph_item">
+        <div class="QZ_title ">
+          <div> <span><i class="ico22"></i>本类排行</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+          <div class="lin"></div>
+        </div>
+        <div class="item">
+		{dede:arclist flag='' titlelen='50' row='6' typeid='1' addfields='leixing,size' channelid='1'}
+          <div class="lis"> <span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" target="_blank" class="img"><img src="[field:litpic/]" alt=""></a> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+            <p>[field:leixing/]<u>|</u>[field:size/]</p>
+            <a href="[field:arcurl/]" target="_blank" class="btn"><i></i></a></div>
+		{/dede:arclist}	
+
+        </div>
+      </div>
+
+      <div class="sy_warp_d">
+        <div class="QZ_title ">
+          <div> <span><i class="ico13"></i>近期大作</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+          <div class="lin"></div>
+        </div>
+        <div class="net">
+          <ul>
+		  {dede:arclist flag='' titlelen='50' row='6' typeid='1' addfields='leixing,size,zhongduan' channelid='1' orderby='rand'}
+            <li>
+              <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+              <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="p1">[field:title/]</a>
+                <p> <i>[field:zhongduan/]</i> <span>|</span><i>[field:leixing/]</i> </p>
+                <p><i>中文</i><span>|</span><i>[field:size/]</i></p>
+                <div class="font"></div>
+                <a href="[field:arcurl/]" target="_blank" class="bt">下载</a> </div>
+            </li>
+			{/dede:arclist}
+          </ul>
+        </div>
+      </div>
+	  </div>
+    </div>
+  </div>
+</div>
+
+<script src="{dede:global.cfg_basehost/}/skin/pic_show.js"></script> 
+<script src="{dede:global.cfg_basehost/}/skin/sy_comme.js"></script> 
+
+
+
+{dede:include filename="foot.htm"/}
+
+
+</body>
+</html>

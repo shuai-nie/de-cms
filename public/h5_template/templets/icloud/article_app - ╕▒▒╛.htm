@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<meta name="renderer" content="webkit">
+<title>{dede:field.title/}云游戏下载安装_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/skin/base.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/skin/sy_commen.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/skin/details.css">
+
+<script src="{dede:global.cfg_basehost/}/skin/jq1.9.js"></script>
+<script type="text/javascript">
+if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {  
+	var s = window.location.href;
+	s = s.replace("http://www.", "http://m.");
+	window.location.href = s;
+}else{  
+    
+}</script>
+{dede:global.cfg_bd_ts/}
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<style>
+.crumb{    font-size: 12px;
+    color: #626262;
+    height: 53px;
+    line-height: 53px;
+    position: relative;
+    text-indent: 20px;
+	width:1300px;
+	margin:10px auto;}
+	.crumb a{color: #626262;}
+</style>
+
+  <div class="crumb"> <i></i>您的位置：
+    {dede:field.position/}<a href="{dede:field.id
+runphp='yes'}$id=@me;@me='';$url=GetOneArchive($id);@me=$url['arcurl'];{/dede:field.id}">{dede:field.title/}</a></div>
+
+<link href="{dede:global.cfg_basehost/}/img/bootstrap.min.css" rel="stylesheet">
+<link href="{dede:global.cfg_basehost/}/img/StyleSheet1.css" rel="stylesheet">
+
+<script src="{dede:global.cfg_basehost/}/img/mogupcjquery-3.5.1.min.js"></script>
+<script src="{dede:global.cfg_basehost/}/img/jquery.qrcode.min.js"></script>
+<script src="{dede:global.cfg_basehost/}/img/bootstrap.min.js"></script>
+<script src="{dede:global.cfg_basehost/}/img/common.js"></script>
+
+
+
+<main class="container game-introduce" style="margin-left: 400px;">
+  <div class="row introduce">
+    <div class="col-md-8">
+      <div class="bp-outer area-1">
+        <div class="show"> <img src="{dede:field.jt01/}"> </div>
+        <div class="img-list">
+          <div class="prev"> </div>
+          <div class="slide">
+            <div class="active"> <img src="{dede:field.jt01/}" alt="{dede:field.title/}云游戏截图1"> </div>
+            <div class=""> <img src="{dede:field.jt02/}" alt="{dede:field.title/}云游戏截图2"> </div>
+            <div class=""> <img src="{dede:field.jt03/}" alt="{dede:field.title/}云游戏截图3"> </div>
+            <div class=""> <img src="{dede:field.jt04/}" alt="{dede:field.title/}云游戏截图4"> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="bp-outer area-2">
+        <div class="bookmark">
+          <div><span>游戏简介</span></div>
+        </div>
+        <div class="game-name">
+          <h1>{dede:field.title/}</h1>
+          <div class="game-tag">{dede:field.leixing/}</div>
+          <div class="game-tag">{dede:field.zhongduan/}</div>
+        </div>
+        <div class="bookmark" style="border-bottom: solid .1rem #f7f7f7; box-sizing: content-box;">
+          <div context="iCloudyouxi.Com"> <span>&nbsp;&nbsp;&nbsp;平台商</span> </div>
+        </div>
+        <div class="bookmark" style="border-bottom: .2rem solid #e7e7e7; box-sizing: border-box; border-top: solid .2rem #e7e7e7;">
+          <div context="{dede:field.size/}"> <span>大小</span> </div>
+        </div>
+        <div class="description"> {dede:field.description function=html2text(@me)/}</div>
+        <div style="position: absolute; padding: 0; bottom: 100px; width: 60%;left: 80px;">
+          <div> </div>
+          <div style="position: absolute; width: 100%; top: 15%; text-align: center;"> <img src="{dede:global.cfg_basehost/}/img/start-btn.png" style="width: 100%; cursor: pointer;"> </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!--下载弹窗 -->
+<div class="modal fade" id="traveler-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header"> <img src="{dede:global.cfg_basehost/}/img/travel-login.png"> </div>
+      <div class="modal-body">
+        <div>下载地址：</br>
+		<span><a href="#" target="_blank">>>>谷歌云游戏</a></span> 
+		<span><a href="http://www.icloudyouxi.com/" target="_blank">>>>网易云游戏</a></span> 
+		<span><a href="#" target="_blank">>>>wegame云游戏</a></span> 
+		<span><a href="http://www.icloudyouxi.com/" target="_blank">>>>yowa云游戏</a></span> 
+		<span><a href="#" target="_blank">>>>布卡云游戏</a></span> 
+
+		 </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="login-bt"><a href="http://www.icloudyouxi.com/" target="_blank">更多好玩游戏在www.iCloudyouxi.Com</a></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--公共页脚 --> 
+
+<script>
+
+        if (getCookie("PlayGameErr") != "") {
+            layer.open({
+                title: "游戏退出!",
+                content: getCookie("PlayGameErr"),
+                offset: ['50px'],
+                resize: false,
+                yes: function() {
+                    layer.closeAll();
+                },
+            });
+            setCookie("PlayGameErr", "");
+        }
+
+        setCookie("gn", "");//轮播图
+        $(".bi-gt>a").text(getCookie("gt"));
+        $(".bi-gn").text(getCookie("gn"));
+        $(".bi-gs1>a").text(getCookie("gs1"));
+
+        $(".show>img").attr("src", $(".img-list>.slide>.active>img").attr("src"));
+        $(".img-list>.slide>div").click(function() {
+            $(".img-list>.slide>.active").removeClass("active");
+            $(this).addClass("active");
+            $(".show>img").attr("src", $(this).find("img").attr("src"));
+        });
+
+        $(".img-list>.prev").click(function() {
+            $(".img-list>.slide>.active").prev().click();
+        });
+
+        $(".img-list>.next").click(function() {
+            $(".img-list>.slide>.active").next().click();
+        });
+
+        $(".tab>div").click(function(event) {
+            $(".tab .active").removeClass("active");
+            $(event.currentTarget).addClass("active");
+            $("div[tab]").attr("hidden", "hidden");
+            $("div[tab=" + $(event.currentTarget).attr("tabindex") + "]").removeAttr("hidden");
+        });
+
+        $(".show-off").click(function(event) {
+            $(".show-off.active").removeClass("active");
+            $(event.currentTarget).addClass("active");
+        });
+
+        $("img[src*=start-btn]").click(function() {
+            //var u = navigator.userAgent, app = navigator.appVersion;
+            if (sj.checkChromuimVersion()) {
+                if ("True" === "True")
+                    $("#traveler-modal").modal("show");
+                else if (Number(getCookie("UserType")) === 0 && Number($("#over-time").text())===0)
+                    $("#login-modal").modal("show");
+
+            } else {
+                $("#cctip").removeAttr("hidden");
+                layer.open({
+                    type: 1,
+                    title: '<h3 style="line-height:42px">请使用Chromium内核版本大于70的浏览器进行游戏~</h3>',
+                    content: $('#cctip'),
+                    offset: ['50px'],
+                    area: ['500px'],
+                    shade: .5,
+                    shadeClose: true,
+                    end: function() {
+                        $("#cctip").attr("hidden", "hidden");
+                    },
+                });
+            }
+
+        });
+
+    </script>
+
+ 
+
+<div class="content">
+
+<!--   <div class="detail-top">
+    <div class="bt">
+      <h1>{dede:field.title/}</h1>
+     </div>
+    <div class="Gminfo">
+      <div class="img"><img src="{dede:field.litpic/}" alt="{dede:field.title/}"></div>
+      <ul class="lis">
+        <li>类型：{dede:field.leixing/}</li>
+        <li>大小：{dede:field.size/}</li>
+        <li>平台：云平台</li>
+
+        <li>语言：中文</li>
+        <li>更新：{dede:field name='pubdate' function='GetDateMk(@me)'/}</li>
+        <li>下载：{dede:field.click/}次</li>
+        <li><span id="dw"><a href="#">启动游戏</a></span></li>
+
+      </ul>
+    </div>
+  </div>  -->
+  <div class="detail_cont">
+    <div class="cont_L">
+
+
+
+      <div class="QZ_title">
+        <div><span><i class="ico21"></i>游戏介绍</span> </div>
+        <div class="lin"></div>
+      </div>
+      <div class="detail-txt">
+	  {dede:field.body/}
+        
+      </div>
+	 
+<!--       <div class="pic-c">
+        <div class="snapShotWrap" id="snapShotWrap"> <a id="shotNext" class="snap-shot-btn next" title="下一张" href="javascript:void(0);"><i></i></a> <a id="shotPrev" class="snap-shot-btn prev" title="上一张" href="javascript:void(0);"><i></i></a>
+          <ul class="snapShotCont">
+			<li class="snopshot"><img src="{dede:field.jt01/}"><span class="elementOverlays"></span></li>
+            <li class="snopshot"><img src="{dede:field.jt02/}"><span class="elementOverlays"></span></li>
+            <li class="snopshot"><img src="{dede:field.jt03/}"><span class="elementOverlays"></span></li>
+            <li class="snopshot"><img src="{dede:field.jt04/}"><span class="elementOverlays"></span></li>
+          </ul>
+        </div>
+      </div>  -->
+
+      <div class="news_warp_gon">
+        <div class="news_warp_bttop"> <span><i class="ico1"></i>相关攻略</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="net"> 
+		{dede:arclist flag='' titlelen='50' row='10' typeid='5' }
+		<a href="[field:arcurl/]" target="_blank"><i></i>[field:title/]</a>
+		{/dede:arclist}
+		</div>
+        <div class="clear"></div>
+      </div>
+      <div class="news_warp_game">
+        <div class="news_warp_bttop"> <span><i class="ico2"></i>类似游戏</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+        <div class="net">
+          <ul>
+		  {dede:arclist flag='' titlelen='50' row='9' typeid='1' addfields='leixing,size,zhongduan' channelid='1' orderby='rand'}
+            <li>
+              <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+              <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="a1">[field:title/]</a>
+                <p>[field:zhongduan/]</p>
+                <p ><i class="p">[field:leixing/]</i>|<i>[field:size/]</i></p>
+              </div>
+            </li>
+			{/dede:arclist}
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+    <div class="cont_R">
+      <div class="itemr_b">
+        <div class="QZ_title ">
+          <div> <span><i class="ico7"></i>新游动态</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+          <div class="lin"></div>
+        </div>
+        <div class="item">
+		{dede:arclist flag='' titlelen='50' row='9' typeid='2' }
+          <div class="lis"> <a href="[field:arcurl/]" target="_blank" class="img"><img src="[field:litpic/]" alt=""></a> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+            <p class="time"><i></i>[field:pubdate function='strftime("%y-%m-%d",@me)'/]</p>
+          </div>
+		{/dede:arclist}
+          </div>
+        </div>
+      
+      <div class="ph_item">
+        <div class="QZ_title ">
+          <div> <span><i class="ico22"></i>本类排行</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+          <div class="lin"></div>
+        </div>
+        <div class="item">
+		{dede:arclist flag='' titlelen='50' row='6' typeid='1' addfields='leixing,size' channelid='1'}
+          <div class="lis"> <span>[field:global.autoindex/]</span> <a href="[field:arcurl/]" target="_blank" class="img"><img src="[field:litpic/]" alt=""></a> <a href="[field:arcurl/]" target="_blank" class="bt">[field:title/]</a>
+            <p>[field:leixing/]<u></br></u>[field:size/]</p>
+            <a href="[field:arcurl/]" target="_blank" class="btn"><i></i></a></div>
+		{/dede:arclist}	
+
+        </div>
+      </div>
+
+      <div class="sy_warp_d">
+        <div class="QZ_title ">
+          <div> <span><i class="ico13"></i>近期大作</span> <a href="#" target="_blank" class="mor2">更多<i>+</i></a> </div>
+          <div class="lin"></div>
+        </div>
+        <div class="net">
+          <ul>
+		  {dede:arclist flag='' titlelen='50' row='6' typeid='1' addfields='leixing,size,zhongduan' channelid='1' orderby='rand'}
+            <li>
+              <div class="img"><a href="[field:arcurl/]" target="_blank"><img src="[field:litpic/]"></a></div>
+              <div class="tex"> <a href="[field:arcurl/]" target="_blank" class="p1">[field:title/]</a>
+                <p> <i>[field:zhongduan/]</i> <span>|</span><i>[field:leixing/]</i> </p>
+                <p><i>中文</i><span>|</span><i>[field:size/]</i></p>
+                <div class="font"></div>
+                <a href="[field:arcurl/]" target="_blank" class="bt">下载</a> </div>
+            </li>
+			{/dede:arclist}
+          </ul>
+        </div>
+      </div> 
+	  </div>
+   
+  </div>
+</div>
+
+<script src="{dede:global.cfg_basehost/}/skin/pic_show.js"></script> 
+<script src="{dede:global.cfg_basehost/}/skin/sy_comme.js"></script> 
+
+{dede:include filename="foot.htm"/}
+
+</body>
+</html>

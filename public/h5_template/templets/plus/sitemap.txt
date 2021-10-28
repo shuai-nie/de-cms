@@ -1,0 +1,6 @@
+{dede:global.cfg_basehost/}{dede:channel row=1000 type=top}
+[field:global.cfg_basehost runphp=yes]global $cfg_multi_site;@me = $cfg_multi_site == 'N' ? @me : '';[/field:global.cfg_basehost][field:typelink /]{/dede:channel}{dede:channelartlist row=1000 typeid=top}
+{dede:channel type=son noself=yes}
+[field:global.cfg_basehost runphp=yes]global $cfg_multi_site;@me = $cfg_multi_site == 'N' ? @me : '';[/field:global.cfg_basehost][field:typelink /]{/dede:channel}{/dede:channelartlist}
+{dede:arclist row=1000 orderby=pubdate titlelen='255'}
+[field:global.cfg_basehost runphp=yes]global $cfg_multi_site;@me = $cfg_multi_site == 'N' ? @me : '';[/field:global.cfg_basehost][field:arcurl/]{/dede:arclist}

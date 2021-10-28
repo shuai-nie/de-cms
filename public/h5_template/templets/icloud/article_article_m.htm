@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="wap-font-scale" content="no">
+<title>{dede:field.title/}_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/base_2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/comment2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/shouyou.css">
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/mskin/swiper4.css">
+<script src="{dede:global.cfg_basehost/}/mskin/jquery.min.js"></script>
+<base href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+<div id="content"> {dede:include filename="head_m.htm"/}
+  <div class="crumbs"> {dede:field.position/}<a href="{dede:field.id
+runphp='yes'}$id=@me;@me='';$url=GetOneArchive($id);@me=$url['arcurl'];{/dede:field.id}">{dede:field.title/}</a></div>
+  <div class="detaile_top">
+    <h1>{dede:field.title/}</h1>
+    <div class="info">
+      <div class="txt"> <i>{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}</i> </div>
+      <a class="pl">编辑：云游戏邵梦<i class="icon ico_pl2"></i><span class="nums">{dede:field.click/}</span></a> </div>
+  </div>
+  <div class="line_de"></div>
+  <div class="detaile_cont"> {dede:field.body/}</div>
+  <div class="related_cont3">
+    <div class="wrap">
+      <div class="img"><img src="http://www.icloudyouxi.com/skin/logo.svg" alt="云游戏平台"></div>
+      <div class="info" style="width:90%;"> <a  class="name">云游戏平台</a>
+        <div class="score_box">
+ 
+		  <span class="num">类型：云游戏集合平台</span>
+		  <span class="num">厂商：iCloud云游戏</span>
+		  <span class="num">语言：中文\英文</span>
+		
+          <div class="score_num">9.6</div>
+        </div>
+      </div>
+
+    </div>
+	
+
+	<div class="info" id="art1">
+        <div class="btn">
+		<a href="#" style="background-color:#f0412a;">下载地址</a></br>
+		<a href="#" class="az">stadia云游戏平台</a>
+		<a href="#" class="az">网易云游戏平台</a>
+		<a href="#" class="az">yowa云游戏平台</a>
+		<a href="#" class="az">wegame云游戏平台</a>
+		<a href="#" class="az">桔子云游戏平台</a>
+		
+		</div>
+    </div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+  </div>
+  <div class="Min_bj">
+    <div class="title">
+      <div class="bt">相关攻略</div>
+      <a href="#" class="more">更多</a> </div>
+    <ul class="relevant_gl">
+      {dede:arclist flag='' titlelen='50' row='5' typeid='2' }
+      <li> <a href="[field:arcurl/]" class="img"><img src="[field:litpic/]" alt=""></a>
+        <div class="txt"> <a href="[field:arcurl/]" class="bt">[field:title/]</a>
+          <div class="info"> <span class="lis"><i class="time"></i>[field:pubdate function="GetDateMK(@me)"/]</span> <span class="lis"><i class="eye"></i>7</span> </div>
+        </div>
+      </li>
+      {/dede:arclist}
+    </ul>
+  </div>
+  <div class="comm-title">
+    <div class="line"></div>
+    <span>云游戏推荐</span> </div>
+  <div class="sy-tuijian"> {dede:arclist flag='' titlelen='50' row='5' typeid='1' addfields='leixing,size' channelid='1' }
+    <div class="lis"> <a href="[field:arcurl/]" class="img"><img src="[field:litpic/]" alt=""></a>
+      <div class="info"> <a href="[field:arcurl/]" class="bt">[field:title/]</a>
+        <div class="bq">[field:size/]</div>
+        <div class="bq">[field:leixing/]</div>
+      </div>
+      <div class="btn"> <a href="[field:arcurl/]" class="xz"><i class="xz_i"></i>下载</a> </div>
+    </div>
+    {/dede:arclist} </div>
+  <link rel="stylesheet" type="text/css" href="{dede:global.cfg_basehost/}/mskin/comments.css"/>
+  <script src="{dede:global.cfg_basehost/}/mskin/comments.js"></script> 
+  <script type="text/javascript" src="{dede:global.cfg_basehost/}/mskin/statistics.js"></script> 
+  <script src="{dede:global.cfg_basehost/}/mskin/swiper4.js"></script> 
+  <script src="{dede:global.cfg_basehost/}/mskin/common.js"></script> 
+  {dede:include filename="foot_m.htm"/} </div>
+</body>
+</html>

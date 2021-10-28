@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="wap-font-scale" content="no">
+<title>{dede:field.typename/}_免费不限时云游戏平台_icloud云游戏平台</title>
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description function=html2text(@me)/}"/>
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/base_2.0.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/common.css">
+<link rel="stylesheet" href="{dede:global.cfg_basehost/}/mskin/shouyou.css">
+<script src="{dede:global.cfg_basehost/}/mskin/jquery.min.js"></script>
+</head>
+<body>
+<div id="content">
+{dede:include filename="head_m.htm"/}
+  <div class="crumbs"> {dede:field.position/} </div>
+  <div class="label_wrap">
+    <ul class="label_item">
+      <li><a class="on" href="{dede:field.typeid function=getToptype(@me,typeurl)/}">全部游戏</a></li>
+	  {dede:channel type='son' noself='yes'}
+      <li><a href="[field:typelink/]">[field:typename/]</a></li>
+	  {/dede:channel}
+    </ul>
+  </div>
+  <div class="downl-list">
+
+	{dede:arclist flag='' titlelen='50' row='20' typeid=''  addfields='leixing,size,zhongduan'  channelid='1' }
+    <div class="item"> <a href="[field:arcurl/]" class="img"><img src="[field:litpic/]" alt=""></a>
+      <div class="info"> <a href="[field:arcurl/]" class="bt">[field:title/]</a>
+        <div class="size">[field:leixing/]|[field:size/]</div>
+        <div class="txt">[field:zhongduan/]|中文</div>
+        <a href="[field:arcurl/]" class="btn">下载</a> </div>
+    </div>
+	{/dede:arclist}
+
+  </div>
+  <div class="page">{dede:pagelist listitem='index,pre,next,pageno,end,info,option,' /} </div>
+
+
+  <script src="{dede:global.cfg_basehost/}/mskin/common.js"></script>
+{dede:include filename="foot_m.htm"/}
+</div>
+</body>
+</html>
