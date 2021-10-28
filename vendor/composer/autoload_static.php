@@ -77,6 +77,7 @@ class ComposerStaticInitacb7b6ac39ac135c331d42651ad45f97
             1 => __DIR__ . '/..' . '/topthink/think-helper/src',
             2 => __DIR__ . '/..' . '/topthink/think-orm/src',
             3 => __DIR__ . '/..' . '/topthink/think-template/src',
+            4 => __DIR__ . '/..' . '/topthink/think-image/src',
         ),
         'liliuwei\\think\\' => 
         array (
