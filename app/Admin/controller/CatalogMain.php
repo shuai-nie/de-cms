@@ -69,8 +69,7 @@ class CatalogMain extends Base
         $topid = 0;
         $typedir = '';
         $moresite = 0;
-        View::assign('issend', $issend);
-        View::assign('channelid', $channelid);
+
         if($id>0)
         {
             $myrow = ArctypeModel::hasWhere('profile', 'Arctype.id='.$id, 'Arctype.*,Channeltype.typename as ctypename', 'left')->find();
@@ -105,6 +104,8 @@ class CatalogMain extends Base
         //文档的默认命名规则
         $art_shortname = $cfg_df_ext = '.html';
         $cfg_df_namerule = '{typedir}/{Y}/{M}{D}/{aid}'.$cfg_df_ext;
+        View::assign('issend', $issend);
+        View::assign('channelid', $channelid);
         View::assign('cfg_templets_dir', $cfg_templets_dir);
         View::assign('cfg_df_namerule', $cfg_df_namerule);
         View::assign('topid', $topid);
