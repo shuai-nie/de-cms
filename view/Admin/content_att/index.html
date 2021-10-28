@@ -1,7 +1,9 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<form action="{:url('index')}" method="post">
 <table lay-filter="demoCatalogMain">
+
     <thead>
     <tr>
         <th lay-data="{field:'f1'}">ID</th>
@@ -10,16 +12,21 @@
     </tr>
     </thead>
     <tbody>
-    {volist name="_data" id="vo"}
+    {volist name="_data" id="vo" key="k"}
     <tr>
+        <input type="hidden" name="att_{$k}" value="{$vo->att}" />
         <td>{$vo['att']}</td>
-        <td><input type="text " value="{$vo['sortid']}" class="layui-input" /></td>
-        <td><input type="text" value="{$vo['attname']}" class="layui-input" ></td>
+        <td><input type="text " name="sortid_{$k}" value="{$vo['sortid']}" class="layui-input" id="sortid_{$k}" /></td>
+        <td><input type="text" name="attname_{$k}" value="{$vo['attname']}" class="layui-input" id="attname_{$k}" ></td>
+        <input type="hidden" name="idend" value="{$k}" />
     </tr>
     {/volist}
 
     </tbody>
 
+
 </table>
-<div>{$_data|raw}</div>
+
+    <div><button type="submit" class="layui-btn">提交</button></div>
+</form>
 {/block}
