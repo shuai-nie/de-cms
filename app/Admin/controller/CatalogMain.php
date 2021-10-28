@@ -73,7 +73,6 @@ class CatalogMain extends Base
         View::assign('channelid', $channelid);
         if($id>0)
         {
-            //$myrow = $dsql->GetOne(" SELECT tp.*,ch.typename AS ctypename FROM `#@__arctype` tp LEFT JOIN `#@__channeltype` ch ON ch.id=tp.channeltype WHERE tp.id=$id ");
             $myrow = ArctypeModel::hasWhere('profile', 'Arctype.id='.$id, 'Arctype.*,Channeltype.typename as ctypename', 'left')->find();
             View::assign('channelid', $myrow['channeltype']);
             View::assign('issennd', $myrow['issend']);
@@ -96,24 +95,24 @@ class CatalogMain extends Base
             }
         }
 
-        View::assign('channelArray', $channelArray);
+
 
         //Select * from `#@__arcrank` where rank >= 0
         $ArcrankAll = Arcrank::where("rank >= 0")->select();
-        View::assign('ArcrankAll', $ArcrankAll);
-
-        //SELECT * FROM `#@__sys_enum` WHERE egroup LIKE 'infotype' ORDER BY disorder ASC, id DESC
         $SysEnumAll = SysEnum::where('')->order('disorder ASC, id DESC')->select();
-        View::assign('SysEnumAll', $SysEnumAll);
-        View::assign('id', $id);
-        View::assign('nid', $nid);
-
         $cfg_templets_dir = '/templets';
-        View::assign('cfg_templets_dir', $cfg_templets_dir);
+
         //文档的默认命名规则
         $art_shortname = $cfg_df_ext = '.html';
         $cfg_df_namerule = '{typedir}/{Y}/{M}{D}/{aid}'.$cfg_df_ext;
+        View::assign('cfg_templets_dir', $cfg_templets_dir);
         View::assign('cfg_df_namerule', $cfg_df_namerule);
+        View::assign('topid', $topid);
+        View::assign('SysEnumAll', $SysEnumAll);
+        View::assign('id', $id);
+        View::assign('nid', $nid);
+        View::assign('channelArray', $channelArray);
+        View::assign('ArcrankAll', $ArcrankAll);
         return View::fetch();
     }
 
@@ -151,16 +150,14 @@ class CatalogMain extends Base
         }
 
         $SysEnumAll = SysEnum::where('')->order('disorder ASC, id DESC')->select();
-        View::assign('SysEnumAll', $SysEnumAll);
-        View::assign('channelArray', $channelArray);
 
-
-        //SELECT tp.*,ch.typename as ctypename FROM `#@__arctype` tp LEFT JOIN `#@__channeltype` ch ON ch.id=tp.channeltype WHERE tp.id=$id
         $myrow = ArctypeModel::hasWhere('profile', 'Arctype.id='.$id, 'Arctype.*,Channeltype.typename as ctypename', 'left')->find();
         View::assign('myrow', $myrow);
         View::assign('channelid', $channelid);
         $cfg_templets_dir = '/templets';
         View::assign('cfg_templets_dir', $cfg_templets_dir);
+        View::assign('SysEnumAll', $SysEnumAll);
+        View::assign('channelArray', $channelArray);
         View::assign('nav', array(
             array('title'=>'核心', 'url'=>''),
             array('title'=>'网站栏目管理', 'url'=>''),
