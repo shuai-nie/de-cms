@@ -46,4 +46,6 @@ return [
     'cfg_feedback_forbid'=> 'N',
     'cfg_arc_click' => -1,
 
+
+
 ];
