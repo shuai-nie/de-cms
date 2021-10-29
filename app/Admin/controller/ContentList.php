@@ -10,7 +10,6 @@ use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
-use app\Admin\model\Archives as ArchivesModel;
 use app\Admin\model\Arcatt;
 use app\Admin\model\Archives;
 use app\Admin\model\Arcrank;
@@ -52,7 +51,7 @@ class ContentList extends Base
             View::assign('_nav_this', 'ContentList_index2');
             $map['arcrank'] = $arcrank;
         }
-        $data = ArchivesModel::where($map)->order('id desc')->paginate($length);
+        $data = Archives::where($map)->order('id desc')->paginate($length);
         View::assign('_data', $data);
         return View::fetch();
     }
@@ -61,8 +60,6 @@ class ContentList extends Base
     {
         $channelid = Request::param('channelid');
         $cid = Request::param('cid');
-
-
         $channelid = empty($channelid) ? 0 : intval($channelid);
         $cid = empty($cid) ? 0 : intval($cid);
         View::assign('channelid', $channelid);
@@ -113,6 +110,66 @@ class ContentList extends Base
 
     public function article_edit()
     {
+        if(Request::isPost()){
+            $param = Request::param('');
+            if(isset($param['typeid2'])){
+                $typeid2 = $param['typeid2'];
+            }else{
+                $typeid2 = 0;
+            }
+            $pubdate = GetMkTime($param['pubdate']);
+            $sortrank = AddDay($pubdate, $param['sortup']);
+            $flag = isset($flags) ? join(',',$flags) : '';
+
+            if(empty($param['ddisremote']))
+            {
+                $ddisremote = 0;
+            }else{
+                $ddisremote = 1;
+            }
+
+            // 处理缩略图
+            $litpic = GetDDImage('none', $param['picname'], $ddisremote);
+            //处理图片文档的自定义属性
+            if($litpic != '' && !preg_match("#p#", $flag))
+            {
+                $flag = ($flag=='' ? 'p' : $flag.',p');
+            }
+            if($param['redirecturl'] != '' && !preg_match("#j#", $flag))
+            {
+                $flag = ($flag=='' ? 'j' : $flag.',j');
+            }
+            $param['ismake'] = $param['ismake'] == 0? -1 : 0;
+            if(preg_match("#j#", $flag)){$ismake = -1;}
+            $arcrank = 0;
+
+
+            $AdminUser = Session::has('AdminUser');
+            $adminid = $AdminUser->uid;
+            $state = Archives::update(array(
+                'typeid' => $param['typeid'] , 'typeid2' => $typeid2, 'sortrank' => $sortrank, 'flag' => $flag, 'click' => $param['click'],
+                'ismake' => $ismake, 'arcrank' => $arcrank, 'money' => $param['money'], 'title' => $param['title'], 'color' => $param['color'],
+                'writer' => $param['writer'], 'source' => $param['source'], 'litpic' => $litpic, 'pubdate' => $param['pubdate'], 'voteid' => $param['voteid'],
+                'notpost' => $param['notpost'], 'description' => $param['description'],'keywords' => $param['keywords'],
+                'shorttitle' => $param['shorttitle'], 'filename' => $param['filename'], 'dutyadmin' => $adminid, 'weight' => $param['weight'],
+            ), array('id'=>$param['id'] ));
+
+            $cts = Channeltype::where("id", '=', $param['channelid'])->find();
+            $addtable = trim($cts['addtable']);
+            if($addtable != '')
+            {
+                $useip = Request::ip();
+                $templet = empty($param['templet']) ? '' : $param['templet'];
+                $iquery = "UPDATE `$addtable` SET typeid='{$param['typeid']}',body='{$param['body']}',redirecturl='{$param['redirecturl']}',templet='$templet',userip='$useip' WHERE aid='$id'";
+
+            }
+
+//
+            var_dump($param);
+
+            exit();
+            //$this->success('修改成功', (string)url('article_edit') );
+        }
 
         $channelid = Request::param('channelid');
         $cid = Request::param('cid');
@@ -148,6 +205,7 @@ class ContentList extends Base
         $ArcrankAll = Arcrank::where("")->select()->toArray();
 
         $ArctypeAll = Arctype::where("")->select();
+        $channelid = $arcRow['channel'];
 
         View::assign('ArctypeAll', $ArctypeAll);
         View::assign('arcRow', $arcRow);
