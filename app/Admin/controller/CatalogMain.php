@@ -6,6 +6,7 @@ namespace app\Admin\controller;
 
 use app\Admin\model\Archives;
 use app\Admin\model\Flink;
+use app\Admin\model\Sysconfig;
 use think\facade\Request;
 use think\facade\View;
 use think\facade\Config;
@@ -217,8 +218,11 @@ class CatalogMain extends Base
     {
         if(Request::isGet()){
             $param = Request::param('');
+            $config = Sysconfig::sele();
 
-            $channel =  ChanneltypeModel::where("")->limit(0, 10)->select();
+            View::assign('config', $config);
+
+            $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
             View::assign('channel', $channel);
 
             $arclist = Archives::where("typeid=1")->limit(6)->select();

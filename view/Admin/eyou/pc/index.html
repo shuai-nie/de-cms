@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{eyou:global name='web_title' /}</title>
+<title>{$config['cfg_webname']}</title>
 <meta name="keywords" content="{eyou:global name='web_keywords' /}"/>
 <meta name="description" content="{eyou:global name='web_description' /}"/>
 <link rel="stylesheet" href="style/pc/vendor.min.css" />
@@ -345,5 +345,7 @@
 <script src="style/pc/plugins.min.js"></script> 
 <script src="style/pc/ajax-contact.js"></script> 
 <script src="style/pc/main.min.js"></script>
+{$config['cfg_bd_tj']|raw}
+{$config['cfg_bd_ts']|raw}
 </body>
 </html>
