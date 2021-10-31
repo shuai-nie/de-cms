@@ -232,6 +232,8 @@ class CatalogMain extends Base
 
             }
 
+            //typeurl
+
             $config = Sysconfig::sele();
             View::assign('config', $config);
 
@@ -239,6 +241,14 @@ class CatalogMain extends Base
             View::assign('channel', $channel);
 
             $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
+
+            foreach ($arctype as $k => $v){
+
+                $v['typeurl'] = $v['typedir'].'/'.$v['defaultname'];
+
+                $arctype[$k] = $v;
+            }
+
             View::assign('arctype', $arctype);
 
 
