@@ -4,6 +4,8 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 
+use app\Admin\model\Archives;
+use app\Admin\model\Flink;
 use think\facade\Request;
 use think\facade\View;
 use think\facade\Config;
@@ -209,6 +211,34 @@ class CatalogMain extends Base
             array('title'=>'更新文档HTML', 'url'=>''),
         ));
         return View::fetch();
+    }
+
+    public function makehtml_list_action()
+    {
+        if(Request::isGet()){
+            $param = Request::param('');
+
+            $channel =  ChanneltypeModel::where("")->limit(0, 10)->select();
+            View::assign('channel', $channel);
+
+            $arclist = Archives::where("typeid=1")->limit(6)->select();
+            View::assign('arclist', $arclist);
+            $arclist2 = Archives::where("typeid=2")->limit(6)->select();
+            View::assign('arclist2', $arclist2);
+
+            $arclist3 = Archives::where("typeid=3")->limit(6)->select();
+            View::assign('arclist3', $arclist3);
+
+            $flink = Flink::where("")->select();
+            View::assign('flink', $flink);
+
+            $this->buildHtml('index', './','/eyou/pc/index');
+
+            echo '生成页面成功';
+
+            exit();
+        }
+
     }
 
 
