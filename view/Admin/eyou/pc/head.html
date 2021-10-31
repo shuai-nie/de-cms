@@ -8,8 +8,8 @@
         <ul>
           <li><a href="/">首页</a></li>
 
-          {volist name="channel" id="vo"}
-          <li><a href="{$vo.typeurl}" title="{$vo.typename}">{$vo.typename}</a></li>
+          {volist name="arctype" id="vo"}
+          <li><a href="{$vo.typeurl|default=''}" title="{$vo.typename}">{$vo.typename}</a></li>
           {/volist}
           <li><a rel="nofollow" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2966857223&site=qq&menu=yes">在线申请</a></li>
         </ul>
@@ -27,8 +27,8 @@
         <nav class="main-menu d-none d-lg-block">
           <ul class="d-flex">
             <li><a href="/">首页</a></li>
-            {volist name="channel" id="vo"}
-            <li><a href="{$vo.typeurl}">{$vo.typename}</a></li>
+            {volist name="arctype" id="vo"}
+            <li><a href="{$vo.typeurl|default=''}">{$vo.typename}</a></li>
             {/volist}
             <li><a rel="nofollow" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2966857223&site=qq&menu=yes">在线申请</a></li>
           </ul>

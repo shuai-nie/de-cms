@@ -291,8 +291,8 @@
           <div class="footer-widget">
             <h4 class="title">导航</h4>
             <ul class="footer-menu">
-              {volist name="channel" id="vo"}
-              <li><a class="footer-link" href="{$vo.typeurl}">{$vo.typename}</a></li>
+              {volist name="arctype" id="vo"}
+              <li><a class="footer-link" href="{$vo.typeurl|default=''}">{$vo.typename}</a></li>
               {/volist}
             </ul>
           </div>

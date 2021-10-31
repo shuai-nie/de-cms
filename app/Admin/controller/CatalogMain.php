@@ -218,17 +218,36 @@ class CatalogMain extends Base
     {
         if(Request::isGet()){
             $param = Request::param('');
-            $config = Sysconfig::sele();
 
+            // 游戏类型
+            $typeid = $param['typeid'];
+            // 最大创建个数
+            $maxpagesize = $param['maxpagesize'];
+            if($param['uptype'] == 0){
+                // PC
+
+            }elseif ($param['uptype'] == 'mkmobile'){
+                //web
+
+
+            }
+
+            $config = Sysconfig::sele();
             View::assign('config', $config);
 
             $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
             View::assign('channel', $channel);
 
+            $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
+            View::assign('arctype', $arctype);
+
+
             $arclist = Archives::where("typeid=1")->limit(6)->select();
             View::assign('arclist', $arclist);
             $arclist2 = Archives::where("typeid=2")->limit(6)->select();
             View::assign('arclist2', $arclist2);
+
+
 
             $arclist3 = Archives::where("typeid=3")->limit(6)->select();
             View::assign('arclist3', $arclist3);
