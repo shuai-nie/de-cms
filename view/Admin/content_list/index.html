@@ -1,11 +1,13 @@
 {extend name="public:base" /}
 
 {block name="content"}
+{if condition="$arcrank neq -1"}
 <a href='{:url("article_add")}' class="layui-btn layui-btn-xs" lay-event="">[添加文档]</a>
 <a href='{:url("/admin/CatalogMain")}' class="layui-btn layui-btn-xs" lay-event="">[栏目管理]</a>
 <a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>
 <a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>
 <a href='{:url("recycling", ["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[文档回收站]</a>
+{/if}
 <table lay-filter="demoCatalogMain">
     <thead>
     <tr>

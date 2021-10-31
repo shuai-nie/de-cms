@@ -53,6 +53,7 @@ class ContentList extends Base
         }
         $data = Archives::where($map)->order('id desc')->paginate($length);
         View::assign('_data', $data);
+        View::assign('arcrank', $arcrank);
         return View::fetch();
     }
 
