@@ -282,23 +282,44 @@ class CatalogMain extends Base
                 $arctypeInfo = Arctype::where("id=".$typeid)->find();
                 View::assign('arctypeInfo', $arctypeInfo);
 
-                $archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit(0, 20)->select();
+                //$archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit(0, 20)->select();
                 $count = Archives::where("typeid=".$arctypeInfo['id'])->count();
-                //new Pagehtml();
-//                $page = new Pagehtml($count, 12, 'htm');
+                $totalPage = ceil($count/20);
+
+                for($i=1; $i<=$totalPage; $i++){
+                    $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
+                    $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
+                    $page = new Pagehtml($count, 20, 'http://tp6.nf/'.$arctypeInfo['typedir'], $i);
+                    View::assign('page', $page->show());
+                    $archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit($page->firstRow, (int)$page->listRows)->select();
+                    View::assign('archivesAll', $archivesAll);
+                    $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
+                    $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
+                    if($i == 1){
+                        $htmlfile = $arctypeInfo['defaultname'];
+                    }else{
+                        $htmlfile = $arctypeInfo['defaultname'].$i;
+                    }
+
+                    $this->buildHtml($htmlfile, '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['tempindex']);
+                    echo "静态页面$htmlfile.html已生成...<br>";
+                }
+
+
+
+
+                exit();
 //                var_dump($page->show());exit();
 //                foreach ($archivesAll as $k => $v){
 //                    $v['arcurl'] = '';
 //                    $archivesAll[$k] = $v;
 //                }
                 //https://www.cnblogs.com/haiwei_sun/p/3409584.html
-                View::assign('archivesAll', $archivesAll);
+
 
                 //$arctypeInfo['tempindex'] = str_replace('{style}', $arctypeInfo['typedir'], $arctypeInfo['tempindex']);
 
-                $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
-                $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
-                $this->buildHtml($arctypeInfo['defaultname'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['tempindex']);
+
 
             }elseif ($param['uptype'] == 'mkmobile'){
                 //web
