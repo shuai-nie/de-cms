@@ -269,6 +269,30 @@ class CatalogMain extends Base
         $archives3 = Archives::where("typeid=3 or typeid=2")->order('id desc')->paginate(6);
         View::assign('archives3', $archives3);
 
+        $config = Sysconfig::sele();
+        View::assign('config', $config);
+
+        $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
+        View::assign('channel', $channel);
+
+
+
+
+        $arclist = Archives::where("typeid=1")->limit(6)->select();
+        View::assign('arclist', $arclist);
+        $arclist2 = Archives::where("typeid=2")->limit(6)->select();
+        View::assign('arclist2', $arclist2);
+
+
+
+        $arclist3 = Archives::where("typeid=3")->limit(6)->select();
+        View::assign('arclist3', $arclist3);
+
+        $flink = Flink::where("")->select();
+        View::assign('flink', $flink);
+
+
+
         if(Request::isGet()){
             $param = Request::param('');
 
@@ -284,6 +308,10 @@ class CatalogMain extends Base
 
                 //$archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit(0, 20)->select();
                 $count = Archives::where("typeid=".$arctypeInfo['id'])->count();
+                if($count == 0){
+                    echo '此类没有数据';
+                }
+
                 $totalPage = ceil($count/20);
 
                 for($i=1; $i<=$totalPage; $i++){
@@ -307,8 +335,6 @@ class CatalogMain extends Base
 
 
 
-
-                exit();
 //                var_dump($page->show());exit();
 //                foreach ($archivesAll as $k => $v){
 //                    $v['arcurl'] = '';
@@ -329,33 +355,13 @@ class CatalogMain extends Base
 
             //typeurl
 
-            $config = Sysconfig::sele();
-            View::assign('config', $config);
 
-            $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
-            View::assign('channel', $channel);
-
-
-
-
-            $arclist = Archives::where("typeid=1")->limit(6)->select();
-            View::assign('arclist', $arclist);
-            $arclist2 = Archives::where("typeid=2")->limit(6)->select();
-            View::assign('arclist2', $arclist2);
-
-
-
-            $arclist3 = Archives::where("typeid=3")->limit(6)->select();
-            View::assign('arclist3', $arclist3);
-
-            $flink = Flink::where("")->select();
-            View::assign('flink', $flink);
-
-            $this->buildHtml('index', './','/eyou/pc/index');
-
-            echo '生成页面成功';
-
-            exit();
+//
+//            $this->buildHtml('index', './','/eyou/pc/index');
+//
+//            echo '生成页面成功';
+//
+//            exit();
         }
 
     }
