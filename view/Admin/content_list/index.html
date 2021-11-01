@@ -4,8 +4,8 @@
 {if condition="$arcrank neq -1"}
 <a href='{:url("article_add")}' class="layui-btn layui-btn-xs" lay-event="">[添加文档]</a>
 <a href='{:url("/admin/CatalogMain")}' class="layui-btn layui-btn-xs" lay-event="">[栏目管理]</a>
-<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>
-<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>
+<!--<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>-->
+<!--<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>-->
 <a href='{:url("recycling", ["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[文档回收站]</a>
 {/if}
 <table lay-filter="demoCatalogMain">
@@ -15,7 +15,7 @@
         <th lay-data="{field:'f2'}">选择</th>
         <th lay-data="{field:'f3',width:'220'}">文章标题</th>
         <th lay-data="{field:'f4',width:'170'}">更新时间</th>
-        <th lay-data="{field:'f5',width:'80'}">类目</th>
+        <th lay-data="{field:'f5',width:'120'}">类目</th>
         <th lay-data="{field:'f6',width:'80'}">点击</th>
         <th lay-data="{field:'f7',width:'80'}">html</th>
         <th lay-data="{field:'f8',width:'80'}">PC链接</th>
@@ -32,13 +32,13 @@
         <td><input name="" type="checkbox" value="{$vo['id']}" class="" lay-skin="primary" /></td>
         <td>{$vo['title']}</td>
         <td>{$vo['senddate']|date='Y-m-d H:i:s'}</td>
-        <td><a href="content_list.php?cid={$vo['typeid']}">{$vo['typeid']}</a></td>
+        <td><a href="{:url('ContentList', ['cid'=>$vo['typeid']])}">{$vo['ctypename']}</a></td>
         <td>{$vo['click']}</td>
         <td>{$vo['ismake']}</td>
         <td>{$vo['bdpc']}</td>
         <td>{$vo['bdwap']}</td>
         <td>{$vo['arcrank']}</td>
-        <td>{$vo['mid']}</td>
+        <td>{$vo['userid']}</td>
         <td>
 <!--            <a class="layui-btn layui-btn-xs" lay-event="detail">预览</a>-->
             <a href="{:url('article_edit', ['aid'=>$vo['id'] ])}" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>

@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 
+use app\Admin\model\Admin;
 use app\Admin\model\Arctype;
 use think\facade\Config;
 use think\facade\Db;
@@ -51,7 +52,12 @@ class ContentList extends Base
             View::assign('_nav_this', 'ContentList_index2');
             $map['arcrank'] = $arcrank;
         }
-        $data = Archives::where($map)->order('id desc')->paginate($length);
+        $data = Archives::alias('A')
+            ->leftjoin(Arctype::getTable()." B ", "B.id=A.typeid")
+            ->leftjoin(Admin::getTable()." C ", "C.id=A.mid")
+            ->field('A.*,B.typename as ctypename,C.userid')->paginate($length); //Archives::where($map)->order('id desc')->paginate($length);
+        //$arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
+        //var_dump($data[0]);exit();
         View::assign('_data', $data);
         View::assign('arcrank', $arcrank);
         return View::fetch();

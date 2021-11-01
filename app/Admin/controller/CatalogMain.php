@@ -300,13 +300,13 @@ class CatalogMain extends Base
             $typeid = $param['typeid'];
             // 最大创建个数
             $maxpagesize = $param['maxpagesize'];
+            $arctypeInfo = Arctype::where("id=".$typeid)->find();
+            View::assign('arctypeInfo', $arctypeInfo);
+
             if($param['uptype'] == 0){
                 // PC
 
-                $arctypeInfo = Arctype::where("id=".$typeid)->find();
-                View::assign('arctypeInfo', $arctypeInfo);
 
-                //$archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit(0, 20)->select();
                 $count = Archives::where("typeid=".$arctypeInfo['id'])->count();
                 if($count == 0){
                     echo '此类没有数据';
@@ -352,16 +352,10 @@ class CatalogMain extends Base
 
 
             }
+            // 生成首页
+            $this->buildHtml('index', './','/eyou/pc/index');
 
-            //typeurl
-
-
-//
-//            $this->buildHtml('index', './','/eyou/pc/index');
-//
-//            echo '生成页面成功';
-//
-//            exit();
+            echo '生成页面成功';
         }
 
     }
