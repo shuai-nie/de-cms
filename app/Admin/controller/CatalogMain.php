@@ -136,6 +136,45 @@ class CatalogMain extends Base
 
     public function catalog_edit()
     {
+        if(Request::isPost()){
+            $param = Request::param('');
+
+            $state = Arctype::update([
+                'issend'      => $param['issend'],
+                'sortrank'    => $param['sortrank'],
+                'typedir'     => $param['typedir'],
+                'typename'    => $param['typename'],
+                'isdefault'   => $param['isdefault'],
+                'defaultname' => $param['defaultname'],
+                'ispart'      => $param['ispart'],
+                'ishidden'    => $param['ishidden'],
+                'channeltype' => $param['channeltype'],
+                'tempindex'   => $param['tempindex'],
+                'templist'    => $param['templist'],
+                'temparticle' => $param['temparticle'],
+                'namerule'    => $param['namerule'],
+                'namerule2'   => $param['namerule2'],
+                'description' => $param['description'],
+                'keywords'    => $param['keywords'],
+                'seotitle'    => $param['seotitle'],
+                'moresite'    => $param['moresite'],
+                'cross'       => $param['cross'],
+                'crossid'     => $param['crossid'],
+
+
+                //'corank' => $param['corank'],
+            ], ['id'=>$param['id']]);
+
+            //return json(['code'=>0,'msg'=>'成功']);
+            if($state != false){
+                $this->success('成功', (string)url('CatalogMain/index'));
+            }else{
+                $this->success('失败');
+            }
+
+        }
+
+
         $id = Request::param('id');
         $channelid = 1;
 
@@ -162,6 +201,7 @@ class CatalogMain extends Base
         View::assign('cfg_templets_dir', $cfg_templets_dir);
         View::assign('SysEnumAll', $SysEnumAll);
         View::assign('channelArray', $channelArray);
+        View::assign('id', $id);
         View::assign('nav', array(
             array('title'=>'核心', 'url'=>''),
             array('title'=>'网站栏目管理', 'url'=>''),

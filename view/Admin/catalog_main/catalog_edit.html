@@ -1,6 +1,10 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<form action="{:url('')}" method="post" >
+    <input type="hidden" name="dopost" value="save" />
+    <input type="hidden" name="channelid" value="{$channelid}" />
+    <input type="hidden" name="id" value="{$id}" />
 <div class="layui-tab" lay-filter="CatalogMain_catalog_add" >
     <ul class="layui-tab-title">
         <li class="layui-this" lay-id="1">常规选项</li>
@@ -134,6 +138,9 @@
                 </td>
                 </tr>
             </table>
+            <div>
+                <button type="submit" class="layui-btn layui-btn-xs">提交</button>
+            </div>
         </div>
 
         <div class="layui-tab-item">
@@ -244,8 +251,11 @@
                     </td>
                 </tr>
             </table>
+            <div>
+                <button type="submit">提交</button>
+            </div>
         </div>
     </div>
 </div>
-
+</form>
 {/block}

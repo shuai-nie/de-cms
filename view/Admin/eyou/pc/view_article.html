@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{$eyou.field.title}_氪金通游戏代理平台</title>
+<meta name="keywords" content="{$eyou.field.seo_keywords}"/>
+<meta name="description" content="{$eyou.field.seo_description|html_msubstr=###}"/>
+<link rel="stylesheet" href="../style/pc/vendor.min.css" />
+<link rel="stylesheet" href="../style/pc/plugins.min.css" />
+<link rel="stylesheet" href="../style/pc/style.min.css" />
+</head>
+<body>
+{include file="eyou/pc/head" /}
+<section class="banner-section position-relative"> <img class="banner-shape" src="../style/pc/shape1.png" alt="shape" />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="banner-content banner-padding">
+          <h3 class="title">{$eyou.field.typename}</h3>
+        </div>
+      </div>
+      <div class="col-md-6 mt-7 mt-md-0">
+        <div class="banner-content scene banner-img">
+          <div data-depth="0.2"> <img src="../style/pc/banner.png" alt="img" /> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="blog-section section-py">
+  <div class="container">
+    <div class="row mb-n7">
+      <div class="col-xl-8 col-lg-8 mb-7">
+        <div class="blog-details-content">
+          <p class="blog-details-meta">{$eyou.field.add_time|MyDate='Y-m-d H:i',###}</p>
+          <h3 class="blog-details-title"> {$eyou.field.title} </h3>
+          <p class="pb-2"> {$eyou.field.content} </br>
+            以上就是本文全部内容，更多内容，敬请关注<a href="http://www.kejintong.com" style="color:#e51d27;">氪金通游戏代理平台</a>。</p>
+          <div class="social-tags d-sm-flex justify-content-between align-items-center">
+            <p class="mb-4 mb-sm-0"> 
+{eyou:prenext get='pre'}
+    <a href='{$field.arcurl}' title='{$field.title}'> 上一篇：{$field.title} </a>
+{eyou:else /}
+    上一篇：暂无
+{/eyou:prenext}
+ </p>
+            <p class="mb-4 mb-sm-0"> 
+{eyou:prenext get='next'}
+    <a href='{$field.arcurl}' title='{$field.title}'> 下一篇：{$field.title} </a>
+{eyou:else /}
+    下一篇：暂无
+{/eyou:prenext}
+ </p>
+          </div>
+          <div class="blog-comments blog-pt-55">
+            <p>客服QQ：155281701</p>
+            <p>客服QQ：2966857223</p>
+            <h3 class="blog-comment-title">游戏代理申请</h3>
+          </div>
+{eyou:guestbookform typeid='5' type='default'}
+
+            <form method="POST" class="elegant-aero" enctype="multipart/form-data" action="{$field.action}" onsubmit="return checkForm();">
+<input type="hidden" name="action" value="post">
+<input type="hidden" name="diyid" value="1">
+<input type="hidden" name="do" value="2">
+<table style="width:97%;" cellpadding="0" cellspacing="1">
+<tbody><tr>
+  <td align="right" valign="top">姓名：</td>
+  <td><input class="form-control" type="text" id='attr_26' name='{$field.attr_26}' style="width:250px" class="intxt" value="" placeholder="(必填)" required>
+</td>
+</tr>
+<tr>
+  <td align="right" valign="top">电话：</td>
+  <td><input class="form-control" type="text" id='attr_27' name='{$field.attr_27}' style="width:250px" class="intxt" value="" placeholder="(必填):" required>
+</td>
+</tr>
+<tr>
+  <td align="right" valign="top">QQ：</td>
+  <td><input class="form-control" type="text" id='attr_28' name='{$field.attr_28}' style="width:250px" class="intxt" value="" placeholder="(必填):" required>
+</td>
+</tr>
+
+<tr>
+  <td align="right" valign="top">类别：</td>
+  <td><input class="form-control" type="text" name="attr_29" id="{$field.attr_29}" style="width:250px" class="intxt" value="" placeholder="(必填，如个人/企业):" required>
+</td>
+</tr>
+<tr>
+  <td align="right" valign="top">申请资源：</td>
+  <td><textarea class="form-control"  id='attr_30' name='{$field.attr_30}' cols="30" rows="5" style="width:90%;height:80" placeholder="(必填):身份证号码、有什么资源等" required></textarea>
+</td>
+</tr>
+<input type="hidden" name="dede_fields" value="name,text;tel,text;text,multitext;kind,text;qq,text;time,datetime" />
+<input type="hidden" name="dede_fieldshash" value="5ae3e5229be7cb608b22d0786d122bc0" /></table>
+
+<div align="center" style="height:30px;padding-top:10px;">
+<input type="submit" name="submit" value="提 交" class="coolbg">
+&nbsp;
+<input type="reset" name="reset" value="重 置" class="coolbg">
+</div>
+<input name="time" value="" type="hidden"  id="time"  />
+{$field.hidden}
+{/eyou:guestbookform}
+<script type="text/javascript">
+window.onload = function(){
+var nowDate = new Date();
+var str = nowDate.getFullYear()+"-"+(nowDate.getMonth() + 1)+"-"+nowDate.getDate()+" "+nowDate.getHours()+":"+nowDate.getMinutes()+":"+nowDate.getSeconds();
+document.getElementById("time   ").value=str;
+}
+</script>
+</form>
+		  
+		  
+<!--           <form id="contactForm" class="row" action="/plus/diy.php" enctype="multipart/form-data" method="POST">
+            <input type="hidden" name="action" value="post">
+            <input type="hidden" name="diyid" value="1">
+            <input type="hidden" name="do" value="2">
+            <div class="col-12 col-sm-6 mb-7">
+              <input type="text" class="form-control" id="name" name="name" placeholder="姓名(*必填)" / required>
+            </div>
+            <div class="col-12 col-sm-6 mb-7">
+              <input type="text" class="form-control" id="tel" name="tel" placeholder="电话(*必填):" /required>
+            </div>
+            <div class="col-12 col-sm-6 mb-7">
+              <input type="text" class="form-control" id="kind" name="kind" placeholder="类别(*必填，如个人/企业):" / required>
+            </div>
+            <div class="col-12 mb-9">
+              <textarea class="form-control massage-control" name="text" id="text" cols="30" rows="10" placeholder="申请资源(*必填):身份证号码、有什么资源等" required></textarea>
+            </div>
+            <div class="col-12">
+              <button id="contactSubmit" type="submit" class="btn btn-dark btn-hover-dark" data-complete-text="Well Done!"> 提交申请 </button>
+              <p class="form-message mt-3"></p>
+            </div>
+          </form> -->
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-4 mb-7 offset-xl-1">
+        <div class="widget-wrapper widget-wrapper-nl">
+          <div class="sidebar-widget">
+            <h3 class="widget-title">公告</h3>
+            <div class="widget-list">
+              <ul class="list-group list-group-flush">
+                {eyou:arclist flag='h' titlelen='60' row='5' typeid='2' }
+                <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{$field.arcurl}"> {$field.title}</a><span>{$field.add_time|MyDate='m-d',###}</span> </li>
+                {/eyou:arclist}
+              </ul>
+            </div>
+          </div>
+          <div class="sidebar-widget">
+            <h3 class="widget-title">游戏新闻</h3>
+            {eyou:arclist flag='' titlelen='60' row='8' typeid='2' }
+            <div class="widget-post-list"> <a href="{$field.arcurl}" class="post-thumb"> <img src="{$field.litpic}" alt="img" /> </a>
+              <div class="widget-post-content">
+                <h3 class="widget-sub-title"> <a href="{$field.arcurl}">{$field.title}</a> </h3>
+                <p class="post-meta">{$field.add_time|MyDate='m-d',###}</p>
+              </div>
+            </div>
+            {/eyou:arclist} </div>
+          <div class="sidebar-widget">
+            <h3 class="widget-title">常见问题</h3>
+            <div class="widget-list">
+              <ul class="list-group list-group-flush">
+                {eyou:arclist flag='' titlelen='60' row='5' typeid='3' }
+                <li class="list-group-item d-flex justify-content-between align-items-center"> <a href="{$field.arcurl}">{$field.title}</a><span>{$field.add_time|MyDate='m-d',###}</span> </li>
+                {/eyou:arclist}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{include file="eyou/pc/foot" /}
+<script src="../style/pc/vendor.min.js"></script> 
+<script src="../style/pc/waypoints.min.js"></script> 
+<script src="../style/pc/parallax.js"></script> 
+<script src="../style/pc/plugins.min.js"></script> 
+<script src="../style/pc/ajax-contact.js"></script> 
+<script src="../style/pc/main.min.js"></script>
+</body>
+</html>

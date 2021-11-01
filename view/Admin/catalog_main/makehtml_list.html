@@ -19,58 +19,42 @@
         <tr>
 
             <td height="20" valign="top" bgcolor="#FFFFFF">更新PC||移动：</td>
-
             <td height="20" valign="top" bgcolor="#FFFFFF">
-
-                <input name="uptype" type="radio" value="0" class="mkpc" checked>
-
-                PC
-
-                <input name="uptype" type="radio" class="np" value="mkmobile">
-
-                移动
-
+                <input name="uptype" type="radio" value="0" class="mkpc" checked>PC
+                <input name="uptype" type="radio" class="np" value="mkmobile">移动
             </td>
-
         </tr>
         <tr>
             <td width="108" valign="top" bgcolor="#FFFFFF">选择栏目：</td>
             <td width="377" valign="top" bgcolor="#FFFFFF">
                 <select name='typeid' style='width:300px'>
-                <option value='0' selected='1'>更新所有栏目...</option>
+                    <option value='0' selected='1'>更新所有栏目...</option>
                     {volist name="ArctypeAll" id="vo"}
                     <option value="{$vo->id}">{$vo->typename}</option>
                     {/volist}
                 </select>
-
             </td>
         </tr>
         <tr>
             <td height="20" valign="top" bgcolor="#FFFFFF">每次最大创建页数：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF"><input name="maxpagesize" type="text" id="maxpagesize" value="50" size="10">
-                个文件 </td>
+            <td height="20" valign="top" bgcolor="#FFFFFF">
+                <input name="maxpagesize" type="text" id="maxpagesize" value="50" size="10">个文件
+            </td>
         </tr>
         <tr>
             <td height="20" valign="top" bgcolor="#FFFFFF">是否更新子栏目：</td>
             <td height="20" valign="top" bgcolor="#FFFFFF">
-                <input name="upnext" type="radio" class="np" value="1" checked='1' />
-                更新子级栏目
-                <input type="radio" name="upnext" class="np" value="0" />
-                仅更新所选栏目
+                <input name="upnext" type="radio" class="np" value="1" checked='1' />更新子级栏目
+                <input type="radio" name="upnext" class="np" value="0" />仅更新所选栏目
             </td>
         </tr>
         <tr>
             <td height="20" colspan="2" bgcolor="#ffffff" align="center">
                 <input name="b112" type="button" class="coolbg np" value="开始生成HTML" onClick="document.form1.submit();" style="width:100px">
-                <?php
-      if($cfg_remote_site=='Y')
-      {
-    ?> 　
+                <?php if($cfg_remote_site=='Y'){ ?> 　
                 <input name="isremote" type="checkbox" id="isremote" value="1">是否同步远程发布
                 <?php GetFtp();?>
-                <?php
-      }
-    ?>
+                <?php } ?>
             </td>
         </tr>
     </form>

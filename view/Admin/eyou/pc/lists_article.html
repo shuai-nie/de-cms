@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{$eyou.field.typename}_氪金通游戏代理平台</title>
+<meta name="keywords" content="{$eyou.field.seo_keywords}"/>
+<meta name="description" content="{$eyou.field.seo_description|html_msubstr=###}"/>
+<link rel="stylesheet" href="../style/pc/vendor/vendor.min.css" />
+<link rel="stylesheet" href="../style/pc/plugins.min.css" />
+<link rel="stylesheet" href="../style/pc/style.min.css" />
+</head>
+
+<body>
+{include file="eyou/pc/head" /}
+<section class="banner-section position-relative">
+  <img class="banner-shape" src="../style/pc/shape1.png" alt="_氪金通游戏代理平台" />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="banner-content banner-padding">
+          <h3 class="title">氪金通游戏代理</h3>
+          <p> 创新层出不穷，创新永不止境 <br />
+            360度满足客户需求,打造精品专区 </p>
+        </div>
+      </div>
+      <div class="col-md-6 mt-7 mt-md-0">
+        <div class="banner-content scene banner-img">
+          <div data-depth="0.2"> <img src="../style/pc/banner.png" alt="氪金通游戏代理" /> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="blog-section section-py">
+  <div class="container">
+    <div class="row mb-n7"> {eyou:list pagesize='12' addfields='' }
+      <div class="col-lg-4 col-sm-6 mb-7">
+        <div class="blog-card">
+          <div class="thumb bg-light p-0 text-center"> <a href="{$field.arcurl}"> <img src="{$field.litpic}" alt="{$field.title}" /> </a> </div>
+          <div class="blog-content"> <span class="blog-meta">{$field.add_time|MyDate='m-d',###}</span>
+            <h3 class="title"> <a href="{$field.arcurl}">{$field.title}</a> </h3>
+          </div>
+        </div>
+      </div>
+      {/eyou:list} </div>
+    <div class="row mt-10">
+      <div class="col-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {eyou:pagelist listitem='index,pre,next,pageno,end,info,option,' /}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+{include file="eyou/pc/foot" /}
+<script src="../style/pc/vendor.min.js"></script> 
+<script src="../style/pc/waypoints.min.js"></script> 
+<script src="../style/pc/parallax.js"></script> 
+<script src="../style/pc/plugins.min.js"></script> 
+<script src="../style/pc/ajax-contact.js"></script> 
+<script src="../style/pc/main.min.js"></script>
+</body>
+</html>
