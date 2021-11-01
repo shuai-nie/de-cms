@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{$eyou.field.typename}_氪金通游戏代理平台</title>
-<meta name="keywords" content="{$eyou.field.seo_keywords}"/>
-<meta name="description" content="{$eyou.field.seo_description|html_msubstr=###}"/>
+<title>{$arctypeInfo.typename}_氪金通游戏代理平台</title>
+<meta name="keywords" content="{$arctypeInfo.keywords}"/>
+<meta name="description" content="{$arctypeInfo.description}"/>
 <link rel="stylesheet" href="../style/pc/vendor/vendor.min.css" />
 <link rel="stylesheet" href="../style/pc/plugins.min.css" />
 <link rel="stylesheet" href="../style/pc/style.min.css" />
@@ -34,21 +34,23 @@
 </section>
 <section class="blog-section section-py">
   <div class="container">
-    <div class="row mb-n7"> {eyou:list pagesize='12' addfields='' }
+    <div class="row mb-n7">
+      {volist name="archivesAll" id="vo"}
       <div class="col-lg-4 col-sm-6 mb-7">
         <div class="blog-card">
-          <div class="thumb bg-light p-0 text-center"> <a href="{$field.arcurl}"> <img src="{$field.litpic}" alt="{$field.title}" /> </a> </div>
-          <div class="blog-content"> <span class="blog-meta">{$field.add_time|MyDate='m-d',###}</span>
-            <h3 class="title"> <a href="{$field.arcurl}">{$field.title}</a> </h3>
+          <div class="thumb bg-light p-0 text-center"> <a href="{$vo.arcurl}"> <img src="{$vo.litpic}" alt="{$vo.title}" /> </a> </div>
+          <div class="blog-content"> <span class="blog-meta">{$vo.add_time}</span>
+            <h3 class="title"> <a href="{$vo.arcurl}">{$vo.title}</a> </h3>
           </div>
         </div>
       </div>
-      {/eyou:list} </div>
+      {/volist}
+    </div>
     <div class="row mt-10">
       <div class="col-12">
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
-            {eyou:pagelist listitem='index,pre,next,pageno,end,info,option,' /}
+            {$archivesAll|raw}
           </ul>
         </nav>
       </div>

@@ -16,6 +16,7 @@ use app\Admin\model\Arcrank;
 use app\Admin\model\Arctype;
 use app\Admin\model\Channeltype;
 use app\Admin\model\SysEnum;
+use pagehtml\Pagehtml;
 
 
 /**
@@ -256,6 +257,18 @@ class CatalogMain extends Base
 
     public function makehtml_list_action()
     {
+        header("Content-type: text/html; charset=utf-8");
+
+        $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
+        foreach ($arctype as $k => $v){
+            $v['typeurl'] = $v['typedir'].'/'.$v['defaultname'];
+            $arctype[$k] = $v;
+        }
+        View::assign('arctype', $arctype);
+
+        $archives3 = Archives::where("typeid=3 or typeid=2")->order('id desc')->paginate(6);
+        View::assign('archives3', $archives3);
+
         if(Request::isGet()){
             $param = Request::param('');
 
@@ -265,6 +278,26 @@ class CatalogMain extends Base
             $maxpagesize = $param['maxpagesize'];
             if($param['uptype'] == 0){
                 // PC
+
+                $arctypeInfo = Arctype::where("id=".$typeid)->find();
+                View::assign('arctypeInfo', $arctypeInfo);
+
+                $archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit(0, 20)->select();
+                $count = Archives::where("typeid=".$arctypeInfo['id'])->count();
+                //new Pagehtml();
+//                $page = new Pagehtml($count, 12, 'htm');
+//                var_dump($page->show());exit();
+//                foreach ($archivesAll as $k => $v){
+//                    $v['arcurl'] = '';
+//                    $archivesAll[$k] = $v;
+//                }
+                View::assign('archivesAll', $archivesAll);
+
+                //$arctypeInfo['tempindex'] = str_replace('{style}', $arctypeInfo['typedir'], $arctypeInfo['tempindex']);
+
+                $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
+                $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
+                $this->buildHtml($arctypeInfo['defaultname'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['tempindex']);
 
             }elseif ($param['uptype'] == 'mkmobile'){
                 //web
@@ -280,16 +313,7 @@ class CatalogMain extends Base
             $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
             View::assign('channel', $channel);
 
-            $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
 
-            foreach ($arctype as $k => $v){
-
-                $v['typeurl'] = $v['typedir'].'/'.$v['defaultname'];
-
-                $arctype[$k] = $v;
-            }
-
-            View::assign('arctype', $arctype);
 
 
             $arclist = Archives::where("typeid=1")->limit(6)->select();

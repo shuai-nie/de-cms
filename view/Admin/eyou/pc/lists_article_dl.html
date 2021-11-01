@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>{$eyou.field.typename}_氪金通游戏代理平台</title>
-<meta name="keywords" content="{$eyou.field.seo_keywords}"/>
-<meta name="description" content="{$eyou.field.seo_description|html_msubstr=###}"/>
+<title>{$arctypeInfo.typename}_氪金通游戏代理平台</title>
+<meta name="keywords" content="{$arctypeInfo.seo_keywords}"/>
+<meta name="description" content="{$arctypeInfo.seo_description|html_msubstr=###}"/>
 <link rel="stylesheet" href="../style/pc/vendor/vendor.min.css" />
 <link rel="stylesheet" href="../style/pc/plugins.min.css" />
 <link rel="stylesheet" href="../style/pc/style.min.css" />
@@ -33,7 +33,8 @@
 </section>
 <section class="blog-section section-py">
   <div class="container">
-    <div class="row mb-n7"> {eyou:list pagesize='12' addfields='fenlei' }
+    <div class="row mb-n7">
+      {eyou:list pagesize='12' addfields='fenlei' }
       <div class="col-lg-4 col-sm-6 mb-7">
         <div class="blog-card">
           <div class="thumb bg-light p-0 text-center"> <a href="{$field.arcurl}"> <img src="{$field.litpic}" alt="{$field.title}" /> </a> </div>
@@ -43,7 +44,8 @@
           </div>
         </div>
       </div>
-      {/eyou:list} </div>
+      {/eyou:list}
+    </div>
     <div class="row mt-10">
       <div class="col-12">
         <nav aria-label="Page navigation example">
