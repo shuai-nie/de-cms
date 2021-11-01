@@ -251,3 +251,11 @@ if ( ! function_exists('AddDay'))
         return $oktime;
     }
 }
+
+
+function GetSta3($sta)
+{
+    if($sta==1) return '内页';
+    if($sta==2) return '首页';
+    else return '未审核';
+}
