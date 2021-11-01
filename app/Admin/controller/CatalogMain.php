@@ -291,6 +291,7 @@ class CatalogMain extends Base
 //                    $v['arcurl'] = '';
 //                    $archivesAll[$k] = $v;
 //                }
+                //https://www.cnblogs.com/haiwei_sun/p/3409584.html
                 View::assign('archivesAll', $archivesAll);
 
                 //$arctypeInfo['tempindex'] = str_replace('{style}', $arctypeInfo['typedir'], $arctypeInfo['tempindex']);
