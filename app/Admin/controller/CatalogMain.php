@@ -34,6 +34,8 @@ class CatalogMain extends Base
             array('title'=>'核心', 'url'=>''),
             array('title'=>'网站栏目管理', 'url'=>''),
         ));
+        $host = Config::get('app.app_host');
+        View::assign('host', $host);
     }
 
     /**
@@ -245,10 +247,6 @@ class CatalogMain extends Base
         $cfg_remote_site = Config::get('app.cfg_remote_site');
         View::assign('cfg_remote_site', $cfg_remote_site);
 
-        $start = Archives::where("")->field('id')->order('id asc')->find();
-        $end = Archives::where("")->field('id')->order('id desc')->find();
-        View::assign('start', $start);
-        View::assign('end', $end);
         View::assign('ArctypeAll', $ArctypeAll);
 
         View::assign('nav', array(
@@ -347,15 +345,35 @@ class CatalogMain extends Base
             $typeid  = $param['typeid'];
             $arctypeInfo = Arctype::where("id=".$typeid)->find();
             View::assign('arctypeInfo', $arctypeInfo);
+            if($startid == 0 || $startid == ''){
+                $start = Archives::where("")->field('id')->order('id asc')->find();
+                $startid = $start['id'];
+            }
 
-            if($startid != 0 && $startid!= 0){
-                $count = Archives::where("typeid=".$arctypeInfo['id'])->count();
-                var_dump($count);
-
-
+            if($endid == 0 || $endid == ''){
+                $end = Archives::where("")->field('id')->order('id desc')->find();
+                $endid = $end['id'];
             }
 
 
+
+
+            $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id > $startid AND id < $endid ")->field('id ')->select();
+            foreach ($ArchivesAll as $k=>$v){
+                $archivesInfo = Archives::where("id=".$v['id'])->find();
+                View::assign('archivesInfo', $archivesInfo);
+                $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
+                $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
+                $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['tempindex']);
+            }
+
+
+
+                //$page = new Pagehtml($count, 20, $host.$arctypeInfo['typedir'], $i);
+
+//                $archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit($page->firstRow, (int)$page->listRows)->select();
+//                View::assign('archivesAll', $archivesAll);
+//                View::assign('page', $page->show());
 
             exit();
         }
