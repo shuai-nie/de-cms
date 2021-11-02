@@ -299,7 +299,7 @@ class CatalogMain extends Base
                     if($i == 1){
                         $htmlfile = $arctypeInfo['defaultname'];
                     }else{
-                        $htmlfile = $arctypeInfo['defaultname'].$i;
+                        $htmlfile = 'list_'.$arctypeInfo['id'].'_'.$i;
                     }
 
                     $this->buildHtml($htmlfile, '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['tempindex']);
