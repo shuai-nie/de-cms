@@ -359,12 +359,14 @@ class CatalogMain extends Base
 
 
             $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id > $startid AND id < $endid ")->field('id ')->select();
+            //var_dump($arctypeInfo);exit();
             foreach ($ArchivesAll as $k=>$v){
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
-                $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
+                $arctypeInfo['temparticle'] = str_replace('.html', '', $arctypeInfo['temparticle']);
                 $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
-                $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['tempindex']);
+
+                $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['temparticle']);
             }
 
 
