@@ -245,6 +245,10 @@ class CatalogMain extends Base
         $cfg_remote_site = Config::get('app.cfg_remote_site');
         View::assign('cfg_remote_site', $cfg_remote_site);
 
+        $start = Archives::where("")->field('id')->order('id asc')->find();
+        $end = Archives::where("")->field('id')->order('id desc')->find();
+        View::assign('start', $start);
+        View::assign('end', $end);
         View::assign('ArctypeAll', $ArctypeAll);
 
         View::assign('nav', array(
@@ -259,39 +263,7 @@ class CatalogMain extends Base
     {
         header("Content-type: text/html; charset=utf-8");
 
-        $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
-        foreach ($arctype as $k => $v){
-            $v['typeurl'] = $v['typedir'].'/'.$v['defaultname'];
-            $arctype[$k] = $v;
-        }
-        View::assign('arctype', $arctype);
-
-        $archives3 = Archives::where("typeid=3 or typeid=2")->order('id desc')->paginate(6);
-        View::assign('archives3', $archives3);
-
-        $config = Sysconfig::sele();
-        View::assign('config', $config);
-
-        $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
-        View::assign('channel', $channel);
-
-
-
-
-        $arclist = Archives::where("typeid=1")->limit(6)->select();
-        View::assign('arclist', $arclist);
-        $arclist2 = Archives::where("typeid=2")->limit(6)->select();
-        View::assign('arclist2', $arclist2);
-
-
-
-        $arclist3 = Archives::where("typeid=3")->limit(6)->select();
-        View::assign('arclist3', $arclist3);
-
-        $flink = Flink::where("")->select();
-        View::assign('flink', $flink);
-
-
+        $this->ViewAll();
 
         if(Request::isGet()){
             $param = Request::param('');
@@ -313,14 +285,17 @@ class CatalogMain extends Base
                 }
 
                 $totalPage = ceil($count/20);
+                $host = Config::get('app.app_host');
 
                 for($i=1; $i<=$totalPage; $i++){
                     $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
                     $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
-                    $page = new Pagehtml($count, 20, 'http://tp6.nf/'.$arctypeInfo['typedir'], $i);
-                    View::assign('page', $page->show());
+
+                    $page = new Pagehtml($count, 20, $host.$arctypeInfo['typedir'], $i);
+
                     $archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit($page->firstRow, (int)$page->listRows)->select();
                     View::assign('archivesAll', $archivesAll);
+                    View::assign('page', $page->show());
                     $arctypeInfo['tempindex'] = str_replace('.html', '', $arctypeInfo['tempindex']);
                     $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
                     if($i == 1){
@@ -362,11 +337,64 @@ class CatalogMain extends Base
 
     public function makehtml_archives_action()
     {
-        if(Request::isPost()){
+        $this->ViewAll();
+
+        if(Request::isGet()){
+            $host    = Config::get('app.app_host');
+            $param   = Request::param('');
+            $startid = $param['startid'];
+            $endid   = $param['endid'];
+            $typeid  = $param['typeid'];
+            $arctypeInfo = Arctype::where("id=".$typeid)->find();
+            View::assign('arctypeInfo', $arctypeInfo);
+
+            if($startid != 0 && $startid!= 0){
+                $count = Archives::where("typeid=".$arctypeInfo['id'])->count();
+                var_dump($count);
+
+
+            }
+
+
 
             exit();
         }
 
+    }
+
+    protected function ViewAll()
+    {
+        $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
+        foreach ($arctype as $k => $v){
+            $v['typeurl'] = $v['typedir'].'/'.$v['defaultname'];
+            $arctype[$k] = $v;
+        }
+        View::assign('arctype', $arctype);
+
+        $archives3 = Archives::where("typeid=3 or typeid=2")->order('id desc')->paginate(6);
+        View::assign('archives3', $archives3);
+
+        $config = Sysconfig::sele();
+        View::assign('config', $config);
+
+        $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
+        View::assign('channel', $channel);
+
+
+
+
+        $arclist = Archives::where("typeid=1")->limit(6)->select();
+        View::assign('arclist', $arclist);
+        $arclist2 = Archives::where("typeid=2")->limit(6)->select();
+        View::assign('arclist2', $arclist2);
+
+
+
+        $arclist3 = Archives::where("typeid=3")->limit(6)->select();
+        View::assign('arclist3', $arclist3);
+
+        $flink = Flink::where("")->select();
+        View::assign('flink', $flink);
     }
 
 
