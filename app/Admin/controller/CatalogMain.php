@@ -360,6 +360,15 @@ class CatalogMain extends Base
 
     }
 
+    public function makehtml_archives_action()
+    {
+        if(Request::isPost()){
+
+            exit();
+        }
+
+    }
+
 
 
 
