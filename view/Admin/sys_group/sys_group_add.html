@@ -2,10 +2,12 @@
 
 {block name="content"}
 <table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D6D6D6" align="center">
-    <form name='form1' action='sys_group_add.php' method='post'>
+    <form name='form1' action="{:url('sys_group_add')}" method='post'>
         <input type='hidden' name='dopost' value='save'>
         <tr>
-            <td height="23" background="images/tbg.gif" align="left" style="padding-left:10px;"><b><a href='sys_group.php'>系统用户组管理</a>&gt;&gt;增加用户组：</b></td>
+            <td height="23" background="images/tbg.gif" align="left" style="padding-left:10px;"><b>
+                <a href='sys_group.php'>系统用户组管理</a>&gt;&gt;增加用户组：</b>
+            </td>
         </tr>
         <tr>
             <td valign="top" bgcolor="#FFFFFF" align="center">

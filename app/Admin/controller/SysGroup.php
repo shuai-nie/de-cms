@@ -3,10 +3,11 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use app\Admin\model\Admintype;
 use app\Admin\model\Plus;
 use think\facade\Log;
 use think\facade\View;
-use think\Request;
+use think\facade\Request;
 use app\Admin\model\Admintype as AdmintypeModel;
 use app\Admin\model\Admin as AdminModel;
 use app\Admin\model\Arctype as ArctypeModel;
@@ -44,11 +45,33 @@ class SysGroup extends Base
 
     public function sys_group_edit($rank)
     {
+        if(Request::isPost()){
+            $param = Request::param('');
+
+            $purview = "";
+            if(is_array($param['purviews']))
+            {
+                foreach($param['purviews'] as $p)
+                {
+                    $purview .= "$p ";
+                }
+                $purview = trim($purview);
+            }
+
+            Admintype::update(array(
+                'typename' => $param['typename'],
+                'purviews' => $purview,
+            ), array(
+                'rank' => $param['rank']
+            ));
+
+            return $this->success('提交成功', (string)url('index'));
+        }
         $gouplists = file('inc/grouplist.txt');
         $groupSet = AdmintypeModel::where(['rank'=>$rank])->find()->toArray();
+        $PlusAll = Plus::where("")->select();
         View::assign('_groupSet', $groupSet);
         View::assign('_gouplists', $gouplists);
-        $PlusAll = Plus::where("")->select();
         View::assign('_PlusAll', $PlusAll);
         View::assign('nav', array(
             array('title'=>'系统', 'url'=>''),
@@ -56,9 +79,6 @@ class SysGroup extends Base
             array('title'=>'更改用户组', 'url'=>''),
         ));
         View::assign('rank', $rank);
-
-
-
         return View::fetch();
     }
 
@@ -82,6 +102,29 @@ class SysGroup extends Base
 
     public function sys_group_add()
     {
+        if(Request::isPost()){
+            $param = Request::param('');
+
+            $AllPurviews = '';
+            if(is_array($param['purviews']))
+            {
+                foreach($param['purviews'] as $pur)
+                {
+                    $AllPurviews = $pur.' ';
+                }
+                $AllPurviews = trim($AllPurviews);
+            }
+
+            Admintype::insert(array(
+                'rank'     => $param['rankid'],
+                'typename' => $param['groupname'],
+                'system'   => 0,
+                'purviews' => $AllPurviews,
+            ));
+
+            return $this->success('提交成功', (string)url('index'));
+        }
+
         $gouplists = file('inc/grouplist.txt');
         View::assign('_gouplists', $gouplists);
         $row = AdmintypeModel::where("")->select();
@@ -95,6 +138,17 @@ class SysGroup extends Base
             array('title'=>'增加用户组', 'url'=>''),
         ));
         return View::fetch();
+    }
+
+    public function sys_group_delete()
+    {
+        if(Request::isGet()){
+            $param = Request::param('');
+
+            $state = Admintype::where("rank=".$param['rank'])->delete();
+            return $this->success('删除成功', (string)url('index'));
+        }
+
     }
 
 

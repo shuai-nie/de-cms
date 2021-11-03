@@ -20,7 +20,7 @@
             <a href='{:url("sys_group_edit", ["rank"=>$vo["rank"]])}'>[权限设定]</a>
             <a href='{:url("/admin/sys_admin_user", ["rank"=>$vo["rank"]])}'>[组用户]</a>
             {if condition="$vo['system'] eq 0"}
-            <a href='{:url("sys_group_edit", ["dopost"=>"del","rank"=>$vo["rank"] ])}'>[删除组]</a>
+            <a href='{:url("sys_group_delete", ["dopost"=>"del","rank"=>$vo["rank"] ])}'>[删除组]</a>
             {/if}
         </td>
     </tr>
