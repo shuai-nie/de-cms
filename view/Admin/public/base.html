@@ -81,7 +81,7 @@
                     <a>模块</a>
                     <dl class="layui-nav-child">
                         <dd {if condition="$_nav_this eq 'FriendlinkMain_index' "} class="layui-this" {/if}><a href="{:url('FriendlinkMain/index')}">友情链接</a></dd>
-                        <dd><a href="">生成网站地图</a></dd>
+                        <dd{if condition="$_nav_this eq 'Sitemap_index' "} class="layui-this" {/if}><a href="{:url('Sitemap/index')}">生成网站地图</a></dd>
                     </dl>
                 </li>
 

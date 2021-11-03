@@ -369,14 +369,6 @@ class CatalogMain extends Base
                 $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['temparticle']);
             }
 
-
-
-                //$page = new Pagehtml($count, 20, $host.$arctypeInfo['typedir'], $i);
-
-//                $archivesAll = Archives::where("typeid=".$arctypeInfo['id'])->order('id desc')->limit($page->firstRow, (int)$page->listRows)->select();
-//                View::assign('archivesAll', $archivesAll);
-//                View::assign('page', $page->show());
-
             exit();
         }
 
