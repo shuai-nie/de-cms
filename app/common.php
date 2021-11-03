@@ -1,6 +1,7 @@
 <?php
 // 应用公共文件
 use app\Admin\model\Admintype as AdmintypeModel;
+use app\admin\model\Arctiny;
 
 function GetUserType($trank)
 {
@@ -258,4 +259,38 @@ function GetSta3($sta)
     if($sta==1) return '内页';
     if($sta==2) return '首页';
     else return '未审核';
+}
+
+/**
+ *  获取一个微表的索引键
+ *
+ * @access    public
+ * @param     string  $arcrank  权限值
+ * @param     int  $typeid  栏目ID
+ * @param     int  $sortrank  排序ID
+ * @param     int  $channelid  模型ID
+ * @param     int  $senddate  发布日期
+ * @param     int  $mid  会员ID
+ * @return    int
+ */
+if ( ! function_exists('GetIndexKey'))
+{
+    function GetIndexKey($arcrank, $typeid, $sortrank=0, $channelid=1, $senddate=0, $mid=1)
+    {
+        if(empty($typeid2)) $typeid2 = 0;
+        if(empty($senddate)) $senddate = time();
+        if(empty($sortrank)) $sortrank = $senddate;
+        $typeid2 = intval($typeid2);
+        $senddate = intval($senddate);
+        $aid = Arctiny::insert(array(
+            'arcrank' => $arcrank,
+            'typeid' => $typeid,
+            'typeid2' => $typeid2,
+            'channel' => $channelid,
+            'senddate' => $senddate,
+            //'sortrant' => $sortrank,
+            'mid' => $mid
+        ), true);
+        return $aid;
+    }
 }

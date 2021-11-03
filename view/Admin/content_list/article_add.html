@@ -26,8 +26,8 @@
     </form>
 </table>
 
-<form name="form1" action="article_add.php" enctype="multipart/form-data" method="post" onSubmit="return checkSubmit()">
-    <input type="hidden" name="channelid" value="<?php echo $channelid?>" />
+<form name="form1" action="{:url('article_add')}" enctype="multipart/form-data" method="post" onSubmit="return checkSubmit()">
+    <input type="hidden" name="channelid" value="{$channelid}" />
     <input type="hidden" name="dopost" value="save" />
     <table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="needset" style="border:1px solid #cfcfcf;background:#ffffff;">
         <tr>
@@ -378,8 +378,8 @@
         <tr height="35">
             <td width="17%">&nbsp;</td>
             <td width="83%">
-                <button type="button">提交</button>
-                <button type="button"  onClick="location.reload();" >重置</button>
+                <button type="submit" class="layui-btn">提交</button>
+                <button type="button" onClick="location.reload();" >重置</button>
             </td>
         </tr>
     </table>

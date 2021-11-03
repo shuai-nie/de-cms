@@ -55,9 +55,8 @@ class ContentList extends Base
         $data = Archives::alias('A')
             ->leftjoin(Arctype::getTable()." B ", "B.id=A.typeid")
             ->leftjoin(Admin::getTable()." C ", "C.id=A.mid")
-            ->field('A.*,B.typename as ctypename,C.userid')->paginate($length); //Archives::where($map)->order('id desc')->paginate($length);
-        //$arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
-        //var_dump($data[0]);exit();
+            ->field('A.*,B.typename as ctypename,C.userid')
+            ->order('id desc')->paginate($length);
         View::assign('_data', $data);
         View::assign('arcrank', $arcrank);
         return View::fetch();
@@ -65,6 +64,47 @@ class ContentList extends Base
 
     public function article_add()
     {
+        if(Request::isPost()){
+            $param    = Request::param('');
+            $pubdate  = GetMkTime($param['pubdate']);
+            $senddate = time();
+            $sortrank = AddDay($pubdate, $param['sortup']);
+            $senddate = time();
+            $arcID    = GetIndexKey($param['arcrank'], $param['typeid'], $sortrank, $param['channelid'], $senddate, 1);
+
+
+            $state = Archives::insert(array(
+                'id'          => $arcID,
+                'typeid'      => $param['typeid'],
+                'typeid2'     => $param['typeid2'],
+                'sortrank'    => $param['sortrank'],
+                'flag'        => $param['flag'],
+                'ismake'      => $param['ismake'],
+                'channel'     => $param['channelid'],
+                'arcrank'     => $param['arcrank'],
+                'click'       => $param['click'],
+                'money'       => $param['money'],
+                'title'       => $param['title'],
+                'shorttitle'  => $param['shorttitle'],
+                'color'       => $param['color'],
+                'writer'      => $param['writer'],
+                'source'      => $param['source'],
+                'mid'         => 1,
+                'voteid'      => $param['voteid'],
+                'notpost'     => $param['notpost'],
+                'description' => $param['description'],
+                'keywords'    => $param['keywords'],
+                'filename'    => $param['filename'],
+                'dutyadmin'   => $param['dutyadmin'],
+                'weight'      => $param['weight'],
+
+            ));
+
+            var_dump($param);
+
+
+            exit();
+        }
         $channelid = Request::param('channelid');
         $cid = Request::param('cid');
         $channelid = empty($channelid) ? 0 : intval($channelid);

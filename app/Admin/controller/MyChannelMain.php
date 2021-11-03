@@ -53,15 +53,6 @@ class MyChannelMain extends Base
         $MemberModelAll = MemberModel::where('')->select()->toArray();
         View::assign('MemberModelAll', $MemberModelAll);
         View::assign('id', $id);
-
-//        $fieldset = $data['fieldset'];
-//        var_dump($fieldset);exit();
-
-
-
-
-
-
         return View::fetch();
     }
 
@@ -79,7 +70,7 @@ class MyChannelMain extends Base
         if($newid < 10) $newid = $newid+10;
         View::assign('cfg_dbprefix', Config::get('database.connections')['mysql']['prefix'] );
         View::assign('newid', $newid);
-        $usertype = Session::get('user')->usertype;
+        $usertype = Session::get('AdminUser')->usertype;
 
         $ArcrankAll = ArcrankModel::where("adminrank<='$usertype' And rank>=10")->select();
         View::assign('ArcrankAll', $ArcrankAll);
