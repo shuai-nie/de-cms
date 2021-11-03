@@ -243,6 +243,18 @@ class CatalogMain extends Base
         return View::fetch();
     }
 
+    public function catalog_del()
+    {
+        if(Request::isGet()){
+            $id = Request::param('id');
+            $state = Arctype::where("id=".$id)->delete();
+            if($state !== false){
+                return $this->success('删除成功', (string)url('index') );
+            }
+            return $this->error("删除失败");
+        }
+    }
+
     /**
      * [更新栏目组缓存]
      * @author Dave 178698695@qq.com
