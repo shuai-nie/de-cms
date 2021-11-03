@@ -7,8 +7,8 @@
 
 {block name="content"}
 <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FBFCE2" id="getone" style="<?php if(empty($geturl)) echo 'display:none'; ?>">
-    <form name="getonepage" action="article_add.php" method="get">
-        <input type="hidden" name="channelid" value="<?php echo $channelid; ?>" />
+    <form name="getonepage" action="{:url('article_add')}" method="get">
+        <input type="hidden" name="channelid" value="{$channelid}" />
         <input type="hidden" name="cid" value="<?php echo $cid; ?>" />
         <tr>
             <td colspan="2">
@@ -18,7 +18,6 @@
                         <td width="320" align="center"><input name="geturl" type="text" id="geturl" style="width:290px" value="<?php echo $geturl; ?>" /></td>
                         <td>
                             <input type="submit" class='nbt' name="Submit3" value="抓取" />
-                            &nbsp;
                             <input type="button" class='nbt' name="setrule" value="规则管理" onClick="OpenMyWinCoOne('article_coonepage_rule.php')" /></td>
                     </tr>
                 </table>

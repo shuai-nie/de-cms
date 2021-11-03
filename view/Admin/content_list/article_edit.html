@@ -209,7 +209,7 @@
                                 <input type='radio' name='notpost' class='np' value='1'<?php if($arcRow['notpost']==1) echo " checked='1' "; ?>/>
                                 禁止评论 </td>
                             <td width="90">浏览次数：</td>
-                            <td><input type='text' name='click' value='<?php echo $arcRow['click']; ?>' style='width:100px;' /></td>
+                            <td><input type='text' name='click' value='{$arcRow["click"]}' style='width:100px;' /></td>
                         </tr>
                     </table></td>
                 </tr>
@@ -218,7 +218,7 @@
                         <tr>
                             <td width="110">&nbsp;文章排序：</td>
                             <td width="250">
-                                <select name="sortup" id="sortup" style="width:150">
+                                <select name="sortup" id="sortup" style="width:150px;">
                                     <option value='0'>正常排序</option>
                                     <option value="7">置顶一周</option>
                                     <option value="30">置顶一个月</option>
