@@ -58,10 +58,40 @@ class CatalogMain extends Base
     {
         if(Request::isPost()){
             $param = Request::param('');
+            $state = Arctype::insert(array(
+                'reid' => 0,
+                'topid' => 0,
+                'sortrank' => 0,
+                'typename' => '',
+                'typedir' => '',
+                'isdefault' => $param['isdefault'],
+                'defaultname' => $param['defaultname'],
+                'issend' => $param['issend'],
+                'channeltype' => $param['channeltype'],
+                'tempindex' => $param['tempindex'],
+                'templist' => $param['templist'],
+                'temparticle' => $param['temparticle'],
+                'modname' => 'default',
+                'namerule' => $param['namerule'],
+                'namerule2' => $param['namerule2'],
+                'ispart' => 0,
+                'corank' => 0,
+                'description' => '',
+                'keywords' => '',
+                'seotitle' => '~typename~',
+                'moresite' => 0,
+                'siteurl' => '',
+                'sitepath' => '',
+                'ishidden' => 0,
+                'cross' => 0,
+                'content' => '',
+                'smalltypes' => '',
+            ));
 
-            var_dump($param);
-
-            exit();
+            if($state !== false){
+                return $this->success('提交成功', (string)url('index'));
+            }
+            return $this->error('提交出错');
 
         }
 
