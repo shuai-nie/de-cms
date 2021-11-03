@@ -22,7 +22,7 @@
         <td>{$vo['typename']|GetChannel}</td>
         <td>
             <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}'>[更改]</a>
-            <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"userid"=>$vo["userid"],"dopost"=>"delete"])}'>[删除]</a>
+            <a href='{:url("sys_admin_user_delete", ["id"=>$vo["id"],"userid"=>$vo["userid"],"dopost"=>"delete"])}'>[删除]</a>
             <a href='{:url("/Admin/content_list", ["mid"=>$vo["id"]])}'>[文档]</a>
         </td>
 

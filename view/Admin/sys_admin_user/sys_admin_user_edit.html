@@ -2,7 +2,7 @@
 
 {block name="content"}
 
-<form class="layui-form layui-form-pane1" action="" lay-filter="first">
+<form class="layui-form layui-form-pane1" action="{:url('')}" method="post" lay-filter="first">
     <input type="hidden" name="dopost" value="saveedit" />
     <input type="hidden" name="id" value="{$adminInfo['id']}" />
 
@@ -17,14 +17,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label">用户笔名</label>
         <div class="layui-input-block">
-            <input type="text" name="price_max"  value="{$adminInfo['uname']}"  placeholder="" autocomplete="off" class="layui-input">
+            <input type="text" name="uname"  value="{$adminInfo['uname']}"  placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" name="price_max"  placeholder="￥" autocomplete="off" class="layui-input">
+            <input type="text" name="pwd"  placeholder="￥" autocomplete="off" class="layui-input">
             <div class="layui-form-mid layui-word-aux">（留空则不修改，只能用'0-9a-zA-Z.@_-!'以内范围的字符）</div>
         </div>
     </div>
@@ -32,7 +32,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">用户类型</label>
         <div class="layui-input-block">
-            <select name="interest-search" lay-filter="interest-search" lay-search>
+            <select name="usertype" lay-filter="usertype" lay-search>
                 <option value="">请搜索</option>
                 {volist name="AdmintypeAll" id='vo'}
                 <option value="{$vo['rank']}">{$vo['typename']}</option>
@@ -46,7 +46,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">用户负责频道</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="typeids[0]" value="0" lay-skin="primary" title="所有频道" />
+            <input type="checkbox" name="typeids[0]" value="0" lay-skin="primary" title="所有频道" checked />
             {volist name="arctypeAll" id="vo"}
             <input type="checkbox" name="typeids[{$vo['id']}]" value="{$vo['id']}" lay-skin="primary" title="{$vo['typename']}" />
             {/volist}
@@ -56,28 +56,29 @@
     <div class="layui-form-item">
         <label class="layui-form-label">真实姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="price_max" value="{$adminInfo['tname']}" placeholder="" autocomplete="off" class="layui-input" />
+            <input type="text" name="tname" value="{$adminInfo['tname']}" placeholder="" autocomplete="off" class="layui-input" />
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">电子邮箱</label>
         <div class="layui-input-block">
-            <input type="text" name="price_max" value="{$adminInfo['email']}" placeholder="" autocomplete="off" class="layui-input">
+            <input type="text" name="email" value="{$adminInfo['email']}" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">安全验证串</label>
         <div class="layui-input-block">
-            <input type="text" name="price_max" value="{$randcode}" autocomplete="off" class="layui-input">
+            <input type="text" name="safecode" value="" autocomplete="off" class="layui-input">
+            <input type="hidden" name="randcode" value="{$randcode}" />
             <div class="layui-form-mid layui-word-aux">(复制本代码： <font color='red'>{$safecode}</font> )</div>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
         </div>
     </div>
 </form>

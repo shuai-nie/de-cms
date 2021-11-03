@@ -5,6 +5,7 @@ namespace app\Admin\controller;
 
 
 
+use app\Admin\model\Admin;
 use liliuwei\think\Jump;
 use think\facade\Request;
 use think\facade\View;
@@ -53,6 +54,38 @@ class SysAdminUser extends Base
 
    public function sys_admin_user_edit()
    {
+       if(Request::isPost()){
+           $param = Request::param('');
+
+           if(empty($param['typeids']))
+           {
+               $typeid = '';
+           } else {
+               $typeid = join(',', $param['typeids']);
+               if($typeid=='0') $typeid = '';
+           }
+
+           $set = array(
+               'uname' => $param['uname'],
+               'tname' => $param['tname'],
+               'email' => $param['email'],
+           );
+           if($param['id'] != 1){
+               $set['typeid'] = $typeid;
+           }
+           $member = array(
+               'uname' => $param['uname'],
+           );
+           if($param['pwd']!= ''){
+               $set['pwd'] = substr(md5($param['pwd']), 5, 20);
+               $member['pwd'] = substr(md5($param['pwd']), 5, 20);
+           }
+           $state = Admin::update($set, array('id'=>$param['id']));
+           $state2 = Member::update($member, array('mid'=>$param['id']));
+
+           return $this->success('修改成功', (string)url('index'));
+       }
+
        $request = $this->request;
        $id = $request->param('id');
        $dopost = $request->param('dopost');
@@ -68,8 +101,6 @@ class SysAdminUser extends Base
            $safecode = substr(md5($cfg_cookie_encode.$randcode),0,24);
            View::assign('randcode', $randcode);
            View::assign('safecode', $safecode);
-
-
        }
 
        View::assign('nav', array(
@@ -154,7 +185,15 @@ class SysAdminUser extends Base
            }
        }
        View::assign('_typeOptions', $typeOptions);
+   }
 
+   public function sys_admin_user_delete()
+   {
+       if(Request::isGet()){
+           $param = Request::param('');
+           $state = Admin::where("id=".$param['id'])->delete();
+           return $this->success('删除成功', (string)url('index'));
+       }
    }
 
 
