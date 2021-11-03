@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use app\Admin\model\Channeltype;
 use think\facade\Config;
 use think\facade\Request;
 use think\facade\Session;
@@ -65,6 +66,22 @@ class MyChannelMain extends Base
 
     public function mychannel_add()
     {
+        if(Request::isPost()){
+            $param = Request::param('');
+
+            Channeltype::insert(array(
+                'id' => $param['id'],
+                'nid' => $param['nid'],
+                'typename' => $param['typename'],
+                'addtable' => $param['addtable'],
+                'addcon' => $param['addcon'],
+            ));
+
+            var_dump($param);
+
+
+            exit();
+        }
         $row = ChanneltypeModel::where(array())->find();
         $newid = $row['id'] + 1;
         if($newid < 10) $newid = $newid+10;
