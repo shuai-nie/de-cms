@@ -3,10 +3,8 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-
-
 use app\Admin\model\Admin;
-use liliuwei\think\Jump;
+
 use think\facade\Request;
 use think\facade\View;
 use think\facade\Config;
@@ -42,12 +40,7 @@ class SysAdminUser extends Base
         $request = $this->request;
         $rank = $request->param('rank');
         $where = "";
-        if(!empty($rank)){
-            $where = " CONCAT(Admin.usertype)='$rank' ";
-        }
-
-        $data = AdminModel::hasWhere('profile2', $where, 'Admin.*,Arctype.typename', 'left')->select()->toArray();
-
+        $data =  Admin::where("")->select();
         View::assign('_user', $data);
         return View::fetch();
     }
