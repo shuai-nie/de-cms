@@ -2,7 +2,7 @@
 
 {block name="content"}
 <a href="{:url('sys_admin_user_add')}" class="layui-btn layui-btn-xs" lay-event="detail">新增帐号</a>
-<a href="{:url('/admin/SysGroup')}" class="layui-btn layui-btn-xs" lay-event="detail">用户组管理</a>
+<a href="{:url('/Admin/SysGroup')}" class="layui-btn layui-btn-xs" lay-event="detail">用户组管理</a>
 <table lay-filter="demoSysAdminUser">
     <thead>
     <tr>
@@ -23,7 +23,7 @@
         <td>
             <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}'>[更改]</a>
             <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"userid"=>$vo["userid"],"dopost"=>"delete"])}'>[删除]</a>
-            <a href='{:url("/admin/content_list", ["mid"=>$vo["id"]])}'>[文档]</a>
+            <a href='{:url("/Admin/content_list", ["mid"=>$vo["id"]])}'>[文档]</a>
         </td>
 
     </tr>
