@@ -1,8 +1,8 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<a href='{:url("/admin/FriendlinkMain/friendlink_add")}' class="layui-btn layui-btn-xs" lay-event="">[添加链接]</a>
-<a href='{:url("/admin/FriendlinkMain/friendlink_type")}' class="layui-btn layui-btn-xs" lay-event="">[网站类型管理]</a>
+<a href='{:url("/Admin/FriendlinkMain/friendlink_add")}' class="layui-btn layui-btn-xs" lay-event="">[添加链接]</a>
+<a href='{:url("/Admin/FriendlinkMain/friendlink_type")}' class="layui-btn layui-btn-xs" lay-event="">[网站类型管理]</a>
 
 <table lay-filter="demoFriendlinkMain">
     <thead>
@@ -26,8 +26,8 @@
         <td>{$vo['sortrank']}</td>
         <td>{$vo['dtime']|date='Y-m-d H:i:s'}</td>
         <td>
-            <a href='{:url("/admin/FriendlinkMain/friendlink_edit", ["id"=>$vo->id,"dopost"=>"getedit"])}' class="layui-btn layui-btn-xs" lay-event="">[更改]</a>
-            <a href='{:url("/admin/FriendlinkMain/friendlink_edit", ["id"=>$vo->id,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs" lay-event="">[删除]</a>
+            <a href='{:url("/Admin/FriendlinkMain/friendlink_edit", ["id"=>$vo->id,"dopost"=>"getedit"])}' class="layui-btn layui-btn-xs" lay-event="">[更改]</a>
+            <a href='{:url("/Admin/FriendlinkMain/friendlink_edit", ["id"=>$vo->id,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs" lay-event="">[删除]</a>
         </td>
 
     </tr>
