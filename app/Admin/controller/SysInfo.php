@@ -44,6 +44,8 @@ class SysInfo extends Base
                     'varname' => $k
                 ));
             }
+
+            return $this->success('提交成功', (string)url('index'));
         }
         $data = SysconfigModel::where(['groupid'=>1])->select();
         View::assign('_sysconfig', $data);
