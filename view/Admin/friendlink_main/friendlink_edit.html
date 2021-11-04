@@ -29,13 +29,21 @@
                     <tr>
                         <td height="25">网站Logo：</td>
                         <td>
-                            <input name="logo" type="text" id="logo" size="40" value="<?php echo $myLink['logo']?>" class='pubinputs'/>
+                            <input name="logo" type="text" id="logo" size="40" value="{$myLink['logo']}" />
                             (88*31 gif或jpg)
                         </td>
                     </tr>
                     <tr>
                         <td height="25">上传Logo：</td>
-                        <td><input name="logoimg" type="file" id="logoimg" size="30" class='pubinputs' /></td>
+                        <td>
+                            <div id="logoimgImg" style="display:none;" >
+                                <img src="" width="100" height="100">
+                            </div>
+                            <button type="button" class="layui-btn layui-btn-xs" id="test1">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+                            <input name="logoimg" type="hidden" id="logoimg" size="30" class='' />
+                        </td>
                     </tr>
                     <tr>
                         <td height="25">网站简况：</td>
@@ -68,8 +76,8 @@
                     <tr>
                         <td height="51">&nbsp;</td>
                         <td>
-                            <input type="submit" name="Submit" value=" 提 交 " class="np coolbg" />　 　
-                            <input type="reset" name="Submit" value=" 返 回 " onClick="location.href='';" class="np coolbg" />
+                            <input type="submit" name="Submit" value=" 提 交 " class="layui-btn" />　 　
+                            <input type="reset" name="Submit" value=" 返 回 " onClick="location.href='';" class="layui-btn layui-btn-primary" />
                         </td>
                     </tr>
                 </table>
@@ -77,4 +85,36 @@
         </td>
     </tr>
 </table>
+{/block}
+
+{block name="script"}
+<script type="application/javascript">
+layui.use(['form','upload','jquery'], function() {
+        var form = layui.form,
+            upload = layui.upload,
+            $ = layui.jquery;
+
+        var upload_url= "{:url('Upload/upload')}";
+        var upload_accept='images';
+        var upload_acceptMime='image/*';
+        var upload_size=3145728;
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: upload_url
+            ,accept: upload_accept
+            ,acceptMime:upload_acceptMime
+            ,size: upload_size
+            ,done: function(res){
+                $("#logoimgImg").show();
+                $("#logoimgImg img").attr('src', res.data.src);
+                $("input[name='logoimg']").val(res.data.src);
+                $("input[name='logo']").val(res.data.src);
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+
+    })
+</script>
 {/block}
