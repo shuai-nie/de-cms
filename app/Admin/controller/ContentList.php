@@ -5,7 +5,7 @@ namespace app\Admin\controller;
 
 
 use app\Admin\model\Admin;
-use app\admin\model\Arctiny;
+use app\Admin\model\Arctiny;
 use app\Admin\model\Arctype;
 use think\facade\Config;
 use think\facade\Db;
