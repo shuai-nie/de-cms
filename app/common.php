@@ -1,7 +1,7 @@
 <?php
 // 应用公共文件
 use app\Admin\model\Admintype as AdmintypeModel;
-use app\admin\model\Arctiny;
+use app\Admin\model\Arctiny;
 
 function GetUserType($trank)
 {
