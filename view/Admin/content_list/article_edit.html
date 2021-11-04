@@ -82,10 +82,9 @@
                                 <td width="90" height="81">&nbsp;缩 略 图：<br/></td>
                                 <td>
                                     <div id="img">
-                                        <img src="{$arcRow['litpic']|default='images/pview.gif'}" width="100" height="100" />
+                                        <img src="{$arcRow['litpic']|default='/storage/pview.gif'}" width="100" height="100" />
                                     </div>
                                     <input name="picname" type="hidden" id="picname" style="width:300px" value="{$arcRow['litpic']}">
-                                    <input type="hidden" name="cover_pic" >
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-xs" id="test1">
                                             <i class="layui-icon">&#xe67c;</i>上传图片
@@ -359,23 +358,22 @@ var ue = UE.getEditor('container', {
     autoHeightEnabled:false,
     toolbars: [
         [
-            'anchor','undo','redo','bold','indent','snapscreen', //截图
-            'italic','underline','strikethrough','subscript','fontborder', //字符边框
-            'superscript','formatmatch','source','blockquote','pasteplain', //纯文本粘贴模式
-            'selectall','print','preview','horizontal','removeformat','time', //时间
-            'date','unlink','insertrow','insertcol','mergeright','mergedown', //下合并单元格
-            'deleterow','deletecol','splittorows','splittocols','splittocells', //完全拆分单元格
-            'deletecaption','inserttitle','mergecells','deletetable','cleardoc', //清空文档
-            'insertparagraphbeforetable','fontfamily','fontsize','paragraph', //段落格式
-            'simpleupload','insertimage','edittable','edittd','link','emotion', //表情
-            'spechars','searchreplace','map','gmap','insertvideo','help', //帮助
-            'justifyleft','justifyright','justifycenter','justifyjustify', //两端对齐
-            'forecolor','backcolor','insertorderedlist','insertunorderedlist', //无序列表
-            'fullscreen','directionalityltr','directionalityrtl', //从右向左输入
-            'rowspacingtop','rowspacingbottom','pagebreak', //分页
-            'insertframe','imagenone','imageleft','imageright','attachment', //附件
-            'imagecenter','wordimage','lineheight','edittip ','customstyle', //自定义标题
-            'autotypeset','touppercase','tolowercase','background','template', //模板
+            'anchor','undo','redo','bold','indent','snapscreen',
+            'italic','underline','strikethrough','subscript','fontborder',
+            'superscript','formatmatch','source','blockquote','pasteplain',
+            'selectall','print','preview','horizontal','removeformat','time',
+            'date','unlink','insertrow','insertcol','mergeright','mergedown',
+            'deleterow','deletecol','splittorows','splittocols','splittocells',
+            'deletecaption','inserttitle','mergecells','deletetable','cleardoc',
+            'insertparagraphbeforetable','fontfamily','fontsize','paragraph',
+            'simpleupload','insertimage','edittable','edittd','link','emotion',
+            'spechars','searchreplace','map','gmap','insertvideo','help',
+            'justifyleft','justifyright','justifycenter','justifyjustify',
+            'forecolor','backcolor','insertorderedlist','insertunorderedlist',
+            'fullscreen','directionalityltr','directionalityrtl','rowspacingtop',
+            'rowspacingbottom','pagebreak','insertframe','imagenone','imageleft',
+            'imageright','attachment','imagecenter','wordimage','lineheight','edittip ',
+            'customstyle','autotypeset','touppercase','tolowercase','background','template',
             'scrawl','music','inserttable','drafts','charts'
         ]
     ],
@@ -399,7 +397,7 @@ layui.use(['form','upload','jquery'], function() {
         ,done: function(res){
             $("#img").show();
             $("#img img").attr('src', res.data.src);
-            $("input[name='cover_pic']").val(res.data.src);
+            $("input[name='picname']").val(res.data.src);
         }
         ,error: function(){
             //请求异常回调
