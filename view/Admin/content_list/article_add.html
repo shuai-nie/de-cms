@@ -98,11 +98,7 @@
                                         <div id="img">
                                             <img src="{$arcRow['litpic']|default='images/pview.gif'}" width="100" height="100" />
                                         </div>
-                                        <input name="picname" type="text" id="picname" style="width:300px" value="">
-
-
-
-                                        <input type="hidden" name="cover_pic" >
+                                        <input name="picname" type="hidden" id="picname" style="width:300px" value="">
                                         <div class="layui-input-block">
                                             <button type="button" class="layui-btn" id="test1">
                                                 <i class="layui-icon">&#xe67c;</i>上传图片
@@ -334,7 +330,7 @@
                     <tr>
                         <td width="90">&nbsp;发布时间：</td>
                         <td width="241">
-                            <input name="pubdate" value="{$nowtime}" type="text" id="pubdate" style="width:120px">";
+                            <input name="pubdate" value="{$nowtime|date='Y-m-d H:i:s'}" type="text" id="pubdate" style="width:120px">";
 
                             </td>
                         <td width="90">发布选项：</td>
@@ -432,7 +428,7 @@
             ,done: function(res){
                 $("#img").show();
                 $("#img img").attr('src', res.data.src);
-                $("input[name='cover_pic']").val(res.data.src);
+                $("input[name='picname']").val(res.data.src);
             }
             ,error: function(){
                 //请求异常回调
