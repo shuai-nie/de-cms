@@ -153,7 +153,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <script id="container" name="content" type="text/plain">{$addRow['body']|raw}</script>
+                            <script id="container" name="body" type="text/plain">{$addRow['body']|raw}</script>
                         </td>
                     </tr>
                     <tr>
@@ -190,8 +190,6 @@
                         </div></td>
                     </tr>
                 </table>
-
-
 
 
         </div>
@@ -277,12 +275,13 @@
                     <td height="24" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td width="110" height="51">&nbsp;文章摘要：</td>
-                            <td><textarea name="description" rows="5" id="description" style="width:80%"><?php echo $arcRow["description"]?></textarea></td>
+                            <td><textarea name="description" rows="5" id="description" style="width:80%">{$arcRow["description"]}</textarea></td>
                         </tr>
                     </table></td>
                 </tr>
                 <tr>
-                    <td height="24" colspan="4"><table width="800" border="0" cellspacing="0" cellpadding="0">
+                    <td height="24" colspan="4">
+                        <table width="800" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td width="110">&nbsp;自定义文件名：</td>
                             <td>

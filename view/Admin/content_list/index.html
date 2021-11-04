@@ -1,5 +1,9 @@
 {extend name="public:base" /}
 
+{block name="style"}
+<script type="application/javascript" src="/static/admin/js/jquery-3.6.0.min.js"></script>
+{/block}
+
 {block name="content"}
 {if condition="$arcrank neq -1"}
 <a href='{:url("article_add")}' class="layui-btn layui-btn-xs" lay-event="">[添加文档]</a>
@@ -7,8 +11,10 @@
 <!--<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>-->
 <!--<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>-->
 <a href='{:url("recycling", ["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[文档回收站]</a>
+<a href="javascript:;" class="layui-btn layui-btn-xs" lay-event="" onclick="table_delete()">[删除文档]</a>
 {/if}
-<table lay-filter="demoCatalogMain">
+
+<table lay-filter="demoCatalogMain" id="table-delete">
     <thead>
     <tr>
         <th lay-data="{field:'f1',width:'80'}">ID</th>
@@ -29,7 +35,7 @@
     {volist name="_data" id="vo"}
     <tr>
         <td>{$vo['id']}</td>
-        <td><input name="" type="checkbox" value="{$vo['id']}" class="" lay-skin="primary" /></td>
+        <td><input name="arcID" type="checkbox" value="{$vo['id']}" class="" lay-skin="primary" /></td>
         <td>{$vo['title']}</td>
         <td>{$vo['senddate']|date='Y-m-d H:i:s'}</td>
         <td><a href="{:url('ContentList', ['cid'=>$vo['typeid']])}">{$vo['ctypename']}</a></td>
@@ -52,4 +58,52 @@
 
 </table>
 <div>{$_data|raw}</div>
+
+{/block}
+
+
+{block name="script"}
+<script type="application/javascript">
+function table_delete()
+{
+    var arr_box = [];
+    $('input[type=checkbox]:checked').each(function(){
+        arr_box.push($(this).val());
+    });
+    var arr = arr_box.join(",")
+    $.post("{:url('article_delete')}", {arr:arr}, function(obj){
+        if(obj.code == 0){
+            layer.msg(obj.msg, function(){
+                window.location.href = "{:url('index')}";
+            });
+        }else{
+            layer.msg(obj.msg);
+        }
+    }, 'json')
+}
+
+function getCheckboxItem()
+{
+    var allSel="";
+    if(document.form2.arcTitle.value) return document.form2.arcTitle.value;
+    for(i=0;i<document.form2.arcTitle.length;i++)
+    {
+        if(document.form2.arcTitle[i].checked)
+        {
+            if(allSel=="")
+                allSel=document.form2.arcTitle[i].value;
+            else
+                allSel=allSel+"`"+document.form2.arcTitle[i].value;
+        }
+    }
+    return allSel;
+}
+
+//删除文档
+function delArc(){
+    var qstr=getCheckboxItem();
+    document.form2.titles.value = qstr;
+    document.form2.submit();
+}
+</script>
 {/block}
