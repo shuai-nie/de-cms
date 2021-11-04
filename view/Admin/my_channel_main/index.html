@@ -23,7 +23,7 @@
         <td>{$vo['issystem']|IsSystem}</td>
         <td>
             <a href="{:url('mychannel_edit', ['id'=>$vo['id'],'dopost'=>'edit'])}" class="layui-btn layui-btn-xs" lay-event="edit">更改</a>
-            <a href="{:url('mychannel_edit', ['id'=>$vo['id'],'dopost'=>'delete'])}" class="layui-btn layui-btn-xs" lay-event="edit">删除</a>
+            <a href="{:url('mychannel_delete', ['id'=>$vo['id'],'dopost'=>'delete'])}" class="layui-btn layui-btn-xs" lay-event="edit">删除</a>
         </td>
 
     </tr>

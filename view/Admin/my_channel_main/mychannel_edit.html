@@ -1,10 +1,15 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<form action="{:url('')}" method="post">
+<input type='hidden' name='id' value="{$data->id}">
+<input type='hidden' name='dopost' value='save'>
+<input type='hidden' name='issystem' value="{$data->issystem}">
+
 <div class="layui-tab" lay-filter="mychannel_edit" lay-allowClose="true">
     <ul class="layui-tab-title">
         <li class="layui-this" lay-id="1">基本设置</li>
-        <li lay-id="2">字段</li>
+<!--        <li lay-id="2">字段</li>-->
     </ul>
 
     <div class="layui-tab-content">
@@ -75,10 +80,11 @@
                 <tr>
                     <td>会员许可投稿级别</td>
                     <td>
-                        <select>
-                        {volist name="ArcrankAll" id='vo'}
+                        <select name="sendrank" id="sendrank" >
+                            <option value="0">游客</option>
+                            {volist name="ArcrankAll" id='vo'}
                             <option value="{$vo['rank']}">{$vo['membername']}</option>
-                        {/volist}
+                            {/volist}
                         </select>
                     </td>
                 </tr>
@@ -86,9 +92,9 @@
                     <td>许可投稿会员组</td>
                     <td>
                         {volist name="MemberModelAll" id='vo'}
-                        <input type="radio" name="{$vo['name']}" />{$vo['name']}
+                        <input type="radio" name="usertype" value="{$vo['name']}" />{$vo['name']}
                         {/volist}
-                        <input name="usertype" class="np" type="radio" value=""/> 不限
+                        <input name="usertype" type="radio" value="" checked /> 不限
                     </td>
                 </tr>
                 <tr>
@@ -302,4 +308,8 @@
     </div>
 </div>
 
+<div>
+    <button type="submit" class="layui-btn">提交</button>
+</div>
+</form>
 {/block}
