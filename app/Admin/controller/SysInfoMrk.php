@@ -47,7 +47,12 @@ class SysInfoMrk extends Base
                 $configstr .= "\${$v} = '".${$v}."';\r\n";
             }
 
-            $configstr .= "\$photo_markimg = '{$param["get_photo_markimg"]}';\r\n";
+            $get_photo_markimg = $param['get_photo_markimg'];
+            if($param['newimg'] != ''){
+                $get_photo_markimg = $param['newimg'];
+            }
+
+            $configstr .= "\$photo_markimg = '{$get_photo_markimg}';\r\n";
             $configstr = "<"."?php\r\n".$configstr."?".">\r\n";
             $fp = fopen($ImageWaterConfigFile,"w") or die("写入文件 $ImageWaterConfigFile 失败，请检查权限！");
             fwrite($fp,$configstr);

@@ -8,7 +8,7 @@ require_once($ImageWaterConfigFile);
 <table width="98%" border="1" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6">
     <form action="{:url('/Admin/sys_info_mrk')}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="action" value="save">
-    <input type="hidden" name="get_photo_markimg" value="mark.png">
+    <input type="hidden" name="get_photo_markimg" value="{if condition="$photo_markimg eq '' || $photo_markimg eq 'mark.png' "}mark.png{else}{$photo_markimg}{/if}">
     <tbody>
     <tr>
         <td height="26" colspan="2" bgcolor="#FFFFFF" background="" style="padding-left:10px;">
@@ -53,12 +53,13 @@ require_once($ImageWaterConfigFile);
     <tr bgcolor="#FFFFFF">
         <td height="24">上传新图片：</td>
         <td>
-                <input type="hidden" name="cover_pic" >
-                <button type="button" class="layui-btn layui-btn-xs" id="test1">
-                    <i class="layui-icon">&#xe67c;</i>上传图片
-                </button>
-
-            <input name="newimg" type="hidden" id="newimg" style="width:300">
+            <div id="newimgImg" >
+                <img src="{$photo_markimg}" height="40" width="40" />
+            </div>
+            <button type="button" class="layui-btn layui-btn-xs" id="test1">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+            <input name="newimg" type="hidden" id="newimg">
             <br>
             支持的图片格式：gif png
         </td>
@@ -140,8 +141,8 @@ layui.use(['form','upload','jquery'], function() {
         ,size: upload_size
         ,done: function(res){
             $("#img").show();
-            $("#img img").attr('src', res.data.src);
-            $("input[name='cover_pic']").val(res.data.src);
+            $("#newimgImg img").attr('src', res.data.src);
+            $("input[name='newimg']").val(res.data.src);
         }
         ,error: function(){
             //请求异常回调
