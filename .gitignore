@@ -2,3 +2,4 @@
 /.idea
 /public/newszone/*
 /public/storage/*
+/.env
