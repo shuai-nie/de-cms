@@ -67,19 +67,19 @@ class ContentList extends Base
         if(Request::isPost()){
             $param    = Request::param('');
             $pubdate  = GetMkTime($param['pubdate']);
-            $senddate = time();
             $sortrank = AddDay($pubdate, $param['sortup']);
             $senddate = time();
             $arcID    = GetIndexKey($param['arcrank'], $param['typeid'], $sortrank, $param['channelid'], $senddate, 1);
-
+            $flag = isset($param['flags']) ? join(',', $param['flags']) : '';
+            $ismake = $param['ishtml']==0 ? -1 : 0;
 
             $state = Archives::insert(array(
                 'id'          => $arcID,
                 'typeid'      => $param['typeid'],
                 'typeid2'     => $param['typeid2'],
-                'sortrank'    => $param['sortrank'],
-                'flag'        => $param['flag'],
-                'ismake'      => $param['ismake'],
+                'sortrank'    => $sortrank,
+                'flag'        => $flag,
+                'ismake'      => $ismake,
                 'channel'     => $param['channelid'],
                 'arcrank'     => $param['arcrank'],
                 'click'       => $param['click'],
@@ -90,18 +90,21 @@ class ContentList extends Base
                 'writer'      => $param['writer'],
                 'source'      => $param['source'],
                 'mid'         => 1,
-                'voteid'      => $param['voteid'],
+                'voteid'      => 0,//投票
                 'notpost'     => $param['notpost'],
                 'description' => $param['description'],
                 'keywords'    => $param['keywords'],
                 'filename'    => $param['filename'],
-                'dutyadmin'   => $param['dutyadmin'],
+                'dutyadmin'   => 1,
                 'weight'      => $param['weight'],
+                'senddate' => $senddate,
 
             ));
 
-            var_dump($param);
-
+            if($state !== false){
+                return $this->success("提交成功", (string)url('index'));
+            }
+            return $this->error("提交失败");
 
             exit();
         }

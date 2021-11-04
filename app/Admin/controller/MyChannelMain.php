@@ -213,9 +213,6 @@ class MyChannelMain extends Base
                 return $this->success("删除成功", (string)url('index'));
             }
             return $this->error("删除失败");
-
-
-
             exit();
         }
     }
