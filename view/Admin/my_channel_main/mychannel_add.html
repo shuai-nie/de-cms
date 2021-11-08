@@ -5,7 +5,16 @@
 {/block}
 
 {block name="content"}
-<table width="98%"  border="1" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6">
+<div class="layui-tab" lay-filter="CatalogMain_catalog_add" >
+    <ul class="layui-tab-title">
+        <li class="layui-this" lay-id="1">常规选项</li>
+<!--        <li lay-id="2">高级参数</li>-->
+
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+
+            <table width="98%"  border="1" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6">
 <form name="form1" action="{:url('mychannel_add')}" method="post">
     <input type='hidden' name='action' value='add'>
     <tr>
@@ -232,4 +241,16 @@
     </tr>
 </form>
 </table>
+        </div>
+
+        <div class="layui-tab-item">
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
 {/block}

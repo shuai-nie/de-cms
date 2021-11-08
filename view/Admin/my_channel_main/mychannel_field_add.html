@@ -7,7 +7,7 @@
 {/block}
 
 {block name="content"}
-<form name="form1" action="mychannel_field_add.php" method="post" onSubmit="return GetFields();">
+<form name="form1" action="{:url('mychannel_field_add')}" method="post">
     <input type='hidden' name='action' value='save' />
     <input type='hidden' name='id' value='<?php echo $id?>' />
     <input type='hidden' name='fieldstring' value='' />
@@ -20,34 +20,36 @@
                             <a href="mychannel_main.php"><b>频道管理</b></a> <b> &gt;&gt; 增加新字段：</b>
                         </td>
                         <td align="right">
-                            <input type="button" name="ss1" value="当前模型信息" onClick="location='{:url('mychannel_edit', ['id'=>$id,'dopost'=>'edit'])}';" class="nbt"/>
-                            <input type="button" name="ss12" value="内容模型管理" onClick="location='{:url('/admin/MyChannelMain')}';" class="nbt"/>
+                            <input type="button" name="ss1" value="当前模型信息" onClick="location='{:url('mychannel_edit', ['id'=>$id,'dopost'=>'edit'])}';" class=""/>
+                            <input type="button" name="ss12" value="内容模型管理" onClick="location='{:url('/Admin/MyChannelMain')}';" class=""/>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
         <tr>
-            <td colspan="2" bgcolor="#FFFFFF"><span class="STYLE1">所有填写的内容不允许包含双引号[<strong>&quot;</strong>]，否则配置将无法写入。</span></td>
+            <td colspan="2" ><span class="STYLE1">所有填写的内容不允许包含双引号[<strong>&quot;</strong>]，否则配置将无法写入。</span></td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF"><strong>表单提示文字：</strong><br>
-                <span class="STYLE2">发布内容时显示的提示文字</span></td>
-            <td bgcolor="#FFFFFF">
-                <input name="itemname" type="text" id="itemname" class="pubinputs" />
-                *</td>
+            <td >
+                <strong>表单提示文字：</strong><br>
+                <span class="STYLE2">发布内容时显示的提示文字</span>
+            </td>
+            <td >
+                <input name="itemname" type="text" id="itemname" class="pubinputs" />*
+            </td>
         </tr>
         <tr>
-            <td width="28%" bgcolor="#FFFFFF"><strong>字段名称：</strong><br>
+            <td width="28%" ><strong>字段名称：</strong><br>
                 <span class="STYLE2">只能用英文字母或数字，数据表的真实字段名，如果数据类型是联动类型，该项应该填写联动类型的<a href='stepselect_main.php' target='_blank'><u>[组名称]</u></a>。</span>
             </td>
-            <td width="72%" bgcolor="#FFFFFF">
+            <td width="72%" >
                 <input name="fieldname" type="text" id="fieldname" class="pubinputs" />*
             </td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF"><strong>字段类型：</strong></td>
-            <td bgcolor="#FFFFFF">
+            <td ><strong>字段类型：</strong></td>
+            <td >
                 <input name="autofield" type="radio" value="1" class="np" checked="checked" />
                 系统自动生成表单字段
                 <input type="radio" name="autofield" class="np" value="0" />
@@ -55,8 +57,8 @@
             </td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF"><strong>前台参数：</strong></td>
-            <td bgcolor="#FFFFFF">
+            <td ><strong>前台参数：</strong></td>
+            <td >
                 <input name="islist" type="checkbox" class="np" id="islist" value="1" />
                 使字段可以在列表的底层模板中获得(自定义字段默认仅能在文档模板显示，启用此选项将使列表查询变慢，如无必要请不要选择)<br />
                 <input name="notsend" type="checkbox" class="np" id="notsend" value="1" />
@@ -64,21 +66,21 @@
             </td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF">
+            <td >
                 <strong>内容是否需要分页符：</strong><br/>
                 <span class="STYLE2">如果内容需要分页符，不论何种内容，都可以用#P#副标题#e#作为分页符号实现内容分页，但一个模型里仅允许一个这样的字段!</span>
             </td>
-            <td bgcolor="#FFFFFF">
+            <td >
                 <input name="isnull" type="hidden" value="1" />
                 <input name="spage" type="radio"  value="split" class='np' />是
                 <input name="spage" type="radio"  value="no" class='np' checked='1' />否
             </td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF">
+            <td >
                 <strong>数据类型：</strong>
             </td>
-            <td bgcolor="#FFFFFF">
+            <td >
                 <div class='nw'><input type='radio' class='np' name='dtype' id='dtype1' value="text" checked='1'>单行文本(varchar)</div>
                 <div class='nw'><input type='radio' class='np' name='dtype' id='dtype2' value="textchar">单行文本(char)</div>
                 <div class='nw'><input type='radio' class='np' name='dtype' id='dtype3' value="multitext">多行文本</div>
@@ -101,34 +103,31 @@
             </td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF"><strong>默认值：</strong><br>
-                <span class="STYLE2">
-      如果定义数据类型为select、radio、checkbox时，此处填写被选择的项目(用“,”分开，如“男,女,人妖”)。
-      </span>
+            <td ><strong>默认值：</strong><br>
+                <span class="STYLE2">如果定义数据类型为select、radio、checkbox时，此处填写被选择的项目(用“,”分开，如“男,女,人妖”)。</span>
             </td>
-            <td bgcolor="#FFFFFF">
+            <td >
                 <textarea name="vdefault" type="text" id="vdefault" style="width:70%;height:60px"></textarea>
             </td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF"><strong>最大长度：</strong><br>
-                <span class="STYLE2">
-      文本数据必须填写，大于255为text类型
-      </span>
+            <td >
+                <strong>最大长度：</strong><br>
+                <span class="STYLE2">文本数据必须填写，大于255为text类型</span>
             </td>
-            <td bgcolor="#FFFFFF">
+            <td >
                 <input name="maxlength" type="text" id="maxlength" class="pubinputs" value="250" style="width:80px;" />
             </td>
         </tr>
         <tr>
-            <td bgcolor="#FFFFFF"><strong>自定义表单HTML：</strong></td>
-            <td bgcolor="#FFFFFF">
+            <td ><strong>自定义表单HTML：</strong></td>
+            <td >
                 ◆自定义表单HTML模板中用~name~表示提示文字，~form~表示表单元素。
             </td>
         </tr>
         <tr>
-            <td align="center" bgcolor="#FFFFFF"></td>
-            <td bgcolor="#FFFFFF">
+            <td align="center" ></td>
+            <td >
                 <textarea name="vinnertext" cols="45" rows="5" id="vinnertext" style="width:70%; height:120px;"></textarea>
             </td>
         </tr>
@@ -138,10 +137,10 @@
                     <tr>
                         <td width="26%" height="45">&nbsp;</td>
                         <td width="10%">
-                            <input type="submit" name="button1" id="button1" value="确定" class="coolbg np" />
+                            <input type="submit" name="button1" id="button1" value="确定" class="layui-btn layui-btn-xs" />
                         </td>
                         <td>
-                            <input type="reset" name="button2" id="button2" value="重置" class="coolbg np" />
+                            <button  type="reset" onclick="location.reload();" class="layui-btn layui-btn-xs layui-btn-primary">重置</button>
                         </td>
                     </tr>
                 </table>

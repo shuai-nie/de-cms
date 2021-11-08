@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use app\Admin\model\Channeltype;
+use app\Admin\model\Stepselect;
 use think\facade\Config;
 use think\facade\Db;
 use think\facade\Request;
@@ -99,6 +100,60 @@ class MyChannelMain extends Base
 
     public function mychannel_field_add()
     {
+        if(Request::isPost()){
+            $param = Request::param('');
+
+            $dfvalue = trim($param['vdefault']);
+            $isnull = ($param['isnull'] == 1? 'true' : "false");
+            $mxlen = $param['maxlength'];
+
+            if(preg_match("#^(select|radio|checkbox)$#i", $param['dtype'])){
+                if(!preg_match("#,#", $dfvalue)){
+                    $this->error("你设定了字段为 {$param['dtype']} 类型，必须在默认值中指定元素列表，如：'a,b,c' ");
+                }
+
+            }
+
+            if($param['dtype'] == 'stepselect'){
+                $arr = Stepselect::where("egroup=".$param['fieldname'])->find();
+                if(!is_array($arr)){
+                    return $this->error("你设定了字段为联动类型，但系统中没找到与你定义的字段名相同的联动组名!");
+                }
+            }
+
+            $row = Channeltype::where("id=".$param['id'])->field("fieldset,addtable,issystem")->find();
+            $fieldset = $row['fieldset'];
+            $trueTable = $row["addtable"];
+
+            $fieldinfos = GetFieldMake($param['dtype'], $param['fieldname'], $dfvalue, $mxlen);
+            $ntabsql = $fieldinfos[0];
+            $buideType = $fieldinfos[1];
+
+            $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
+            $rs = Db::query($alter);
+            if(!$rs){
+                return $this->error("增加字段失败1");
+            }
+
+
+            $ok = FALSE;
+
+            $fieldname = strtotime($param['fieldname']);
+
+
+            $rs = Channeltype::update(array('fieldset'=>'', 'listfields'=>''), array('id'=>$param['id']));
+            if(!$rs){
+                return $this->error("保存节点配置出错!");
+            }
+
+            return $this->success("成功增加一个字段", (string)url('mychannel_edit', ['id'=>$param['id'], 'dopost'=>'edit', 'openfield'=>1]));
+
+            var_dump($param);
+
+
+            exit();
+        }
+
         $id = Request::param('id');
         View::assign('id', $id);
         return View::fetch();

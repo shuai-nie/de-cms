@@ -46,6 +46,11 @@ return [
     'cfg_feedback_forbid'=> 'N',
     'cfg_arc_click' => -1,
 
+    'cfg_tplcache_dir' => '/data/tplcache',
+    'cfg_tplcache' => 'Y',
+    'cfg_df_style' => 'default',
+
+
 
 
 ];
