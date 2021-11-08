@@ -53,12 +53,13 @@
 {block name="script"}
 <script>
 function UpdateOne(tid){
-    location = "tags_main.php?action=update&count="+document.getElementById('count'+tid).value+"&tid="+tid;
+    console.log(document.getElementById('count'+tid));
+    ///location = "tags_main.php?action=update&count="+document.getElementById('count'+tid).value+"&tid="+tid;
 }
 
 
 function DeleteOne(tid){
-    location = "tags_main.php?action=delete&ids="+tid;
+    location = "{:url('tags_delete')}?action=delete&ids="+tid;
 }
 </script>
 {/block}
