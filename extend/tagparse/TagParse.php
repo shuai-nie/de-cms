@@ -1,8 +1,10 @@
 <?php
 namespace tagparse;
+
 use think\facade\Config;
 use tagparse\Tag;
 use tagparse\Attribute;
+use tagparse\AttributeParse;
 
 /**
  * 模板类
@@ -118,7 +120,7 @@ class TagParse
      */
     function CheckDisabledFunctions($str,&$errmsg='')
     {
-        global $cfg_disable_funs;
+        $cfg_disable_funs = Config::get('cfg_disable_funs');
         $cfg_disable_funs = isset($cfg_disable_funs)? $cfg_disable_funs : 'phpinfo,eval,exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source,file_put_contents,fsockopen,fopen,fwrite';
         // 模板引擎增加disable_functions
         if (defined('DEDEDISFUN')) {
@@ -148,7 +150,9 @@ class TagParse
      */
     function LoadCache($filename)
     {
-        global $cfg_tplcache,$cfg_tplcache_dir;
+        #global $cfg_tplcache,$cfg_tplcache_dir;
+        $cfg_tplcache = Config::get('app.cfg_tplcache');
+        $cfg_tplcache_dir = Config::get('app.cfg_tplcache_dir');
         if(!$this->IsCache)
         {
             return FALSE;
@@ -184,7 +188,7 @@ class TagParse
             foreach($z as $k=>$v)
             {
                 $this->Count++;
-                $ctag             = new TAg();
+                $ctag             = new Tag();
                 $ctag->CAttribute = new Attribute();
                 $ctag->IsReplace  = FALSE;
                 $ctag->TagName    = $v[0];
@@ -642,7 +646,7 @@ class TagParse
         {
             return;
         }
-        $cAtt = new DedeAttributeParse();
+        $cAtt = new AttributeParse();
         $cAtt->charToLow = $this->CharToLow;
 
         //遍历模板字符串，请取标记及其属性信息
@@ -773,7 +777,7 @@ class TagParse
                 if($cAtt->cAttributes->GetTagName()!='')
                 {
                     $this->Count++;
-                    $CDTag                     = new DedeTag();
+                    $CDTag                     = new Tag();
                     $CDTag->TagName            = $cAtt->cAttributes->GetTagName();
                     $CDTag->StartPos           = $sPos;
                     $CDTag->EndPos             = $i;

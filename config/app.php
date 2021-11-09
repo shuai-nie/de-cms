@@ -49,6 +49,7 @@ return [
     'cfg_tplcache_dir' => '/data/tplcache',
     'cfg_tplcache' => 'Y',
     'cfg_df_style' => 'default',
+    'cfg_disable_funs' => 'phpinfo,eval,exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source,file_put_contents',
 
 
 
