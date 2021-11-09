@@ -14,7 +14,7 @@
 
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
-            <table lay-filter=""  width="98%" id='needset' border="1" align="center" cellpadding="3" cellspacing="1"   >
+            <table lay-filter=""  class="layui-table"  >
                 <thead>
                 <tr>
                     <th lay-data="{field:'f1'}"></th>
@@ -200,7 +200,7 @@
 
         <div class="layui-tab-item">
 
-            <table width="98%" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" >
+            <table width="98%" border="0" align="center" class="layui-table">
                 <tr>
                     <td height="28" bgcolor="#ffffff"><strong>模型字段配置(可视化模式)</strong></td>
                     <td bgcolor="#ffffff">
@@ -298,7 +298,7 @@
                         修改配置文本可调整字段顺序，但不会更改字段属性！
                     </td>
                     <td  width="65%" bgcolor="#FFFFFF">
-                        <textarea name="fieldset"  style="width:99%;height:300px" rows="10" id="fieldset">{$data['fieldset']}</textarea>
+                        <textarea name="fieldset"  style="width:99%;height:300px" rows="10" id="fieldset" class="layui-textarea" >{$data['fieldset']}</textarea>
                     </td>
 
                 </tr>

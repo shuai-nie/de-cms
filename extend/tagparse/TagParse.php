@@ -26,8 +26,7 @@ class TagParse
     var $taghashfile = '';
     var $sys_globals;
 
-    function __construct()
-    {
+    function __construct(){
         if(!isset($GLOBALS['cfg_tplcache'])){
             $GLOBALS['cfg_tplcache'] = 'N';
         }
