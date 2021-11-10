@@ -372,3 +372,29 @@ function GetFieldMake($dtype, $fieldname, $dfvalue, $mxlen)
     }
     return $fields;
 }
+
+/**
+ * 获取模型列表字段
+ *
+ * @access    public
+ * @param     object  $dtp  模板引擎
+ * @param     string  $oksetting  设置
+ * @return    array
+ */
+function GetAddFieldList(&$dtp, &$oksetting)
+{
+    $oklist = '';
+    $dtp->SetNameSpace("field","<",">");
+    $dtp->LoadSource($oksetting);
+    if(is_array($dtp->CTags))
+    {
+        foreach($dtp->CTags as $tagid=>$ctag)
+        {
+            if($ctag->GetAtt('islist')==1)
+            {
+                $oklist .= ($oklist=='' ? strtolower($ctag->GetName()) : ','.strtolower($ctag->GetName()) );
+            }
+        }
+    }
+    return $oklist;
+}

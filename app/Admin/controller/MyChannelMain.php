@@ -5,6 +5,7 @@ namespace app\Admin\controller;
 
 use app\Admin\model\Channeltype;
 use app\Admin\model\Stepselect;
+use tagparse\TagParse;
 use think\facade\Config;
 use think\facade\Db;
 use think\facade\Request;
@@ -101,17 +102,16 @@ class MyChannelMain extends Base
     public function mychannel_field_add()
     {
         if(Request::isPost()){
-            $param = Request::param('');
-
-            $dfvalue = trim($param['vdefault']);
-            $isnull = ($param['isnull'] == 1? 'true' : "false");
-            $mxlen = $param['maxlength'];
+            $param       = Request::param('');
+            $dfvalue     = trim($param['vdefault']);
+            $isnull      = ($param['isnull'] == 1 ? 'true' : "false");
+            $mxlen       = $param['maxlength'];
+            $fieldstring = $param['fieldstring'];
 
             if(preg_match("#^(select|radio|checkbox)$#i", $param['dtype'])){
                 if(!preg_match("#,#", $dfvalue)){
-                    $this->error("你设定了字段为 {$param['dtype']} 类型，必须在默认值中指定元素列表，如：'a,b,c' ");
+                    return $this->error("你设定了字段为 {$param['dtype']} 类型，必须在默认值中指定元素列表，如：'a,b,c' ");
                 }
-
             }
 
             if($param['dtype'] == 'stepselect'){
@@ -123,11 +123,15 @@ class MyChannelMain extends Base
 
             $row = Channeltype::where("id=".$param['id'])->field("fieldset,addtable,issystem")->find();
             $fieldset = $row['fieldset'];
+
+            $dtp = new TagParse();
+            $dtp->SetNameSpace("field", "<", ">");
+            $dtp->LoadSource($fieldset);
             $trueTable = $row["addtable"];
 
             $fieldinfos = GetFieldMake($param['dtype'], $param['fieldname'], $dfvalue, $mxlen);
-            $ntabsql = $fieldinfos[0];
-            $buideType = $fieldinfos[1];
+            $ntabsql    = $fieldinfos[0];
+            $buideType  = $fieldinfos[1];
 
             $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
             $rs = Db::query($alter);
@@ -135,13 +139,25 @@ class MyChannelMain extends Base
                 return $this->error("增加字段失败1");
             }
 
-
             $ok = FALSE;
-
             $fieldname = strtotime($param['fieldname']);
+            if(is_array($dtp->CTags)){
+                foreach ($dtp->CTags as $tagid => $ctag) {
+                    if($fieldname == strtotime($ctag->GetName())){
+                        $dtp->Assign($tagid, stripslashes($fieldstring), FALSE);
+                        $ok = true;
+                        break;
+                    }
+                }
+                $oksetting = $ok ? $dtp->GetResultNP() : $fieldset ."\n".stripslashes($fieldstring);
+            }else{
+                $oksetting = $fieldset."\r\n".stripslashes($fieldstring);
+            }
 
+            $addlist = GetAddFieldList($dtp, $oksetting);
+            $oksetting = addslashes($oksetting);
 
-            $rs = Channeltype::update(array('fieldset'=>'', 'listfields'=>''), array('id'=>$param['id']));
+            $rs = Channeltype::update(array('fieldset'=>$oksetting, 'listfields'=> $addlist), array('id'=>$param['id']));
             if(!$rs){
                 return $this->error("保存节点配置出错!");
             }
