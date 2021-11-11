@@ -3,15 +3,14 @@ declare (strict_types=1);
 
 namespace app\Admin\controller;
 
-
-use app\Admin\model\Admin;
-use app\Admin\model\Arctiny;
-use app\Admin\model\Arctype;
 use think\facade\Config;
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
+use app\Admin\model\Admin;
+use app\Admin\model\Arctiny;
+use app\Admin\model\Arctype;
 use app\Admin\model\Arcatt;
 use app\Admin\model\Archives;
 use app\Admin\model\Arcrank;

@@ -96,7 +96,75 @@ class MyChannelMain extends Base
         $MemberModelAll = MemberModel::where('')->select()->toArray();
         View::assign('MemberModelAll', $MemberModelAll);
         View::assign('id', $id);
+//
+//        $ds = file("storage/inc/fieldtype.txt");
+//
+//        foreach($ds as $d){
+//            $dds = explode(',',trim($d));
+//            $fieldtypes[$dds[0]] = $dds[1];
+//        }
+//        $fieldset = $data['fieldset'];
+//        $dtp = new TagParse();
+//        $dtp->SetNameSpace("field","<",">");
+//        $dtp->LoadSource($fieldset);
+//        View::assign('Ctage', $dtp->Ctage);
+
+
         return View::fetch();
+    }
+
+    public function ss($data)
+    {
+
+        $ds = file("storage/inc/fieldtype.txt");
+
+        foreach ($ds as $d) {
+            $dds                 = explode(',', trim($d));
+            $fieldtypes[$dds[0]] = $dds[1];
+        }
+        $fieldset = $data['fieldset'];
+        $dtp      = new TagParse();
+        $dtp->SetNameSpace("field", "<", ">");
+        $dtp->LoadSource($fieldset);
+        $html = "";
+        if (is_array($dtp->CTags)) {
+            foreach ($dtp->CTags as $ctag) {
+                $html .= "<tr align=\"center\" bgcolor=\"#FFFFFF\" height=\"26\" align=\"center\" onMouseMove=\"javascript:this.bgColor='#FCFDEE';\" onMouseOut=\"javascript:this.bgColor='#FFFFFF';\" height=\"24\"><td>";
+
+                $itname = $ctag->GetAtt('itemname');
+                if ($itname == '') $html .= "没指定";
+                else $html .= $itname;
+
+                $html .= "</td><td>" . $ctag->GetTagName() . "</td>";
+                $html .= "<td>";
+
+                $ft = $ctag->GetAtt('type');
+                    if (isset($fieldtypes[$ft])) $html .= $fieldtypes[$ft];
+                    else  $html .= "系统专用类型";
+
+                $html .= "</td><td>";
+                $ft   = $ctag->GetAtt('autofield');
+                if ($ft == '' || $ft == 0) {
+                    $html .= "固化字段";
+                } else {
+                    $html .= "自动表单";
+                }
+
+                $html .= "</td>";
+                $html .= "<td>";
+
+                if ($ft == 1) {
+
+                    $html .= "<a href='mychannel_field_edit.php?id=&fname=&issystem='></a>";
+                    if ($data['issystem'] != 1) {
+                        $html .= "<a href='#' onClick=\"javascript:DelNote('mychannel_field_edit.php?id=&fname=&action=delete\");'></a>";
+                    } else {
+                        $html .= "禁止修改";
+                    }
+                    $html .= "</td></tr>";
+                }
+            }
+        }
     }
 
     public function mychannel_field_add()
@@ -135,9 +203,10 @@ class MyChannelMain extends Base
 
             $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
             $rs = Db::query($alter);
-            if(!$rs){
-                return $this->error("增加字段失败1");
-            }
+//            var_dump($rs);exit();
+//            if(!$rs){
+//                return $this->error("增加字段失败1");
+//            }
 
             $ok = FALSE;
             $fieldname = strtotime($param['fieldname']);

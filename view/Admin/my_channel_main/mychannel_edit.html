@@ -229,66 +229,8 @@
                             <tr bgcolor="#ffffff" height="24">
                                 <td colspan='5'>下面列出的字段是附加表的字段，除此外，它还包含主表dede_archives的所有字段</td>
                             </tr>
-                            <?php }
-                            $ds = file("storage/inc/fieldtype.txt");
+                            <?php } ?>
 
-                            foreach($ds as $d){
-                                $dds = explode(',',trim($d));
-                                $fieldtypes[$dds[0]] = $dds[1];
-                            }
-                            $fieldset = $data['fieldset'];
-                            #$dtp = new TagParse();
-                            #$dtp->SetNameSpace("field","<",">");
-                            #$dtp->LoadSource($fieldset);
-                            #if(is_array($dtp->CTags)){
-                            #foreach($dtp->CTags as $ctag){
-                            ?>
-                            <tr align="center" bgcolor="#FFFFFF" height="26" align="center" onMouseMove="javascript:this.bgColor='#FCFDEE';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="24">
-                            <td>
-                                <?php
-			                    #$itname = $ctag->GetAtt('itemname');
-                                #if($itname=='') echo "没指定";
-                                 #   else echo $itname;
-                                ?>
-                            </td>
-                            <td>
-                                <?php # echo $ctag->GetTagName(); ?>      </td>
-                            <td>
-                                <?php
-			                    # $ft = $ctag->GetAtt('type');
-                                # if(isset($fieldtypes[$ft])) echo $fieldtypes[$ft];
-                                # else  echo "系统专用类型";
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-			                    # $ft = $ctag->GetAtt('autofield');
-                                # if($ft=='' || $ft==0) {
-                                #    echo "固化字段";
-                                # }else {
-                                #    echo "自动表单";
-                                # }
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                # if($ft==1){
-                                ?>
-                                <a href='mychannel_field_edit.php?id=&fname=&issystem='></a>
-                                <?php # if($row['issystem']!=1){ ?>
-                                | <a href='#' onClick='javascript:DelNote("mychannel_field_edit.php?id=&fname=&action=delete");'></a>
-                                <?php # } ?>
-                                <?php
-                                #}else{
-                                 #   echo "禁止修改";
-                                #}
-                                ?>
-                            </td>
-                        </tr>
-                            <?php
-                             # }
-                             # }
-                            ?>
                         </table>
                     </td>
                 </tr>
