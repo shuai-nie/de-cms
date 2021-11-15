@@ -35,7 +35,8 @@ class TagParse
         }else{
             $this->IsCache = FALSE;
         }
-        if ( DEDE_ENVIRONMENT == 'development' ){
+        define('ENVIRONMENT', 'production');
+        if ( ENVIRONMENT == 'development' ){
             $this->IsCache = FALSE;
         }
         $this->NameSpace    = 'dede';
@@ -309,7 +310,7 @@ class TagParse
      */
     function LoadSource($str){
         //优化模板字符串存取读取方式
-        $this->taghashfile = $filename = '/tplcache/'.md5($str).'.inc';
+        $this->taghashfile = $filename = app()->getRootPath().'public/storage/tplcache/'.md5($str).'.inc';
         if( !is_file($filename) ){
             file_put_contents($filename, $str);
         }
