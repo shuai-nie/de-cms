@@ -48,7 +48,7 @@ class Generate extends Base
         $cfg_remote_site = Config::get('app.cfg_remote_site');
         View::assign('cfg_remote_site', $cfg_remote_site);
         View::assign('ArctypeAll', $ArctypeAll);
-        
+
         return View::fetch('catalog_main:makehtml_archives');
     }
 
