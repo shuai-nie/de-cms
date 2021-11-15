@@ -96,6 +96,7 @@ class MyChannelMain extends Base
         $MemberModelAll = MemberModel::where('')->select()->toArray();
         View::assign('MemberModelAll', $MemberModelAll);
         View::assign('id', $id);
+        $this->TagParseArr($data);
 //
 //        $ds = file("storage/inc/fieldtype.txt");
 //
@@ -113,7 +114,7 @@ class MyChannelMain extends Base
         return View::fetch();
     }
 
-    public function ss($data)
+    protected function TagParseArr($data)
     {
 
         $ds = file("storage/inc/fieldtype.txt");
@@ -165,6 +166,7 @@ class MyChannelMain extends Base
                 }
             }
         }
+        View::assign('TagParse_html', $html);
     }
 
     public function mychannel_field_add()
