@@ -443,7 +443,7 @@ class CatalogMain extends Base
         View::assign('arclist2', $arclist2);
 
 
-
+        //常见问题
         $arclist3 = Archives::where("typeid=3")->limit(6)->select();
         View::assign('arclist3', $arclist3);
 
