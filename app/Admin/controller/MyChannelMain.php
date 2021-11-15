@@ -163,10 +163,6 @@ class MyChannelMain extends Base
             }
 
             return $this->success("成功增加一个字段", (string)url('mychannel_edit', ['id'=>$param['id'], 'dopost'=>'edit', 'openfield'=>1]));
-
-            var_dump($param);
-
-
             exit();
         }
 
