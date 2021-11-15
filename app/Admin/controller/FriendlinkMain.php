@@ -24,6 +24,7 @@ class FriendlinkMain extends Base
             array('title'=>'模块', 'url'=>''),
             array('title'=>'友情链接', 'url'=>''),
         ));
+        View::assign('_nav_itemed', 'mokuai');
     }
 
     /**

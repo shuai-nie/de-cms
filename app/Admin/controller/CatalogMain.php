@@ -36,6 +36,7 @@ class CatalogMain extends Base
         ));
         $host = Config::get('app.app_host');
         View::assign('host', $host);
+        View::assign('_nav_itemed', 'hexing');
     }
 
     /**
@@ -269,7 +270,6 @@ class CatalogMain extends Base
         $ArctypeAll = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select();
         $cfg_remote_site = Config::get('app.cfg_remote_site');
         View::assign('cfg_remote_site', $cfg_remote_site);
-
         View::assign('ArctypeAll', $ArctypeAll);
 
 

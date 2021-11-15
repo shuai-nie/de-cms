@@ -27,6 +27,7 @@ class SysGroup extends Base
             array('title'=>'系统', 'url'=>''),
             array('title'=>'用户组设定', 'url'=>''),
         ));
+        View::assign('_nav_itemed', 'xitong');
     }
 
 

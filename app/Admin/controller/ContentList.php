@@ -32,6 +32,7 @@ class ContentList extends Base
             array('title' => '核心', 'url' => ''),
             array('title' => '所有档案列表', 'url' => ''),
         ));
+        View::assign('_nav_itemed', 'hexing');
     }
 
     /**

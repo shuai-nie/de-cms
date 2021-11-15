@@ -16,6 +16,7 @@ class Sitemap extends Base{
             array('title'=>'模块', 'url'=>''),
             array('title'=>'生成网站地图', 'url'=>''),
         ));
+        View::assign('_nav_itemed', 'mokuai');
     }
 
     public function index()

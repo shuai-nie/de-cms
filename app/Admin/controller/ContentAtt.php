@@ -21,6 +21,7 @@ class ContentAtt extends Base
             array('title'=>'系统', 'url'=>''),
             array('title'=>'自定义文档属性', 'url'=>''),
         ));
+        View::assign('_nav_itemed', 'xitong');
     }
 
     /**

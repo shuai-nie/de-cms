@@ -30,6 +30,7 @@ class MyChannelMain extends Base
             array('title'=>'内容模型管理', 'url'=>''),
         ));
         View::assign('_nav_this', 'MyChannelMain_index');
+        View::assign('_nav_itemed', 'hexing');
     }
 
     /**

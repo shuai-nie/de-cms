@@ -25,6 +25,7 @@ class SysInfo extends Base
             array('title'=>'系统', 'url'=>''),
             array('title'=>'系统基本参数', 'url'=>''),
         ));
+        View::assign('_nav_itemed', 'xitong');
     }
 
     /**

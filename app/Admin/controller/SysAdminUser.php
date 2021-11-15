@@ -33,6 +33,7 @@ class SysAdminUser extends Base
             array('title'=>'系统用户管理', 'url'=>''),
         ));
         View::assign('_nav_this', 'SysAdminUser_index');
+        View::assign('_nav_itemed', 'xitong');
     }
 
     public function index()

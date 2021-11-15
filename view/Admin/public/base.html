@@ -56,7 +56,7 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item {if condition="$_nav_this eq 'Index_index' "} layui-this {/if}"><a href="{:url('Index/index')}">首页</a></li>
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item {if condition="$_nav_itemed eq 'xitong'"}layui-nav-itemed{/if}">
                     <a class="" href="javascript:;">系统</a>
                     <dl class="layui-nav-child">
                         <dd {if condition="$_nav_this eq 'SysInfo_index' "} class="layui-this" {/if} ><a href="{:url('SysInfo/index')}">系统基本参数</a></dd>
@@ -67,8 +67,8 @@
                     </dl>
                 </li>
 
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class=" " href="">核心</a>
+                <li class="layui-nav-item {if condition="$_nav_itemed eq 'hexing'"}layui-nav-itemed{/if}">
+                    <a class=" " href="javascript:;">核心</a>
                     <dl class="layui-nav-child">
                         <dd {if condition="$_nav_this eq 'CatalogMain_index' "} class="layui-this" {/if}><a href="{:url('CatalogMain/index')}">网站栏目管理</a> </dd>
                         <dd {if condition="$_nav_this eq 'ContentList_index' "} class="layui-this" {/if}><a href="{:url('ContentList/index')}">所有档案列表</a> </dd>
@@ -78,11 +78,20 @@
                     </dl>
                 </li>
 
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a>模块</a>
+                <li class="layui-nav-item {if condition="$_nav_itemed eq 'mokuai'"}layui-nav-itemed{/if}">
+                    <a href="javascript:;">模块</a>
                     <dl class="layui-nav-child">
                         <dd {if condition="$_nav_this eq 'FriendlinkMain_index' "} class="layui-this" {/if}><a href="{:url('FriendlinkMain/index')}">友情链接</a></dd>
-                        <dd{if condition="$_nav_this eq 'Sitemap_index' "} class="layui-this" {/if}><a href="{:url('Sitemap/index')}">生成网站地图</a></dd>
+                        <dd {if condition="$_nav_this eq 'Sitemap_index' "} class="layui-this" {/if}><a href="{:url('Sitemap/index')}">生成网站地图</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item {if condition="$_nav_itemed eq 'generateHtml'"}layui-nav-itemed{/if}">
+                    <a href="javascript:;">生成静态</a>
+                    <dl class="layui-nav-child">
+                        <dd {if condition="$_nav_this eq 'Generate_index' "} class="layui-this" {/if}><a href="{:url('Generate/index')}">首页生成</a></dd>
+                        <dd {if condition="$_nav_this eq 'Generate_list' "} class="layui-this" {/if}><a href="{:url('Generate/list')}">栏目生成</a></dd>
+                        <dd {if condition="$_nav_this eq 'Generate_article' "} class="layui-this" {/if}><a href="{:url('generate/article')}">内容生成</a></dd>
                     </dl>
                 </li>
 

@@ -21,6 +21,7 @@ class Base extends BaseController
         $this->isLogin();
         View::assign('_nav_this', Request()->controller().'_'.Request()->action());
         View::assign('nav', array());
+        View::assign('_nav_itemed', '');
     }
 
     protected function isLogin()

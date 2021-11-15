@@ -25,6 +25,7 @@ class TagsMain extends Base
             array('title'=>'核心', 'url'=>''),
             array('title'=>'TAG 标签管理', 'url'=>''),
         ));
+        View::assign('_nav_itemed', 'hexing');
     }
 
     /**
