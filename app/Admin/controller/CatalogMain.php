@@ -451,6 +451,27 @@ class CatalogMain extends Base
         View::assign('flink', $flink);
     }
 
+    /**
+     * [模板管理器]
+     * @author Dave 178698695@qq.com
+     */
+    public function select_templets()
+    {
+        $cfg_cmspath = '';
+        $f = Request::param('f');
+        if(!isset($activepath)) $activepath = $cfg_cmspath;
+        // 根目录
+        $cfg_basedir = app()->getRootPath();
+        $basehost = 'http://'.$_SERVER['HTTP_HOST'];
+        $cfg_templets_dir = '/templets';
+        View::assign('cfg_templets_dir', $cfg_templets_dir);
+        View::assign('cfg_basedir', $cfg_basedir);
+        View::assign('activepath', $activepath);
+        View::assign('f', $f);
+        return View::fetch('');
+
+    }
+
 
 
 
