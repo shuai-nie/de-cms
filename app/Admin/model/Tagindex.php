@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\model;
 
+use think\facade\Db;
 use think\Model;
 
 /**
@@ -10,5 +11,14 @@ use think\Model;
  */
 class Tagindex extends Model
 {
-    //
+    // 字段加1
+    public static function TagindexInc($map, $field, $step=1){
+        return Db::name(self::getName())->where($map)->inc($field, $step)->update();
+    }
+
+    // 字段减1
+    public static function TagindexDec($map, $field, $step=1){
+        return Db::name(self::getName())->where($map)->dec($field, $step)->update();
+    }
+
 }

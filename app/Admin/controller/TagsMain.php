@@ -133,6 +133,87 @@ class TagsMain extends Base
         }
     }
 
+    public function tags_main()
+    {
+        $start = Request::param('start', 0);
+        $startaid = Request::param('startaid', 0);
+        //$start = isset($start) && is_numeric($start) ? $start : 0;
+        $timestamp = time();
+        $map = array();
+        $where = array();
+        if( $startaid > 0){
+            $where[] = " id>$startaid ";
+        }else{
+            $startaid = 0;
+        }
+
+        if(isset($endaid) && is_numeric($endaid) && $endaid > 0){
+            $where[] = " id<$endaid ";
+        }else{
+            $endaid = 0;
+        }
+        if(!empty($where)){
+            $wheresql = " WHERE arcrank>-1 AND ".implode(' AND ', $where);
+        }
+        $data = Archives::where($map)->field('id as aid,arcrank,typeid,keywords')->limit($start, 100)->select();
+        foreach ($data as $k => $row){
+            $aid = $row['aid'];
+            $typeid = $row['typeid'];
+            $arcrank = $row['arcrank'];
+            $row['keywords'] = trim($row['keywords']);
+            if($row['keywords']!='' && !preg_match("#,#", $row['keywords'])){
+                $keyarr = explode(' ', $row['keywords']);
+            }else{
+                $keyarr = explode(',', $row['keywords']);
+            }
+            foreach($keyarr as $keyword){
+                $keyword = trim($keyword);
+                if($keyword != '' && strlen($keyword)<13 )
+                {
+                    $keyword = addslashes($keyword);
+                    //$row = $dsql->GetOne("SELECT id FROM `#@__tagindex` WHERE tag LIKE '$keyword'");
+                    $row = Tagindex::where(" tag like '".$keyword."'")->find();
+                    if(is_array($row)){
+                        $tid = $row['id'];
+                        //Tagindex::where("id=".$tid)->inc('total')->update();
+                        //Db::name('')->where('')->inc('total')->update();
+                        Tagindex::TagindexInc("id=".$tid, 'total', 1);
+                        //$query = "UPDATE `#@__tagindex` SET `total`=`total`+1 WHERE id='$tid' ";
+                        //$dsql->ExecuteNoneQuery($query);
+                    }else{
+                        $data = [
+                            'tag'     => $keyword,
+                            'count'   => 0,
+                            'total'   => 1,
+                            'weekcc'  => 0,
+                            'monthcc' => 0,
+                            'weekup'  => $timestamp,
+                            'monthup' => $timestamp,
+                            'addtime' => $timestamp,
+                        ];
+                        $tid = Tagindex::replace()->insert($data, true);
+                        //$query = " INSERT INTO `#@__tagindex`(`tag`,`count`,`total`,`weekcc`,`monthcc`,`weekup`,`monthup`,`addtime`) VALUES('$keyword','0','1','0','0','$timestamp','$timestamp','$timestamp');";
+                        //$dsql->ExecuteNoneQuery($query);
+                        //$tid = $dsql->GetLastID();
+                    }
+                    //$query = "REPLACE INTO `#@__taglist`(`tid`,`aid`,`typeid`,`arcrank`,`tag`) VALUES ('$tid', '$aid', '$typeid','$arcrank','$keyword'); ";
+                    //$dsql->ExecuteNoneQuery($query);
+                    $data2 = array(
+                        'tid'     => $tid,
+                        'aid'     => $aid,
+                        'typeid'  => $typeid,
+                        'arcrank' => $arcrank,
+                        'tag'     => $keyword,
+                    );
+                    Tagindex::REPLACE()->insert($data2);
+                }
+            }
+
+        }
+        return $this->success("拉取成功", (string)url('index'));
+
+    }
+
 
 
 
