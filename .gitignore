@@ -2,4 +2,6 @@
 /.idea
 /public/newszone/*
 /public/storage/*
+/public/games/*
 /.env
+/public/sitemap.xml
