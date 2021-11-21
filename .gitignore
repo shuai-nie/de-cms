@@ -1,7 +1,7 @@
 /public/storage/image/2021*
 /.idea
-/public/newszone/*
-/public/storage/*
-/public/games/*
+/public/newszone/*.html
+/public/storage/*.html
+/public/games/*.html
 /.env
 /public/sitemap.xml
