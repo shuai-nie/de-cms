@@ -397,10 +397,8 @@ class CatalogMain extends Base
                 $endid = $end['id'];
             }
 
+            $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id >= $startid AND id <= $endid ")->field('id ')->select();
 
-
-
-            $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id > $startid AND id < $endid ")->field('id ')->select();
             foreach ($ArchivesAll as $k=>$v){
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
