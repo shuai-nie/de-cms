@@ -9,8 +9,6 @@ use think\Model;
 
 class MemberGuestbook extends Model{
 
-    //SELECT g.*,m.userid FROM #@__member_guestbook AS g LEFT JOIN #@__member AS m ON g.mid=m.mid WHERE 1=1 $where ORDER BY aid DESC
-
     public static function guestbook_member()
     {
 
