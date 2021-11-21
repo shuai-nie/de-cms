@@ -33,9 +33,7 @@ class TagsMain extends Base
      * @return \think\Response
      */
     public function index()
-    {
-
-        $offset = 0;
+    {        $offset = 0;
         $length = 20;
         $data = Tagindex::where("")->order('id desc')->paginate($length);
         View::assign('_data', $data);
