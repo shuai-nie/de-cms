@@ -131,14 +131,19 @@ class TagsMain extends Base
         }
     }
 
+    /**
+     * @author Dave 178698695@qq.com
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
     public function tags_main()
     {
-        $start = Request::param('start', 0);
-        $startaid = Request::param('startaid', 0);
-        //$start = isset($start) && is_numeric($start) ? $start : 0;
+        $start     = Request::param('start', 0);
+        $startaid  = Request::param('startaid', 0);
         $timestamp = time();
-        $map = array();
-        $where = array();
+        $map       = array();
+        $where     = array();
         if( $startaid > 0){
             $where[] = " id>$startaid ";
         }else{
@@ -150,16 +155,17 @@ class TagsMain extends Base
         }else{
             $endaid = 0;
         }
+        $wheresql = '';
         if(!empty($where)){
-            $wheresql = " WHERE arcrank>-1 AND ".implode(' AND ', $where);
+            $wheresql = " arcrank>-1 AND ".implode(' AND ', $where);
         }
-        $data = Archives::where($map)->field('id as aid,arcrank,typeid,keywords')->limit($start, 100)->select();
+        $data = Archives::where($wheresql)->field('id as aid,arcrank,typeid,keywords')->limit($start, 50)->select();
         foreach ($data as $k => $row){
             $aid = $row['aid'];
             $typeid = $row['typeid'];
             $arcrank = $row['arcrank'];
             $row['keywords'] = trim($row['keywords']);
-            if($row['keywords']!='' && !preg_match("#,#", $row['keywords'])){
+            if($row['keywords'] != '' && !preg_match("#,#", $row['keywords'])){
                 $keyarr = explode(' ', $row['keywords']);
             }else{
                 $keyarr = explode(',', $row['keywords']);
@@ -169,15 +175,10 @@ class TagsMain extends Base
                 if($keyword != '' && strlen($keyword)<13 )
                 {
                     $keyword = addslashes($keyword);
-                    //$row = $dsql->GetOne("SELECT id FROM `#@__tagindex` WHERE tag LIKE '$keyword'");
                     $row = Tagindex::where(" tag like '".$keyword."'")->find();
-                    if(is_array($row)){
+                    if(!empty($row)){
                         $tid = $row['id'];
-                        //Tagindex::where("id=".$tid)->inc('total')->update();
-                        //Db::name('')->where('')->inc('total')->update();
                         Tagindex::TagindexInc("id=".$tid, 'total', 1);
-                        //$query = "UPDATE `#@__tagindex` SET `total`=`total`+1 WHERE id='$tid' ";
-                        //$dsql->ExecuteNoneQuery($query);
                     }else{
                         $data = [
                             'tag'     => $keyword,
@@ -189,13 +190,9 @@ class TagsMain extends Base
                             'monthup' => $timestamp,
                             'addtime' => $timestamp,
                         ];
-                        $tid = Tagindex::replace()->insert($data, true);
-                        //$query = " INSERT INTO `#@__tagindex`(`tag`,`count`,`total`,`weekcc`,`monthcc`,`weekup`,`monthup`,`addtime`) VALUES('$keyword','0','1','0','0','$timestamp','$timestamp','$timestamp');";
-                        //$dsql->ExecuteNoneQuery($query);
-                        //$tid = $dsql->GetLastID();
+                        $tid = (new Tagindex())->replace()->insertGetId($data);
                     }
-                    //$query = "REPLACE INTO `#@__taglist`(`tid`,`aid`,`typeid`,`arcrank`,`tag`) VALUES ('$tid', '$aid', '$typeid','$arcrank','$keyword'); ";
-                    //$dsql->ExecuteNoneQuery($query);
+
                     $data2 = array(
                         'tid'     => $tid,
                         'aid'     => $aid,
@@ -203,12 +200,53 @@ class TagsMain extends Base
                         'arcrank' => $arcrank,
                         'tag'     => $keyword,
                     );
-                    Tagindex::REPLACE()->insert($data2);
+                    $count = (new Taglist())->where(['tid'=>$tid,'aid'=>$aid])->count();
+                    if($count == 0){
+                        (new Taglist())->replace()->insert($data2);
+                    }
+
                 }
             }
 
         }
         return $this->success("拉取成功", (string)url('index'));
+    }
+
+    /**
+     * [编辑]
+     * @author Dave 178698695@qq.com
+     */
+    public function tags_main_update()
+    {
+        $id = Request::param('tid');
+        $count = Request::param('count');
+        $state = Tagindex::where("id=".$id)->update(array('count' => $count));
+        if($state !== false){
+            return $this->success('提交成功', (string)url('index'));
+        }else{
+            return $this->error('提交失败');
+        }
+    }
+
+    /**
+     * [删除]
+     * @author Dave 178698695@qq.com
+     */
+    public function tags_main_delete()
+    {
+        $ids = Request::param('ids');
+        if(@is_array($ids)){
+            $stringids = implode(',', $ids);
+        }else if(!empty($ids)){
+            $stringids = $ids;
+        }
+
+        $state = Tagindex::where("id in (".$stringids.")")->delete();
+        if($state !== false){
+            return $this->success('提交成功', (string)url('index'));
+        }else{
+            return $this->error('提交失败');
+        }
 
     }
 

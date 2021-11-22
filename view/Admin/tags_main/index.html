@@ -1,5 +1,9 @@
 {extend name="public:base" /}
 
+{block name="style"}
+<script src="/static/admin/js/jquery-3.6.0.min.js" type="application/javascript"></script>
+{/block}
+
 {block name="content"}
 <div>
     <form name='form1' action="{:url('tags_main', ['action'=>'fetch'])}" method="post" style="margin-bottom:6px;">
@@ -19,12 +23,12 @@
     </form>
 </div>
 
-<table lay-filter="demoTagsMainIndex">
+<table lay-filter="" class="layui-table">
     <thead>
     <tr>
         <th lay-data="{field:'f1',width:'80'}">删</th>
         <th lay-data="{field:'f2',width:'280'}">标签</th>
-        <th lay-data="{field:'f3',width:'80'}">点击</th>
+        <th lay-data="{field:'f3',width:'180'}">点击</th>
         <th lay-data="{field:'f4',width:'80'}">文档数</th>
         <th lay-data="{field:'f5',width:'180'}">添加时间</th>
         <th lay-data="{field:'f6',width:'180'}">操作</th>
@@ -35,7 +39,7 @@
     <tr>
         <td><input type="checkbox" name="ids[]" value="{$vo['aid']}" lay-skin="primary" /></td>
         <td>{$vo['tag']}</td>
-        <td>{$vo['count']}</td>
+        <td><input type='text' value="{$vo['count']}" id="count{$vo['id']}" size='5' /></td>
         <td>{$vo['total']}</td>
         <td>{$vo['addtime']|date='Y-m-d H:i:s'}</td>
         <td>
@@ -53,13 +57,11 @@
 {block name="script"}
 <script>
 function UpdateOne(tid){
-    console.log(document.getElementById('count'+tid));
-    ///location = "tags_main.php?action=update&count="+document.getElementById('count'+tid).value+"&tid="+tid;
+    location = "{:url('tags_main_update')}?count="+document.getElementById('count'+tid).value+"&tid="+tid;
 }
 
-
 function DeleteOne(tid){
-    location = "{:url('tags_delete')}?action=delete&ids="+tid;
+    location = "{:url('tags_main_delete')}?action=delete&ids="+tid;
 }
 </script>
 {/block}
