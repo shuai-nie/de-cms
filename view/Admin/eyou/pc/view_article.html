@@ -58,7 +58,7 @@
             <p>客服QQ：2966857223</p>
             <h3 class="blog-comment-title">游戏代理申请</h3>
           </div>
-{eyou:guestbookform typeid='5' type='default'}
+
 
 
         </div>
@@ -77,11 +77,11 @@
           </div>
           <div class="sidebar-widget">
             <h3 class="widget-title">游戏新闻</h3>
-            {volist name="archives2" id="vo"}
-            <div class="widget-post-list"> <a href="{$field.arcurl|default=''}" class="post-thumb"> <img src="{$vo.litpic}" alt="img" /> </a>
+            {volist name="arclist3" id="vo"}
+            <div class="widget-post-list"> <a href="{$vo.arcurl|default=''}" class="post-thumb"> <img src="{$vo.litpic}" alt="img" /> </a>
               <div class="widget-post-content">
-                <h3 class="widget-sub-title"> <a href="{$field.arcurl|default}">{$vo.title}</a> </h3>
-                <p class="post-meta">{$field.add_time|date='m-d',###}</p>
+                <h3 class="widget-sub-title"> <a href="{$vo.arcurl|default=''}">{$vo.title}</a> </h3>
+                <p class="post-meta">{$vo.add_time}</p>
               </div>
             </div>
             {/volist}
@@ -90,8 +90,9 @@
             <h3 class="widget-title">常见问题</h3>
             <div class="widget-list">
               <ul class="list-group list-group-flush">
+                // |date='m-d',###
                 {volist name="arclist3" id="vo"}
-                <li class="list-group-item d-flex justify-content-between align-items-center"> <a href="{$vo.arcurl|default=''}">{$vo.title}</a><span>{$vo.add_time|date='m-d',###}</span> </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center"> <a href="{$vo.arcurl|default=''}">{$vo.title}</a><span>{$vo.add_time}</span> </li>
                 {/volist}
               </ul>
             </div>

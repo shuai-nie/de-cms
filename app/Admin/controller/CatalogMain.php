@@ -397,11 +397,8 @@ class CatalogMain extends Base
                 $endid = $end['id'];
             }
 
+            $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id >= $startid AND id <= $endid ")->field('id ')->select();
 
-
-
-            $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id > $startid AND id < $endid ")->field('id ')->select();
-            //var_dump($arctypeInfo);exit();
             foreach ($ArchivesAll as $k=>$v){
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
@@ -410,6 +407,8 @@ class CatalogMain extends Base
 
                 $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['temparticle']);
             }
+
+            echo '页面生成完成';
 
             exit();
         }
