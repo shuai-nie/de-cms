@@ -24,11 +24,11 @@ function GetSta($sta,$id)
 {
     if($sta==1)
     {
-        return ($id!=-1 ? "启用  &gt; <a href='mychannel_edit.php?dopost=hide&id=$id'><u>禁用</u></a>" : "固定项目");
+        return ($id!=-1 ? "启用  &gt; <a href='".url('mychannel_edit_hide', ['id'=>$id])."'><u>禁用</u></a>" : "固定项目");
     }
     else
     {
-        return "禁用 &gt; <a href='mychannel_edit.php?dopost=show&id=$id'><u>启用</u></a>";
+        return "禁用 &gt; <a href='".url('mychannel_edit_show', ['id'=>$id])."'><u>启用</u></a>";
     }
 }
 
