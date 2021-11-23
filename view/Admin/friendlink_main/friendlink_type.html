@@ -1,8 +1,8 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table width="98%" border="0" cellpadding="1" cellspacing="1" align="center" class="tbtitle">
-    <form name="form1" action="friendlink_type.php" method="post">
+<table width="98%" border="0" cellpadding="1" cellspacing="1" align="center" class="layui-table">
+    <form name="form1" action="{:url('friendlink_type')}" method="post">
         <input type="hidden" name="dopost" value="save">
         <tr></tr>
         <tr bgcolor="#FBFCE2">
@@ -15,10 +15,10 @@
         <tr align="center" bgcolor="#FFFFFF">
             <td height="24" valign="top">{$vo->id}</td>
             <td height="24" valign="top">
-                <input name="pname_<?php echo $k?>" value="{$vo->typename}" type="text" id="pname_{$k}" class='pubinputs' style="width:90%" />
+                <input name="pname_<?php echo $k?>" value="{$vo->typename}" type="text" id="pname_{$k}" class='layui-input-block' />
             </td>
             <td>
-                <input name="check_{$k}" type="checkbox" id="check_{$k}"  value="1" checked='1' class='np' />保留
+                <input name="check_{$k}" type="checkbox" id="check_{$k}"  value="1" checked='1' class='' />保留
             </td>
         </tr>
         {/volist}
