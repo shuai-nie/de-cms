@@ -96,7 +96,7 @@ class FriendlinkMain extends Base
                 'sortrank' => $param['sortrank'],
                 'url'      => $param['url'],
                 'webname'  => $param['webname'],
-                'logo'     => $param['logo'],
+                //'logo'     => $param['logo'],
                 'msg'      => $param['msg'],
                 'email'    => $param['email'],
                 'typeid'   => $param['typeid'],
