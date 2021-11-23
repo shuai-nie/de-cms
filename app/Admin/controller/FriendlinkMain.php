@@ -91,12 +91,13 @@ class FriendlinkMain extends Base
     {
         if(Request::isPost()){
             $param = Request::param('');
+            var_dump($param);exit();
 
             $state = Flink::update(array(
                 'sortrank' => $param['sortrank'],
                 'url'      => $param['url'],
                 'webname'  => $param['webname'],
-                //'logo'     => $param['logo'],
+                'logo'     => $param['logo'],
                 'msg'      => $param['msg'],
                 'email'    => $param['email'],
                 'typeid'   => $param['typeid'],
