@@ -140,7 +140,7 @@ class FriendlinkMain extends Base
             exit();
 
         }
-        return View::fetch('add');
+        return View::fetch('friendlink_type_add');
     }
 
     /**
@@ -163,7 +163,7 @@ class FriendlinkMain extends Base
 
         $data = Flinktype::where(['id'=>$id])->find();
         View::assign('data', $data);
-        return View::fetch('add');
+        return View::fetch('friendlink_type_add');
 
     }
 
