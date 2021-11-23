@@ -129,6 +129,55 @@ class FriendlinkMain extends Base
     }
 
     /**
+     * [添加网站类型]
+     * User: yesheng35@126.com
+     * DateTime 2021/11/23 22:55
+     */
+    public function friendlink_type_add()
+    {
+        if(Request::isPost()){
+
+            exit();
+
+        }
+        return View::fetch('add');
+    }
+
+    /**
+     * [编辑网站类型]
+     * User: yesheng35@126.com
+     * DateTime 2021/11/23 22:56
+     * @return string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
+    public function friendlink_type_edit()
+    {
+        $id = Request::param('id');
+        if(Request::isPost()){
+
+            exit();
+
+        }
+
+        $data = Flinktype::where(['id'=>$id])->find();
+        View::assign('data', $data);
+        return View::fetch('add');
+
+    }
+
+    /**
+     * [删除网站类型]
+     * User: yesheng35@126.com
+     * DateTime 2021/11/23 22:56
+     */
+    public function friendlink_type_delete()
+    {
+        $id = Request::param('id');
+    }
+
+    /**
      * [水印案例]
      * @author Dave 178698695@qq.com
      */
@@ -153,11 +202,9 @@ class FriendlinkMain extends Base
 
         // 文字水印
         $image->text(time().'十年磨一剑', $root.'msyhl.ttc', 20, '#f44336', Image::WATER_CENTER, 00, 50)->save($root.time().'text_image.png');
-
-
-
-
     }
+
+
 
 
 

@@ -3,6 +3,7 @@
 {block name="style"}{/block}
 
 {block name="content"}
+<a href="{:url('friendlink_type_add')}" class="layui-btn layui-btn-xs">添加网站类型</a>
 <table width="98%" border="0" cellpadding="1" cellspacing="1" align="center" class="layui-table">
         {volist name="row" id="vo" key="k"}
         <input type="hidden" name="ID_{$k}" value="{$vo->id}">
@@ -13,8 +14,8 @@
 <!--                <input name="check_{$k}" type="checkbox" id="check_{$k}"  value="1" checked='1' class='' />保留-->
 <!--            </td>-->
             <td>
-                <a href="{:url('friendlink_type_edit', ['id'=>$vo['id']])}">编辑</a>
-                <a href="{:url('friendlink_type_delete', ['id'=>$vo['id']])}">删除</a>
+                <a href="{:url('friendlink_type_edit', ['id'=>$vo['id']])}" class="layui-btn layui-btn-xs">编辑</a>
+                <a href="{:url('friendlink_type_delete', ['id'=>$vo['id']])}" class="layui-btn layui-btn-xs layui-btn-danger">删除</a>
             </td>
         </tr>
         {/volist}
