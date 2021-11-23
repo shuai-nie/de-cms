@@ -8,12 +8,10 @@
         <input type="hidden" name="ID_{$k}" value="{$vo->id}">
         <tr align="center" bgcolor="#FFFFFF">
             <td height="24" valign="top">{$vo->id}</td>
-            <td height="24" valign="top">
-                <input name="pname_<?php echo $k?>" value="{$vo->typename}" type="text" id="pname_{$k}" class='' />
-            </td>
-            <td>
-                <input name="check_{$k}" type="checkbox" id="check_{$k}"  value="1" checked='1' class='' />保留
-            </td>
+            <td height="24" valign="top"> {$vo->typename}</td>
+<!--            <td>-->
+<!--                <input name="check_{$k}" type="checkbox" id="check_{$k}"  value="1" checked='1' class='' />保留-->
+<!--            </td>-->
             <td>
                 <a href="{:url('friendlink_type_edit', ['id'=>$vo['id']])}">编辑</a>
                 <a href="{:url('friendlink_type_delete', ['id'=>$vo['id']])}">删除</a>
