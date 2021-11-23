@@ -19,7 +19,7 @@
         <td>{$vo['typename']}</td>
         <td>{$vo['nid']}</td>
         <td>{$vo['addtable']}</td>
-        <td>{$vo['isshow']|GetSta=###, $vo['id']}</td>
+        <td>{$vo['isshow']|GetSta=###, $vo['id']|raw}</td>
         <td>{$vo['issystem']|IsSystem}</td>
         <td>
             <a href="{:url('mychannel_edit', ['id'=>$vo['id'],'dopost'=>'edit'])}" class="layui-btn layui-btn-xs" lay-event="edit">更改</a>
