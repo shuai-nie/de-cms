@@ -15,7 +15,7 @@ class Upload
     {
         $host = Config::get('app.app_host');
         $file = Request::file('file');
-        $path = Filesystem::disk('public')->putFile('image', $file, '123456');
+        $path = Filesystem::disk('public')->putFile('image', $file, 'hashNameTime');
         $picSrc = Filesystem::getDiskConfig('public', 'url').'/'.str_replace('\\', '/', $path);
         return json(['code'=>0, 'msg'=>'成功','data'=>['src'=>$picSrc]]);
     }

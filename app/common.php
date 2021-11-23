@@ -398,3 +398,7 @@ function GetAddFieldList(&$dtp, &$oksetting)
     }
     return $oklist;
 }
+
+function hashNameTime(){
+    return time();
+}
