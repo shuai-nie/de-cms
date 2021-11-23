@@ -356,4 +356,36 @@ class MyChannelMain extends Base
         }
     }
 
+    /**
+     * [内容模型-禁用]
+     * User: yesheng35@126.com
+     * DateTime 2021/11/23 22:06
+     */
+    public function mychannel_edit_hide()
+    {
+        $id = Request::param('id');
+        $state = Channeltype::update(['isshow'=>0], ['id'=>$id]);
+        if($state !== false){
+            return $this->success('修改成功', (string)url('index'));
+        }
+        return $this->error("修改失败");
+
+    }
+
+    /**
+     * [内容模型-启用]
+     * User: yesheng35@126.com
+     * DateTime 2021/11/23 22:07
+     */
+    public function mychannel_edit_show()
+    {
+        $id = Request::param('id');
+        $state = Channeltype::update(['isshow'=>1], ['id'=>$id]);
+        if($state !== false){
+            return $this->success('修改成功', (string)url('index'));
+        }
+        return $this->error("修改失败");
+
+    }
+
 }
