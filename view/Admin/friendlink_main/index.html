@@ -20,7 +20,11 @@
     {volist name="_data" id="vo"}
     <tr>
         <td>{$vo['webname']}</td>
-        <td>{$vo['logo']}</td>
+        <td>
+            {if $vo['logo'] != ''}
+                <img src="$vo['logo']" height="40" width="40">
+            {/if}
+        </td>
         <td>{$vo['email']}</td>
         <td>{$vo['ischeck']|GetSta3}</td>
         <td>{$vo['sortrank']}</td>
