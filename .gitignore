@@ -5,3 +5,4 @@
 /public/games/*.html
 /.env
 /public/sitemap.xml
+/public/storage/mark/inc_photowatermark_config.php
