@@ -1,0 +1,127 @@
+{extend name="public:base" /}
+
+{block name="style"}
+<script type="application/javascript" src="/static/lib/context_menu.js" ></script>
+{/block}
+
+{block name="content"}
+
+<table class="layui-table">
+    <tr bgcolor="#E7E7E7">
+        <td height="28" colspan="7" background="images/tbg.gif" style="padding-left:10px;">
+            <b>文档回收站</b> &nbsp;
+        </td>
+    </tr>
+    <form name="form2">
+        <tr align="center" bgcolor="#FBFCE2" height="25">
+            <td width="6%">ID</td>
+            <td width="4%">选择</td>
+            <td width="28%">文章标题</td>
+            <td width="10%">更新时间</td>
+            <td width="10%">类目</td>
+            <td width="8%">点击</td>
+            <td width="10%">操作</td>
+        </tr>
+        {volist name="_data" id="vo"}
+        <tr align='center' bgcolor="#FFFFFF"  onMouseMove="javascript:this.bgColor='#FCFDEE';" onMouseOut="javascript:this.bgColor='#FFFFFF';" height="25" >
+            <td>{$vo.id}</td>
+            <td><input name="arcID" type="checkbox" id="arcID" value="{$vo.id}" ></td>
+            <td align='left'>
+                <a href='archives_do.php?aid={dede:field.id/}&dopost=editArchives'><u>{$vo.title}</u></a>
+            </td>
+            <td  function='GetDateMk(@me)' >{$vo.senddate|date='Y-m-d'}</td>
+            <td>{$vo.typename}</td>
+            <td>{$vo.click}</td>
+            <td>
+                <a href="javascript:moveArc({$vo['id']})">还原</a> |
+                <a href="javascript:delArc({$vo['id']})">删除</a>
+            </td>
+        </tr>
+        {/volist}
+        <tr bgcolor="#ffffff">
+            <td height="24" colspan="7">
+                &nbsp;
+                <a href="javascript:selAll()" class="coolbg">全选</a>
+                <a href="javascript:noSelAll()" class="coolbg">取消</a>
+                <a href="javascript:moveArc(0)" class="coolbg">&nbsp;还原&nbsp;</a>
+                <a href="javascript:delArc(0)" class="coolbg">&nbsp;删除&nbsp;</a></td>
+        </tr>
+    </form>
+</table>
+
+<div>{$_data|raw}</div>
+{/block}
+
+{block name="script"}
+<script type="application/javascript">
+
+    function selAll()
+    {
+        for(i=0;i<document.form2.arcID.length;i++)
+        {
+            if(!document.form2.arcID[i].checked)
+            {
+                document.form2.arcID[i].checked=true;
+            }
+        }
+    }
+    function noSelAll()
+    {
+        for(i=0;i<document.form2.arcID.length;i++)
+        {
+            if(document.form2.arcID[i].checked)
+            {
+                document.form2.arcID[i].checked=false;
+            }
+        }
+    }
+
+    // 还原
+    function moveArc(aid){
+        var qstr=getCheckboxItem();
+        if(aid==0) aid = getOneItem();
+        location="{url('archives_do_return')}?aid="+aid+"&dopost=return&qstr="+qstr;
+    }
+
+    // 删除
+    function delArc(aid){
+        var qstr=getCheckboxItem();
+        if(aid==0) aid = getOneItem();
+        location="{:url('archives_do_del')}?qstr="+qstr+"&aid="+aid+"&dopost=del&recycle=1";
+    }
+
+
+    // function ContextItem(str,fnc,disabled){
+    //     this.text     = str;
+    //     this.action   = fnc;
+    //     this.disabled = disabled || false;
+    // }
+    //
+    // function ContextSeperator(){}
+    //
+    // function ContextMenu(){}
+    //
+    // ContextMenu.showPopup=function(x,y){
+    //     WebFX_PopUpcss.style.display = "block"
+    // }
+    //
+    // ContextMenu.display=function(evt,popupoptions){
+    //     var eobj,x,y;
+    //
+    //     eobj = evt ? evt:(window.event ? window.event : null);
+    //
+    //     if(curNav()=='IE'){
+    //         x  = eobj.x;y  = eobj.y
+    //     } else	{
+    //         x = eobj.clientX; y = eobj.clientY;
+    //     }
+    //
+    //     ContextMenu.populatePopup(popupoptions,window)
+    //     ContextMenu.showPopup(x,y);
+    //     ContextMenu.fixSize();
+    //     ContextMenu.fixPos(x,y);
+    //     eobj.cancelBubble = true;
+    //     eobj.returnValue  = false;
+    // }
+</script>
+{/block}

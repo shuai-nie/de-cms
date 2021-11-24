@@ -30,8 +30,6 @@ layui.use(['form','jquery'], function(){
         $ = layui.jquery;
 
     form.on('submit(first)', function(data){
-        // console.log(data)
-        // alert(JSON.stringify(data.field));
         $.post("{:url('')}", data.field, function (obj) {
             if(obj.code == 0){
                 layer.msg(obj.msg, function () {
