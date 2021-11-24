@@ -136,10 +136,28 @@ class FriendlinkMain extends Base
     public function friendlink_type_add()
     {
         if(Request::isPost()){
+            $param = Request::param('');
+            $state = Flinktype::insert($param);
+            if($state !== false){
+                return json(array(
+                    'code' => 0,
+                    'msg' => '新建成功'
+                ));
+            }
+            return json(array(
+               'code' => 1,
+               'msg' => '新建失败',
+            ));
 
             exit();
 
         }
+        View::assign('nav', array(
+            array('title'=>'模块', 'url'=>''),
+            array('title'=>'友情链接', 'url'=>''),
+            array('title'=>'网站类型管理', 'url'=>''),
+            array('title'=>'新建-网站类型管理', 'url'=>''),
+        ));
         return View::fetch('friendlink_type_add');
     }
 
@@ -156,6 +174,19 @@ class FriendlinkMain extends Base
     {
         $id = Request::param('id');
         if(Request::isPost()){
+            $typename = Request::param('typename');
+
+            $state = Flinktype::update(['typename'=>$typename], ['id'=>$id]);
+            if($state !== false){
+                return json(array(
+                    'code' => 0,
+                    'msg' => '编辑成功'
+                ));
+            }
+            return json(array(
+                'code' => 1,
+                'msg' => '编辑失败',
+            ));
 
             exit();
 
@@ -163,6 +194,12 @@ class FriendlinkMain extends Base
 
         $data = Flinktype::where(['id'=>$id])->find();
         View::assign('data', $data);
+        View::assign('nav', array(
+            array('title'=>'模块', 'url'=>''),
+            array('title'=>'友情链接', 'url'=>''),
+            array('title'=>'网站类型管理', 'url'=>''),
+            array('title'=>'编辑-网站类型管理', 'url'=>''),
+        ));
         return View::fetch('friendlink_type_add');
 
     }
@@ -174,7 +211,14 @@ class FriendlinkMain extends Base
      */
     public function friendlink_type_delete()
     {
+
         $id = Request::param('id');
+        $state = Flinktype::where(['id'=>$id])->delete();
+        if($state !== false){
+            return $this->success("删除成功", (string)url('friendlink_type'));
+        }
+        return $this->error("删除失败");
+
     }
 
     /**

@@ -1,10 +1,55 @@
 {extend name="public:base" /}
 
-{block name="style"}{/block}
+{block name="style"}
+
+{/block}
 
 {block name="content"}
-1111111111
+<form lay-filter="first" class="layui-form layui-form-pane1" >
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类名</label>
+        <div class="layui-input-block">
+            <input type="text" name="typename" placeholder="请输入" autocomplete="off" class="layui-input" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="id" >
+            <button class="layui-btn" lay-submit lay-filter="first">立即提交</button>
+        </div>
+    </div>
+
+</form>
 {/block}
 
 {block name="script"}
+<script type="application/javascript">
+layui.use(['form','jquery'], function(){
+    var form = layui.form,
+        $ = layui.jquery;
+
+    form.on('submit(first)', function(data){
+        // console.log(data)
+        // alert(JSON.stringify(data.field));
+        $.post("{:url('')}", data.field, function (obj) {
+            if(obj.code == 0){
+                layer.msg(obj.msg, function () {
+                    window.location.href = "{:url('friendlink_type')}"
+                })
+            }else{
+                layer.msg(obj.msg);
+            }
+        })
+        return false;
+    });
+
+
+    form.val('first', {
+        'id':"{$data['id']}",
+        "typename":"{$data['typename']}",
+    })
+
+})
+</script>
 {/block}
