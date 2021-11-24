@@ -3,8 +3,10 @@ declare (strict_types=1);
 
 namespace app\Admin\controller;
 
+use app\admin\model\Feedback;
+use app\Admin\model\Taglist;
 use think\facade\Config;
-use think\facade\Db;
+use think\Db;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
@@ -373,13 +375,16 @@ class ContentList extends Base
         else $whererecycle = "";
 
         //查询表信息
-        $query = "SELECT ch.maintable,ch.addtable,ch.nid,ch.issystem FROM `#@__arctiny` arc
-                LEFT JOIN `#@__arctype` tp ON tp.id=arc.typeid
-              LEFT JOIN `#@__channeltype` ch ON ch.id=arc.channel WHERE arc.id='$aid' ";
+        $query = "SELECT ch.maintable,ch.addtable,ch.nid,ch.issystem FROM ".Arctiny::getTable()." arc
+                LEFT JOIN ".Arctype::getTable()." tp ON tp.id=arc.typeid
+                LEFT JOIN ".Channeltype::getTable()." ch ON ch.id=arc.channel WHERE arc.id='$aid' ";
         // $row = $dsql->GetOne($query);
+        $row = Db::query($query);
+        $row = $row[0];
 
         $nid = $row['nid'];
-        $maintable = (trim($row['maintable'])=='' ? '#@__archives' : trim($row['maintable']));
+        // '#@__archives'
+        $maintable = (trim($row['maintable'])=='' ? Archives::getTable(): trim($row['maintable']));
         $addtable = trim($row['addtable']);
         $issystem = $row['issystem'];
 
@@ -393,7 +398,9 @@ class ContentList extends Base
             $arcQuery = "SELECT arc.*,tp.*,arc.id AS aid FROM `$maintable` arc LEFT JOIN `#@__arctype` tp ON arc.typeid=tp.id WHERE arc.id='$aid' ";
         }
 
-        $arcRow = $dsql->GetOne($arcQuery);
+        //$arcRow = $dsql->GetOne($arcQuery);
+        $arcRow = Db::query($arcQuery);
+        $arcRow = $arcRow[0];
 
         //检测权限
 //        if(!TestPurview('a_Del,sys_ArcBatch'))
@@ -424,52 +431,64 @@ class ContentList extends Base
 
         $cfg_basedir = app()->getRootPath();
         $cfg_upload_switch = 'Y';
+        $arctinyTable = Arctiny::getTable();
 
         /** 删除到回收站 **/
         if($cfg_delete == 'Y' && $type == 'ON')
         {
-            $dsql->ExecuteNoneQuery("UPDATE `$maintable` SET arcrank='-2' WHERE id='$aid' ");
-            $dsql->ExecuteNoneQuery("UPDATE `#@__arctiny` SET `arcrank` = '-2' WHERE id = '$aid'; ");
+            Db::query("UPDATE `$maintable` SET arcrank='-2' WHERE id='$aid' ");
+            //$dsql->ExecuteNoneQuery();
+            //$dsql->ExecuteNoneQuery();
+            Db::query("UPDATE ".$arctinyTable." SET `arcrank` = '-2' WHERE id = '$aid'; ");
         }
         else
         {
             //删除数据库记录
             if(!$onlyfile)
             {
-                $query = "Delete From `#@__arctiny` where id='$aid' $whererecycle";
-                if($dsql->ExecuteNoneQuery($query))
-                {
+                $query = "Delete From ".$arctinyTable." where id='$aid' $whererecycle";
+                $state = Arctiny::hasWhere("id='$aid' $whererecycle")->delete();
+                if($state){
+                    /*
                     $dsql->ExecuteNoneQuery("Delete From `#@__feedback` where aid='$aid' ");
-                    $dsql->ExecuteNoneQuery("Delete From `#@__member_stow` where aid='$aid' ");
                     $dsql->ExecuteNoneQuery("Delete From `#@__taglist` where aid='$aid' ");
                     $dsql->ExecuteNoneQuery("Delete From `#@__erradd` where aid='$aid' ");
-                    if($addtable != '')
-                    {
-                        $dsql->ExecuteNoneQuery("Delete From `$addtable` where aid='$aid'");//2011.7.3 根据论坛反馈，修复删除文章时无法清除附加表中对应的数据 (by：织梦的鱼)
+                    $dsql->ExecuteNoneQuery("Delete From `#@__member_stow` where aid='$aid' ");
+                    */
+                    Feedback::where(['aid'=>$aid])->delete();
+                    MemberStow::where(['aid'=>$aid])->delete();
+                    Taglist::where(['aid'=>$aid])->delete();
+                    Erradd::where(['aid'=>$aid])->delete();
+
+
+                    if($addtable != ''){
+                        //$dsql->ExecuteNoneQuery("Delete From `$addtable` where aid='$aid'");
+                        Db::query("Delete From `$addtable` where aid='$aid'");
                     }
                     if($issystem != -1)
                     {
-                        $dsql->ExecuteNoneQuery("Delete From `#@__archives` where id='$aid' $whererecycle");
+                        //$dsql->ExecuteNoneQuery("Delete From `#@__archives` where id='$aid' $whererecycle");
+                        Archives::where("id='$aid' $whererecycle")->delete();
                     }
                     //删除相关附件
                     if($cfg_upload_switch == 'Y')
                     {
-                        $dsql->Execute("me", "SELECT * FROM `#@__uploads` WHERE arcid = '$aid'");
-                        while($row = $dsql->GetArray('me'))
-                        {
-                            $addfile = $row['url'];
-                            $aid = $row['aid'];
-                            $dsql->ExecuteNoneQuery("Delete From `#@__uploads` where aid = '$aid' ");
-                            $upfile = $cfg_basedir.$addfile;
-                            if(@file_exists($upfile)) @unlink($upfile);
-                        }
+//                        $dsql->Execute("me", "SELECT * FROM `#@__uploads` WHERE arcid = '$aid'");
+//                        while($row = $dsql->GetArray('me'))
+//                        {
+//                            $addfile = $row['url'];
+//                            $aid = $row['aid'];
+//                            $dsql->ExecuteNoneQuery("Delete From `#@__uploads` where aid = '$aid' ");
+//                            $upfile = $cfg_basedir.$addfile;
+//                            if(@file_exists($upfile)) @unlink($upfile);
+//                        }
                     }
                 }
             }
             $cfg_cookie_encode = Config::get('app.cfg_cookie_encode');
             //删除文本数据
-            $filenameh = DEDEDATA."/textdata/".(ceil($aid/5000))."/{$aid}-".substr(md5($cfg_cookie_encode),0,16).".txt";
-            if(@is_file($filenameh)) @unlink($filenameh);
+//            $filenameh = DEDEDATA."/textdata/".(ceil($aid/5000))."/{$aid}-".substr(md5($cfg_cookie_encode),0,16).".txt";
+//            if(@is_file($filenameh)) @unlink($filenameh);
 
         }
 
@@ -484,27 +503,27 @@ class ContentList extends Base
             return TRUE;
         }
 
-        //强制转换非多站点模式，以便统一方式获得实际HTML文件
-        $GLOBALS['cfg_multi_site'] = 'N';
-        $arcurl = GetFileUrl($arcRow['aid'],$arcRow['typeid'],$arcRow['senddate'],$arcRow['title'],$arcRow['ismake'],
-            $arcRow['arcrank'],$arcRow['namerule'],$arcRow['typedir'],$arcRow['money'],$arcRow['filename']);
-        if(!preg_match("#\?#", $arcurl))
-        {
-            $htmlfile = GetTruePath().str_replace($GLOBALS['cfg_basehost'],'',$arcurl);
-            if(file_exists($htmlfile) && !is_dir($htmlfile))
-            {
-                @unlink($htmlfile);
-                $arcurls = explode(".", $htmlfile);
-                $sname = $arcurls[count($arcurls)-1];
-                $fname = preg_replace("#(\.$sname)$#", "", $htmlfile);
-                for($i=2; $i<=100; $i++)
-                {
-                    $htmlfile = $fname."_{$i}.".$sname;
-                    if( @file_exists($htmlfile) ) @unlink($htmlfile);
-                    else break;
-                }
-            }
-        }
+//        //强制转换非多站点模式，以便统一方式获得实际HTML文件
+//        $GLOBALS['cfg_multi_site'] = 'N';
+//        $arcurl = GetFileUrl($arcRow['aid'],$arcRow['typeid'],$arcRow['senddate'],$arcRow['title'],$arcRow['ismake'],
+//            $arcRow['arcrank'],$arcRow['namerule'],$arcRow['typedir'],$arcRow['money'],$arcRow['filename']);
+//        if(!preg_match("#\?#", $arcurl))
+//        {
+//            $htmlfile = GetTruePath().str_replace($GLOBALS['cfg_basehost'],'',$arcurl);
+//            if(file_exists($htmlfile) && !is_dir($htmlfile))
+//            {
+//                @unlink($htmlfile);
+//                $arcurls = explode(".", $htmlfile);
+//                $sname = $arcurls[count($arcurls)-1];
+//                $fname = preg_replace("#(\.$sname)$#", "", $htmlfile);
+//                for($i=2; $i<=100; $i++)
+//                {
+//                    $htmlfile = $fname."_{$i}.".$sname;
+//                    if( @file_exists($htmlfile) ) @unlink($htmlfile);
+//                    else break;
+//                }
+//            }
+//        }
 
         return true;
     }
