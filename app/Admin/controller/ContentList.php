@@ -500,8 +500,7 @@ class ContentList extends Base
         if(empty($arcRow['filename'])) $arcRow['filename'] = '';
 
         //删除HTML
-        if($arcRow['ismake']==-1 || $arcRow['arcrank']!=0 || $arcRow['typeid']==0 || $arcRow['money']>0)
-        {
+        if($arcRow['ismake']==-1 || $arcRow['arcrank']!=0 || $arcRow['typeid']==0 || $arcRow['money']>0){
             return TRUE;
         }
 
