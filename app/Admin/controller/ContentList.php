@@ -18,6 +18,8 @@ use app\Admin\model\Archives;
 use app\Admin\model\Arcrank;
 use app\Admin\model\Channeltype;
 use app\Admin\model\Uploads;
+use app\Admin\model\MemberStow;
+use app\Admin\model\Erradd;
 
 /**
  * [所有档案列表]
@@ -431,7 +433,7 @@ class ContentList extends Base
 
         $cfg_basedir = app()->getRootPath();
         $cfg_upload_switch = 'Y';
-        $arctinyTable = Arctiny::getTable();
+        //$arctinyTable = Arctiny::getTable();
 
         /** 删除到回收站 **/
         if($cfg_delete == 'Y' && $type == 'ON')
@@ -439,14 +441,14 @@ class ContentList extends Base
             Db::query("UPDATE `$maintable` SET arcrank='-2' WHERE id='$aid' ");
             //$dsql->ExecuteNoneQuery();
             //$dsql->ExecuteNoneQuery();
-            Db::query("UPDATE ".$arctinyTable." SET `arcrank` = '-2' WHERE id = '$aid'; ");
+            Db::query("UPDATE ".Arctiny::getTable()." SET `arcrank` = '-2' WHERE id = '$aid'; ");
         }
         else
         {
             //删除数据库记录
             if(!$onlyfile)
             {
-                $query = "Delete From ".$arctinyTable." where id='$aid' $whererecycle";
+                $query = "Delete From ".Arctiny::getTable()." where id='$aid' $whererecycle";
                 $state = Arctiny::hasWhere("id='$aid' $whererecycle")->delete();
                 if($state){
                     /*
