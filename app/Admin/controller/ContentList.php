@@ -3,13 +3,13 @@ declare (strict_types=1);
 
 namespace app\Admin\controller;
 
-use app\admin\model\Feedback;
-use app\Admin\model\Taglist;
-use think\facade\Config;
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
+use think\facade\Config;
+use app\admin\model\Feedback;
+use app\Admin\model\Taglist;
 use app\Admin\model\Admin;
 use app\Admin\model\Arctiny;
 use app\Admin\model\Arctype;
