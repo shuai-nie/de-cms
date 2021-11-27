@@ -112,6 +112,11 @@ class MyChannelMain extends Base
 //        View::assign('Ctage', $dtp->Ctage);
 
 
+        View::assign('nav', array(
+            array('title'=>'核心', 'url'=>''),
+            array('title'=>'内容模型管理', 'url'=>''),
+            array('title'=>'编辑-内容模型', 'url'=>''),
+        ));
         return View::fetch();
     }
 
@@ -337,9 +342,14 @@ class MyChannelMain extends Base
         $usertype = Session::get('AdminUser')->usertype;
 
         $ArcrankAll = ArcrankModel::where("adminrank<='$usertype' And rank>=10")->select();
-        View::assign('ArcrankAll', $ArcrankAll);
         $MemberModelAll = MemberModel::where("")->select();
+        View::assign('ArcrankAll', $ArcrankAll);
         View::assign('MemberModelAll', $MemberModelAll);
+        View::assign('nav', array(
+            array('title'=>'核心', 'url'=>''),
+            array('title'=>'内容模型管理', 'url'=>''),
+            array('title'=>'新建-内容模型', 'url'=>''),
+        ));
         return View::fetch();
     }
 
