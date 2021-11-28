@@ -3,6 +3,7 @@
 /public/newszone/*.html
 /public/storage/*.html
 /public/games/*.html
+/public/gamenews/*.html
 /.env
 /public/sitemap.xml
 /public/storage/mark/inc_photowatermark_config.php
