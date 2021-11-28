@@ -3,7 +3,7 @@
 {block name="content"}
 <a href="{:url('sys_admin_user_add')}" class="layui-btn layui-btn-xs" lay-event="detail">新增帐号</a>
 <a href="{:url('/Admin/SysGroup')}" class="layui-btn layui-btn-xs" lay-event="detail">用户组管理</a>
-<table lay-filter="demoSysAdminUser">
+<table class="layui-table">
     <thead>
     <tr>
         <th lay-data="{field:'u1'}">登录ID</th>
@@ -21,9 +21,9 @@
         <td>{$vo['usertype']|GetUserType}</td>
         <td>{$vo['typename']|GetChannel}</td>
         <td>
-            <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}'>[更改]</a>
-            <a href='{:url("sys_admin_user_delete", ["id"=>$vo["id"],"userid"=>$vo["userid"],"dopost"=>"delete"])}'>[删除]</a>
-            <a href='{:url("/Admin/content_list", ["mid"=>$vo["id"]])}'>[文档]</a>
+            <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}' class="layui-btn layui-btn-xs layui-btn-normal">[更改]</a>
+            <a href='{:url("sys_admin_user_delete", ["id"=>$vo["id"],"userid"=>$vo["userid"],"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger">[删除]</a>
+            <a href='{:url("/Admin/content_list", ["mid"=>$vo["id"]])}' class="layui-btn layui-btn-xs" >[文档]</a>
         </td>
 
     </tr>

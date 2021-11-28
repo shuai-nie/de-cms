@@ -47,6 +47,7 @@ class ContentList extends Base
     public function index()
     {
         $length  = 20;
+        $mid = Request::param('mid');
         $map     = array();
         $arcrank = Request::param('arcrank');
         if (!empty($arcrank)) {
@@ -57,11 +58,16 @@ class ContentList extends Base
             View::assign('_nav_this', 'ContentList_index2');
             $map['arcrank'] = $arcrank;
         }
+        if(!empty($mid)){
+            $map['A.mid'] = $mid;
+        }
         $data = Archives::alias('A')
             ->leftjoin(Arctype::getTable() . " B ", "B.id=A.typeid")
             ->leftjoin(Admin::getTable() . " C ", "C.id=A.mid")
             ->field('A.*,B.typename as ctypename,C.userid')
+            ->where($map)
             ->order('id desc')->paginate($length);
+
         View::assign('_data', $data);
         View::assign('arcrank', $arcrank);
         return View::fetch();
