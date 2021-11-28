@@ -405,7 +405,7 @@ class CatalogMain extends Base
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
                 if (!is_dir($cfg_basedir.'/'.$arctypeInfo['temparticle']) ){
-                    echo "模版不存在<br/>";
+                    echo "模版不存在[".$cfg_basedir.'/'.$arctypeInfo['temparticle']."]<br/>";
                     continue;
                 }
                 $arctypeInfo['temparticle'] = str_replace('.html', '', $arctypeInfo['temparticle']);
