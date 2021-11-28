@@ -398,10 +398,16 @@ class CatalogMain extends Base
             }
 
             $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id >= $startid AND id <= $endid ")->field('id ')->select();
+            // 根目录
+            $cfg_basedir = app()->getRootPath().'view/Admin';
 
             foreach ($ArchivesAll as $k=>$v){
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
+                //continue
+                var_dump($cfg_basedir.$arctypeInfo['temparticle']);
+
+                exit();
                 $arctypeInfo['temparticle'] = str_replace('.html', '', $arctypeInfo['temparticle']);
                 $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
                 echo '生成'.$arctypeInfo['typedir'].'/'.$v['id'].".html页面<br/>";
