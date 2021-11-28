@@ -89,7 +89,7 @@ function GetOptionList($selid=0, $userCatalog=0, $channeltype=0)
             $admin_catalog = join(',', $admin_catalogs);
 //            $dsql->SetQuery("SELECT reid FROM `#@__arctype` WHERE id IN($admin_catalog) GROUP BY reid ");
 //            $dsql->Execute('qq');
-            $qq = \app\admin\model\Arctype::where(" id IN($admin_catalog) ")->order('reid')->select();
+            $qq = \app\Admin\model\Arctype::where(" id IN($admin_catalog) ")->order('reid')->select();
             $topidstr = '';
 //            while($row = $dsql->GetObject('qq'))
 //            {
@@ -427,7 +427,7 @@ function GetRankName($arcrank)
 //    if(!is_array($arcArray))
 //    {
         //$dsql->SetQuery("SELECT * FROM `#@__arcrank` ");
-        $data = \app\admin\model\Arcrank::where(['rank'=>$arcrank])->find();
+        $data = \app\Admin\model\Arcrank::where(['rank'=>$arcrank])->find();
         return $data->membername;
 //        $dsql->Execute();
 //        while($row = $dsql->GetObject())
