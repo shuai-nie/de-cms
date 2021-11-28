@@ -35,9 +35,10 @@ if(strlen($activepath) < strlen($templetdir))
     $activepath = $templetdir;
 }
 //$inpath = $cfg_basedir.'view\Admin\eyou\pc';
-$inpath = $cfg_basedir.'view';
+//$inpath = $cfg_basedir.'view';
+$inpath = $cfg_basedir.$activepath;
 
-$activeurl = $activepath;
+$activeurl = '..'.$activepath;
 if (!is_dir($inpath) )
 {
     die('No Exsits Path');
@@ -92,7 +93,7 @@ if(empty($comeback))
                 if($activepath == "") continue;
                 $tmp = preg_replace("#[\/][^\/]*$#", "", $activepath);
                 $line = "\n<tr>
-                <td class='linerow'> <a href='select_templets.php?f=$f&activepath=".urlencode($tmp)."'>
+                <td class='linerow'> <a href='".url('select_templets')."?f=$f&activepath=".urlencode($tmp)."'>
                     <img src=/style/images/dir2.gif border=0 width=16 height=16 align=absmiddle>上级目录</a></td>
                 <td colspan='2' class='linerow'> 当前目录:$activepath</td>
             </tr>\r\n";
@@ -104,7 +105,7 @@ if(empty($comeback))
                 if(preg_match("#^\.(.*)$#i", $file)) continue;
                 $line = "\n<tr>
                 <td bgcolor='#F9FBF0' class='linerow'>
-                    <a href=select_templets.php?f=$f&activepath=".urlencode("$activepath/$file").">
+                    <a href=".url('select_templets')."?f=$f&activepath=".urlencode("$activepath/$file").">
                         <img src=/style/images/dir.gif border=0 width=16 height=16 align=absmiddle>$file
                     </a>
                 </td>
