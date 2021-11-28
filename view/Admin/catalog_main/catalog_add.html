@@ -1,7 +1,7 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<form action="{:url('catalog_add')}" method="post">
+<form action="{:url('catalog_add')}" method="post" name="form1" >
 <input type="hidden" name="dopost" value="save" />
 <input type="hidden" name="reid" id="reid" value="{$id}" />
 <input type='hidden' name='topid' id='topid' value='{$topid}' />
@@ -17,10 +17,10 @@
 
             <table width="100%" border="1"  id="needset" cellspacing="0" cellpadding="0" style="text-align:left;border:1px solid #cfcfcf;background:#ffffff;">
                 <tr>
-                    <td width="150" class='bline' height="26" style="padding-left:10px;">是否支持投稿：</td>
+                    <td width="150" class='' height="26" style="padding-left:10px;">是否支持投稿：</td>
                     <td class='bline'>
-                        <input type='radio' name='issend' value='0' class='np' {if condition="$issend eq 0"}checked='checked'{/if}/>不支持&nbsp;
-                        <input type='radio' name='issend' value='1' class='np' {if condition="$issend eq 1"}checked='checked'{/if} />支持
+                        <input type='radio' name='issend' value='0' class='' {if condition="$issend eq 0"}checked='checked'{/if}/>不支持&nbsp;
+                        <input type='radio' name='issend' value='1' class='' {if condition="$issend eq 1"}checked='checked'{/if} />支持
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +33,6 @@
                 <tr>
                     <td class='bline' height="26" style="padding-left:10px;"><font color='red'>内容模型：</font></td>
                     <td class='bline'>
-
                         <select name="channeltype" id="channeltype" style="width:200px" onChange="ParTemplet(this)">
                             {volist name="$channelArray" id="vo" key="k"}
                                 {if condition="$k eq $channelid"}

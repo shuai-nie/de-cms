@@ -59,6 +59,7 @@ class CatalogMain extends Base
     {
         if(Request::isPost()){
             $param = Request::param('');
+            $typename = Request::param('typename');
             $state = Arctype::insert(array(
                 'reid'        => 0,
                 'topid'       => 0,
