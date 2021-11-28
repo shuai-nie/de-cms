@@ -324,9 +324,15 @@ class ContentList extends Base
     {
         $data = Archives::alias('arc')
             ->leftjoin(Arctype::getTable()." tp", "arc.typeid = tp.id")
-            ->where("arc.arcrank = '-2'")->order('arc.id desc')->paginate();
-
+            ->where("arc.arcrank = '-2'")
+            ->order('arc.id desc')
+            ->field('arc.*, tp.typename')->paginate();
         View::assign('_data', $data);
+        View::assign('nav', array(
+            array('title' => '核心', 'url' => ''),
+            array('title' => '所有档案列表', 'url' => ''),
+            array('title' => '文档回收箱', 'url' => ''),
+        ));
         return View::fetch('');
     }
 
@@ -371,8 +377,7 @@ class ContentList extends Base
                 $okaids[$aid] = 1;
             }
         }
-        ShowMsg("成功删除指定的文档！","recycling.php");
-        exit();
+        return $this->success('删除成功');
 
     }
     /**
@@ -405,11 +410,8 @@ class ContentList extends Base
                 LEFT JOIN ".Channeltype::getTable()." ch ON ch.id=arc.channel WHERE arc.id='$aid' ";
         // $row = $dsql->GetOne($query);
         $row = Db::query($query);
-        var_dump($query);
 
-        var_dump($row);exit();
         $row = $row[0];
-
         $nid = $row['nid'];
         // '#@__archives'
         $maintable = (trim($row['maintable'])=='' ? Archives::getTable(): trim($row['maintable']));
@@ -418,9 +420,9 @@ class ContentList extends Base
 
         //查询档案信息
         if($issystem==-1){
-            $arcQuery = "SELECT arc.*,tp.* from `$addtable` arc LEFT JOIN `#@__arctype` tp ON arc.typeid=tp.id WHERE arc.aid='$aid' ";
+            $arcQuery = "SELECT arc.*,tp.* from `$addtable` arc LEFT JOIN ".Arctype::getTable()." tp ON arc.typeid=tp.id WHERE arc.aid='$aid' ";
         }else{
-            $arcQuery = "SELECT arc.*,tp.*,arc.id AS aid FROM `$maintable` arc LEFT JOIN `#@__arctype` tp ON arc.typeid=tp.id WHERE arc.id='$aid' ";
+            $arcQuery = "SELECT arc.*,tp.*,arc.id AS aid FROM `$maintable` arc LEFT JOIN ".Arctype::getTable()." tp ON arc.typeid=tp.id WHERE arc.id='$aid' ";
         }
 
         //$arcRow = $dsql->GetOne($arcQuery);
@@ -472,7 +474,7 @@ class ContentList extends Base
             if(!$onlyfile)
             {
                 $query = "Delete From ".Arctiny::getTable()." where id='$aid' $whererecycle";
-                $state = Arctiny::hasWhere("id='$aid' $whererecycle")->delete();
+                $state = Arctiny::where("id='$aid' $whererecycle")->delete();
                 if($state){
                     /*
                     $dsql->ExecuteNoneQuery("Delete From `#@__feedback` where aid='$aid' ");
