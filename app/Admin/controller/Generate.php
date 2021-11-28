@@ -5,6 +5,7 @@ namespace app\Admin\controller;
 
 use app\Admin\model\Arctype;
 use app\Admin\model\Channeltype;
+use app\Admin\model\Sysconfig;
 use think\facade\Config;
 use think\facade\View;
 use think\facade\Request;
@@ -30,6 +31,9 @@ class Generate extends Base
     public function index()
     {
         if(Request::isPost()){
+            $this->ViewAll();
+            $config = Sysconfig::sele();
+            View::assign('config', $config);
             // 生成首页
             $this->buildHtml('index', './','/eyou/pc/index');
 
