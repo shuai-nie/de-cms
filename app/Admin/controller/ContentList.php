@@ -8,7 +8,7 @@ use think\facade\Request;
 use think\facade\Session;
 use think\facade\View;
 use think\facade\Config;
-use app\admin\model\Feedback;
+use app\Admin\model\Feedback;
 use app\Admin\model\Taglist;
 use app\Admin\model\Admin;
 use app\Admin\model\Arctiny;
@@ -351,6 +351,29 @@ class ContentList extends Base
     public function archives_do_del()
     {
 
+        $qstr = Request::param('qstr');
+        $aid = Request::param('aid');
+        $recycle = Request::param('recycle');
+        if(empty($fmdo)) $fmdo = '';
+        $recycle = empty($recycle)? "" : $recycle;
+
+        if( !empty($aid) && empty($qstr) ) $qstr = $aid;
+        if ($qstr == '') {
+            exit();
+        }
+        $qstrs = explode("`", $qstr);
+        $okaids = Array();
+
+        foreach($qstrs as $aid){
+            if(!isset($okaids[$aid])){
+                $this->DelArc($aid,"OK","",$recycle);
+            }else{
+                $okaids[$aid] = 1;
+            }
+        }
+        ShowMsg("成功删除指定的文档！","recycling.php");
+        exit();
+
     }
     /**
      *  删除文档信息
@@ -391,12 +414,9 @@ class ContentList extends Base
         $issystem = $row['issystem'];
 
         //查询档案信息
-        if($issystem==-1)
-        {
+        if($issystem==-1){
             $arcQuery = "SELECT arc.*,tp.* from `$addtable` arc LEFT JOIN `#@__arctype` tp ON arc.typeid=tp.id WHERE arc.aid='$aid' ";
-        }
-        else
-        {
+        }else{
             $arcQuery = "SELECT arc.*,tp.*,arc.id AS aid FROM `$maintable` arc LEFT JOIN `#@__arctype` tp ON arc.typeid=tp.id WHERE arc.id='$aid' ";
         }
 
