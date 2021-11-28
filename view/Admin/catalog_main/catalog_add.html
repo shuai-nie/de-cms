@@ -1,5 +1,12 @@
 {extend name="public:base" /}
 
+{block name="style"}
+<style>
+.linhei{height:20px;line-height:20px;}
+.alltxt {height: 18px;line-height: 18px;padding: 3px 3px 2px 3px;vertical-align: middle;border-width: 1px;border-style: solid;border-color: #707070 #CECECE #CECECE #707070;}
+</style>
+{/block}
+
 {block name="content"}
 <form action="{:url('catalog_add')}" method="post" name="form1" >
 <input type="hidden" name="dopost" value="save" />
@@ -33,7 +40,7 @@
                 <tr>
                     <td class='bline' height="26" style="padding-left:10px;"><font color='red'>内容模型：</font></td>
                     <td class='bline'>
-                        <select name="channeltype" id="channeltype" style="width:200px" onChange="ParTemplet(this)">
+                        <select name="channeltype" id="channeltype" class="linhei" style="width:200px" onChange="ParTemplet(this)">
                             {volist name="$channelArray" id="vo" key="k"}
                                 {if condition="$k eq $channelid"}
                                     <option value='{$k}' selected>{$vo['typename']}|{$vo['nid']}</option>\r\n";
@@ -47,11 +54,11 @@
                 </tr>
                 <tr>
                     <td class='bline' height="26" style="padding-left:10px;"><font color='red'>栏目名称：</font></td>
-                    <td class='bline'><input name="typename" type="text" id="typename" size="30" class="iptxt" /></td>
+                    <td class='bline'><input name="typename" type="text" id="typename" class="linhei" size="30" class="iptxt" /></td>
                 </tr>
                 <tr>
                     <td class='bline' height="26" style="padding-left:10px;"> 排列顺序： </td>
-                    <td class='bline'><input name="sortrank" size="6" type="text" value="50" class="pubinputs" style="width:60px" />
+                    <td class='bline'><input name="sortrank" size="6" type="text" value="50" class="linhei" style="width:60px" />
                         （由低 -&gt; 高） </td>
                 </tr>
                 <tr>
@@ -66,22 +73,15 @@
                 </tr>
                 <tr>
                     <td class='bline' height="26" style="padding-left:10px;">上级目录：</td>
-                    <td class='bline'>
-
-                    </td>
+                    <td class='bline'></td>
                 </tr>
                 <tr>
                     <td height="26" style="padding-left:10px;">文件保存目录：</td>
                     <td>
                         <table border="0" cellspacing="1" cellpadding="1">
                             <tr>
-                                <td>
-                                    <input name="typedir" type="text" id="typedir" class="pubinputs" style="width:300px">
-                                </td>
-                                <td>
-                                    <input name="upinyin" type="checkbox" id="upinyin" class="np" value="1" onClick="CheckTypeDir()" />
-                                    拼音
-                                </td>
+                                <td><input name="typedir" type="text" id="typedir" class="linhei" style="width:300px"></td>
+                                <td><input name="upinyin" type="checkbox" id="upinyin" class="" value="1" onClick="CheckTypeDir()" />拼音</td>
                             </tr>
                         </table>
                     </td>
@@ -113,18 +113,15 @@
                 <tr>
                     <td height="26" class='bline' style="padding-left:10px;">默认页的名称： </td>
                     <td class='bline'>
-                        <input name="defaultname" type="text" value="index.html" class="iptxt" />
+                        <input name="defaultname" type="text" value="index.html" class="linhei" />
                     </td>
                 </tr>
                 <tr>
                     <td height="26" class='bline' style="padding-left:10px;">栏目属性：</td>
                     <td class='bline'>
-                        <input name="ispart" type="radio" id="radio" value="0" class='np' checked="checked"/>
-                        最终列表栏目（允许在本栏目发布文档，并生成文档列表） <br>
-                        <input name="ispart" type="radio" id="radio" value="1" class='np'/>
-                        频道封面（栏目本身不允许发布文档） <br>
-                        <input name="ispart" type="radio" id="radio" value="2" class='np'/>
-                        外部连接（在"文件保存目录"处填写网址）
+                        <input name="ispart" type="radio" id="radio" value="0" class='np' checked="checked"/>最终列表栏目（允许在本栏目发布文档，并生成文档列表） <br>
+                        <input name="ispart" type="radio" id="radio" value="1" class='np'/>频道封面（栏目本身不允许发布文档） <br>
+                        <input name="ispart" type="radio" id="radio" value="2" class='np'/>外部连接（在"文件保存目录"处填写网址）
                     </td>
                 </tr>
                 <tr id='helpvarco' style='display:none'>
@@ -160,9 +157,6 @@
                 <div>
                     <button type="submit" class="layui-btn layui-btn-xs">提交</button>
                 </div>
-
-
-
         </div>
         <div class="layui-tab-item">
             <table width="100%" border="1" cellspacing="0" cellpadding="0" style="border:1px solid #cfcfcf;background:#ffffff;text-align:left;" id="adset">
@@ -173,10 +167,8 @@
                 <tr>
                     <td class='bline' width="150" height="24" style="padding-left:10px;">多站点支持：</td>
                     <td class='bline'>
-                        <input name="moresite" type="radio"  class="np" value="0" checked="checked"/>
-                        不启用
-                        <input type="radio" name="moresite" class="np" value="1"/>
-                        启用
+                        <input name="moresite" type="radio"  class="np" value="0" checked="checked"/>不启用
+                        <input type="radio" name="moresite" class="np" value="1"/>启用
                     </td>
                 </tr>
                 <tr>
@@ -186,7 +178,7 @@
                 <tr>
                     <td class='bline' height="24" style="padding-left:10px;">绑定域名：</td>
                     <td class='bline'>
-                        <input name="siteurl" type="text" id="siteurl" size="35" onChange="CheckPathSet();" class="pubinputs" />
+                        <input name="siteurl" type="text" id="siteurl" size="35" onChange="CheckPathSet();" class="linhei" />
                         (需加 http://，一级或二级域名的根网址)
                     </td>
                 </tr>
@@ -231,16 +223,15 @@
                 <tr>
                     <td height="26" style="padding-left:10px;">列表模板：</td>
 <!--                    <td> <input name="templist" type="text" value="{style}/list_<?php echo $nid?>.htm"  class="pubinputs" style="width:300px" />-->
-                    <td> <input name="templist" type="text" value="eyou/pc/lists_article.html"  class="pubinputs" style="width:300px" />
+                    <td> <input name="templist" type="text" value="eyou/pc/lists_article.html"  class="linhei" style="width:300px" />
                         <input type="button" name="set3" value="浏览... "class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.templist');" />
                     </td>
                 </tr>
                 <tr>
                     <td height="26" style="padding-left:10px;">文章模板：</td>
                     <td>
-
 <!--                        <input name="temparticle" type="text" value="{style}/article_<?php echo $nid?>.htm" class="pubinputs"  style="width:300px" />-->
-                        <input name="temparticle" type="text" value="eyou/pc/view_article.html" class=""  style="width:300px" />
+                        <input name="temparticle" type="text" value="eyou/pc/view_article.html" class="linhei"  style="width:300px" />
                         <input type="button" name="set4" value="浏览..." class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.temparticle');"/>
                     </td>
                 </tr>
@@ -257,7 +248,7 @@
                 </tr>
                 <tr>
                     <td height="26" style="padding-left:10px;">文章命名规则：</td>
-                    <td> <input name="namerule" type="text" id="namerule" value="<?php echo $cfg_df_namerule;?>" class="pubinputs"  style="width:250px" />
+                    <td> <input name="namerule" type="text" id="namerule" value="<?php echo $cfg_df_namerule;?>" class="linhei"  style="width:250px" />
 
                     </td>
                 </tr>
@@ -268,13 +259,13 @@
                 <tr>
                     <td height="26" style="padding-left:10px;">列表命名规则：</td>
                     <td>
-                        <input name="namerule2" type="text" id="namerule2" value="{typedir}/list_{tid}_{page}.html"  class="pubinputs"  style="width:250px" />
+                        <input name="namerule2" type="text" id="namerule2" value="{typedir}/list_{tid}_{page}.html"  class="linhei"  style="width:250px" />
 
                 </tr>
                 <tr>
                     <td height="65" style="padding-left:10px;">SEO标题：</td>
                     <td>
-                        <input name="seotitle" type="text" style="width:250px" id="seotitle" class="alltxt" value="" />
+                        <input name="seotitle" type="text" style="width:250px" id="seotitle" class="linhei" value="" />
                         (栏目模板里用{dede:field.seotitle /}调用)
                     </td>
                 </tr>
