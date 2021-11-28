@@ -9,6 +9,7 @@ use app\Admin\model\Sysconfig;
 use think\facade\Config;
 use think\facade\View;
 use think\facade\Request;
+use app\Admin\controller\CatalogMain;
 
 class Generate extends Base
 {
@@ -31,7 +32,7 @@ class Generate extends Base
     public function index()
     {
         if(Request::isPost()){
-            $this->ViewAll();
+            (new CatalogMain())->ViewAll();
             $config = Sysconfig::sele();
             View::assign('config', $config);
             // 生成首页

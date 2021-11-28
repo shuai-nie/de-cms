@@ -410,7 +410,7 @@ class CatalogMain extends Base
 
     }
 
-    protected function ViewAll()
+    public function ViewAll()
     {
         $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
         foreach ($arctype as $k => $v){
