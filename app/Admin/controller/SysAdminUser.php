@@ -38,10 +38,12 @@ class SysAdminUser extends Base
 
     public function index()
     {
-        $request = $this->request;
-        $rank = $request->param('rank');
-        $where = "";
-        $data =  Admin::where("")->select();
+        $rank = Request::param('rank');
+        $where = array();
+        if(!empty($rank)){
+            $where['rank'] = $rank;
+        }
+        $data =  Admin::where($where)->select();
         View::assign('_user', $data);
         return View::fetch();
     }
