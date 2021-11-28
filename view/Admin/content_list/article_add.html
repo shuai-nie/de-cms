@@ -100,7 +100,7 @@
                                         </div>
                                         <input name="picname" type="hidden" id="picname" style="width:300px" value="">
                                         <div class="layui-input-block">
-                                            <button type="button" class="layui-btn" id="test1">
+                                            <button type="button" class="layui-btn layui-btn-xs" id="test1">
                                                 <i class="layui-icon">&#xe67c;</i>上传图片
                                             </button>
                                         </div>
@@ -161,7 +161,7 @@
                         <td width="90">&nbsp;文章副栏目：</td>
                         <td>
                             <span id='typeid2ct'></span><input type='text' name='typeid2' id='typeid2' value='' style='width:200px;' />
-                            <img src='images/menusearch2.gif' style='cursor:pointer;' onClick="ShowCatMap(event, this, <?php echo $channelid; ?>, 'typeid2')" alt='选择副栏目' title='选择副栏目' />
+                            <img src='/static/admin/image/menusearch2.gif' style='cursor:pointer;' onClick="ShowCatMap(event, this, <?php echo $channelid; ?>, 'typeid2')" alt='选择副栏目' title='选择副栏目' />
                         </td>
                     </tr>
                 </table>
@@ -245,7 +245,7 @@
             <td>
                 <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td width="84" height="24" align="center" background="images/itemnote1.gif">&nbsp;<a href='javascript:ShowHideT("voteset")'><u>插入投票</u></a></td>
+                        <td width="84" height="24" align="center" >&nbsp;<a href='javascript:ShowHideT("voteset")'><u>插入投票</u></a></td>
                     </tr>
                 </table>
             </td>
@@ -258,7 +258,7 @@
             <td>
                 <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td width="84" height="24" align="center" background="images/itemnote1.gif">&nbsp;<a href='javascript:ShowHideT("adset")'><u>高级参数↑</u></a></td>
+                        <td width="84" height="24" align="center" >&nbsp;<a href='javascript:ShowHideT("adset")'><u>高级参数↑</u></a></td>
                     </tr>
                 </table>
             </td>
@@ -436,5 +436,13 @@
         });
 
     })
+
+
+    function SelectKeywords(f)
+    {
+        if($Nav()=='IE'){ var posLeft = window.event.clientX-350; var posTop = window.event.clientY-200; }
+        else{ var posLeft = 100; var posTop = 100; }
+        window.open("{:url('article_keywords_select')}?f="+f, "popUpkwWin", "scrollbars=yes,resizable=yes,statebar=no,width=600,height=450,left="+posLeft+", top="+posTop);
+    }
 </script>
 {/block}

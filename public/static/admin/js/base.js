@@ -81,3 +81,17 @@ layui.use(['element', 'layer', 'util', 'table'], function(){
 
 
 });
+
+
+function $Nav()
+{
+    if(window.navigator.userAgent.indexOf("MSIE")>=1) return 'IE';
+    else if(window.navigator.userAgent.indexOf("Firefox")>=1) return 'FF';
+    else return "OT";
+}
+
+function $Obj(objname)
+{
+    return document.getElementById(objname);
+}
+

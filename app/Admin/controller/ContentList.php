@@ -3,6 +3,7 @@ declare (strict_types=1);
 
 namespace app\Admin\controller;
 
+use app\Admin\model\Keywords;
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\Session;
@@ -386,6 +387,63 @@ class ContentList extends Base
         return $this->success('删除成功');
 
     }
+
+    public function article_keywords_select()
+    {
+        $keywords = Request::param('keywords', '');
+        $data = Keywords::where('')->order('rank desc')->select();
+        View::assign('keywords', $keywords);
+        View::assign('data', $data);
+        return View::fetch('');
+    }
+
+    public function article_keywords_main()
+    {
+        if(Request::isPost()){
+            $dopost = Request::param('dopost');
+            if($dopost == 'add'){
+                $keyword = Request::param('keyword');
+                $rpurl = Request::param('rpurl');
+                $rank = Request::param('rank');
+                $state = (new Keywords())->replace()->insert(array(
+                    'keyword' => $keyword,
+                    'rpurl'   => $rpurl,
+                    'sta'     => 1,
+                    'rank'    => $rank,
+                ));
+
+                if($state !== false){
+                    return $this->success("添加成功", (string)url('article_keywords_main'));
+                }
+                return $this->error("添加失败");
+            }
+
+
+        }
+
+//        if(Request::isGet()){
+//            $param = Request::param('');
+//            var_dump($param);
+//            exit();
+//        }
+        $keyword = Request::param('keyword', '');
+        $addquery = '';
+        if(!empty($keyword)){
+            $addquery = "keyword LIKE '%$keyword%' ";
+        }
+
+        $data = Keywords::where($addquery)->order('rank desc')->paginate();
+        View::assign('data', $data);
+        View::assign('keyword', $keyword);
+        return View::fetch('');
+
+    }
+
+    public function article_keywords_make()
+    {
+
+    }
+
     /**
      *  删除文档信息
      *

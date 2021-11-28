@@ -1,0 +1,103 @@
+
+
+{block name="style"}
+
+{/block}
+
+{block name="content"}
+<table width="98%" border="0" cellpadding="1" align='center' cellspacing="1" bgcolor="#D6D6D6">
+    <tr>
+        <td height="26" colspan="6" background="images/tbg.gif"><table width="96%" border="0">
+            <tr>
+                <td width="25%"  style="padding-left:10px;"><strong>关键词维护</strong></td>
+                <form name='form1' action="{:url('article_keywords_main')}" >
+                    <td width="75%" align="right">
+                        搜索：<input type='text' name='keyword' size='20' value="{$keyword}" />
+                        <input type='submit' name='sb' value='确定' class="coolbg np" />
+                        <input class="coolbg np" name="n1" type="button" id="n1" value="分析系统内的关键字" onClick="location='article_keywords_make.php';" style="width:130px" />
+                        <input class="coolbg np" name="n11" type="button" id="n11" value="管理搜索的关键字" onClick="location='search_keywords_main.php';" style="width:125px" />
+                    </td>
+                </form>
+            </tr>
+        </table>
+        </td>
+    </tr>
+    <form name='form2' action="{:url('article_keywords_main')}" method="post">
+        <input type='hidden' name='dopost' value='add' />
+        <tr align="center" bgcolor="#ffffff">
+            <td width="100%" height="30" colspan="6">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="100" align="center">新增关键字：</td>
+                        <td width="140"><input name="keyword" type="text" id="keyword" style="width:130px" /></td>
+                        <td width="60">链接网址：</td>
+                        <td width="140"><input name="rpurl" type="text" id="rpurl" style="width:130px" /></td>
+                        <td width="40">频率：</td>
+                        <td width="50"><input name="rank" type="text" id="rank" style="width:30px" value="30" /></td>
+                        <td width="80"><input type="submit" name="Submit" value="保存" class="coolbg np" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </form>
+    <tr align="center" bgcolor="#FBFCE2" height="26">
+        <td width="8%">选择</td>
+        <td width="25%">关键字</td>
+        <td width="35%">链接网址</td>
+        <td width="10%">频率</td>
+        <td width="22%">管理</td>
+    </tr>
+    <form name='form3' action="{:url('article_keywords_main')}" method="post">
+        <input type='hidden' name='dopost' value='saveall' />
+        {volist name="data" id="vo" }
+        <tr align="center" bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='#FCFDEE';" onMouseOut="javascript:this.bgColor='#FFFFFF';">
+            <td height="24">
+                <input name="aids[]" type="checkbox" value="{$vo.aid}" class="np" checked='1' />
+            </td>
+            <td>
+                <input type='hidden' value='{$vo.keyword}' name='keyword_{$vo.aid}' />{$vo.keyword}
+            </td>
+            <td style="padding:5px 0;">
+                <input type='hidden' value='{$vo.rpurl}' name='rpurlold_{$vo.aid}' />
+                <input type='text' style='width:90%' class='nnpp' value='{$vo.rpurl}' name='rpurl_{$vo.aid}' />
+            </td>
+            <td>
+                <input type='text' size='5' class='nnpp' value='{$vo.rank}' name='rank_{$vo.aid}' />
+            </td>
+            <td>
+                <input type='hidden' name='staold_{$vo.aid}' value='{$vo.sta}' />
+                <input type='checkbox' name='isnouse_{$vo.aid}' class='np' value='1' {$vo['sta']} function="GetSta(@me)"/} />禁用
+                <input type='checkbox' name='isdel_{$vo.aid}' class='np' value='1' />删除
+            </td>
+        </tr>
+        {/volist}
+        <tr bgcolor="#ffffff">
+            <td height="28" colspan="6">
+                <input type="button" name="dl1" class="coolbg np" value="反选" onClick="selAll()" />
+                <input type="button" name="dl2" class="coolbg np" value="保存更改" onClick="this.form.submit();" />
+            </td>
+        </tr>
+    </form>
+    <tr align="center" bgcolor="#F9FCEF">
+        <td height="28" colspan="6">{$data|raw}</td>
+    </tr>
+</table>
+
+
+
+
+
+{/block}
+
+
+<script language='javascript'>
+    function selAll()
+    {
+        var celements = document.getElementsByName('aids[]');
+        for(i=0;i<celements.length;i++)
+        {
+            if(!celements[i].checked) celements[i].checked = true;
+            else celements[i].checked = false;
+        }
+    }
+</script>
