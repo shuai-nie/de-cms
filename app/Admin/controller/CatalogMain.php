@@ -341,6 +341,7 @@ class CatalogMain extends Base
                     }else{
                         $htmlfile = 'list_'.$arctypeInfo['id'].'_'.$i;
                     }
+                    echo "生成".$arctypeInfo['typedir'].'/'.$htmlfile.".html<br/>";
 
                     $this->buildHtml($htmlfile, '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['tempindex']);
                     echo "静态页面$htmlfile.html已生成...<br>";
