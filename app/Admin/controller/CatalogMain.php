@@ -404,10 +404,10 @@ class CatalogMain extends Base
             foreach ($ArchivesAll as $k=>$v){
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
-                //continue
-                var_dump($cfg_basedir.$arctypeInfo['temparticle']);
-
-                exit();
+                if (!is_dir($cfg_basedir.'/'.$arctypeInfo['temparticle']) ){
+                    echo "模版不存在<br/>";
+                    continue;
+                }
                 $arctypeInfo['temparticle'] = str_replace('.html', '', $arctypeInfo['temparticle']);
                 $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
                 echo '生成'.$arctypeInfo['typedir'].'/'.$v['id'].".html页面<br/>";
