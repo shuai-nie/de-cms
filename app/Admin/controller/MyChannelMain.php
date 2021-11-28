@@ -272,18 +272,40 @@ class MyChannelMain extends Base
     {
         if(Request::isPost()){
             $param          = Request::param('');
+            $addtable    = Request::param('addtable');
+            $typename    = Request::param('typename');
+            $addcon      = Request::param('addcon');
+            $mancon      = Request::param('mancon');
+            $editcon     = Request::param('editcon');
+            $useraddcon  = Request::param('useraddcon');
+            $usermancon  = Request::param('usermancon');
+            $usereditcon = Request::param('usereditcon');
+            $listfields  = Request::param('listfields');
+            $fieldset    = Request::param('fieldset');
+            $issend      = Request::param('issend');
+            $arcsta      = Request::param('arcsta');
+            $usertype    = Request::param('usertype');
+            $sendrank    = Request::param('sendrank');
+            $needdes     = Request::param('needdes');
+            $needpic     = Request::param('needpic');
+            $titlename   = Request::param('titlename');
+            $onlyone     = Request::param('onlyone');
+            $dfcid       = Request::param('dfcid');
+            $id       = Request::param('id');
+            $nid = Request::param('nid');
+
             $version        = Db::query("SELECT VERSION() as version;");
             $mysql_versions = explode(".", trim($version[0]['version']));
             $mysql_version  = number_format((float)($mysql_versions[0] . "." . $mysql_versions[1]), 2);
             $charset        = Config::get('database.connections.mysql.charset');
 
-            $count = Channeltype::where("id=" . $param['id'] . " or nid like '{$param['nid']}' or addtable like '{$param['addtable']}' ")->count();
+            $count = Channeltype::where("id=" . $id . " or nid like '{$nid}' or addtable like '{$addtable}' ")->count();
             if($count >= 1){
                 return $this->error('可能‘频道id’、‘频道名称标识’、‘附加表名称’在数据库已存在，不能重复使用！');
             }
 
-            if($param['addtable'] != ''){
-                $exist = Db::query("show tables like '".$param['addtable']."'");
+            if($addtable != ''){
+                $exist = Db::query("show tables like '".$addtable."'");
 
                 if(!$exist){
                     Db::query("DROP TABLE IF EXISTS `{$param['addtable']}`;");
