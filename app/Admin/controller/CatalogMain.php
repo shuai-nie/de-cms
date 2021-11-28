@@ -348,20 +348,6 @@ class CatalogMain extends Base
                     echo "静态页面$htmlfile.html已生成...<br>";
                 }
 
-
-
-//                var_dump($page->show());exit();
-//                foreach ($archivesAll as $k => $v){
-//                    $v['arcurl'] = '';
-//                    $archivesAll[$k] = $v;
-//                }
-                //https://www.cnblogs.com/haiwei_sun/p/3409584.html
-
-
-                //$arctypeInfo['tempindex'] = str_replace('{style}', $arctypeInfo['typedir'], $arctypeInfo['tempindex']);
-
-
-
             }elseif ($param['uptype'] == 'mkmobile'){
                 //web
 
@@ -400,20 +386,20 @@ class CatalogMain extends Base
             $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id >= $startid AND id <= $endid ")->field('id ')->select();
             // 根目录
             $cfg_basedir = app()->getRootPath().'view/Admin';
-
+            if (!file_exists($cfg_basedir.'/'.$arctypeInfo['temparticle']) ){
+                echo "模版不存在[".$cfg_basedir.'/'.$arctypeInfo['temparticle']."]<br/>";
+                //continue;
+                exit();
+            }
+            $temparticle = str_replace('.html', '', $arctypeInfo['temparticle']);
+            $defaultname = str_replace('.html', '', $arctypeInfo['defaultname']);
             foreach ($ArchivesAll as $k=>$v){
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
                 // 模版文件不存在
-                if (!file_exists($cfg_basedir.'/'.$arctypeInfo['temparticle']) ){
-                    echo "模版不存在[".$cfg_basedir.'/'.$arctypeInfo['temparticle']."]<br/>";
-                    continue;
-                }
-                $arctypeInfo['temparticle'] = str_replace('.html', '', $arctypeInfo['temparticle']);
-                $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
                 echo '生成'.$arctypeInfo['typedir'].'/'.$v['id'].".html页面<br/>";
 
-                $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['temparticle']);
+                $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $temparticle);
             }
 
             echo '页面生成完成';
