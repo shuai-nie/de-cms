@@ -405,6 +405,7 @@ class ContentList extends Base
                 LEFT JOIN ".Channeltype::getTable()." ch ON ch.id=arc.channel WHERE arc.id='$aid' ";
         // $row = $dsql->GetOne($query);
         $row = Db::query($query);
+        var_dump($row);exit();
         $row = $row[0];
 
         $nid = $row['nid'];
