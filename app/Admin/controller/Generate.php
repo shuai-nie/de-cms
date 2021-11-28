@@ -30,6 +30,9 @@ class Generate extends Base
     public function index()
     {
         if(Request::isPost()){
+            // 生成首页
+            $this->buildHtml('index', './','/eyou/pc/index');
+
             $this->success('首页生成完成', (string)url('index'));
         }
         View::assign('_nav_this', 'Generate_index');

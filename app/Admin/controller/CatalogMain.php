@@ -60,33 +60,33 @@ class CatalogMain extends Base
         if(Request::isPost()){
             $param = Request::param('');
             $state = Arctype::insert(array(
-                'reid' => 0,
-                'topid' => 0,
-                'sortrank' => 0,
-                'typename' => '',
-                'typedir' => '',
-                'isdefault' => $param['isdefault'],
+                'reid'        => 0,
+                'topid'       => 0,
+                'sortrank'    => 0,
+                'typename'    => $param['typename'],
+                'typedir'     => $param['typedir'],
+                'isdefault'   => $param['isdefault'],
                 'defaultname' => $param['defaultname'],
-                'issend' => $param['issend'],
+                'issend'      => $param['issend'],
                 'channeltype' => $param['channeltype'],
-                'tempindex' => $param['tempindex'],
-                'templist' => $param['templist'],
+                'tempindex'   => $param['tempindex'],
+                'templist'    => $param['templist'],
                 'temparticle' => $param['temparticle'],
-                'modname' => 'default',
-                'namerule' => $param['namerule'],
-                'namerule2' => $param['namerule2'],
-                'ispart' => 0,
-                'corank' => 0,
+                'modname'     => 'default',
+                'namerule'    => $param['namerule'],
+                'namerule2'   => $param['namerule2'],
+                'ispart'      => 0,
+                'corank'      => 0,
                 'description' => '',
-                'keywords' => '',
-                'seotitle' => '~typename~',
-                'moresite' => 0,
-                'siteurl' => '',
-                'sitepath' => '',
-                'ishidden' => 0,
-                'cross' => 0,
-                'content' => '',
-                'smalltypes' => '',
+                'keywords'    => '',
+                'seotitle'    => $param['typename'],
+                'moresite'    => 0,
+                'siteurl'     => '',
+                'sitepath'    => '',
+                'ishidden'    => 0,
+                'cross'       => 0,
+                'content'     => '',
+                'smalltypes'  => '',
             ));
 
             if($state !== false){
@@ -98,14 +98,14 @@ class CatalogMain extends Base
 
         $id = Request::param('id', 0);
         if(empty($dopost)) $dopost = '';
-        $nid = 'article';
+        $nid       = 'article';
         $channelid = 1;
-        $issend = 1;
-        $corank = 0;
-        $reid = 0;
-        $topid = 0;
-        $typedir = '';
-        $moresite = 0;
+        $issend    = 1;
+        $corank    = 0;
+        $reid      = 0;
+        $topid     = 0;
+        $typedir   = '';
+        $moresite  = 0;
 
         if($id>0)
         {
