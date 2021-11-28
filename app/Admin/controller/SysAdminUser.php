@@ -40,9 +40,9 @@ class SysAdminUser extends Base
     {
         $rank = Request::param('rank');
         $where = array();
-        if(!empty($rank)){
-            $where['rank'] = $rank;
-        }
+//        if(!empty($rank)){
+//            $where['rank'] = $rank;
+//        }
         $data =  Admin::where($where)->select();
         View::assign('_user', $data);
         return View::fetch();
