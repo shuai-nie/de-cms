@@ -402,3 +402,45 @@ function GetAddFieldList(&$dtp, &$oksetting)
 function hashNameTime(){
     return time();
 }
+
+function IsHtmlArchives($ismake){
+    if($ismake==1){
+        return "已生成";
+    }else if($ismake==-1){
+        return "仅动态";
+    }else{
+        return "<font color='red'>未生成</font>";
+    }
+}
+
+function IsBdLink($bd){
+    if($bd==1){
+        return "已提交";
+    }else{
+        return "<font color='red'>未提交</font>";
+    }
+}
+
+function GetRankName($arcrank)
+{
+//    global $arcArray, $dsql;
+//    if(!is_array($arcArray))
+//    {
+        //$dsql->SetQuery("SELECT * FROM `#@__arcrank` ");
+        $data = \app\admin\model\Arcrank::where(['rank'=>$arcrank])->find();
+        return $data->membername;
+//        $dsql->Execute();
+//        while($row = $dsql->GetObject())
+//        {
+//            $arcArray[$row->rank]=$row->membername;
+//        }
+//    }
+//    if(isset($arcArray[$arcrank]))
+//    {
+//        return $arcArray[$arcrank];
+//    }
+//    else
+//    {
+//        return "不限";
+//    }
+}

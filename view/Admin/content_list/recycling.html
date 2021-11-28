@@ -33,8 +33,8 @@
             <td>{$vo.typename}</td>
             <td>{$vo.click}</td>
             <td>
-                <a href="javascript:moveArc({$vo['id']})">还原</a> |
-                <a href="javascript:delArc({$vo['id']})">删除</a>
+                <a href="javascript:moveArc({$vo['id']})" class="layui-btn layui-btn-xs layui-btn-normal">还原</a>
+                <a href="javascript:delArc({$vo['id']})" class="layui-btn layui-btn-xs layui-btn-danger">删除</a>
             </td>
         </tr>
         {/volist}
