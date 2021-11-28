@@ -7,7 +7,7 @@ use app\Admin\model\Arctype;
 use app\Admin\model\Channeltype;
 use think\facade\Config;
 use think\facade\View;
-use think\Request;
+use think\facade\Request;
 
 class Generate extends Base
 {
@@ -29,6 +29,9 @@ class Generate extends Base
      */
     public function index()
     {
+        if(Request::isPost()){
+            $this->success('首页生成完成', (string)url('index'));
+        }
         View::assign('_nav_this', 'Generate_index');
         return View::fetch('');
     }
