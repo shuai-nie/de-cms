@@ -461,7 +461,7 @@ class CatalogMain extends Base
         $activepath = Request::param('activepath');
         if(!isset($activepath)) $activepath = $cfg_cmspath;
         // 根目录
-        $cfg_basedir = app()->getRootPath().'view';
+        $cfg_basedir = app()->getRootPath().'view/Admin';
         $basehost = 'http://'.$_SERVER['HTTP_HOST'];
         //$cfg_templets_dir = '/templets';
         $cfg_templets_dir = '/';
