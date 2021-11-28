@@ -3,6 +3,12 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use app\Admin\model\Archives;
+use app\Admin\model\Arctype;
+use app\Admin\model\Channeltype;
+use app\Admin\model\Channeltype as ChanneltypeModel;
+use app\Admin\model\Flink;
+use app\Admin\model\Sysconfig;
 use app\BaseController;
 use think\App;
 use think\Request;
@@ -52,6 +58,40 @@ class Base extends BaseController
         $File = new File();
         $File->write($htmlfile, $content);
         return $content;
+    }
+
+    protected function ViewAll(){
+        $arctype = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select()->toArray();
+        foreach ($arctype as $k => $v){
+            $v['typeurl'] = $v['typedir'].'/'.$v['defaultname'];
+            $arctype[$k] = $v;
+        }
+        View::assign('arctype', $arctype);
+
+        $archives3 = Archives::where("typeid=3 or typeid=2")->order('id desc')->paginate(6);
+        View::assign('archives3', $archives3);
+
+        $config = Sysconfig::sele();
+        View::assign('config', $config);
+
+        $channel =  ChanneltypeModel::where("id", '>', 0)->limit(0, 10)->select();
+        View::assign('channel', $channel);
+
+
+
+
+        $arclist = Archives::where("typeid=1")->limit(6)->select();
+        View::assign('arclist', $arclist);
+        $arclist2 = Archives::where("typeid=2")->limit(6)->select();
+        View::assign('arclist2', $arclist2);
+
+
+        //常见问题
+        $arclist3 = Archives::where("typeid=3")->limit(6)->select();
+        View::assign('arclist3', $arclist3);
+
+        $flink = Flink::where("")->select();
+        View::assign('flink', $flink);
     }
 
 

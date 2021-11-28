@@ -32,7 +32,7 @@ class Generate extends Base
     public function index()
     {
         if(Request::isPost()){
-            (new CatalogMain())->ViewAll();
+            $this->ViewAll();
             $config = Sysconfig::sele();
             View::assign('config', $config);
             // 生成首页
