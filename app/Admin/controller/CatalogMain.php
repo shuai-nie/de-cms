@@ -108,8 +108,7 @@ class CatalogMain extends Base
         $typedir   = '';
         $moresite  = 0;
 
-        if($id>0)
-        {
+        if($id>0){
             $myrow = ArctypeModel::hasWhere('profile', 'Arctype.id='.$id, 'Arctype.*,Channeltype.typename as ctypename', 'left')->find();
             View::assign('channelid', $myrow['channeltype']);
             View::assign('issennd', $myrow['issend']);
@@ -131,8 +130,6 @@ class CatalogMain extends Base
                 $nid = $v->nid;
             }
         }
-
-
 
         //Select * from `#@__arcrank` where rank >= 0
         $ArcrankAll = Arcrank::where("rank >= 0")->select();
