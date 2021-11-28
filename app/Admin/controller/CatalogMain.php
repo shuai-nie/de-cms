@@ -386,6 +386,7 @@ class CatalogMain extends Base
             $ArchivesAll = Archives::where("typeid=".$arctypeInfo['id']." and id >= $startid AND id <= $endid ")->field('id ')->select();
             // 根目录
             $cfg_basedir = app()->getRootPath().'view/Admin';
+            $typedir = $arctypeInfo['typedir'];
             if (!file_exists($cfg_basedir.'/'.$arctypeInfo['temparticle']) ){
                 echo "模版不存在[".$cfg_basedir.'/'.$arctypeInfo['temparticle']."]<br/>";
                 //continue;
@@ -399,7 +400,7 @@ class CatalogMain extends Base
                 // 模版文件不存在
                 echo '生成'.$arctypeInfo['typedir'].'/'.$v['id'].".html页面<br/>";
 
-                $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $temparticle);
+                $this->buildHtml($v['id'], '.'.$typedir.'/', $temparticle);
             }
 
             echo '页面生成完成';
