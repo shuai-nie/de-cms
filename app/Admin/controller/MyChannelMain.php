@@ -49,34 +49,54 @@ class MyChannelMain extends Base
     public function mychannel_edit()
     {
         if(Request::isPost()){
-            $param = Request::param('');
-            $exist = Db::query("show tables like '".$param['addtable']."'");
+            $addtable    = Request::param('addtable');
+            $typename    = Request::param('typename');
+            $addcon      = Request::param('addcon');
+            $mancon      = Request::param('mancon');
+            $editcon     = Request::param('editcon');
+            $useraddcon  = Request::param('useraddcon');
+            $usermancon  = Request::param('usermancon');
+            $usereditcon = Request::param('usereditcon');
+            $listfields  = Request::param('listfields');
+            $fieldset    = Request::param('fieldset');
+            $issend      = Request::param('issend');
+            $arcsta      = Request::param('arcsta');
+            $usertype    = Request::param('usertype');
+            $sendrank    = Request::param('sendrank');
+            $needdes     = Request::param('needdes');
+            $needpic     = Request::param('needpic');
+            $titlename   = Request::param('titlename');
+            $onlyone     = Request::param('onlyone');
+            $dfcid       = Request::param('dfcid');
+            $id          = Request::param('id');
+
+            $exist = Db::query("show tables like '".$addtable."'");
             if(!$exist){
-                return $this->error("系统找不到你所指定的表 {$param['addtable']} ，请手工创建这个表！");
+                return $this->error("系统找不到你所指定的表 {$addtable} ，请手工创建这个表！");
             }
 
             $state = Channeltype::update(array(
-                'typename'    => $param['typename'],
-                'addtable'    => $param['addtable'],
-                'addcon'      => $param['addcon'],
-                'mancon'      => $param['mancon'],
-                'editcon'     => $param['editcon'],
-                'useraddcon'  => $param['useraddcon'],
-                'usermancon'  => $param['usermancon'],
-                'usereditcon' => $param['usereditcon'],
-                'fieldset'    => $param['fieldset'],
-                'listfields'  => $param['listfields'],
-                'issend'      => $param['issend'],
-                'arcsta'      => $param['arcsta'],
-                'usertype'    => $param['usertype'],
-                'sendrank'    => $param['sendrank'],
-                'needdes'     => $param['needdes'],
-                'needpic'     => $param['needpic'],
-                'titlename'   => $param['titlename'],
-                'onlyone'     => $param['onlyone'],
-                'dfcid'       => $param['dfcid'],
+                'typename'    => $typename,
+                'addtable'    => $addtable,
+                'addcon'      => $addcon,
+                'mancon'      => $mancon,
+                'editcon'     => $editcon,
+                'useraddcon'  => $useraddcon,
+                'usermancon'  => $usermancon,
+                'usereditcon' => $usereditcon,
+                'fieldset'    => $fieldset,
+                'listfields'  => $listfields,
+                'issend'      => $issend,
+                'arcsta'      => $arcsta,
+                'usertype'    => $usertype,
+                'sendrank'    => $sendrank,
+                'needdes'     => $needdes,
+                'needpic'     => $needpic,
+                'titlename'   => $titlename,
+                'onlyone'     => $onlyone,
+                'dfcid'       => $dfcid,
             ), array(
-                'id' => $param['id']
+                'id' => $id
             ));
 
             if($state !== false){
