@@ -34,8 +34,9 @@ if(strlen($activepath) < strlen($templetdir))
 {
     $activepath = $templetdir;
 }
-$inpath = $cfg_basedir.'view\Admin\eyou\pc';
-var_dump($inpath);exit();
+#$inpath = $cfg_basedir.'view\Admin\eyou\pc';
+$inpath = $cfg_basedir.'view\';
+
 $activeurl = '..'.$activepath;
 if (!is_dir($inpath) )
 {
