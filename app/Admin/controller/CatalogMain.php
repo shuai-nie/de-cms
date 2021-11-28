@@ -404,7 +404,8 @@ class CatalogMain extends Base
             foreach ($ArchivesAll as $k=>$v){
                 $archivesInfo = Archives::where("id=".$v['id'])->find();
                 View::assign('archivesInfo', $archivesInfo);
-                if (!is_dir($cfg_basedir.'/'.$arctypeInfo['temparticle']) ){
+                // 模版文件不存在
+                if (!file_exists($cfg_basedir.'/'.$arctypeInfo['temparticle']) ){
                     echo "模版不存在[".$cfg_basedir.'/'.$arctypeInfo['temparticle']."]<br/>";
                     continue;
                 }
