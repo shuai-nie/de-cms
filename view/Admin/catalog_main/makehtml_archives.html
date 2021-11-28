@@ -30,13 +30,11 @@
         </tr>
         <tr>
             <td height="20" valign="top" bgcolor="#FFFFFF">起始ID：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF"><input name="startid" type="text" id="startid" size="10" value="">
-                （空或0表示从头开始）</td>
+            <td height="20" valign="top" bgcolor="#FFFFFF"><input name="startid" type="text" id="startid" size="10" value="">（空或0表示从头开始）</td>
         </tr>
         <tr>
             <td height="20" valign="top" bgcolor="#FFFFFF">结束ID：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF"><input name="endid" type="text" id="endid" size="10" value="">
-                （空或0表示直到结束ID） </td>
+            <td height="20" valign="top" bgcolor="#FFFFFF"><input name="endid" type="text" id="endid" size="10" value="">（空或0表示直到结束ID） </td>
         </tr>
         <tr>
             <td height="20" valign="top" bgcolor="#FFFFFF">更新PC||移动：</td>
@@ -53,18 +51,14 @@
         </tr>
         <tr>
             <td height="20" colspan="2" bgcolor="#ffffff" align="center">
-                <input name="b112" type="button" class='coolbg np' value="开始生成HTML" onClick="document.form1.submit();" style="width:100">  <?php
-      if($cfg_remote_site=='Y')
-      {
-    ?>
+                <input name="b112" type="button" class='layui-btn layui-btn-xs' value="开始生成HTML" onClick="document.form1.submit();" style="width:100">
+                <?php if($cfg_remote_site=='Y'){ ?>
                 <input name="isremote" type="checkbox" id="isremote" value="1">
                 是否同步远程发布到
                 <?php GetFtp();?>
-                <?php
-      }
-    ?>
+                <?php } ?>
                 &nbsp;
-                <input type="button" name="b113" value="查看所有文档"  class='coolbg np' onClick="document.form2.submit();" style="width:100"></td>
+                <input type="button" name="b113" value="查看所有文档"  class='layui-btn layui-btn-xs' onClick="document.form2.submit();" style="width:100"></td>
         </tr>
     </form>
     <tr bgcolor="#F9FCEF">
