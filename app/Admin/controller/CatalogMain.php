@@ -404,7 +404,7 @@ class CatalogMain extends Base
                 View::assign('archivesInfo', $archivesInfo);
                 $arctypeInfo['temparticle'] = str_replace('.html', '', $arctypeInfo['temparticle']);
                 $arctypeInfo['defaultname'] = str_replace('.html', '', $arctypeInfo['defaultname']);
-                echo '生成'.$arctypeInfo['typedir'].'/'.$arctypeInfo['temparticle'].'页面/n';
+                echo '生成'.$arctypeInfo['typedir'].'/'.$arctypeInfo['temparticle']."页面<br/>";
 
                 $this->buildHtml($v['id'], '.'.$arctypeInfo['typedir'].'/', $arctypeInfo['temparticle']);
             }
