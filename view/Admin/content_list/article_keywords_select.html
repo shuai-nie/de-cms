@@ -39,9 +39,9 @@
         </tr>
         <tr>
             <td bgcolor="#FFFFFF" style="line-height:180%">
-                {dede:datalist}
-                <a href='javascript:SelKw("{dede:field.keyword/}")'><u>{dede:field.keyword/}</u></a>
-                {/dede:datalist}
+                {volist name="data" id="vo"}
+                <a href='javascript:SelKw("{$vo.keyword}")'><u>{$vo.keyword}</u></a>
+                {/volist}
             </td>
         </tr>
         <tr>
@@ -57,7 +57,7 @@
         </tr>
         <tr align="center">
             <td height="24" bgcolor="#F9FCEF">
-                {dede:pagelist listsize=3/}
+                {$data|raw}
             </td>
         </tr>
     </form>
@@ -65,5 +65,33 @@
 {/block}
 
 {block name="script"}
+<script>
+function SelKw(kw){
+    if(document.form2.keywords.value){
+        document.form2.keywords.value += ","+kw;
+    }else{
+        document.form2.keywords.value = kw;
+    }
+}
 
+function ReturnValue(){
+    if(window.opener.document.<?php echo $f?>.value){
+        window.opener.document.<?php echo $f?>.value += ','+document.form2.keywords.value;
+    }else{
+        window.opener.document.<?php echo $f?>.value = document.form2.keywords.value;
+    }
+    //window.opener=true; //firefox出错
+    window.close();
+}
+
+function showHide(objname){
+    var obj = document.getElementById(objname);
+    if(obj.style.display=="none") obj.style.display = "block";
+    else obj.style.display="none";
+}
+
+function AddNewKw(){
+    showHide("addnew");
+}
+</script>
 {/block}

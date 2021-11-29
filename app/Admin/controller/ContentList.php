@@ -391,8 +391,10 @@ class ContentList extends Base
     public function article_keywords_select()
     {
         $keywords = Request::param('keywords', '');
-        $data = Keywords::where('')->order('rank desc')->select();
+        $f = Request::param('f');
+        $data = Keywords::where('')->order('rank desc')->paginate();
         View::assign('keywords', $keywords);
+        View::assign('f', $f);
         View::assign('data', $data);
         return View::fetch('');
     }
