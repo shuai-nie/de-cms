@@ -158,6 +158,7 @@ class FriendlinkMain extends Base
             array('title'=>'网站类型管理', 'url'=>''),
             array('title'=>'新建-网站类型管理', 'url'=>''),
         ));
+        View::assign('data', array('id'=>'','typename'=>''));
         return View::fetch('friendlink_type_add');
     }
 
