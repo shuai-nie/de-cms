@@ -33,7 +33,8 @@ class FriendlinkMain extends Base
      */
     public function index()
     {
-        $data = Flink::where([])->select();
+        $length = 10;
+        $data = Flink::where([])->order('sortrank desc')->paginate($length);
         View::assign('_data', $data);
         return View::fetch();
     }
@@ -87,6 +88,14 @@ class FriendlinkMain extends Base
         return View::fetch();
     }
 
+    /**
+     * [编辑]
+     * @author Dave 178698695@qq.com
+     * @return string|void
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\DbException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
     public function friendlink_edit()
     {
         if(Request::isPost()){
@@ -106,9 +115,9 @@ class FriendlinkMain extends Base
             ));
 
             if($state !== false){
-                return $this->success('提交成功', (string)url('index'));
+                return $this->success('编辑成功', (string)url('index'));
             }else{
-                return $this->error('提交失败');
+                return $this->error('编辑失败');
             }
         }
 
@@ -126,6 +135,26 @@ class FriendlinkMain extends Base
         View::assign('myLink', $myLink);
         View::assign('row', $row);
         return View::fetch();
+    }
+
+    /**
+     * [删除]
+     * @author Dave 178698695@qq.com
+     */
+    public function friendlink_delete()
+    {
+        $id = Request::param('id');
+        $dopost = Request::param('dopost');
+        if($dopost == 'delete'){
+            $state = Flink::where("id=".$id)->delete();
+            if($state !== false){
+                return $this->success('删除成功', (string)url('index'));
+            }else{
+                return $this->error('删除失败');
+            }
+
+        }
+
     }
 
     /**
