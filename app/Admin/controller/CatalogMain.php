@@ -273,28 +273,24 @@ class CatalogMain extends Base
 
         View::assign('nav', array(
             array('title'=>'核心', 'url'=>''),
-            array('title'=>'网站栏目管理', 'url'=>''),
-            array('title'=>'更新栏目HTML', 'url'=>''),
+            array('title'=>'网站栏目管理', 'url'=> (string)url('CatalogMain/index')),
+            array('title'=>'更新栏目HTML'),
         ));
-        return View::fetch();
+        return view();
     }
-
 
     public function makehtml_archives()
     {
-
         $ArctypeAll = Arctype::alias('A')->leftjoin(Channeltype::getTable()." B", 'B.id=A.channeltype')->field('A.*,B.typename as ctypename,B.addtable,B.issystem')->select();
         $cfg_remote_site = Config::get('app.cfg_remote_site');
         View::assign('cfg_remote_site', $cfg_remote_site);
-
         View::assign('ArctypeAll', $ArctypeAll);
-
         View::assign('nav', array(
             array('title'=>'核心', 'url'=>''),
-            array('title'=>'网站栏目管理', 'url'=>''),
-            array('title'=>'更新文档HTML', 'url'=>''),
+            array('title'=>'网站栏目管理', 'url'=> (string)url('CatalogMain/index')),
+            array('title'=>'更新文档HTML', 'url'=> ''),
         ));
-        return View::fetch();
+        return view();
     }
 
     public function makehtml_list_action()

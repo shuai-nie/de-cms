@@ -125,7 +125,7 @@
             <span class="layui-breadcrumb">
                 {volist name='nav' id='vo' key="k"}
                     {if condition="(count($nav)-1) eq $k "}
-                    <a href="">{$vo['title']}</a>
+                    <a href="{$vo['url']}">{$vo['title']}</a>
                     {else}
                     <a><cite>{$vo['title']}</cite></a>
                     {/if}

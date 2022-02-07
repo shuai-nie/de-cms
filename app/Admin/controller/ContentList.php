@@ -6,6 +6,7 @@ namespace app\Admin\controller;
 use app\Admin\model\Keywords;
 use think\facade\Db;
 use think\facade\Request;
+use think\facade\Route;
 use think\facade\Session;
 use think\facade\View;
 use think\facade\Config;
@@ -337,7 +338,7 @@ class ContentList extends Base
         View::assign('_data', $data);
         View::assign('nav', array(
             array('title' => '核心', 'url' => ''),
-            array('title' => '所有档案列表', 'url' => ''),
+            array('title' => '所有档案列表', 'url' => (string)url('ContentList/index')),
             array('title' => '文档回收箱', 'url' => ''),
         ));
         return View::fetch('');
