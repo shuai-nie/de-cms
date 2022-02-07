@@ -21,8 +21,13 @@ class Index extends BaseController
         if(Request::isPost()){
             $MemberGuestbook = new MemberGuestbook();
             $data = Request::param('');
-            $state = $MemberGuestbook->save($data);
-            echo json(['code'=>200, 'msg'=>'提交成功']);
+            $state = $MemberGuestbook->save([
+                'title' => '前台用户留言',
+                'msg' => implode('|', $data['a']),
+                'ip' => getRealIP(),
+                'dtime' => time(),
+            ]);
+            return json(['code'=>200, 'msg'=>'提交成功'], 200);
         }
         return view();
     }
