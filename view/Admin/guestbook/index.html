@@ -15,7 +15,12 @@
         <td>{$vo['uname']}</td>
         <td>{$vo['msg']}</td>
         <td>{$vo['ip']}</td>
-        <td>{$vo['dtime']|date='Y-m-d'}</td>
+        <td>{if condition="$vo['dtime'] gt 10000 " }
+            {$vo['dtime']|date='Y-m-d'}
+            {else}
+            -
+            {/if}
+        </td>
     </tr>
     {/volist}
 </table>
