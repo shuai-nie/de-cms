@@ -133,11 +133,11 @@ class MyChannelMain extends Base
 
 
         View::assign('nav', array(
-            array('title'=>'核心', 'url'=>''),
-            array('title'=>'内容模型管理', 'url'=>''),
-            array('title'=>'编辑-内容模型', 'url'=>''),
+            array('title'=>'核心'),
+            array('title'=>'内容模型管理', 'url'=>(string)url('MyChannelMain/index')),
+            array('title'=>'编辑-内容模型'),
         ));
-        return View::fetch();
+        return view();
     }
 
     protected function TagParseArr($data)
@@ -388,11 +388,11 @@ class MyChannelMain extends Base
         View::assign('ArcrankAll', $ArcrankAll);
         View::assign('MemberModelAll', $MemberModelAll);
         View::assign('nav', array(
-            array('title'=>'核心', 'url'=>''),
-            array('title'=>'内容模型管理', 'url'=>''),
-            array('title'=>'新建-内容模型', 'url'=>''),
+            array('title'=>'核心'),
+            array('title'=>'内容模型管理', 'url'=>(string)url('MyChannelMain/index')),
+            array('title'=>'新建-内容模型'),
         ));
-        return View::fetch();
+        return \view();
     }
 
     public function mychannel_delete()
