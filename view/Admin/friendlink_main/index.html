@@ -4,9 +4,10 @@
 <a href='{:url("/Admin/FriendlinkMain/friendlink_add")}' class="layui-btn layui-btn-xs layui-btn-normal" lay-event="">[添加链接]</a>
 <a href='{:url("/Admin/FriendlinkMain/friendlink_type")}' class="layui-btn layui-btn-xs" lay-event="">[网站类型管理]</a>
 
-<table lay-filter="demoFriendlinkMain">
+<table class="layui-table">
     <thead>
     <tr>
+        <th lay-data="{field:'f1'}">id</th>
         <th lay-data="{field:'f1'}">网站名称</th>
         <th lay-data="{field:'f2'}">网站Logo</th>
         <th lay-data="{field:'f3'}">站长Email</th>
@@ -19,6 +20,7 @@
     <tbody>
     {volist name="_data" id="vo"}
     <tr>
+        <td>{$vo['id']}</td>
         <td>{$vo['webname']}</td>
         <td>
             {if $vo['logo'] != ''}<img src="{$vo['logo']}" height="40" width="40">{/if}
@@ -29,7 +31,7 @@
         <td>{$vo['dtime']|date='Y-m-d H:i:s'}</td>
         <td>
             <a href='{:url("/Admin/FriendlinkMain/friendlink_edit", ["id"=>$vo->id,"dopost"=>"getedit"])}' class="layui-btn layui-btn-xs layui-btn-normal" lay-event="">[更改]</a>
-            <a href='{:url("/Admin/FriendlinkMain/friendlink_edit", ["id"=>$vo->id,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger" lay-event="">[删除]</a>
+            <a href='{:url("/Admin/FriendlinkMain/friendlink_delete", ["id"=>$vo->id,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger" lay-event="">[删除]</a>
         </td>
 
     </tr>
@@ -38,7 +40,7 @@
     </tbody>
 
 </table>
-
+<div>{$_data|raw}</div>
 
 {/block}
 
