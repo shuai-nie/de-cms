@@ -65,9 +65,9 @@ class FriendlinkMain extends Base
         }
 
         View::assign('nav', array(
-            array('title'=>'模块', 'url'=>''),
-            array('title'=>'友情链接', 'url'=>''),
-            array('title'=>'添加链接', 'url'=>''),
+            array('title'=>'模块'),
+            array('title'=>'友情链接', 'url'=>(string)url('FriendlinkMain/index')),
+            array('title'=>'添加链接'),
         ));
 
         $row = Flinktype::where("")->select();
@@ -78,9 +78,9 @@ class FriendlinkMain extends Base
     public function friendlink_type()
     {
         View::assign('nav', array(
-            array('title'=>'模块', 'url'=>''),
-            array('title'=>'友情链接', 'url'=>''),
-            array('title'=>'网站类型管理', 'url'=>''),
+            array('title'=>'模块'),
+            array('title'=>'友情链接', 'url'=>(string)url('FriendlinkMain/index')),
+            array('title'=>'网站类型管理'),
         ));
 
         $row = Flinktype::where("")->select();
@@ -124,7 +124,7 @@ class FriendlinkMain extends Base
 
         View::assign('nav', array(
             array('title'=>'模块', 'url'=>''),
-            array('title'=>'友情链接', 'url'=>''),
+            array('title'=>'友情链接', 'url'=>(string)url('FriendlinkMain/index')),
             array('title'=>'编辑链接', 'url'=>''),
         ));
 
@@ -183,8 +183,8 @@ class FriendlinkMain extends Base
         }
         View::assign('nav', array(
             array('title'=>'模块', 'url'=>''),
-            array('title'=>'友情链接', 'url'=>''),
-            array('title'=>'网站类型管理', 'url'=>''),
+            array('title'=>'友情链接', 'url'=>(string)url('FriendlinkMain/index')),
+            array('title'=>'网站类型管理', 'url'=>(string)url('FriendlinkMain/friendlink_type') ),
             array('title'=>'新建-网站类型管理', 'url'=>''),
         ));
         View::assign('data', array('id'=>'','typename'=>''));
@@ -225,10 +225,10 @@ class FriendlinkMain extends Base
         $data = Flinktype::where(['id'=>$id])->find();
         View::assign('data', $data);
         View::assign('nav', array(
-            array('title'=>'模块', 'url'=>''),
-            array('title'=>'友情链接', 'url'=>''),
-            array('title'=>'网站类型管理', 'url'=>''),
-            array('title'=>'编辑-网站类型管理', 'url'=>''),
+            array('title'=>'模块'),
+            array('title'=>'友情链接', 'url'=>(string)url('FriendlinkMain/index')),
+            array('title'=>'网站类型管理', 'url'=>(string)url('FriendlinkMain/friendlink_type') ),
+            array('title'=>'编辑-网站类型管理'),
         ));
         return View::fetch('friendlink_type_add');
 

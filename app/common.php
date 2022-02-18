@@ -444,3 +444,16 @@ function GetRankName($arcrank)
 //        return "不限";
 //    }
 }
+
+
+
+function getRealIP()
+{
+    $forwarded = request()->header("x-forwarded-for");
+    if ($forwarded) {
+        $ip = explode(',', $forwarded)[0];
+    } else {
+        $ip = request()->ip();
+    }
+    return $ip;
+}

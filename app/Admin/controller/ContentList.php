@@ -6,6 +6,7 @@ namespace app\Admin\controller;
 use app\Admin\model\Keywords;
 use think\facade\Db;
 use think\facade\Request;
+use think\facade\Route;
 use think\facade\Session;
 use think\facade\View;
 use think\facade\Config;
@@ -112,7 +113,6 @@ class ContentList extends Base
                 'senddate'    => $senddate,
             ));
 
-
             $cts      = Channeltype::where("id=" . $param['channelid'])->find();
             $addTable = trim($cts['addtable']);
             if (empty($addTable)) {
@@ -187,7 +187,12 @@ class ContentList extends Base
         View::assign('cfg_arc_autopic', $cfg_arc_autopic);
         View::assign('keywords', '');
         View::assign('description', '');
-        return View::fetch();
+        View::assign('nav', array(
+            array('title' => '核心'),
+            array('title' => '所有档案列表', 'url' => (string)url('ContentList/index')),
+            array('title' => '添加文档'),
+        ));
+        return view();
     }
 
     public function article_edit()
@@ -304,9 +309,9 @@ class ContentList extends Base
         View::assign('ArchivesCount', $ArchivesCount);
 
         View::assign('nav', array(
-            array('title' => '核心', 'url' => ''),
-            array('title' => '所有档案列表', 'url' => ''),
-            array('title' => '更改文章', 'url' => ''),
+            array('title' => '核心'),
+            array('title' => '所有档案列表', 'url' => (string)url('ContentList/index')),
+            array('title' => '更改文章'),
         ));
         return View::fetch();
     }
@@ -317,8 +322,6 @@ class ContentList extends Base
             $arr = Request::param('arr');
             $state = Archives::where("id in ($arr)")->delete();
             return json(['code'=>0,'msg'=>'删除成功']);
-
-
         }
     }
 
@@ -337,7 +340,7 @@ class ContentList extends Base
         View::assign('_data', $data);
         View::assign('nav', array(
             array('title' => '核心', 'url' => ''),
-            array('title' => '所有档案列表', 'url' => ''),
+            array('title' => '所有档案列表', 'url' => (string)url('ContentList/index')),
             array('title' => '文档回收箱', 'url' => ''),
         ));
         return View::fetch('');
