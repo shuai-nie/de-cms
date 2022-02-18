@@ -43,7 +43,10 @@ class Image {
             @fwrite ( $fp, $get_file );
             @fclose ( $fp );
         }
-        return json(['imgurl' => $imgUrl, 'url' => $this->get_http_type() . $_SERVER['HTTP_HOST'] . $saveUrl . '/' . $imgname]);
+        return [
+            'imgurl' => $imgUrl,
+            'url'    => $this->get_http_type() . $_SERVER['HTTP_HOST'] . $saveUrl . '/' . $imgname,
+        ];
     }
 
     public function get_http_type()

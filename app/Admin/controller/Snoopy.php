@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use range\Image;
 use think\Request;
 use Snoopy\Snoopy as SnoopyClass;
 
@@ -17,13 +18,27 @@ class Snoopy
         $snoopy = new SnoopyClass();
         $snoopy = new \Snoopy\Snoopy();
         $url = "https://www.milu.com/sysjttwzc/";
+        $snoopy->expandlinks = true;
         $snoopy->fetch($url);
         $results = $snoopy->results;
+        $regex4 = "/<div class=\"mainLeft globalSectionContainer\".*?>.*?<div class=\"mainRight globalSectionContainer\">/ism";
+        preg_match($regex4, $results, $matches);
 
-        $regex4 = "/<div class=\"mainLeft globalSectionContainer\".*?>.*?<\/div>/ism";
+        $pattern = "/[img|IMG].*?src=['|\"](.*?(?:[.gif|.jpg]))['|\"].*?[\/]?>/";
+        preg_match_all($pattern, $matches[0], $match);
+        $matche = $matches[0];
+        foreach ($match[1] as $k => $v){
+            if(strpos($v, 'http') !== false ) {
+                $d = (new Image())->RangeImage($v);
+                if($d) {
+                    // 新图片 替换 原图片
+                    $matche = str_replace($d['imgurl'], $d['url'], $matche);
+                }
+            }
+        }
+        var_dump($matche);
 
-        preg_match_all($regex4, $results, $matches);
-        var_dump($matches);
+
         exit();
 
         $preg = '/<a .*?href="(.*?)".*?>/is';
@@ -35,9 +50,6 @@ class Snoopy
         /*$pattern = "/[img|IMG].*?src=['|\"](.*?(?:[.gif|.jpg]))['|\"].*?[\/]?>/";
         preg_match_all($pattern, $results, $match);
         var_dump($match[1]);*/
-
-
-
 
 
     }
@@ -72,7 +84,10 @@ class Snoopy
             @fwrite ( $fp, $get_file );
             @fclose ( $fp );
         }
-        return json(['imgurl' => $imgUrl, 'url' => $this->get_http_type() . $_SERVER['HTTP_HOST'] . $saveUrl . '/' . $imgname]);
+        return [
+            'imgurl' => $imgUrl,
+            'url'    => $this->get_http_type() . $_SERVER['HTTP_HOST'] . $saveUrl . '/' . $imgname,
+        ];
     }
 
 
