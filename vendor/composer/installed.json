@@ -212,6 +212,49 @@
             "install-path": "../liliuwei/thinkphp-jump"
         },
         {
+            "name": "lyhiving/snoopy",
+            "version": "2.0",
+            "version_normalized": "2.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lyhiving/snoopy.git",
+                "reference": "41f1eb214cfc94591d1400527c65f74e30498cd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lyhiving/snoopy/zipball/41f1eb214cfc94591d1400527c65f74e30498cd0",
+                "reference": "41f1eb214cfc94591d1400527c65f74e30498cd0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "time": "2018-01-20T08:01:36+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Snoopy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GL2PS"
+            ],
+            "authors": [
+                {
+                    "name": "lyhiving",
+                    "email": "lyhiving@gmail.com"
+                }
+            ],
+            "description": "snoopy php class",
+            "support": {
+                "issues": "https://github.com/lyhiving/snoopy/issues",
+                "source": "https://github.com/lyhiving/snoopy/tree/master"
+            },
+            "install-path": "../lyhiving/snoopy"
+        },
+        {
             "name": "psr/cache",
             "version": "1.0.1",
             "version_normalized": "1.0.1.0",

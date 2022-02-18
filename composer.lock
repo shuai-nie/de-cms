@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f2fe61e97618f9b72b80dc916682ccb",
+    "content-hash": "81806aa2e62db128ed64eb3a9773c6b4",
     "packages": [
         {
             "name": "league/flysystem",
@@ -207,6 +207,46 @@
                 "source": "https://github.com/liliuwei/thinkphp-jump/tree/v1.5"
             },
             "time": "2020-03-20T15:11:56+00:00"
+        },
+        {
+            "name": "lyhiving/snoopy",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lyhiving/snoopy.git",
+                "reference": "41f1eb214cfc94591d1400527c65f74e30498cd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lyhiving/snoopy/zipball/41f1eb214cfc94591d1400527c65f74e30498cd0",
+                "reference": "41f1eb214cfc94591d1400527c65f74e30498cd0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Snoopy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GL2PS"
+            ],
+            "authors": [
+                {
+                    "name": "lyhiving",
+                    "email": "lyhiving@gmail.com"
+                }
+            ],
+            "description": "snoopy php class",
+            "support": {
+                "issues": "https://github.com/lyhiving/snoopy/issues",
+                "source": "https://github.com/lyhiving/snoopy/tree/master"
+            },
+            "time": "2018-01-20T08:01:36+00:00"
         },
         {
             "name": "psr/cache",

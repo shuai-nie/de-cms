@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '184534ffdf3c578dcf78b8122181a6f72f5af8ad',
+        'reference' => '5b79ddffe7daf6d8977ccb43d12d4428e3ff63f7',
         'name' => 'topthink/think',
         'dev' => true,
     ),
@@ -35,6 +35,15 @@
             'install_path' => __DIR__ . '/../liliuwei/thinkphp-jump',
             'aliases' => array(),
             'reference' => '481d41b922095f08230609919be5d19354c50540',
+            'dev_requirement' => false,
+        ),
+        'lyhiving/snoopy' => array(
+            'pretty_version' => '2.0',
+            'version' => '2.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lyhiving/snoopy',
+            'aliases' => array(),
+            'reference' => '41f1eb214cfc94591d1400527c65f74e30498cd0',
             'dev_requirement' => false,
         ),
         'psr/cache' => array(
@@ -124,7 +133,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '184534ffdf3c578dcf78b8122181a6f72f5af8ad',
+            'reference' => '5b79ddffe7daf6d8977ccb43d12d4428e3ff63f7',
             'dev_requirement' => false,
         ),
         'topthink/think-captcha' => array(

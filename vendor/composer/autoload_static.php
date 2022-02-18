@@ -39,6 +39,7 @@ class ComposerStaticInitacb7b6ac39ac135c331d42651ad45f97
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\VarDumper\\' => 28,
+            'Snoopy\\' => 7,
         ),
         'P' => 
         array (
@@ -75,9 +76,9 @@ class ComposerStaticInitacb7b6ac39ac135c331d42651ad45f97
         array (
             0 => __DIR__ . '/..' . '/topthink/framework/src/think',
             1 => __DIR__ . '/..' . '/topthink/think-helper/src',
-            2 => __DIR__ . '/..' . '/topthink/think-orm/src',
-            3 => __DIR__ . '/..' . '/topthink/think-template/src',
-            4 => __DIR__ . '/..' . '/topthink/think-image/src',
+            2 => __DIR__ . '/..' . '/topthink/think-image/src',
+            3 => __DIR__ . '/..' . '/topthink/think-orm/src',
+            4 => __DIR__ . '/..' . '/topthink/think-template/src',
         ),
         'liliuwei\\think\\' => 
         array (
@@ -102,6 +103,10 @@ class ComposerStaticInitacb7b6ac39ac135c331d42651ad45f97
         'Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
+        'Snoopy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lyhiving/snoopy/src',
         ),
         'Psr\\SimpleCache\\' => 
         array (
