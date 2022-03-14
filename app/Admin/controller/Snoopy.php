@@ -6,6 +6,7 @@ namespace app\Admin\controller;
 use range\Image;
 use think\Request;
 use Snoopy\Snoopy as SnoopyClass;
+use voku\helper\HtmlDomParser;
 
 class Snoopy
 {
@@ -16,7 +17,7 @@ class Snoopy
     public function index()
     {
         $snoopy = new SnoopyClass();
-        $snoopy = new \Snoopy\Snoopy();
+        //$snoopy = new \Snoopy\Snoopy();
         $url = "https://www.milu.com/sysjttwzc/";
         $snoopy->expandlinks = true;
         $snoopy->fetch($url);
@@ -36,7 +37,26 @@ class Snoopy
                 }
             }
         }
-        var_dump($matche);
+
+//        $dom = HtmlDomParser::file_get_html($matche);
+//        $name = $dom->findOne('.name');
+//        var_dump( $name);
+//        $info = $dom->findOne('.info');
+//        var_dump($info);
+//
+//        $i2 = '<div class="gameDetail">([\s\S]*?(<div[^>]*>((?1)|[\s\S])*<\/div>)*[\s\S]*?)*<\/div>';
+//        $matches2 = '';
+//        preg_match_all($i2, $matche, $matches2);
+//        var_dump($matches2);
+
+        var_dump($this->get_tag_data($matche, 'div', 'class', 'name')[0]);
+
+        var_dump($this->get_tag_data($matche, 'div', 'id', 'info'));
+        $length = strpos($matche, '评价');
+        $info = substr( $matche, 0, $length-150);
+        var_dump($info);
+      //  var_dump($this->getTagValue($matche, 'div'));
+//        var_dump($matche);
 
 
         exit();
@@ -52,6 +72,68 @@ class Snoopy
         var_dump($match[1]);*/
 
 
+    }
+
+    /**
+     * @param $string 需要匹配的字符串
+     * @param $tag html标签
+     */
+    public function getTagValue($string, $tag){
+        $pattern = "/<{$tag}>(.*?)<\/{$tag}>/s";
+        preg_match_all($pattern, $string, $matches);
+        return isset($matches[1]) ? $matches[1] : '';
+    }
+
+    /**
+     * @param $html
+     * @param $tag
+     * @param $class
+     * @param $value
+     * @return mixed
+     * @author Lucius yesheng35@126.com
+     * get_tag_data($temp,"div","class","num");
+     */
+    public function get_tag_data($html, $tag, $class, $value)
+    {
+        //$value 为空，则获取class=$class的所有内容
+        $regex = $value ? "/<$tag.*?$class=\"$value\".*?>(.*?)<\/$tag>/is" : "/<$tag.*?$class=\".*?$value.*?\".*?>(.*?)<\/$tag>/is";
+        preg_match_all($regex, $html, $matches, PREG_PATTERN_ORDER);
+        return $matches[1];//返回值为数组 ,查找到的标签内的内容
+    }
+
+    /**
+     * @param $html
+     * @param $rule
+     * @return string
+     */
+    public function processing($html, $rule)
+    {
+        $outHtml = "";
+        $pattern = '])>(.*)])>/U'; // 0为带标签的数据 1前标签 2为不带标签的文本内容 3后标签
+
+        preg_match_all($pattern, $html, $data);
+        foreach($data[3] as $k => $v){
+            if(isset($rule[$v])){
+                $len = mb_strlen($data[2][$k], 'utf8');
+                if($len > $rule[$v]){
+                    $start = 0;
+                    $end = $len;
+                    do{
+                        $subText = mb_substr($data[2][$k], $start, $rule[$v], 'UTF-8');
+                        $outHtml .= "{$subText}{$data[3][$k]}>";
+                        $len -= $rule[$v];
+                        $start += $rule[$v];
+                        if($len<0) {
+                            $len = 0;
+                            $start = $end;
+                        }
+                    }while($len);
+                    continue;
+                }
+            }
+            $outHtml .= $data[0][$k];
+        }
+        return $outHtml;
     }
 
 

@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace app\Admin\controller;
 
 use app\Admin\model\Keywords;
+use range\Image;
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\Route;
@@ -22,6 +23,7 @@ use app\Admin\model\Channeltype;
 use app\Admin\model\Uploads;
 use app\Admin\model\MemberStow;
 use app\Admin\model\Erradd;
+use Snoopy\Snoopy as SnoopyClass;
 
 /**
  * [所有档案列表]
@@ -68,7 +70,7 @@ class ContentList extends Base
             ->leftjoin(Admin::getTable() . " C ", "C.id=A.mid")
             ->field('A.*,B.typename as ctypename,C.userid')
             ->where($map)
-            ->order('id desc')->paginate($length);
+            ->order('A.id desc')->paginate($length);
 
         View::assign('_data', $data);
         View::assign('arcrank', $arcrank);
@@ -78,17 +80,24 @@ class ContentList extends Base
     public function article_add()
     {
         if (Request::isPost()) {
-            $param    = Request::param('');
+            $param    = Request::post('');
+            $color = \request()->post('color', '');
+            $writer = \request()->post('writer', '');
+            $source = \request()->post('source', '');
+            $weight = \request()->post('weight', '');
+            $typeid = \request()->post('typeid', '');
+            $ishtml = \request()->post('ishtml', 0);
             $pubdate  = GetMkTime($param['pubdate']);
             $sortrank = AddDay($pubdate, $param['sortup']);
             $senddate = time();
-            $arcID    = GetIndexKey($param['arcrank'], $param['typeid'], $sortrank, $param['channelid'], $senddate, 1);
+            $arcID    = GetIndexKey($param['arcrank'], $typeid, $sortrank, $param['channelid'], $senddate, 1);
             $flag     = isset($param['flags']) ? join(',', $param['flags']) : '';
-            $ismake   = $param['ishtml'] == 0 ? -1 : 0;
+            $ismake   = $ishtml == 0 ? -1 : 0;
+
 
             $state = Archives::insert(array(
                 'id'          => $arcID,
-                'typeid'      => $param['typeid'],
+                'typeid'      => $typeid,
                 'typeid2'     => $param['typeid2'],
                 'sortrank'    => $sortrank,
                 'flag'        => $flag,
@@ -99,9 +108,9 @@ class ContentList extends Base
                 'money'       => $param['money'],
                 'title'       => $param['title'],
                 'shorttitle'  => $param['shorttitle'],
-                'color'       => $param['color'],
-                'writer'      => $param['writer'],
-                'source'      => $param['source'],
+                'color'       => $color,
+                'writer'      => $writer,
+                'source'      => $source,
                 'mid'         => 1,
                 'voteid'      => 0,//投票
                 'notpost'     => $param['notpost'],
@@ -109,9 +118,21 @@ class ContentList extends Base
                 'keywords'    => $param['keywords'],
                 'filename'    => $param['filename'],
                 'dutyadmin'   => 1,
-                'weight'      => $param['weight'],
+                'weight'      => $weight,
                 'senddate'    => $senddate,
             ));
+
+            if($ishtml == 1){
+                $ArchivesInfo = Archives::where(['id' => $arcID])->find();
+                $arctypeInfo = Arctype::where("id=" . $typeid)->find();
+                $typedir = $arctypeInfo['typedir'];
+                $temparticle = str_replace('.html', '', $arctypeInfo['temparticle']);
+                View::assign('arctypeInfo', $arctypeInfo);
+                View::assign('archivesInfo', $ArchivesInfo);
+                $this->ViewAll();
+                $this->buildHtml($arcID, '.' . $typedir . '/', $temparticle);
+                Archives::where(['id' => $arcID])->save(['ismake' => 1]);
+            }
 
             $cts      = Channeltype::where("id=" . $param['channelid'])->find();
             $addTable = trim($cts['addtable']);
@@ -133,8 +154,8 @@ class ContentList extends Base
 
             exit();
         }
-        $channelid = Request::param('channelid');
-        $cid       = Request::param('cid');
+        $channelid = Request::get('channelid');
+        $cid       = Request::get('cid');
         $channelid = empty($channelid) ? 0 : intval($channelid);
         if ($cid > 0 && $channelid == 0) {
             $row       = Channeltype::where('id=' . $cid)->find();
@@ -147,10 +168,10 @@ class ContentList extends Base
         $cid    = empty($cid) ? 0 : intval($cid);
         $geturl = Request::param('geturl');
         if (empty($geturl)) $geturl = '';
-        $ArcattAll           = Arcatt::where("")->order('sortid asc')->select();
-        $ArchivesCount       = Archives::where("")->count();
-        $cfg_need_typeid2    = Config::get('app.cfg_need_typeid2');
-        $cfg_remote_site     = Config::get('app.cfg_remote_site');
+        $ArcattAll = Arcatt::where("")->order('sortid asc')->select();
+        $ArchivesCount = Archives::where("")->count();
+        $cfg_need_typeid2 = Config::get('app.cfg_need_typeid2');
+        $cfg_remote_site = Config::get('app.cfg_remote_site');
         $cfg_arc_autokeyword = Config::get('app.cfg_arc_autokeyword');
         $cfg_rm_remote       = Config::get('app.cfg_rm_remote');
         $cfg_arc_dellink     = Config::get('app.cfg_arc_dellink');
@@ -163,6 +184,8 @@ class ContentList extends Base
         $ArcrankAll          = Arcrank::where("")->select();
         $ArctypeAll          = Arctype::where("")->select();
 
+        view::assign('cfg_tamplate_rand', \config('app.cfg_tamplate_rand'));
+        view::assign('cfg_tamplate_arr', \config('app.cfg_tamplate_arr'));
         View::assign('channelid', $channelid);
         View::assign('cid', $cid);
         View::assign('geturl', $geturl);
@@ -622,6 +645,51 @@ class ContentList extends Base
 
         return true;
     }
+
+    public function snoopy()
+    {
+        if(\request()->isPost()){
+            $url = \request()->post('urls');
+
+            $snoopy = new SnoopyClass();
+            $snoopy->expandlinks = true;
+            $snoopy->fetch($url);
+            $results = $snoopy->results;
+            $regex4 = "/<div class=\"mainLeft globalSectionContainer\".*?>.*?<div class=\"mainRight globalSectionContainer\">/ism";
+            preg_match($regex4, $results, $matches);
+
+            $pattern = "/[img|IMG].*?src=['|\"](.*?(?:[.gif|.jpg]))['|\"].*?[\/]?>/";
+            preg_match_all($pattern, $matches[0], $match);
+            // 去除空格
+            $matche = trim( $matches[0]);
+
+            foreach ($match[1] as $k => $v){
+                if(strpos($v, 'http') !== false ) {
+                    $d = (new Image())->RangeImage($v);
+                    if($d) {
+                        // 新图片 替换 原图片
+                        $matche = str_replace($d['imgurl'], $d['url'], $matche);
+                    }
+                }
+            }
+            //$matche = preg_replace('# #','', $matche);
+            //preg_match_all('&nbsp;', $matche, $matches);
+            $matches = str_replace('&nbsp;', '', $matche);
+            $name = (new Snoopy())->get_tag_data($matche, 'div', 'class', 'name')[0];
+            $length = strpos($matche, '评价');
+            $info = substr( $matche, 0, $length-150);
+            return json([
+                'code' => 0,
+                'msg' => '成功',
+                'data' => [
+                    'name' => $name,
+                    'info' => $info,
+                ],
+            ], 200);
+        }
+    }
+
+
 
 
 

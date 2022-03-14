@@ -7,3 +7,4 @@
 /.env
 /public/sitemap.xml
 /public/storage/mark/inc_photowatermark_config.php
+/public/storage/image
