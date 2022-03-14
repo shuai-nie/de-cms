@@ -259,7 +259,7 @@ class ContentList extends Base
             $arcrank = 0;
 
 
-            $AdminUser = Session::get('AdminUser');
+            $AdminUser = Session::get(config('app.uid_key'));
             $adminid   = $AdminUser->id;
 
             $state = Archives::update(array(
@@ -309,7 +309,7 @@ class ContentList extends Base
 
         $trow             = Uploads::where("arcid =" . $addRow[0]['aid'])->select();
         $tags             = GetTags($aid);
-        $user             = Session::get('AdminUser');
+        $user             = Session::get(config('app.uid_key'));
         $cfg_remote_site  = Config::get('app.cfg_remote_site');
         $cfg_need_typeid2 = Config::get('app.cfg_need_typeid2');
         $ArcrankAll       = Arcrank::where("")->select()->toArray();

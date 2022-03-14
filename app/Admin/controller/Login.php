@@ -34,7 +34,7 @@ class Login
         if($state != false){
             AdminModel::update(array('loginip' => $loginip, 'logintime' => $time ), array( 'id' => $state['id'] ));
             MemberModel::update(array('logintime'=>$time, 'loginip'=>$loginip), array('mid'=>$state['id']));
-            Session::set('AdminUser', $state);
+            Session::set(config('app.uid_key'), $state);
             return true;
         }
         return false;
@@ -42,7 +42,7 @@ class Login
 
     public function Logout()
     {
-        Session::delete('AdminUser');
+        Session::delete(config('app.uid_key'));
         return redirect((string)url('Login/index'));
     }
 

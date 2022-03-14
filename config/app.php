@@ -57,9 +57,6 @@ return [
         'article_article.htm',
         'article_article1.htm',
         'article_article2.htm',
-    ]
-
-
-
-
+    ],
+    'uid_key'=> 'AdminUser',
 ];

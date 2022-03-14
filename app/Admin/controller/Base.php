@@ -32,11 +32,11 @@ class Base extends BaseController
 
     protected function isLogin()
     {
-        $stat = Session::has('AdminUser');
+        $stat = Session::has(config('app.uid_key'));
         if(!$stat){
             redirect( (string)url('Login/index') )->send();
         }
-        $user = Session::get('AdminUser');
+        $user = Session::get(config('app.uid_key'));
         View::assign('user', $user);
     }
 
@@ -93,6 +93,8 @@ class Base extends BaseController
         $flink = Flink::where("")->select();
         View::assign('flink', $flink);
     }
+
+
 
 
 

@@ -381,7 +381,7 @@ class MyChannelMain extends Base
         if($newid < 10) $newid = $newid+10;
         View::assign('cfg_dbprefix', Config::get('database.connections')['mysql']['prefix'] );
         View::assign('newid', $newid);
-        $usertype = Session::get('AdminUser')->usertype;
+        $usertype = Session::get(config('app.uid_key'))->usertype;
 
         $ArcrankAll = ArcrankModel::where("adminrank<='$usertype' And rank>=10")->select();
         $MemberModelAll = MemberModel::where("")->select();

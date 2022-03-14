@@ -2,6 +2,12 @@
 // 应用公共文件
 use app\Admin\model\Admintype as AdmintypeModel;
 use app\Admin\model\Arctiny;
+use think\facade\Session;
+
+function getUser()
+{
+    return Session::get(config('app.uid_key'));
+}
 
 function GetUserType($trank)
 {
