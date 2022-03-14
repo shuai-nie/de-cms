@@ -208,21 +208,17 @@
 
             </div>
             <div class="layui-input-inline">
-                <input type="button" name="Submit" value="浏览..." style="width:56;height:20" onClick="SelectKeywords('form1.keywords');" />
+                <input type="button" name="Submit" value="浏览..." style="" onClick="SelectKeywords('form1.keywords');" />
             </div>
         </div>
 
-        <tr>
-            <td height="24" colspan="5" class="bline">
-                <table width="800" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="90">&nbsp;内容摘要：</td>
-                        <td width="449"><textarea name="description" rows="5" id="description" class="layui-textarea" style="width:80%;height:50px"><?php echo $description; ?></textarea></td>
-                        <td width="261">&nbsp;</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容摘要</label>
+            <div class="layui-input-inline">
+                <textarea name="description" rows="5" id="description" class="layui-textarea" style="width:80%;height:50px"><?php echo $description; ?></textarea>
+            </div>
+        </div>
+
         <tr>
             <td colspan="2"></td>
         </tr>
