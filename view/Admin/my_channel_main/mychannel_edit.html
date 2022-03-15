@@ -1,7 +1,7 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<form action="{:url('')}" method="post">
+<form action="{:url('')}" method="post" class="layui-form">
 <input type='hidden' name='id' value="{$data['id']}">
 <input type='hidden' name='dopost' value='save'>
 <input type='hidden' name='issystem' value="{$data['issystem']}">
@@ -56,7 +56,7 @@
                         <b>频道名称</b><br />
                         <span class="STYLE2" id="help3">频道的中文名称，在后台管理，前台发布等均使用此名字。</span>
                     </td>
-                    <td><input name="typename" type="text" id="typename" value="{$data['typename']}" /></td>
+                    <td><input name="typename" type="text" id="typename" value="{$data['typename']}" class="layui-input"  /></td>
                 </tr>
                 <tr>
                     <td>
@@ -64,17 +64,17 @@
                         <span class="STYLE2" id="help4">频道除主表以外其它自定义类型数据存放数据的表，如果您不使用主表关连的各种特性(推荐、会员权限等)，也可以使用完全以附加表作为存储数据。</span>
                     </td>
                     <td>
-                        <input name="addtable" type="text" id="addtable" value="{$data['addtable']}" class="pubinputs" />
+                        <input name="addtable" type="text" id="addtable" value="{$data['addtable']}" class="layui-input" />
                         ( #@__ 是表示数据表前缀)
                     </td>
                 </tr>
                 <tr>
                     <td><strong>是否支持会员投稿</strong></td>
                     <td>
-                        <input name="issend" type="radio" class="np" value="0"<?php if($data['issend']==0) echo " checked='1' "; ?> />
-                        不支持
-                        <input type="radio" name="issend" class="np" value="1"<?php if($data['issend']==1) echo " checked='1' "; ?> />
-                        支持 </td>
+                        <input type="radio" name="issend" class="np" value="0" <?php if($data['issend']==0) echo " checked='1' "; ?> title='不支持' />
+
+                        <input type="radio" name="issend" class="np" value="1" <?php if($data['issend']==1) echo " checked='1' "; ?> title='支持' />
+                         </td>
                     </td>
                 </tr>
                 <tr>
@@ -92,58 +92,55 @@
                     <td>许可投稿会员组</td>
                     <td>
                         {volist name="MemberModelAll" id='vo'}
-                        <input type="radio" name="usertype" value="{$vo['name']}" />{$vo['name']}
+                        <input type="radio" name="usertype" value="{$vo['name']}" title="{$vo['name']}" />
                         {/volist}
-                        <input name="usertype" type="radio" value="" checked /> 不限
+                        <input name="usertype" type="radio" value="" checked title="不限"  />
                     </td>
                 </tr>
                 <tr>
                     <td>会员稿件默认状态</td>
                     <td>
-                        <input name="arcsta" class="np" type="radio" value="-1"<?php if($data['arcsta']==-1) echo " checked='1' ";?>>
-                        未审核
-                        <input name="arcsta" class="np" type="radio" value="0"<?php if($data['arcsta']==0) echo " checked='1' ";?>>
-                        已审核（自动生成HTML）
-                        <input name="arcsta" class="np" type="radio" value="1"<?php if($data['arcsta']==1) echo " checked='1' ";?>>
-                        已审核（仅使用动态文档）
+                        <input name="arcsta" class="np" type="radio" value="-1"<?php if($data['arcsta']==-1) echo " checked='1' ";?> title='未审核' />
+                        <input name="arcsta" class="np" type="radio" value="0"<?php if($data['arcsta']==0) echo " checked='1' ";?> title='已审核（自动生成HTML）' />
+                        <input name="arcsta" class="np" type="radio" value="1"<?php if($data['arcsta']==1) echo " checked='1' ";?> title='已审核（仅使用动态文档）' />
                     </td>
                 </tr>
                 <tr>
                     <td>档案发布程序</td>
-                    <td><input name="addcon" type="text" id="addcon" value="{$data['addcon']}" class="pubinputs" /></td>
+                    <td><input name="addcon" type="text" id="addcon" value="{$data['addcon']}" class="layui-input" /></td>
                 </tr>
                 <tr>
                     <td>档案修改程序</td>
-                    <td><input name="editcon" type="text" id="editcon" value="{$data['editcon']}" class="pubinputs" /></td>
+                    <td><input name="editcon" type="text" id="editcon" value="{$data['editcon']}" class="layui-input" /></td>
                 </tr>
                 <tr>
                     <td>档案管理程序</td>
-                    <td><input name="mancon" type="text" id="mancon" value="{$data['mancon']}" /></td>
+                    <td><input name="mancon" type="text" id="mancon" value="{$data['mancon']}" class="layui-input" /></td>
                 </tr>
                 <tr>
                     <td>前台会员发布程序</td>
-                    <td><input name="useraddcon" type="text" id="useraddcon" value="{$data['useraddcon']}" class="pubinputs" /></td>
+                    <td><input name="useraddcon" type="text" id="useraddcon" value="{$data['useraddcon']}" class="layui-input" /></td>
                 </tr>
                 <tr>
                     <td>前台会员修改程序</td>
-                    <td><input name="usereditcon" type="text" id="usereditcon" value="{$data['usereditcon']}" class="pubinputs" /></td>
+                    <td><input name="usereditcon" type="text" id="usereditcon" value="{$data['usereditcon']}" class="layui-input" /></td>
                 </tr>
                 <tr>
                     <td>前台会员管理程序</td>
-                    <td><input name="usermancon" type="text" id="usermancon" value="{$data['usermancon']}" class="pubinputs" /></td>
+                    <td><input name="usermancon" type="text" id="usermancon" value="{$data['usermancon']}" class="layui-input" /></td>
                 </tr>
                 <tr>
                     <td>
                         <strong>列表附加字段</strong>
-                        <span class="STYLE2" id="help6">用&quot;,&quot;分开，可以在列表模板{dede:list}{/dede:list}中用[field:name /]调用</span>
+                        <span class="STYLE2" id="help6">用&quot;,&quot;分开，<!--可以在列表模板{dede:list}{/dede:list}中用[field:name /]调用--></span>
                     </td>
                     <td>
-                        <input name="listfields" type="text" id="listfields" size="50" value="{$data['listfields']}" class="pubinputs"  />
+                        <input name="listfields" type="text" id="listfields" size="50" value="{$data['listfields']}" class="layui-input"  />
                     </td>
                 </tr>
                 <tr>
                     <td>投稿标题使用名称</td>
-                    <td><input name="titlename" type="text" id="titlename" value="{$data['titlename']}" class="pubinputs" /></td>
+                    <td><input name="titlename" type="text" id="titlename" value="{$data['titlename']}" class="layui-input" /></td>
                 </tr>
                 <tr>
                     <td>
@@ -151,19 +148,15 @@
                         <span class="STYLE2">如果不使用主表(独立模型)，缩略图设置同。</span>
                     </td>
                     <td>
-                        <input name="needdes" type="radio" class="np" value="1"<?php if($data['needdes']==1) echo " checked='1'"; ?> />
-                        使用
-                        <input name="needdes" type="radio" class="np" value="0"<?php if($data['needdes']==0) echo " checked='1'"; ?> />
-                        不使用
+                        <input name="needdes" type="radio" class="np" value="1"<?php if($data['needdes']==1) echo " checked='1'"; ?> title='使用'  />
+                        <input name="needdes" type="radio" class="np" value="0"<?php if($data['needdes']==0) echo " checked='1'"; ?> title='不使用' />
                     </td>
                 </tr>
                 <tr>
                     <td><strong>投稿是否使用缩图</strong></td>
                     <td>
-                        <input name="needpic" type="radio" class="np" value="1"<?php if($data['needpic']==1) echo " checked='1'"; ?> />
-                        使用
-                        <input name="needpic" type="radio" class="np" value="0"<?php if($data['needpic']==0) echo " checked='1'"; ?> />
-                        不使用
+                        <input name="needpic" type="radio" class="np" value="1"<?php if($data['needpic']==1) echo " checked='1'"; ?> title='使用' />
+                        <input name="needpic" type="radio" class="np" value="0"<?php if($data['needpic']==0) echo " checked='1'"; ?> title='不使用' />
                     </td>
                 </tr>
                 <tr>
@@ -171,7 +164,7 @@
                         <span class="STYLE2" id="help8">与投稿是唯一性结合可以用模型设计自定义表单</span>
                     </td>
                     <td>
-                        <input name="dfcid" type="text" id="dfcid" value="<?php echo $data['dfcid']; ?>" class="pubinputs"  />
+                        <input name="dfcid" type="text" id="dfcid" value="<?php echo $data['dfcid']; ?>" class="layui-input"  />
                     </td>
                 </tr>
                 <tr>
@@ -180,10 +173,8 @@
                         <span class="STYLE2" id="help9">如果投稿是唯一的(会员只能在这个模型对应的栏目中发布单篇文档)，其作用相当于自定义表单</span>
                     </td>
                     <td>
-                        <input name="onlyone" type="radio" class="np" value="1"  <?php if($data['onlyone']==1) echo " checked='1'"; ?> />
-                        是
-                        <input name="onlyone" type="radio" class="np" value="0" <?php if($data['onlyone']==0) echo " checked='1'"; ?> />
-                        不是
+                        <input name="onlyone" type="radio" class="np" value="1"  <?php if($data['onlyone']==1) echo " checked='1'"; ?> title='是' />
+                        <input name="onlyone" type="radio" class="np" value="0" <?php if($data['onlyone']==0) echo " checked='1'"; ?> title='不是' />
                     </td>
                 </tr>
 
@@ -237,7 +228,7 @@
                         </table>
                     </td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td height="24" width="35%" bgcolor="#FFFFFF">
                         <strong>模型字段配置(文本模式)</strong>
                         修改配置文本可调整字段顺序，但不会更改字段属性！
@@ -246,7 +237,7 @@
 
                     </td>
 
-                </tr>
+                </tr>-->
             </table>
         </div>
     </div>
