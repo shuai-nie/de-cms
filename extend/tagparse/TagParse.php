@@ -279,7 +279,7 @@ class TagParse
             $this->ParseTemplet();
         }else{
             $fp = @fopen($filename, "r");
-            while($line = fgets($fp,1024)){
+            while ($line = fgets($fp, 1024)) {
                 $this->SourceString .= $line;
             }
             fclose($fp);
@@ -308,10 +308,11 @@ class TagParse
      * @param     string  $str  字符串
      * @return    void
      */
-    function LoadSource($str){
+    function LoadSource($str)
+    {
         //优化模板字符串存取读取方式
-        $this->taghashfile = $filename = app()->getRootPath().'public/storage/tplcache/'.md5($str).'.inc';
-        if( !is_file($filename) ){
+        $this->taghashfile = $filename = app()->getRootPath() . 'public/storage/tplcache/' . md5($str) . '.inc';
+        if (!is_file($filename)) {
             file_put_contents($filename, $str);
         }
         $this->LoadTemplate($filename);
@@ -538,34 +539,30 @@ class TagParse
      * @access    public
      * @return    string
      */
-    function GetResultNP()
+    public function GetResultNP()
     {
         $ResultString = '';
-        if($this->Count==-1)
-        {
+        if ($this->Count == -1){
             return $this->SourceString;
         }
         $this->AssignSysTag();
         $nextTagEnd = 0;
         $strok = "";
-        for($i=0;$i<=$this->Count;$i++)
-        {
-            if($this->CTags[$i]->GetValue()!="")
-            {
-                if($this->CTags[$i]->GetValue()=='#@Delete@#')
-                {
+        for ($i = 0; $i <= $this->Count; $i++) {
+            if ($this->CTags[$i]->GetValue() != ""){
+                if ($this->CTags[$i]->GetValue() == '#@Delete@#') {
                     $this->CTags[$i]->TagValue = "";
                 }
-                $ResultString .= substr($this->SourceString,$nextTagEnd,$this->CTags[$i]->StartPos-$nextTagEnd);
+                $ResultString .= substr($this->SourceString, $nextTagEnd, $this->CTags[$i]->StartPos - $nextTagEnd);
                 $ResultString .= $this->CTags[$i]->GetValue();
                 $nextTagEnd = $this->CTags[$i]->EndPos;
             }
         }
         $slen = strlen($this->SourceString);
-        if($slen>$nextTagEnd)
-        {
-            $ResultString .= substr($this->SourceString,$nextTagEnd,$slen-$nextTagEnd);
+        if ($slen > $nextTagEnd) {
+            $ResultString .= substr($this->SourceString, $nextTagEnd, $slen - $nextTagEnd);
         }
+
         return $ResultString;
     }
 

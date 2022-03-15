@@ -5,6 +5,7 @@ namespace app\Admin\controller;
 
 use app\Admin\model\Channeltype;
 use app\Admin\model\Stepselect;
+use app\ExceptionHandle;
 use tagparse\TagParse;
 use think\facade\Config;
 use think\facade\Db;
@@ -49,26 +50,26 @@ class MyChannelMain extends Base
     public function mychannel_edit()
     {
         if(Request::isPost()){
-            $addtable    = Request::param('addtable');
-            $typename    = Request::param('typename');
-            $addcon      = Request::param('addcon');
-            $mancon      = Request::param('mancon');
-            $editcon     = Request::param('editcon');
-            $useraddcon  = Request::param('useraddcon');
-            $usermancon  = Request::param('usermancon');
-            $usereditcon = Request::param('usereditcon');
-            $listfields  = Request::param('listfields');
-            $fieldset    = Request::param('fieldset');
-            $issend      = Request::param('issend');
-            $arcsta      = Request::param('arcsta');
-            $usertype    = Request::param('usertype');
-            $sendrank    = Request::param('sendrank');
-            $needdes     = Request::param('needdes');
-            $needpic     = Request::param('needpic');
-            $titlename   = Request::param('titlename');
-            $onlyone     = Request::param('onlyone');
-            $dfcid       = Request::param('dfcid');
-            $id          = Request::param('id');
+            $addtable    = Request::post('addtable');
+            $typename    = Request::post('typename');
+            $addcon      = Request::post('addcon');
+            $mancon      = Request::post('mancon');
+            $editcon     = Request::post('editcon');
+            $useraddcon  = Request::post('useraddcon');
+            $usermancon  = Request::post('usermancon');
+            $usereditcon = Request::post('usereditcon');
+            $listfields  = Request::post('listfields');
+            $fieldset    = Request::post('fieldset');
+            $issend      = Request::post('issend');
+            $arcsta      = Request::post('arcsta');
+            $usertype    = Request::post('usertype');
+            $sendrank    = Request::post('sendrank');
+            $needdes     = Request::post('needdes');
+            $needpic     = Request::post('needpic');
+            $titlename   = Request::post('titlename');
+            $onlyone     = Request::post('onlyone');
+            $dfcid       = Request::post('dfcid');
+            $id          = Request::post('id');
 
             $exist = Db::query("show tables like '".$addtable."'");
             if(!$exist){
@@ -103,33 +104,20 @@ class MyChannelMain extends Base
                 return $this->success('提交成功', (string)url('index'));
             }
             return $this->error("提交失败");
-
             exit();
         }
 
         $request = $this->request;
-        $id = $request->param('id');
-        $dopost = $request->param('dopost');
-        $data = ChanneltypeModel::where(array('id'=>$id))->find();
+        $id = $request->get('id');
+        $dopost = $request->get('dopost');
+        $data = ChanneltypeModel::where(array('id'=>$id))->find()->toArray();
+        $data['fieldset'] = json_decode($data['fieldset'], true);
         View::assign('data', $data);
         $ArcrankAll = ArcrankModel::where("rank>=10")->select()->toArray();
         View::assign('ArcrankAll', $ArcrankAll);
         $MemberModelAll = MemberModel::where('')->select()->toArray();
         View::assign('MemberModelAll', $MemberModelAll);
         View::assign('id', $id);
-        $this->TagParseArr($data);
-//
-//        $ds = file("storage/inc/fieldtype.txt");
-//
-//        foreach($ds as $d){
-//            $dds = explode(',',trim($d));
-//            $fieldtypes[$dds[0]] = $dds[1];
-//        }
-//        $fieldset = $data['fieldset'];
-//        $dtp = new TagParse();
-//        $dtp->SetNameSpace("field","<",">");
-//        $dtp->LoadSource($fieldset);
-//        View::assign('Ctage', $dtp->Ctage);
 
 
         View::assign('nav', array(
@@ -144,9 +132,8 @@ class MyChannelMain extends Base
     {
 
         $ds = file("storage/inc/fieldtype.txt");
-
         foreach ($ds as $d) {
-            $dds                 = explode(',', trim($d));
+            $dds = explode(',', trim($d));
             $fieldtypes[$dds[0]] = $dds[1];
         }
         $fieldset = $data['fieldset'];
@@ -159,8 +146,12 @@ class MyChannelMain extends Base
                 $html .= "<tr align=\"center\" bgcolor=\"#FFFFFF\" height=\"26\" align=\"center\" onMouseMove=\"javascript:this.bgColor='#FCFDEE';\" onMouseOut=\"javascript:this.bgColor='#FFFFFF';\" height=\"24\"><td>";
 
                 $itname = $ctag->GetAtt('itemname');
-                if ($itname == '') $html .= "没指定";
-                else $html .= $itname;
+                if ($itname == ''){
+                    $html .= "没指定";
+                } else {
+                    $html .= $itname . '2222222';
+                }
+
 
                 $html .= "</td><td>" . $ctag->GetTagName() . "</td>";
                 $html .= "<td>";
@@ -198,11 +189,14 @@ class MyChannelMain extends Base
     public function mychannel_field_add()
     {
         if(Request::isPost()){
-            $param       = Request::param('');
-            $dfvalue     = trim($param['vdefault']);
-            $isnull      = ($param['isnull'] == 1 ? 'true' : "false");
-            $mxlen       = $param['maxlength'];
-            $fieldstring = $param['fieldstring'];
+            $param       = Request::post('');
+            $vdefault = \request()->post('vdefault', '');
+            $isnull = \request()->post('isnull', '');
+            $maxlength = \request()->post('maxlength', '');
+            $dfvalue     = trim($vdefault);
+            $isnull      = $isnull == 1 ? 'true' : "false";
+            $mxlen       = $maxlength;
+            $fieldstring = \request()->post('fieldstring', '');
 
             if(preg_match("#^(select|radio|checkbox)$#i", $param['dtype'])){
                 if(!preg_match("#,#", $dfvalue)){
@@ -218,43 +212,56 @@ class MyChannelMain extends Base
             }
 
             $row = Channeltype::where("id=".$param['id'])->field("fieldset,addtable,issystem")->find();
-            $fieldset = $row['fieldset'];
+            $fieldset = $row['fieldset']; // 存储字段
 
-            $dtp = new TagParse();
-            $dtp->SetNameSpace("field", "<", ">");
-            $dtp->LoadSource($fieldset);
-            $trueTable = $row["addtable"];
+//            $dtp = new TagParse();
+//            $dtp->SetNameSpace("field", "<", ">");
+//            $dtp->LoadSource($fieldset);
+            $trueTable = $row["addtable"]; // 表名
+            //var_dump($dtp->GetResultNP());
+//             foreach ($dtp->CTags as $k=>$v ){
+//                 $array = $this->object_array($v);
+//                 $items = $v->CAttribute->Items;
+//                 var_dump($this->ddd($items['itemname'] ));
+//                var_dump($this->ddd($items['itemname']) );
+//                var_dump($this->ddd($items['autofield']));
+//                var_dump($this->ddd($items['notsend']));
+//                var_dump($this->ddd($items['type']));
+//                var_dump($this->ddd($items['isnull']));
+//                var_dump($this->ddd($items['islist']));
+//                var_dump($this->ddd($items['default']));
+//                var_dump($this->ddd($items['maxlength']));
+//                var_dump($this->ddd($items['page']));
+//             };
+//
+//            $fieldinfos = GetFieldMake($param['dtype'], $param['fieldname'], $dfvalue, $mxlen);
+//            $ntabsql    = $fieldinfos[0];
+//            $buideType  = $fieldinfos[1];
 
-            $fieldinfos = GetFieldMake($param['dtype'], $param['fieldname'], $dfvalue, $mxlen);
-            $ntabsql    = $fieldinfos[0];
-            $buideType  = $fieldinfos[1];
+//            $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
+//            $rs = Db::query($alter);
 
-            $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
-            $rs = Db::query($alter);
-//            var_dump($rs);exit();
-//            if(!$rs){
-//                return $this->error("增加字段失败1");
+//            $ok = FALSE;
+//            $fieldname = strtotime($param['fieldname']);
+//            if(is_array($dtp->CTags)){
+//                foreach ($dtp->CTags as $tagid => $ctag) {
+//                    if($fieldname == strtotime($ctag->GetName())){
+//                        $dtp->Assign($tagid, stripslashes($fieldstring), FALSE);
+//                        $ok = true;
+//                        break;
+//                    }
+//                }
+//                $oksetting = $ok ? $dtp->GetResultNP() : $fieldset . "\n" . stripslashes($fieldstring);
+//            }else{
+//                $oksetting = $fieldset . "\r\n" . stripslashes($fieldstring);
 //            }
+//
+//            $addlist = GetAddFieldList($dtp, $oksetting);
+//            $oksetting = addslashes($oksetting);
+//
+//            var_dump($oksetting);exit();
 
-            $ok = FALSE;
-            $fieldname = strtotime($param['fieldname']);
-            if(is_array($dtp->CTags)){
-                foreach ($dtp->CTags as $tagid => $ctag) {
-                    if($fieldname == strtotime($ctag->GetName())){
-                        $dtp->Assign($tagid, stripslashes($fieldstring), FALSE);
-                        $ok = true;
-                        break;
-                    }
-                }
-                $oksetting = $ok ? $dtp->GetResultNP() : $fieldset ."\n".stripslashes($fieldstring);
-            }else{
-                $oksetting = $fieldset."\r\n".stripslashes($fieldstring);
-            }
-
-            $addlist = GetAddFieldList($dtp, $oksetting);
-            $oksetting = addslashes($oksetting);
-
-            $rs = Channeltype::update(array('fieldset'=>$oksetting, 'listfields'=> $addlist), array('id'=>$param['id']));
+//            $rs = Channeltype::update(array('fieldset'=>$oksetting, 'listfields'=> $addlist), array('id'=>$param['id']));
             if(!$rs){
                 return $this->error("保存节点配置出错!");
             }
@@ -266,6 +273,77 @@ class MyChannelMain extends Base
         $id = Request::param('id');
         View::assign('id', $id);
         return View::fetch();
+    }
+
+    public function ddd($str)
+    {
+        $str = str_replace('\\', '', $str);
+        $str = str_replace('"', '', $str);
+        return $str;
+    }
+
+    public function cc()
+    {
+        $map = [];
+        $data = ChanneltypeModel::where($map)->select();
+        $dtp = new TagParse();
+        $dtp->SetNameSpace("field", "<", ">");
+        foreach ($data as $k => $v) {
+            $fieldset = $v['fieldset'];
+            if (!empty($fieldset)) {
+                $dtp->LoadSource($fieldset);
+                $arr = [];
+                foreach ($dtp->CTags as $k1 => $v1) {
+
+                    $items = $v1->CAttribute->Items;
+                    if($items){
+                        // var_dump($items);exit();
+                        $tagname = $this->ddd($items['tagname'] );
+                        $itemname = isset($items['itemname']) ? $this->ddd($items['itemname']) : '';
+                        $autofield = isset($items['autofield']) ? $this->ddd($items['autofield']) : '';
+                        $notsend = isset($items['notsend']) ?  $this->ddd($items['notsend']) : '';
+                        $type = $this->ddd($items['type']);
+                        $isnull = $this->ddd($items['isnull']);
+                        $islist = isset($items['islist']) ? $this->ddd($items['islist']) : '' ;
+                        $default = $this->ddd($items['default']);
+                        $maxlength = isset($items['maxlength']) ? $this->ddd($items['maxlength']) : '';
+                        $page = isset($items['page']) ? $this->ddd($items['page']) : '';
+
+                        $arr[] = [
+                            'tagname' => $tagname,
+                            'itemname' => $itemname,
+                            'autofield' => $autofield,
+                            'notsend' => $notsend,
+                            'type' => $type,
+                            'isnull' => $isnull,
+                            'islist' => $islist,
+                            'default' => $default,
+                            'maxlength' => $maxlength,
+                            'page' => $page,
+                        ];
+                    }
+                }
+                //var_dump($v->id);
+                $fieldset = json_encode($arr, JSON_UNESCAPED_UNICODE);
+                ChanneltypeModel::update(['fieldset'=>$fieldset], ['id'=>$v->id]);
+            }
+        }
+    }
+
+    public function object_array($object)
+    {
+        if(is_object($object))
+        {
+            $array = (array)$object;
+        }
+        if(is_array($object))
+        {
+            foreach($object as $key=>$value)
+            {
+                $array[$key] =$this->object_array($value);
+            }
+        }
+        return $array;
     }
 
     public function mychannel_add()

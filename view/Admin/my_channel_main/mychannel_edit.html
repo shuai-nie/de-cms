@@ -2,9 +2,9 @@
 
 {block name="content"}
 <form action="{:url('')}" method="post">
-<input type='hidden' name='id' value="{$data->id}">
+<input type='hidden' name='id' value="{$data['id']}">
 <input type='hidden' name='dopost' value='save'>
-<input type='hidden' name='issystem' value="{$data->issystem}">
+<input type='hidden' name='issystem' value="{$data['issystem']}">
 
 <div class="layui-tab" lay-filter="mychannel_edit" >
     <ul class="layui-tab-title">
@@ -224,7 +224,16 @@
                                 <td colspan='5'>下面列出的字段是附加表的字段，除此外，它还包含主表dede_archives的所有字段</td>
                             </tr>
                             <?php } ?>
-                            {$TagParse_html|raw}
+                            {volist name="data['fieldset']" id="vo"}
+                                <tr bgcolor="#ffffff">
+                                    <td>{$vo['itemname']}</td>
+                                    <td>{$vo['tagname']}</td>
+                                    <td>{$vo['type']|fieldtype}</td>
+                                    <td>{$vo['autofield']|autofield}</td>
+                                    <td></td>
+                                </tr>
+                            {/volist}
+
                         </table>
                     </td>
                 </tr>
@@ -234,7 +243,7 @@
                         修改配置文本可调整字段顺序，但不会更改字段属性！
                     </td>
                     <td  width="65%" bgcolor="#FFFFFF">
-                        <textarea name="fieldset"  style="width:99%;height:300px" rows="10" id="fieldset" class="layui-textarea" >{$data['fieldset']}</textarea>
+
                     </td>
 
                 </tr>

@@ -17,7 +17,7 @@
                 <table width="98%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td width="30%" style="padding-left:10px;">
-                            <a href="mychannel_main.php"><b>频道管理</b></a> <b> &gt;&gt; 增加新字段：</b>
+                            <a href="{:url('index')}"><b>频道管理</b></a> <b> &gt;&gt; 增加新字段：</b>
                         </td>
                         <td align="right">
                             <input type="button" name="ss1" value="当前模型信息" onClick="location='{:url('mychannel_edit', ['id'=>$id,'dopost'=>'edit'])}';" class=""/>
@@ -137,21 +137,12 @@
                 <textarea name="vinnertext" cols="45" rows="5" id="vinnertext" class="layui-textarea" style="width:70%; height:120px;"></textarea>
             </td>
         </tr>
-        <tr>
-            <td height="28" colspan="2" bgcolor="#F9FCEF">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="26%" height="45">&nbsp;</td>
-                        <td width="10%">
-                            <input type="submit" name="button1" id="button1" value="确定" class="layui-btn layui-btn-xs" />
-                        </td>
-                        <td>
-                            <button  type="reset" onclick="location.reload();" class="layui-btn layui-btn-xs layui-btn-primary">重置</button>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+
     </table>
+
+    <div class="layui-form-item">
+        <input type="submit" name="button1" id="button1" value="确定" class="layui-btn" />
+        <button  type="reset" onclick="location.reload();" class="layui-btn layui-btn-primary">重置</button>
+    </div>
 </form>
 {/block}
