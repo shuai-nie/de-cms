@@ -9,8 +9,8 @@
 {block name="content"}
 <!--<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FBFCE2" id="getone" style="<?php if(empty($geturl)) echo 'display:none'; ?>">-->
 <!--    <form name="getonepage" action="{:url('article_add')}" method="get" class="layui-form" >-->
-        <input type="hidden" name="channelid" value="{$channelid}" />
-        <input type="hidden" name="cid" value="{$cid}" />
+<!--        <input type="hidden" name="channelid" value="{$channelid}" />-->
+<!--        <input type="hidden" name="cid" value="{$cid}" />-->
 <!--        <tr>-->
 <!--            <td colspan="2">-->
 <!--                <table width="100%" border="0" cellpadding="0" cellspacing="0">-->
@@ -219,7 +219,14 @@
             </div>
         </div>
 
-        <tr>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章内容</label>
+            <div class="layui-input-block">
+                <script id="container" name="body" type="text/plain"></script>
+            </div>
+        </div>
+
+        <!--<tr>
             <td colspan="2"></td>
         </tr>
         <tr>
@@ -233,7 +240,7 @@
             <td colspan="2">
                 <script id="container" name="body" type="text/plain"></script>
             </td>
-        </tr>
+        </tr>-->
         <div style="display: none;">
             <td width="100%" height="24" colspan="2" class="bline">
                 <table width="800" border="0" cellspacing="0" cellpadding="0">
@@ -252,25 +259,13 @@
                     </tr>
                 </table></td>
         </div>
-        <tr>
-            <td width="100%" height="24" colspan="2" class="bline">
 
-            </td>
-        </tr>
-        <div style="display: none;">
-            <td width="100%" id="arcBody"></td>
-            <td width="255" align="center" valign="top" bgcolor="#FFFFCC" id="mPic" style="display:none"><div class="multipic">
-                <div style="display: block;background-color:#E5F1CF; height:26px">
-                    <span id="spanButtonPlaceholder"></span>
-                </div>
-                <div id="divFileProgressContainer"></div>
-                <div id="thumbnails" style="width: 254px; height: 535px; background-color: rgb(255, 255, 255); overflow-y: scroll;"></div>
-            </div></td>
-        </div>
-<!--    </table>-->
+
+
+
 
     <!-- //插入投票 -->
-    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="head1" style="margin-top:10px;display:none;">
+    <!--<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="head1" style="margin-top:10px;display:none;">
         <tr>
             <td>
                 <table border="0" cellpadding="0" cellspacing="0">
@@ -280,10 +275,10 @@
                 </table>
             </td>
         </tr>
-    </table>
+    </table>-->
 
     <!-- //高级参数 -->
-    <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="head1" style="margin-top:10px;display:none;">
+    <!--<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" id="head1" style="margin-top:10px;display:none;">
         <tr>
             <td>
                 <table border="0" cellpadding="0" cellspacing="0">
@@ -293,9 +288,94 @@
                 </table>
             </td>
         </tr>
-    </table>
+    </table>-->
 
-    <table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="adset" style="">
+    <input type='hidden' name='notpost' value='0' <?php if($cfg_feedback_forbid=='N') echo "checked='1' "; ?> title='允许评论'  />
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">文章排序</label>
+        <div class="layui-input-block">
+            <select name="sortup" id="sortup" style="width:150px">
+                <option value="0" selected>默认排序</option>
+                <option value="7">置顶一周</option>
+                <option value="30">置顶一个月</option>
+                <option value="90">置顶三个月</option>
+                <option value="180">置顶半年</option>
+                <option value="360">置顶一年</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">阅读权限</label>
+            <div class="layui-input-inline">
+                <select name="arcrank" id="arcrank" style="width:150px">
+                    {volist name="ArcrankAll" id="vo"}
+                    <option value="{$vo->rank}">{$vo->membername}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">消费金币</label>
+            <div class="layui-input-inline">
+                <input name="money" type="text" id="money" value="0" size="10" class="layui-input" />
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">发布时间</label>
+        <div class="layui-input-inline">
+            <input name="pubdate" value="{$nowtime|date='Y-m-d H:i:s'}" type="text" id="pubdate" class="layui-input"  />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">发布选项</label>
+        <div class="layui-input-block">
+            <input type="radio" name="ishtml" class="np" value="1" checked="1" title="生成HTML" />
+            <input type="radio" name="ishtml" class="np" value="0" title="仅动态浏览" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">自定义文件名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="filename" id="filename" class="layui-input" />
+        </div>
+        <div class="layui-form-mid layui-word-aux">（不包括后缀名如.html等）</div>
+    </div>
+
+    <?php if(isset($cfg_tamplate_rand) && $cfg_tamplate_rand==1){ ?>
+    <div class="layui-form-item">
+        <label class="layui-form-label">随机选择模板</label>
+        <div class="layui-input-block">
+
+            随机选择模板：
+            <select name='templet' id='templet' style='width:200px' size='1'>
+                <?php
+                $rndsel = mt_rand(1, count($cfg_tamplate_arr)) - 1;
+                foreach($cfg_tamplate_arr as $k=>$v){
+                    $v = trim($v);
+                    echo ($k==$rndsel ? "<option value='$v' selected>$v</option>\r\n" : "<option value='$v'>$v</option>\r\n");
+                    }
+                ?>
+            </select>
+        </div>
+    </div>
+    <?php
+        }else{
+    ?>
+        <input type='hidden' name='templet' value='' />";
+    <?php
+        }
+    ?>
+
+
+    <!--<table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="adset" style="">
         <tr>
             <td height="24" colspan="4" class="bline">
                 <table width="800" border="0" cellspacing="0" cellpadding="0">
@@ -329,11 +409,11 @@
                                 <option value="180">置顶半年</option>
                                 <option value="360">置顶一年</option>
                             </select> </td>
-                    <!--    <td width="90">标题颜色：</td>
+                    <td width="90">标题颜色：</td>
                         <td>
                             <input name="color" type="text" id="color" style="width:120px"/>
                             <input name="modcolor" type="button" id="modcolor" value="选取" onClick="ShowColor(event,this)" />
-                        </td>-->
+                        </td>
                     </tr>
                 </table></td>
         </tr>
@@ -351,7 +431,8 @@
                         </td>
                         <td width="90">消费金币：</td>
                         <td>
-                            <input name="money" type="text" id="money" value="0" size="10"/>            	</td>
+                            <input name="money" type="text" id="money" value="0" size="10"/>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -366,7 +447,8 @@
 
                             </td>
                         <td width="90">发布选项：</td>
-                        <td width="379"><input name="ishtml" type="radio" class="np" value="1" checked="1" />
+                        <td width="379">
+                        <input name="ishtml" type="radio" class="np" value="1" checked="1" />
                             生成HTML
                             <input type="radio" name="ishtml" class="np" value="0"/>
                             仅动态浏览 </td>
@@ -401,8 +483,9 @@
                 </table>
             </td>
         </tr>
-    </table>
-    <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#F9FCEF" style="border:1px solid #cfcfcf;border-top:none;">
+    </table>-->
+
+    <!--<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#F9FCEF" style="border:1px solid #cfcfcf;border-top:none;">
         <tr height="35">
             <td width="17%">&nbsp;</td>
             <td width="83%">
@@ -410,7 +493,12 @@
                 <button type="button" class="layui-btn layui-btn-norma" onClick="location.reload();" >重置</button>
             </td>
         </tr>
-    </table>
+    </table>-->
+    <div class="layui-form-item">
+        <button type="submit" class="layui-btn">提交</button>
+        <button type="button" class="layui-btn layui-btn-primary" onClick="location.reload();" >重置</button>
+    </div>
+
 </form>
 
 
