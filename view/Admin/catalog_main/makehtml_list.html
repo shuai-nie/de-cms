@@ -1,34 +1,29 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table width="98%" border="1" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" align="center">
-    <form name="form1" action="{:url('Admin/CatalogMain/makehtml_list_action')}" method="get" target='stafrm'>
+<table width="98%" border="1" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" align="center" class="layui-table">
+    <form name="form1" action="{:url('Admin/CatalogMain/makehtml_list_action')}" method="get" target='stafrm' class="layui-form">
         <tr>
-            <td height="28" colspan="2" background='images/tbg.gif'>
-                <table width="98%" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td width="30%" height="18" style="padding-left:10px;"><strong>更新栏目HTML：</strong></td>
-                        <td width="70%" align="right">
-                            <a href="{:url('/Admin/CatalogMain/makehtml_archives', ['typeid'=>0])}" class="np coolbg">更新文档HTML</a>
-                            <a href="{:url('/Admin/catalog_main')}" class="np coolbg">栏目管理</a>
-                        </td>
-                    </tr>
-                </table>
+            <td >更新栏目HTML：</td>
+            <td>
+                <a href="{:url('/Admin/CatalogMain/makehtml_archives', ['typeid'=>0])}" class="layui-btn layui-btn-xs">更新文档HTML</a>
+                <a href="{:url('/Admin/catalog_main')}" class="layui-btn layui-btn-xs">栏目管理</a>
             </td>
         </tr>
-        <tr>
 
+        <tr>
             <td height="20" valign="top" bgcolor="#FFFFFF">更新PC||移动：</td>
             <td height="20" valign="top" bgcolor="#FFFFFF">
                 <input name="uptype" type="radio" value="0" class="mkpc" checked>PC
                 <input name="uptype" type="radio" class="np" value="mkmobile">移动
             </td>
         </tr>
+
         <tr>
             <td width="108" valign="top" bgcolor="#FFFFFF">选择栏目：</td>
             <td width="377" valign="top" bgcolor="#FFFFFF">
                 <select name='typeid' style='width:300px'>
-<!--                    <option value='0' selected='1'>更新所有栏目...</option>-->
+                    <option value='0' selected='1'>更新所有栏目...</option>
                     {volist name="ArctypeAll" id="vo"}
                     <option value="{$vo->id}">{$vo->typename}</option>
                     {/volist}
@@ -36,30 +31,33 @@
             </td>
         </tr>
         <tr>
-            <td height="20" valign="top" bgcolor="#FFFFFF">每次最大创建页数：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF">
-                <input name="maxpagesize" type="text" id="maxpagesize" value="50" size="10">个文件
+            <td height="20" valign="top" >每次最大创建页数：</td>
+            <td height="20" valign="top" >
+                <input name="maxpagesize" type="text" id="maxpagesize" value="50" size="10" class="layui-input" style="width:120px;" >个文件
             </td>
         </tr>
         <tr>
             <td height="20" valign="top" bgcolor="#FFFFFF">是否更新子栏目：</td>
             <td height="20" valign="top" bgcolor="#FFFFFF">
-                <input name="upnext" type="radio" class="np" value="1" checked='1' />更新子级栏目
-                <input type="radio" name="upnext" class="np" value="0" />仅更新所选栏目
+                <input type="radio" name="upnext" value="1" checked='1' />更新子级栏目
+                <input type="radio" name="upnext" value="0" />仅更新所选栏目
             </td>
         </tr>
+
         <tr>
             <td height="20" colspan="2" bgcolor="#ffffff" align="center">
-                <input name="b112" type="button" class="coolbg np" value="开始生成HTML" onClick="document.form1.submit();" style="width:100px">
+                <input name="b112" type="button" value="开始生成HTML" onClick="document.form1.submit();" class="layui-btn">
                 <?php if($cfg_remote_site=='Y'){ ?> 　
                 <input name="isremote" type="checkbox" id="isremote" value="1">是否同步远程发布
                 <?php GetFtp();?>
                 <?php } ?>
             </td>
         </tr>
+
     </form>
-    <tr bgcolor="#F9FCEF">
-        <td height="20" colspan="2"> <table width="100%">
+    <tr>
+        <td height="20" colspan="2">
+            <table width="100%">
             <tr>
                 <td width="74%">进行状态： </td>
                 <td width="26%" align="right"> <script language='javascript'>
@@ -82,4 +80,12 @@
         </td>
     </tr>
 </table>
+{/block}
+
+{block name="script"}
+<script>
+layui.use(['form'], function() {
+    var form = layui.form;
+});
+</script>
 {/block}
