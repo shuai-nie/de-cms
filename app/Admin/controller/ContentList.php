@@ -168,13 +168,14 @@ class ContentList extends Base
                 $channelid = 1;
             }
         }
-        $cid    = empty($cid) ? 0 : intval($cid);
-        $geturl = Request::param('geturl');
+        $fieldset = array();
         if (empty($geturl)) $geturl = '';
-        $ArcattAll = Arcatt::where("")->order('sortid asc')->select();
-        $ArchivesCount = Archives::where("")->count();
-        $cfg_need_typeid2 = Config::get('app.cfg_need_typeid2');
-        $cfg_remote_site = Config::get('app.cfg_remote_site');
+        $cid                 = empty($cid) ? 0 : intval($cid);
+        $geturl              = Request::param('geturl');
+        $ArcattAll           = Arcatt::where("")->order('sortid asc')->select();
+        $ArchivesCount       = Archives::where("")->count();
+        $cfg_need_typeid2    = Config::get('app.cfg_need_typeid2');
+        $cfg_remote_site     = Config::get('app.cfg_remote_site');
         $cfg_arc_autokeyword = Config::get('app.cfg_arc_autokeyword');
         $cfg_rm_remote       = Config::get('app.cfg_rm_remote');
         $cfg_arc_dellink     = Config::get('app.cfg_arc_dellink');
@@ -213,6 +214,7 @@ class ContentList extends Base
         View::assign('cfg_arc_autopic', $cfg_arc_autopic);
         View::assign('keywords', '');
         View::assign('description', '');
+        View::assign('fieldset', $fieldset);
         View::assign('nav', array(
             array('title' => '核心'),
             array('title' => '所有档案列表', 'url' => (string)url('ContentList/index')),

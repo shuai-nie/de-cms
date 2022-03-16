@@ -149,7 +149,7 @@ class MyChannelMain extends Base
                 if ($itname == ''){
                     $html .= "没指定";
                 } else {
-                    $html .= $itname . '2222222';
+                    $html .= $itname ;
                 }
 
 
@@ -190,9 +190,9 @@ class MyChannelMain extends Base
     {
         if(Request::isPost()){
             $param       = Request::post('');
-            $vdefault = \request()->post('vdefault', '');
-            $isnull = \request()->post('isnull', '');
-            $maxlength = \request()->post('maxlength', '');
+            $vdefault    = \request()->post('vdefault', '');
+            $isnull      = \request()->post('isnull', '');
+            $maxlength   = \request()->post('maxlength', '');
             $dfvalue     = trim($vdefault);
             $isnull      = $isnull == 1 ? 'true' : "false";
             $mxlen       = $maxlength;
@@ -219,27 +219,13 @@ class MyChannelMain extends Base
 //            $dtp->LoadSource($fieldset);
             $trueTable = $row["addtable"]; // 表名
             //var_dump($dtp->GetResultNP());
-//             foreach ($dtp->CTags as $k=>$v ){
-//                 $array = $this->object_array($v);
-//                 $items = $v->CAttribute->Items;
-//                 var_dump($this->ddd($items['itemname'] ));
-//                var_dump($this->ddd($items['itemname']) );
-//                var_dump($this->ddd($items['autofield']));
-//                var_dump($this->ddd($items['notsend']));
-//                var_dump($this->ddd($items['type']));
-//                var_dump($this->ddd($items['isnull']));
-//                var_dump($this->ddd($items['islist']));
-//                var_dump($this->ddd($items['default']));
-//                var_dump($this->ddd($items['maxlength']));
-//                var_dump($this->ddd($items['page']));
-//             };
-//
-//            $fieldinfos = GetFieldMake($param['dtype'], $param['fieldname'], $dfvalue, $mxlen);
-//            $ntabsql    = $fieldinfos[0];
-//            $buideType  = $fieldinfos[1];
 
-//            $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
-//            $rs = Db::query($alter);
+            $fieldinfos = GetFieldMake($param['dtype'], $param['fieldname'], $dfvalue, $mxlen);
+            $ntabsql = $fieldinfos[0];
+            $buideType = $fieldinfos[1];
+
+            $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
+            $rs = Db::query($alter);
 
 //            $ok = FALSE;
 //            $fieldname = strtotime($param['fieldname']);
