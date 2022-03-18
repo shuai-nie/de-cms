@@ -238,6 +238,8 @@
                         <div class="layui-input-block">
                             <button type="button" class="layui-btn layui-btn-xs" id="{$vo['itemname']}_button">上传图片</button>
                         </div>
+                    {elseif condition="$vo['type'] eq 'htmltext'"}
+                    <script id="{$vo['tagname']}_{$vo['type']}" name="{$vo['tagname']}" type="text/plain"></script>
                     {/if}
                 </div>
             </div>
