@@ -161,14 +161,16 @@ class ContentList extends Base
         $cid       = Request::get('cid');
         $channelid = empty($channelid) ? 0 : intval($channelid);
         if ($cid > 0 && $channelid == 0) {
-            $row       = Channeltype::where('id=' . $cid)->find();
+            $row       = Arctype::where('id=' . $cid)->find();
             $channelid = $row['channeltype'];
         } else {
             if ($channelid == 0) {
                 $channelid = 1;
             }
         }
-        $fieldset = array();
+        $cInfos = Channeltype::where('id='.$channelid)->find();
+        $fieldset = json_decode($cInfos['fieldset'], true);
+
         if (empty($geturl)) $geturl = '';
         $cid                 = empty($cid) ? 0 : intval($cid);
         $geturl              = Request::param('geturl');
