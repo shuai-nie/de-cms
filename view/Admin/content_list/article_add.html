@@ -234,7 +234,7 @@
                         <div id="{$vo['itemname']}">
                             <img src="{$arcRow['litpic']|default='/storage/pview.gif'}" width="100" height="100" />
                         </div>
-                        <input name="picname" type="hidden" id="pic{$vo['itemname']}" style="width:300px" value="">
+                        <input name="{$vo['itemname']}" type="hidden" id="pic_{$vo['itemname']}" value="">
                         <div class="layui-input-block">
                             <button type="button" class="layui-btn layui-btn-xs" id="{$vo['itemname']}_button">上传图片</button>
                         </div>
