@@ -28,8 +28,8 @@
 <!--</table>-->
 
 <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" id="snoopy">抓取</button>
-
-<form name="form1" action="{:url('article_add')}" enctype="multipart/form-data" method="post" onSubmit="return checkSubmit()" style="padding: 20px 20px;" class="layui-form">
+<!--enctype="multipart/form-data" method="post" onSubmit="return checkSubmit()" -->
+<form name="form1" action="{:url('article_add')}" style="padding: 20px 20px;" class="layui-form">
     <input type="hidden" name="channelid" value="{$channelid}" />
     <input type="hidden" name="dopost" value="save" />
 <!--    <table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="needset" style="border:1px solid #cfcfcf;background:#ffffff;">-->
@@ -205,10 +205,9 @@
             <label class="layui-form-label">关键字</label>
             <div class="layui-input-inline">
                 <input type='text' name="keywords" id="keywords" style="width:80%" class="layui-input" value="<?php echo $keywords; ?>" />
-
             </div>
             <div class="layui-input-inline">
-                <input type="button" name="Submit" value="浏览..." style="" onClick="SelectKeywords('form1.keywords');" />
+                <input type="button" name="Submit" value="浏览..." style="" class="" onClick="SelectKeywords('form1.keywords');" />
             </div>
         </div>
 
@@ -220,7 +219,7 @@
         </div>
 
         <div id="fieldset">
-            {volist name='fieldset' id='vo'}
+            <!--{volist name='fieldset' id='vo'}
             <div class="layui-form-item">
                 <label class="layui-form-label">{$vo['itemname']}</label>
                 <div class="layui-input-block">
@@ -243,7 +242,7 @@
                     {/if}
                 </div>
             </div>
-            {/volist}
+            {/volist}-->
         </div>
 
         <div class="layui-form-item">
@@ -512,17 +511,10 @@
         </tr>
     </table>-->
 
-    <!--<table width="98%" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#F9FCEF" style="border:1px solid #cfcfcf;border-top:none;">
-        <tr height="35">
-            <td width="17%">&nbsp;</td>
-            <td width="83%">
-                <button type="submit" class="layui-btn">提交</button>
-                <button type="button" class="layui-btn layui-btn-norma" onClick="location.reload();" >重置</button>
-            </td>
-        </tr>
-    </table>-->
+
     <div class="layui-form-item">
-        <button type="submit" class="layui-btn">提交</button>
+
+        <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
         <button type="button" class="layui-btn layui-btn-primary" onClick="location.reload();" >重置</button>
     </div>
 
@@ -627,6 +619,11 @@
                 }
             });
         })
+
+        form.on('submit(submit)', function(data){
+            console.log(data.field)
+            return false;
+        });
 
     })
 
