@@ -696,6 +696,35 @@ class ContentList extends Base
         }
     }
 
+    public function html()
+    {
+        $channelid = \request()->param('channelid');
+        $cInfos = Channeltype::where('id='.$channelid)->find();
+        $fieldset = json_decode($cInfos['fieldset'], true);
+        $html = "";
+        foreach ($fieldset as $key => $value){
+            $html .= "<div class=\"layui-form-item\">";
+            $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
+            $html .= "<div class=\"layui-input-block\">";
+            if($value['type'] == 'text'){
+                $html .= "<input type=\"".$value['type']."\" name=\"".$value['tagname']."\" class=\"layui-input\" />";
+            } elseif ($value['type'] == 'select'){
+                $html .= "<select>".
+                $html .= "<option value=\"\">请选择</option>";
+                $html .= "</select>";
+            }elseif ($value['type'] == 'imgfile'){
+                $html .= "<div id=\"{$value['itemname']}\">";
+                $html .= "<img src=\"\" width=\"100\" height=\"100\" />";
+                $html .= "</div>";
+                $html .= "<input name=\"{$value['itemname']}\" type=\"hidden\" id=\"pic_{$value['itemname']}\" value=\"\">";
+                $html .= "<div class=\"layui-input-block\">";
+                $html .= "<button type=\"button\" class=\"layui-btn layui-btn-xs\" id=\"{$value['itemname']}_button\">上传图片</button>";
+                $html .= "</div>";
+            }
+        }
+
+    }
+
 
 
 

@@ -621,7 +621,13 @@
         })
 
         form.on('submit(submit)', function(data){
-            console.log(data.field)
+            $.post(":url('')", data.field, function(obj){
+                if(obj.code == 200){
+                    layer.msg(obj.msg , function(){
+                        window.location.href = "{:url('index')}"
+                    })
+                }
+            }, 'json')
             return false;
         });
 
