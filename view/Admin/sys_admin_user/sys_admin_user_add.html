@@ -69,11 +69,54 @@
                     </tr>
                     <tr>
                         <td height="60">&nbsp;</td>
-                        <td><input type="submit" name="Submit" value=" 增加用户 " class="layui-btn" /></td>
+                        <td><button type="submit" class="layui-btn layui-btn-xs">提交</button></td>
                     </tr>
                 </table>
             </form>
         </td>
     </tr>
 </table>
+{/block}
+
+{block name="script"}
+<script type="application/javascript">
+    layui.use(['form','upload','jquery'], function() {
+        var form = layui.form,
+            upload = layui.upload,
+            $ = layui.jquery;
+
+        var upload_url= "{:url('Upload/upload')}";
+        var upload_accept='images';
+        var upload_acceptMime='image/*';
+        var upload_size=3145728;
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: upload_url
+            ,accept: upload_accept
+            ,acceptMime:upload_acceptMime
+            ,size: upload_size
+            ,done: function(res){
+                $("#logoimgImg").show();
+                $("#logoimgImg img").attr('src', res.data.src);
+                $("input[name='logoimg']").val(res.data.src);
+                $("input[name='logo']").val(res.data.src);
+            }
+            ,error: function(){
+                //请求异常回调
+            }
+        });
+
+        form.on('submit(submit)', function(data){
+            $.post(":url('')", data.field, function(obj){
+                if(obj.code == 200){
+                    layer.msg(obj.msg , function(){
+                        window.location.href = "{:url('index')}"
+                    })
+                }
+            }, 'json')
+            return false;
+        });
+
+    })
+</script>
 {/block}

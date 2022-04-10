@@ -79,8 +79,8 @@
                     <tr>
                         <td height="51">&nbsp;</td>
                         <td>
-                            <input type="submit" name="Submit" value=" 提 交 " class="layui-btn"  />　 　
-                            <input type="reset" name="Submit" value=" 重 置 " class="layui-btn layui-btn-primary" />
+                            <button type="submit" class="layui-btn layui-btn-xs">提交</button>
+                            <!--<input type="reset" name="Submit" value=" 重 置 " class="layui-btn layui-btn-primary" />-->
                         </td>
                     </tr>
                 </table>
@@ -89,4 +89,26 @@
     </tr>
 </table>
 
+{/block}
+
+{block name="script"}
+<script type="application/javascript">
+layui.use(['form','upload','jquery','layer'], function() {
+    var form = layui.form,
+        upload = layui.upload,
+        $ = layui.jquery,
+        layer = layui.layer;
+
+    form.on('submit(submit)', function(data){
+        $.post(":url('')", data.field, function(obj){
+            if(obj.code == 200){
+                layer.msg(obj.msg , function(){
+                    window.location.href = "{:url('index')}"
+                })
+            }
+        }, 'json')
+        return false;
+    });
+})
+</script>
 {/block}

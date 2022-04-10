@@ -281,7 +281,7 @@
                 </tr>
             </table>
             <div>
-                <button type="submit" class="layui-btn layui-btn-xs">提交</button>
+                <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
             </div>
         </div>
         <div class="layui-tab-item">3</div>
@@ -300,6 +300,24 @@ function SelectTemplets(fname)
     var posTop = 300;
     window.open("{:url('select_templets')}?f="+fname, "poptempWin", "scrollbars=yes,resizable=yes,statebar=no,width=600,height=400,left="+posLeft+", top="+posTop);
 }
+
+layui.use(['form','upload','jquery','layer'], function() {
+    var form = layui.form,
+        upload = layui.upload,
+        $ = layui.jquery,
+        layer = layui.layer;
+
+    form.on('submit(submit)', function(data){
+        $.post(":url('')", data.field, function(obj){
+            if(obj.code == 200){
+                layer.msg(obj.msg , function(){
+                    window.location.href = "{:url('index')}"
+                })
+            }
+        }, 'json')
+        return false;
+    });
+})
 
 
 </script>
