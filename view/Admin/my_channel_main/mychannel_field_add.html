@@ -2,12 +2,12 @@
 
 {block name="style"}
 <style type="text/css">
-.nw {float: left;width: 150px;}
+.label-required-next:after {top: 6px;right: -15px;color: red;content: '*';position: absolute;margin-left: 4px;font-weight: 700;line-height: 1.8em;}
 </style>
 {/block}
 
 {block name="content"}
-<form name="form1" action="{:url('mychannel_field_add')}" method="post">
+<form class="layui-form" >
     <input type='hidden' name='action' value='save' />
     <input type='hidden' name='id' value='<?php echo $id?>' />
     <input type='hidden' name='fieldstring' value='' />
@@ -20,8 +20,8 @@
                             <a href="{:url('index')}"><b>频道管理</b></a> <b> &gt;&gt; 增加新字段：</b>
                         </td>
                         <td align="right">
-                            <input type="button" name="ss1" value="当前模型信息" onClick="location='{:url('mychannel_edit', ['id'=>$id,'dopost'=>'edit'])}';" class=""/>
-                            <input type="button" name="ss12" value="内容模型管理" onClick="location='{:url('/Admin/MyChannelMain')}';" class=""/>
+                            <input type="button" name="ss1" value="当前模型信息" onClick="location='{:url('mychannel_edit', ['id'=>$id,'dopost'=>'edit'])}';" class="layui-btn layui-btn-xs"/>
+                            <input type="button" name="ss12" value="内容模型管理" onClick="location='{:url('/Admin/MyChannelMain')}';"  class="layui-btn layui-btn-xs layui-btn-warm"/>
                         </td>
                     </tr>
                 </table>
@@ -37,8 +37,8 @@
             </td>
             <td >
                 <div class="layui-input-inline">
-                    <input name="itemname" type="text" id="itemname" class="layui-input" />
-                    <span class="required" style="color:red" >*</span>
+                    <input name="itemname" type="text" id="" class="layui-input" />
+                    <p class="help-block label-required-next"></p>
                 </div>
             </td>
         </tr>
@@ -49,26 +49,23 @@
             <td width="72%" >
                 <div class="layui-input-inline">
                     <input name="fieldname" type="text" id="fieldname" class="layui-input" />
-                    <span class="required" style="color:red" >*</span>
+                    <span class="label-required-next" ></span>
                 </div>
             </td>
         </tr>
         <tr>
             <td ><strong>字段类型：</strong></td>
             <td >
-                <input name="autofield" type="radio" value="1" class="np" checked="checked" />
-                系统自动生成表单字段
-                <input type="radio" name="autofield" class="np" value="0" />
-                已经固化在发布表单中字段
+                <input name="autofield" type="radio" value="1" class="np" checked="checked" title="系统自动生成表单字段" />
+                <input type="radio" name="autofield" class="np" value="0" title="已经固化在发布表单中字段" />
+
             </td>
         </tr>
         <tr>
             <td ><strong>前台参数：</strong></td>
             <td >
-                <input name="islist" type="checkbox" class="np" id="islist" value="1" />
-                使字段可以在列表的底层模板中获得(自定义字段默认仅能在文档模板显示，启用此选项将使列表查询变慢，如无必要请不要选择)<br />
-                <input name="notsend" type="checkbox" class="np" id="notsend" value="1" />
-                前台投稿及采集规则禁用本字段
+                <input name="islist" type="checkbox" lay-skin="primary" class="" id="islist" value="1" title="使字段可以在列表的底层模板中获得(自定义字段默认仅能在文档模板显示，启用此选项将使列表查询变慢，如无必要请不要选择)" />
+                <input name="notsend" type="checkbox" lay-skin="primary" class="" id="notsend" value="1" title="前台投稿及采集规则禁用本字段" />
             </td>
         </tr>
         <tr>
@@ -78,8 +75,8 @@
             </td>
             <td >
                 <input name="isnull" type="hidden" value="1" />
-                <input name="spage" type="radio"  value="split" class='np' />是
-                <input name="spage" type="radio"  value="no" class='np' checked='1' />否
+                <input name="spage" type="radio"  value="split" title="是" />
+                <input name="spage" type="radio"  value="no" checked title="否" />
             </td>
         </tr>
         <tr>
@@ -87,25 +84,22 @@
                 <strong>数据类型：</strong>
             </td>
             <td >
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype1' value="text" checked='1'>单行文本(varchar)</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype2' value="textchar">单行文本(char)</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype3' value="multitext">多行文本</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype4' value="htmltext">HTML文本</div>
-                <br class='cls' />
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype5' value="textdata">文本保存HTML数据</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype6' value="int">整数类型</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype7' value="float">小数类型</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype8' value="datetime">时间类型</div>
-                <br class='cls' />
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype9' value="img">图片</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype10' value="imgfile">图片(仅网址)</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype11' value="media">多媒体文件</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype12' value="addon">附件类型</div>
-                <br class='cls' />
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype13' value="select">使用option下拉框</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype14' value="radio">使用radio选项卡</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype15' value="checkbox">Checkbox多选框</div>
-                <div class='nw'><input type='radio' class='np' name='dtype' id='dtype16' value="stepselect">联动类型</div>
+                <input type="radio" name="dtype" value="text" title="单行文本(varchar)" checked >
+                <input type="radio" name="dtype" value="textchar" title="单行文本(char)">
+                <input type="radio" name="dtype" value="multitext" title="多行文本">
+                <input type="radio" name="dtype" value="htmltext" title="HTML文本">
+                <input type="radio" name="dtype" value="textdata" title="文本保存HTML数据">
+                <input type="radio" name="dtype" value="int" title="整数类型">
+                <input type="radio" name="dtype" value="float" title="小数类型">
+                <input type="radio" name="dtype" value="datetime" title="时间类型">
+                <input type="radio" name="dtype" value="img" title="图片">
+                <input type="radio" name="dtype" value="imgfile" title="图片(仅网址)">
+                <input type="radio" name="dtype" value="media" title="多媒体文件">
+                <input type="radio" name="dtype" value="addon" title="附件类型">
+                <input type="radio" name="dtype" value="select" title="使用option下拉框">
+                <input type="radio" name="dtype" value="radio" title="使用radio选项卡">
+                <input type="radio" name="dtype" value="checkbox" title="Checkbox多选框">
+                <input type="radio" name="dtype" value="stepselect" title="联动类型">
             </td>
         </tr>
         <tr>
@@ -142,8 +136,7 @@
 
     <div class="layui-form-item">
 
-        <button type="submit" class="layui-btn layui-btn-xs">提交</button>
-        <!--<button  type="reset" onclick="location.reload();" class="layui-btn layui-btn-primary">重置</button>-->
+        <button type="submit" class="layui-btn layui-btn-xs" lay-filter="submit" lay-submit="" >提交</button>
     </div>
 </form>
 {/block}
@@ -177,12 +170,14 @@
         });
 
         form.on('submit(submit)', function(data){
-            $.post(":url('')", data.field, function(obj){
-                if(obj.code == 200){
+            $.post("{:url('')}", data.field, function(obj){
+                if(obj.code == 1){
                     layer.msg(obj.msg , function(){
                         window.location.href = "{:url('index')}"
                     })
-                }
+                }else {
+					layer.msg(obj.msg);
+				}
             }, 'json')
             return false;
         });

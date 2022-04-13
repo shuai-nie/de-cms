@@ -1,7 +1,7 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<form action="{:url('')}" method="post" class="layui-form">
+<form class="layui-form">
 <input type='hidden' name='id' value="{$data['id']}">
 <input type='hidden' name='dopost' value='save'>
 <input type='hidden' name='issystem' value="{$data['issystem']}">
@@ -33,8 +33,6 @@
                               else if($data['issystem']==1) echo "系统模型";
                               else if($data['issystem']==-1) echo "独立模型";
                               ?>
-
-
                         </td>
                     </tr>
                     <tr>
@@ -244,7 +242,8 @@
 </div>
 
 <div>
-    <button type="submit" class="layui-btn layui-btn-xs">提交</button>
+    <!--<button type="submit" class="layui-btn layui-btn-xs" lay-filter="submit" >提交</button>-->
+    <button type="submit" class="layui-btn layui-btn-xs" lay-filter="submit" lay-submit="" >提交</button>
 </div>
 </form>
 {/block}
@@ -278,11 +277,13 @@
         });
 
         form.on('submit(submit)', function(data){
-            $.post(":url('')", data.field, function(obj){
-                if(obj.code == 200){
+            $.post("{:url('')}", data.field, function(obj){
+                if(obj.code == 1){
                     layer.msg(obj.msg , function(){
                         window.location.href = "{:url('index')}"
                     })
+                }else {
+                    layer.msg(obj.msg);
                 }
             }, 'json')
             return false;

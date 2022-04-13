@@ -59,7 +59,7 @@ class MyChannelMain extends Base
             $usermancon  = Request::post('usermancon');
             $usereditcon = Request::post('usereditcon');
             $listfields  = Request::post('listfields');
-            $fieldset    = Request::post('fieldset');
+//            $fieldset    = Request::post('fieldset');
             $issend      = Request::post('issend');
             $arcsta      = Request::post('arcsta');
             $usertype    = Request::post('usertype');
@@ -85,7 +85,7 @@ class MyChannelMain extends Base
                 'useraddcon'  => $useraddcon,
                 'usermancon'  => $usermancon,
                 'usereditcon' => $usereditcon,
-                'fieldset'    => $fieldset,
+                /*'fieldset'    => $fieldset,*/
                 'listfields'  => $listfields,
                 'issend'      => $issend,
                 'arcsta'      => $arcsta,
@@ -104,14 +104,13 @@ class MyChannelMain extends Base
                 return $this->success('提交成功', (string)url('index'));
             }
             return $this->error("提交失败");
-            exit();
-        }
 
+        }
         $request = $this->request;
         $id = $request->get('id');
         $dopost = $request->get('dopost');
         $data = ChanneltypeModel::where(array('id'=>$id))->find()->toArray();
-        $data['fieldset'] = json_decode($data['fieldset'], true);
+        $data['fieldset'] = !empty($data['fieldset']) ? json_decode($data['fieldset'], true) : array();
         View::assign('data', $data);
         $ArcrankAll = ArcrankModel::where("rank>=10")->select()->toArray();
         View::assign('ArcrankAll', $ArcrankAll);
@@ -188,14 +187,21 @@ class MyChannelMain extends Base
 
     public function mychannel_field_add()
     {
-        if(Request::isPost()){
-            $param       = Request::post('');
-            $vdefault    = \request()->post('vdefault', '');
-            $isnull      = \request()->post('isnull', '');
-            $maxlength   = \request()->post('maxlength', '');
-            $dfvalue     = trim($vdefault);
-            $isnull      = $isnull == 1 ? 'true' : "false";
-            $mxlen       = $maxlength;
+        if (Request::isPost()) {
+            $param = Request::post('');
+            $vdefault = \request()->post('vdefault', '');
+            $isnull = \request()->post('isnull', '');
+            $maxlength = \request()->post('maxlength', '');
+            $fieldname = \request()->post('fieldname', '');
+            $itemname = \request()->post('itemname', '');
+            $autofield = \request()->post('autofield');
+            $notsend = \request()->post('notsend');
+            $dtype = \request()->post('dtype');
+            $islist = \request()->post('islist');
+            $spage = \request()->post('spage');
+            $dfvalue = trim($vdefault);
+            $isnull = $isnull == 1 ? 'true' : "false";
+            $mxlen = $maxlength;
             $fieldstring = \request()->post('fieldstring', '');
 
             if(preg_match("#^(select|radio|checkbox)$#i", $param['dtype'])){
@@ -204,8 +210,8 @@ class MyChannelMain extends Base
                 }
             }
 
-            if($param['dtype'] == 'stepselect'){
-                $arr = Stepselect::where("egroup=".$param['fieldname'])->find();
+            if ($param['dtype'] == 'stepselect') {
+                $arr = Stepselect::where("egroup=" . $fieldname)->find();
                 if(!is_array($arr)){
                     return $this->error("你设定了字段为联动类型，但系统中没找到与你定义的字段名相同的联动组名!");
                 }
@@ -213,44 +219,34 @@ class MyChannelMain extends Base
 
             $row = Channeltype::where("id=".$param['id'])->field("fieldset,addtable,issystem")->find();
             $fieldset = $row['fieldset']; // 存储字段
-
-//            $dtp = new TagParse();
-//            $dtp->SetNameSpace("field", "<", ">");
-//            $dtp->LoadSource($fieldset);
             $trueTable = $row["addtable"]; // 表名
-            //var_dump($dtp->GetResultNP());
 
-            $fieldinfos = GetFieldMake($param['dtype'], $param['fieldname'], $dfvalue, $mxlen);
+            $fieldinfos = GetFieldMake($dtype, $fieldname, $dfvalue, $mxlen);
             $ntabsql = $fieldinfos[0];
             $buideType = $fieldinfos[1];
 
             $alter = " ALTER TABLE `".$trueTable."` ADD ".$ntabsql;
             $rs = Db::query($alter);
 
-//            $ok = FALSE;
-//            $fieldname = strtotime($param['fieldname']);
-//            if(is_array($dtp->CTags)){
-//                foreach ($dtp->CTags as $tagid => $ctag) {
-//                    if($fieldname == strtotime($ctag->GetName())){
-//                        $dtp->Assign($tagid, stripslashes($fieldstring), FALSE);
-//                        $ok = true;
-//                        break;
-//                    }
-//                }
-//                $oksetting = $ok ? $dtp->GetResultNP() : $fieldset . "\n" . stripslashes($fieldstring);
-//            }else{
-//                $oksetting = $fieldset . "\r\n" . stripslashes($fieldstring);
-//            }
-//
-//            $addlist = GetAddFieldList($dtp, $oksetting);
-//            $oksetting = addslashes($oksetting);
-//
-//            var_dump($oksetting);exit();
-
-//            $rs = Channeltype::update(array('fieldset'=>$oksetting, 'listfields'=> $addlist), array('id'=>$param['id']));
             if(!$rs){
                 return $this->error("保存节点配置出错!");
             }
+            $fieldset = json_decode($fieldset, true);
+            array_push($fieldset, [
+                'tagname' => $fieldname,
+                'itemname' => $itemname,
+                'autofield' => $autofield,
+                'notsend' => $notsend,
+                'type' => $dtype,
+                'isnull' => $isnull,
+                'islist' => $islist,
+                'default' => $vdefault,
+                'maxlength' => $maxlength,
+                'page' => $spage,
+            ]);
+            Channeltype::update([
+                'fieldset' => json_encode($fieldset, JSON_UNESCAPED_UNICODE),
+            ], ['id' => $param['id']]);
 
             return $this->success("成功增加一个字段", (string)url('mychannel_edit', ['id'=>$param['id'], 'dopost'=>'edit', 'openfield'=>1]));
             exit();

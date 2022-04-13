@@ -456,11 +456,6 @@ class ContentList extends Base
 
         }
 
-//        if(Request::isGet()){
-//            $param = Request::param('');
-//            var_dump($param);
-//            exit();
-//        }
         $keyword = Request::param('keyword', '');
         $addquery = '';
         if(!empty($keyword)){
@@ -490,9 +485,6 @@ class ContentList extends Base
      */
     protected function DelArc($aid, $type='ON', $onlyfile=FALSE, $recycle=0)
     {
-//        global $dsql,$cfg_cookie_encode,$cfg_multi_site,$cfg_medias_dir;
-//        global $cuserLogin,$cfg_upload_switch,$cfg_delete,$cfg_basedir;
-//        global $admin_catalogs, $cfg_admin_channel;
         $cfg_delete = 'Y';
         $cfg_admin_channel = 'all';
         /**********************/
@@ -575,12 +567,7 @@ class ContentList extends Base
                 $query = "Delete From ".Arctiny::getTable()." where id='$aid' $whererecycle";
                 $state = Arctiny::where("id='$aid' $whererecycle")->delete();
                 if($state){
-                    /*
-                    $dsql->ExecuteNoneQuery("Delete From `#@__feedback` where aid='$aid' ");
-                    $dsql->ExecuteNoneQuery("Delete From `#@__taglist` where aid='$aid' ");
-                    $dsql->ExecuteNoneQuery("Delete From `#@__erradd` where aid='$aid' ");
-                    $dsql->ExecuteNoneQuery("Delete From `#@__member_stow` where aid='$aid' ");
-                    */
+
                     Feedback::where(['aid'=>$aid])->delete();
                     MemberStow::where(['aid'=>$aid])->delete();
                     Taglist::where(['aid'=>$aid])->delete();
@@ -706,21 +693,42 @@ class ContentList extends Base
             $html .= "<div class=\"layui-form-item\">";
             $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
             $html .= "<div class=\"layui-input-block\">";
-            if($value['type'] == 'text'){
-                $html .= "<input type=\"".$value['type']."\" name=\"".$value['tagname']."\" class=\"layui-input\" />";
-            } elseif ($value['type'] == 'select'){
-                $html .= "<select>".
-                $html .= "<option value=\"\">请选择</option>";
-                $html .= "</select>";
-            }elseif ($value['type'] == 'imgfile'){
-                $html .= "<div id=\"{$value['itemname']}\">";
-                $html .= "<img src=\"\" width=\"100\" height=\"100\" />";
-                $html .= "</div>";
-                $html .= "<input name=\"{$value['itemname']}\" type=\"hidden\" id=\"pic_{$value['itemname']}\" value=\"\">";
-                $html .= "<div class=\"layui-input-block\">";
-                $html .= "<button type=\"button\" class=\"layui-btn layui-btn-xs\" id=\"{$value['itemname']}_button\">上传图片</button>";
-                $html .= "</div>";
+            switch ($value['type']) {
+                case 'text':
+                    break;
+                case 'textchar':
+                    break;
+                case 'multitext':
+                    break;
+                case 'htmltext':break;
+                case 'textdata':break;
+                case 'int':break;
+                case 'float':break;
+                case 'datetime':break;
+                case 'img':break;
+                case 'imgfile':break;
+                case 'media':break;
+                case 'addon':break;
+                case 'select':break;
+                case 'radio':break;
+                case 'checkbox':break;
+                case 'stepselect':break;
             }
+//            if($value['type'] == 'text'){
+//                $html .= "<input type=\"".$value['type']."\" name=\"".$value['tagname']."\" class=\"layui-input\" />";
+//            } elseif ($value['type'] == 'select'){
+//                $html .= "<select>".
+//                $html .= "<option value=\"\">请选择</option>";
+//                $html .= "</select>";
+//            }elseif ($value['type'] == 'imgfile'){
+//                $html .= "<div id=\"{$value['itemname']}\">";
+//                $html .= "<img src=\"\" width=\"100\" height=\"100\" />";
+//                $html .= "</div>";
+//                $html .= "<input name=\"{$value['itemname']}\" type=\"hidden\" id=\"pic_{$value['itemname']}\" value=\"\">";
+//                $html .= "<div class=\"layui-input-block\">";
+//                $html .= "<button type=\"button\" class=\"layui-btn layui-btn-xs\" id=\"{$value['itemname']}_button\">上传图片</button>";
+//                $html .= "</div>";
+//            }
         }
 
     }
