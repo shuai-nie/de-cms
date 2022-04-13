@@ -692,43 +692,109 @@ class ContentList extends Base
         foreach ($fieldset as $key => $value){
             $html .= "<div class=\"layui-form-item\">";
             $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
-            $html .= "<div class=\"layui-input-block\">";
+
             switch ($value['type']) {
-                case 'text':
-                    break;
-                case 'textchar':
+                case 'text' || 'textchar':
+                    $html .= "<div class=\"layui-input-block\">";
+                    $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    // 单行文本
                     break;
                 case 'multitext':
+                    $html .= "<div class=\"layui-input-block\">";
+                    $html .= "<textarea placeholder=\"请输入内容\" class=\"layui-textarea\"></textarea>";
+                    // 多行文本
                     break;
-                case 'htmltext':break;
-                case 'textdata':break;
-                case 'int':break;
-                case 'float':break;
-                case 'datetime':break;
-                case 'img':break;
-                case 'imgfile':break;
-                case 'media':break;
-                case 'addon':break;
-                case 'select':break;
-                case 'radio':break;
-                case 'checkbox':break;
-                case 'stepselect':break;
+                case 'htmltext':
+                    // html 文本
+                    break;
+                case 'textdata':
+                    // 文本保存html数据
+                    break;
+                case 'int':
+                    $html .= "<div class=\"layui-input-block\">";
+                    $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    // 整数类型
+                    break;
+                case 'float':
+                    $html .= "<div class=\"layui-input-block\">";
+                    $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    // 小数类型
+                    break;
+                case 'datetime':
+                    $html .= "<div class=\"layui-input-block\">";
+                    $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    // 时间类型
+                    break;
+                case 'img':
+                    $html .= '<button type="button" class="layui-btn" id="test1">上传图片</button>' .
+                        '<div class="layui-upload-list">' .
+                        '<img class="layui-upload-img" id="demo1">' .
+                        '<p id="demoText"></p>' .
+                        '</div>' .
+                        '<div style="width: 95px;">' .
+                        '<div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="demo">' .
+                        '<div class="layui-progress-bar" lay-percent=""></div>' .
+                        '</div>' .
+                        '</div>';
+                    // 图片
+                    break;
+                case 'imgfile':
+                    // 图片(仅网址)
+                    $html .= "<div class=\"layui-input-block\">";
+                    $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    break;
+                case 'media':
+                    // 多媒体文件
+                    $html .= '<button type="button" class="layui-btn" id="test1">上传图片</button>' .
+                        '<div class="layui-upload-list">' .
+                        '<img class="layui-upload-img" id="demo1">' .
+                        '<p id="demoText"></p>' .
+                        '</div>' .
+                        '<div style="width: 95px;">' .
+                        '<div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="demo">' .
+                        '<div class="layui-progress-bar" lay-percent=""></div>' .
+                        '</div>' .
+                        '</div>';
+                    break;
+                case 'addon':
+                    // 附件类型
+                    $html .= '<button type="button" class="layui-btn" id="test1">上传图片</button>' .
+                        '<div class="layui-upload-list">' .
+                        '<img class="layui-upload-img" id="demo1">' .
+                        '<p id="demoText"></p>' .
+                        '</div>' .
+                        '<div style="width: 95px;">' .
+                        '<div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="demo">' .
+                        '<div class="layui-progress-bar" lay-percent=""></div>' .
+                        '</div>' .
+                        '</div>';
+                    break;
+                case 'select':
+                    // 使用
+                    $html .= '<div class="layui-input-block">'.
+                        '<select name="interest" lay-filter="aihao">' .
+                        '<option value=""></option>        ' .
+                        '</select>' .
+                        '</div>';
+                    break;
+                case 'radio':
+                    // 使用radio选项卡
+                    $html .= '<div class="layui-input-block">' .
+                        '<input type="radio" name="sex" value="男" title="男" checked="">' .
+                        '</div>';
+                    break;
+                case 'checkbox':
+                    // Checkbox多选框
+                    $html .= '<div class="layui-input-block">' .
+                        '<input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">' .
+                        '</div>';
+                    break;
+                case 'stepselect':
+                    // 联动类型
+                    break;
             }
-//            if($value['type'] == 'text'){
-//                $html .= "<input type=\"".$value['type']."\" name=\"".$value['tagname']."\" class=\"layui-input\" />";
-//            } elseif ($value['type'] == 'select'){
-//                $html .= "<select>".
-//                $html .= "<option value=\"\">请选择</option>";
-//                $html .= "</select>";
-//            }elseif ($value['type'] == 'imgfile'){
-//                $html .= "<div id=\"{$value['itemname']}\">";
-//                $html .= "<img src=\"\" width=\"100\" height=\"100\" />";
-//                $html .= "</div>";
-//                $html .= "<input name=\"{$value['itemname']}\" type=\"hidden\" id=\"pic_{$value['itemname']}\" value=\"\">";
-//                $html .= "<div class=\"layui-input-block\">";
-//                $html .= "<button type=\"button\" class=\"layui-btn layui-btn-xs\" id=\"{$value['itemname']}_button\">上传图片</button>";
-//                $html .= "</div>";
-//            }
+            $html .= "   <div>";
+            $html .= "<div>";
         }
 
     }
