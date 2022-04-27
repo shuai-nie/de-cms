@@ -1,93 +1,91 @@
 {extend name="public:base" /}
 
+{block name='style'}
+<style>
+    .layui-upload-img{width:90px;height:90px;}
+
+</style>
+{/block}
+
+
 {block name="content"}
+<form action="{:url('friendlink_add')}" class="layui-form" >
+    <input type="hidden" name="dopost" value="add" />
 
-<table width="98%" border="1" align="center" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6">
-    <tr>
-    </tr>
-    <tr>
-        <td height="200" bgcolor="#FFFFFF" valign="top">
-            <form action="{:url('friendlink_add')}" method="post" enctype="multipart/form-data" name="form1" onSubmit="return CheckSubmit();";>
-                <input type="hidden" name="dopost" value="add" />
-                <table width="80%"  border="0" cellspacing="1" cellpadding="3">
-                    <tr>
-                        <td width="19%" height="25">网址：</td>
-                        <td width="81%">
-                            <input name="url" type="text" id="url" value="http://" size="30" class='pubinputs' />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="25">网站名称：</td>
-                        <td>
-                            <input name="webname" type="text" id="webname" size="30" class='pubinputs' />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="19%" height="25">排列位置：</td>
-                        <td width="81%">
-                            <input name="sortrank" type="text" id="sortrank" value="1" size="10" class='pubinputs' style='width:60px' />
-                            (由小到大排列)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="25">网站Logo：</td>
-                        <td>
-                            <input name="logo" type="text" id="logo" size="30" class='pubinputs' />
-                            (88*31 gif或jpg)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="25">上传Logo：</td>
-                        <td>
-                            <div id="logoimgImg" style="display:none;" >
-                                <img src="" width="100" height="100">
-                            </div>
-                            <button type="button" class="layui-btn layui-btn-xs" id="test1">
-                                <i class="layui-icon">&#xe67c;</i>上传图片
-                            </button>
-                            <input name="logoimg" type="hidden" id="logoimg" size="30" class='' />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="25">网站简况：</td>
-                        <td><textarea name="msg" cols="50" rows="4" id="msg"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td height="25">站长Email：</td>
-                        <td>
-                            <input name="email" type="text" id="email" size="30" class='pubinputs' />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="25">网站类型：</td>
-                        <td>
-                            <select name="typeid" id="typeid">
-                                {volist name="row" id="vo"}
-                                <option value='{$vo->id}'>{$vo->typename}</option>
-                                {/volist}
+    <div class="layui-form-item">
+        <label class="layui-form-label">网址:</label>
+        <div class="layui-input-block">
+            <input type="text" name="url" value="http://" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
 
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="25">链接位置：</td>
-                        <td>
-                            <input type='radio' name='ischeck' value="1" checked='1' /> 内页
-                            <input type='radio' name='ischeck' value="2"/> 首页
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="51">&nbsp;</td>
-                        <td>
-                            <button type="submit" class="layui-btn layui-btn-xs">提交</button>
-                            <!--<input type="reset" name="Submit" value=" 重 置 " class="layui-btn layui-btn-primary" />-->
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </td>
-    </tr>
-</table>
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站名称:</label>
+        <div class="layui-input-block">
+            <input type="text" name="webname" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">排列位置:</label>
+        <div class="layui-input-block">
+            <input type="text" name="sortrank" value="" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站Logo:</label>
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" id="test1">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+
+            <div class="layui-upload-list">
+                <input type="hidden" name="img">
+                <img class="layui-upload-img" id="demo1">
+                <p id="demoText"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站简况:</label>
+        <div class="layui-input-block">
+            <textarea name="msg" cols="50" rows="4" id="msg" class="layui-textarea" ></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站类型:</label>
+        <div class="layui-input-block">
+            <select name="typeid" id="typeid">
+                {volist name="row" id="vo"}
+                <option value='{$vo->id}'>{$vo->typename}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">站长Email:</label>
+        <div class="layui-input-block">
+            <input name="email" type="text" size="30" class="layui-input" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">站长Email:</label>
+        <div class="layui-input-block">
+            <input type='radio' name='ischeck' value="1" checked title="内页" />
+            <input type='radio' name='ischeck' value="2" title="首页" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
+        </div>
+    </div>
+
+</form>
 
 {/block}
 
@@ -99,6 +97,25 @@ layui.use(['form','upload','jquery','layer'], function() {
         $ = layui.jquery,
         layer = layui.layer;
 
+    var upload_url= "<?php echo url('Upload/upload'); ?>";
+    var upload_accept='images';
+    var upload_acceptMime='image/*';
+    var upload_size=3145728;
+    var uploadInst = upload.render({
+        elem: '#test1'
+        ,url: upload_url
+        ,accept: upload_accept
+        ,acceptMime:upload_acceptMime
+        ,size: upload_size
+        ,done: function(res){
+            $("#demo1").attr('src', res.data.src);
+            $("input[name='img']").val(res.data.src);
+        }
+        ,error: function(){
+            //请求异常回调
+        }
+    });
+
     form.on('submit(submit)', function(data){
         $.post(":url('')", data.field, function(obj){
             if(obj.code == 200){
@@ -109,6 +126,8 @@ layui.use(['form','upload','jquery','layer'], function() {
         }, 'json')
         return false;
     });
+
+
 })
 </script>
 {/block}

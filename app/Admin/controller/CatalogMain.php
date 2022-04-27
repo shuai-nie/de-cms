@@ -422,7 +422,8 @@ class CatalogMain extends Base
         if(!isset($activepath)) $activepath = $cfg_cmspath;
         // 根目录
         $cfg_basedir = app()->getRootPath().'view/Admin';
-        $basehost = 'http://'.$_SERVER['HTTP_HOST'];
+        $host = Config::get('app.app_host');
+        //$basehost = 'http://'.$_SERVER['HTTP_HOST'];
         //$cfg_templets_dir = '/templets';
         $cfg_templets_dir = '/';
         View::assign('cfg_templets_dir', $cfg_templets_dir);

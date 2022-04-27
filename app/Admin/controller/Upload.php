@@ -17,7 +17,7 @@ class Upload
         $file = Request::file('file');
         $path = Filesystem::disk('public')->putFile('image', $file, 'hashNameTime');
         $picSrc = Filesystem::getDiskConfig('public', 'url').'/'.str_replace('\\', '/', $path);
-        return json(['code'=>0, 'msg'=>'成功','data'=>['src'=>$picSrc]]);
+        return json(['code' => 0, 'msg' => '成功', 'data' => ['src' => $host . $picSrc]]);
     }
 
     public function index()

@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use think\Config;
 use think\facade\Request;
 use think\facade\View;
 use app\Admin\model\Flink;
