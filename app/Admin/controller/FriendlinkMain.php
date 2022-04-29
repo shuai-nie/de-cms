@@ -34,9 +34,27 @@ class FriendlinkMain extends Base
      */
     public function index()
     {
-        $length = 10;
-        $data = Flink::where([])->order('sortrank desc')->paginate($length);
-        View::assign('_data', $data);
+        if(\request()->isPost()) {
+            $page = \request()->post('page', 1);
+            $limit = (int)\request()->post('limit', 10);
+            $offset = ($page - 1) * $limit;
+            $map = [];
+            $data = Flink::alias('A')
+                ->join(Flinktype::getTable().' B', 'A.typeid=B.id', 'left')
+                ->where($map)
+                ->field('A.*,B.typename')
+                ->order('A.sortrank desc')->limit($offset, $limit)->select();
+            $count = Flink::alias('A')
+                ->join(Flinktype::getTable().' B', 'A.typeid=B.id', 'left')
+                ->where($map)->count();
+
+            foreach ($data as $key => $value) {
+                $value['ischeck'] = GetSta3($value['ischeck']);
+                $data[$key] = $value;
+            }
+
+            return json(['code'=>0, 'count'=>$count, 'data'=>$data], 200);
+        }
         return View::fetch();
     }
 
@@ -58,9 +76,9 @@ class FriendlinkMain extends Base
                 'ischeck'  => $param['ischeck'],
             ));
             if($state !== false){
-                return $this->success('提交成功', (string)url('index'));
+                return success('提交成功');
             }else{
-                return $this->error('提交失败');
+                return error('提交失败');
             }
 
         }
@@ -78,14 +96,20 @@ class FriendlinkMain extends Base
 
     public function friendlink_type()
     {
+        if(\request()->isPost()){
+            $page = \request()->post('page', 1);
+            $limit = \request()->post('limit', 10);
+            $offset = ($page - 1) * $limit;
+            $data = Flinktype::where("")->limit($offset, (int)$limit)->select();
+            $count = Flinktype::where("")->count();
+            return json( ['code'=>0,'count' => $count, 'data' => $data], 200);
+        }
+
         View::assign('nav', array(
             array('title'=>'模块'),
             array('title'=>'友情链接', 'url'=>(string)url('FriendlinkMain/index')),
             array('title'=>'网站类型管理'),
         ));
-
-        $row = Flinktype::where("")->select();
-        View::assign('row', $row);
         return View::fetch();
     }
 
@@ -100,7 +124,7 @@ class FriendlinkMain extends Base
     public function friendlink_edit()
     {
         if(Request::isPost()){
-            $param = Request::param('');
+            $param = Request::post('');
 
             $state = Flink::update(array(
                 'sortrank' => $param['sortrank'],
@@ -116,12 +140,11 @@ class FriendlinkMain extends Base
             ));
 
             if($state !== false){
-                return $this->success('编辑成功', (string)url('index'));
+                return success('编辑成功' );
             }else{
-                return $this->error('编辑失败');
+                return error('编辑失败');
             }
         }
-
 
         View::assign('nav', array(
             array('title'=>'模块', 'url'=>''),
@@ -132,7 +155,7 @@ class FriendlinkMain extends Base
         $id = Request::param('id');
 
         $myLink = Flink::alias('A')->leftjoin(Flinktype::getTable().' B', ' A.typeid=B.id ')->field('A.*,B.typename')->where("A.id=$id")->find();
-        $row = Flinktype::where("id<>".$myLink['typeid'])->select();
+        $row = Flinktype::where([])->select();
         View::assign('myLink', $myLink);
         View::assign('row', $row);
         return View::fetch();
@@ -144,18 +167,16 @@ class FriendlinkMain extends Base
      */
     public function friendlink_delete()
     {
-        $id = Request::param('id');
-        $dopost = Request::param('dopost');
-        if($dopost == 'delete'){
-            $state = Flink::where("id=".$id)->delete();
+        if(\request()->isPost()){
+            $id = Request::post('id');
+            $dopost = Request::post('dopost');
+            $state = Flink::where(['id'=>$id])->delete();
             if($state !== false){
-                return $this->success('删除成功', (string)url('index'));
+                return success('删除成功');
             }else{
-                return $this->error('删除失败');
+                return error('删除失败');
             }
-
         }
-
     }
 
     /**
@@ -169,18 +190,9 @@ class FriendlinkMain extends Base
             $param = Request::param('');
             $state = Flinktype::insert($param);
             if($state !== false){
-                return json(array(
-                    'code' => 0,
-                    'msg' => '新建成功'
-                ));
+                return success('新建成功');
             }
-            return json(array(
-               'code' => 1,
-               'msg' => '新建失败',
-            ));
-
-            exit();
-
+            return error('新建失败');
         }
         View::assign('nav', array(
             array('title'=>'模块', 'url'=>''),
@@ -209,18 +221,9 @@ class FriendlinkMain extends Base
 
             $state = Flinktype::update(['typename'=>$typename], ['id'=>$id]);
             if($state !== false){
-                return json(array(
-                    'code' => 0,
-                    'msg' => '编辑成功'
-                ));
+                return success('编辑成功');
             }
-            return json(array(
-                'code' => 1,
-                'msg' => '编辑失败',
-            ));
-
-            exit();
-
+            return error('编辑失败');
         }
 
         $data = Flinktype::where(['id'=>$id])->find();
@@ -246,9 +249,9 @@ class FriendlinkMain extends Base
         $id = Request::param('id');
         $state = Flinktype::where(['id'=>$id])->delete();
         if($state !== false){
-            return $this->success("删除成功", (string)url('friendlink_type'));
+            return success("删除成功");
         }
-        return $this->error("删除失败");
+        return error("删除失败");
 
     }
 

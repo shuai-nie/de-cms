@@ -1,53 +1,82 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<a href='{:url("/Admin/FriendlinkMain/friendlink_add")}' class="layui-btn layui-btn-xs layui-btn-normal" lay-event="">[添加链接]</a>
-<a href='{:url("/Admin/FriendlinkMain/friendlink_type")}' class="layui-btn layui-btn-xs" lay-event="">[网站类型管理]</a>
+<a href='{:url("/Admin/FriendlinkMain/friendlink_add")}' class="layui-btn layui-btn-sm layui-btn-normal" lay-event="">[添加链接]</a>
+<a href='{:url("/Admin/FriendlinkMain/friendlink_type")}' class="layui-btn layui-btn-sm" lay-event="">[网站类型管理]</a>
 
-<table class="layui-table">
-    <thead>
-    <tr>
-        <th lay-data="{field:'f1'}">id</th>
-        <th lay-data="{field:'f1'}">网站名称</th>
-        <th lay-data="{field:'f2'}">网站Logo</th>
-        <th lay-data="{field:'f3'}">站长Email</th>
-        <th lay-data="{field:'f4'}">状态</th>
-        <th lay-data="{field:'f5'}">顺序</th>
-        <th lay-data="{field:'f7'}">时间</th>
-        <th lay-data="{field:'f6'}">管理</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="_data" id="vo"}
-    <tr>
-        <td>{$vo['id']}</td>
-        <td>{$vo['webname']}</td>
-        <td>
-            {if $vo['logo'] != ''}<img src="{$vo['logo']}" height="40" width="40">{/if}
-        </td>
-        <td>{$vo['email']}</td>
-        <td>{$vo['ischeck']|GetSta3}</td>
-        <td>{$vo['sortrank']}</td>
-        <td>{$vo['dtime']|date='Y-m-d H:i:s'}</td>
-        <td>
-            <a href='{:url("/Admin/FriendlinkMain/friendlink_edit", ["id"=>$vo->id,"dopost"=>"getedit"])}' class="layui-btn layui-btn-xs layui-btn-normal" lay-event="">[更改]</a>
-            <a href='{:url("/Admin/FriendlinkMain/friendlink_delete", ["id"=>$vo->id,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger" lay-event="">[删除]</a>
-        </td>
+<!--<a href='("/Admin/FriendlinkMain/friendlink_edit", ["id"=>,"dopost"=>"getedit"])}' class="layui-btn layui-btn-xs layui-btn-normal" lay-event="">[更改]</a>
+<a href='("/Admin/FriendlinkMain/friendlink_delete", ["id"=>,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger" lay-event="">[删除]</a>-->
 
-    </tr>
-    {/volist}
+<table id="demo" lay-filter="test"></table>
 
-    </tbody>
-
-</table>
-<div>{$_data|raw}</div>
-
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 {/block}
 
 
 {block name="script"}
-<script type="text/javascript">
+<script>
+layui.use(['table', 'jquery'], function(){
+    var table = layui.table,
+        $ = layui.jquery;
 
+    //第一个实例
+    table.render({
+        elem: '#demo'
+        ,url: "{:url('')}"
+        ,method: 'post'
+        ,request: {}
+        ,response: {}
+        ,page: true
+        ,cols: [[ //表头
+            {field: 'id', title: 'ID', width:80,fixed: 'left'}
+            ,{field: 'webname', title: '网站名称', width:180}
+            ,{field: 'url', title: '地址', width:180}
+            ,{field: 'typename', title: '网站类型:', width:140}
+            ,{field: 'sortrank', title: '顺序', width:80}
+            ,{field: 'msg', title: '网站简况:', width:180}
+            ,{field: 'logo', title: '图片', width:70,templet:function(d){
+                if(d.logo) {
+                    return '<img src="'+ d.logo+'" height="30" width="30" />';
+                }
+                return '-';
+            }}
+            ,{field: 'ischeck', title: '状态', width:90}
+            ,{field: 'email', title: '站长Email', width:180}
+            ,{field: 'dtime', title: '时间', width:170}
+            ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+        ]]
+    });
 
+    table.on('tool(test)', function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+        if(layEvent === 'del'){
+            layer.confirm('真的删除行么', function(index) {
+                $.post("{:url('friendlink_delete')}", {id:data.id}, function (objs) {
+                    if(objs.code == 200) {
+                        layer.msg(objs.msg, {icon: 1}, function () {
+                            obj.del();
+                            layer.close(index);
+                        })
+                    } else {
+                        layer.msg(objs.msg, {icon: 2});
+                    }
+                }, 'json');
+            })
+        }else if(layEvent === 'edit'){
+            // obj.update({
+            //     username: '123'
+            //     ,title: 'xxx'
+            // });
+            window.location.href = "{:url('friendlink_edit')}?id=" +data.id;
+        }
+
+    })
+
+});
 </script>
 {/block}

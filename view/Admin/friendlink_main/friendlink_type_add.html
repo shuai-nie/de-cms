@@ -31,8 +31,8 @@ layui.use(['form','jquery'], function(){
 
     form.on('submit(first)', function(data){
         $.post("{:url('')}", data.field, function (obj) {
-            if(obj.code == 0){
-                layer.msg(obj.msg, function () {
+            if(obj.code == 200){
+                layer.msg(obj.msg, {icon:1}, function () {
                     window.location.href = "{:url('friendlink_type')}"
                 })
             }else{
@@ -41,7 +41,6 @@ layui.use(['form','jquery'], function(){
         })
         return false;
     });
-
 
     form.val('first', {
         'id':"{$data['id']}",

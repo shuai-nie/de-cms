@@ -3,24 +3,64 @@
 {block name="style"}{/block}
 
 {block name="content"}
-<a href="{:url('friendlink_type_add')}" class="layui-btn layui-btn-xs">添加网站类型</a>
-<table width="98%" border="0" cellpadding="1" cellspacing="1" align="center" class="layui-table">
-        {volist name="row" id="vo" key="k"}
-        <input type="hidden" name="ID_{$k}" value="{$vo->id}">
-        <tr align="center" bgcolor="#FFFFFF">
-            <td height="24" valign="top">{$vo->id}</td>
-            <td height="24" valign="top"> {$vo->typename}</td>
-            <td>
-                <a href="{:url('friendlink_type_edit', ['id'=>$vo['id']])}" class="layui-btn layui-btn-xs">编辑</a>
-                <a href="{:url('friendlink_type_delete', ['id'=>$vo['id']])}" class="layui-btn layui-btn-xs layui-btn-danger">删除</a>
-            </td>
-        </tr>
-        {/volist}
+<a href="{:url('friendlink_type_add')}" class="layui-btn layui-btn-sm">添加网站类型</a>
 
+<table id="demo" lay-filter="test"></table>
 
-</table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 {/block}
 
 {block name="script"}
+<script>
+layui.use(['table', 'jquery'], function(){
+    var table = layui.table,
+        $ = layui.jquery;
 
+    //第一个实例
+    table.render({
+        elem: '#demo'
+        ,url: "{:url('')}"
+        ,method: 'post'
+        ,request: {}
+        ,response: {}
+        ,page: true
+        ,cols: [[ //表头
+            {field: 'id', title: 'ID', width:80,fixed: 'left'}
+            ,{field: 'typename', title: '标题', width:180}
+            ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+        ]]
+    });
+
+    table.on('tool(test)', function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+        if(layEvent === 'del'){
+            layer.confirm('真的删除行么', function(index) {
+            $.post("{:url('friendlink_type_delete')}", {id:data.id}, function (objs) {
+                if(objs.code == 200) {
+                    layer.msg(objs.msg, {icon: 1}, function () {
+                        obj.del();
+                        layer.close(index);
+                    })
+                } else {
+                    layer.msg(objs.msg, {icon: 2});
+                }
+            }, 'json');
+            })
+        }else if(layEvent === 'edit'){
+            // obj.update({
+            //     username: '123'
+            //     ,title: 'xxx'
+            // });
+            window.location.href = "{:url('friendlink_type_edit')}?id=" +data.id;
+        }
+
+    })
+
+});
+</script>
 {/block}

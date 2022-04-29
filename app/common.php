@@ -493,3 +493,13 @@ function autofield($str) {
         return  '自动表单';
     }
 }
+
+function success($msg = '', $code = '200', $data = []): \think\response\Json
+{
+    return json(['code' => 200, 'msg' => $msg, 'data' => $data]);
+}
+
+function error($msg = '', $code = '400', $data = []): \think\response\Json
+{
+    return json(['code' => $code, 'msg' => $msg, 'data' => $data]);
+}

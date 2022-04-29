@@ -10,5 +10,6 @@ use think\Model;
  */
 class Flink extends Model
 {
-    //
+    protected $autoWriteTimestamp = true;
+    protected $createTime = 'dtime';
 }
