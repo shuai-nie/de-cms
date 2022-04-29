@@ -33,10 +33,18 @@ class TagsMain extends Base
      * @return \think\Response
      */
     public function index()
-    {        $offset = 0;
-        $length = 20;
-        $data = Tagindex::where("")->order('id desc')->paginate($length);
-        View::assign('_data', $data);
+    {
+        if(\request()->post()){
+            $page = \request()->post('page', 1);
+            $limit = (int)\request()->post('limit', 10);
+            $offset = ($page - 1) * $limit;
+            $map = [];
+            $data = Tagindex::where($map)->order('id desc')->limit($offset, $limit)->select();
+            $count = Tagindex::where($map)->count();
+            return json(['code'=>0, 'count'=>$count, 'data' => $data], 200);
+        }
+
+        View::assign('_data', []);
         return View::fetch();
     }
 

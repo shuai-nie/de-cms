@@ -11,6 +11,9 @@ use think\Model;
  */
 class Tagindex extends Model
 {
+    protected $autoWriteTimestamp = true;
+    protected $createTime = 'addtime';
+
     // 字段加1
     public static function TagindexInc($map, $field, $step=1){
         return Db::name((new Tagindex())->getName())->where($map)->inc($field, $step)->update();

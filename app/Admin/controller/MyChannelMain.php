@@ -41,11 +41,18 @@ class MyChannelMain extends Base
      */
     public function index()
     {
-        $data = ChanneltypeModel::where(array())->select()->toArray();
-        View::assign('_data', $data);
+        if(\request()->isPost()) {
+            $map = [];
+            $page = \request()->post('page');
+            $limit = (int)\request()->post('limit');
+            $offset = ($page - 1) * $limit;
+            $data = ChanneltypeModel::where($map)->limit($offset, $limit)->select();
+            $count = ChanneltypeModel::where($map)->count();
+            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+        }
+        View::assign('_data', []);
         return View::fetch();
     }
-
 
     public function mychannel_edit()
     {
@@ -101,10 +108,9 @@ class MyChannelMain extends Base
             ));
 
             if($state !== false){
-                return $this->success('提交成功', (string)url('index'));
+                return success('提交成功');
             }
-            return $this->error("提交失败");
-
+            return error("提交失败");
         }
         $request = $this->request;
         $id = $request->get('id');
