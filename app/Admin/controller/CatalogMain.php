@@ -46,8 +46,15 @@ class CatalogMain extends Base
      */
     public function index()
     {
-        $data = ArctypeModel::where(array())->select()->toArray();
-        View::assign('_data', $data);
+        if(\request()->isPost()) {
+            $page = \request()->post('page', 1);
+            $limit = (int)\request()->post('limit', 10);
+            $map = [];
+            $offset = ($page - 1) * $limit;
+            $data = ArctypeModel::where($map)->limit($offset, $limit)->select();
+            $count = ArctypeModel::where($map)->count();
+            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+        }
         return View::fetch();
     }
 
@@ -91,10 +98,9 @@ class CatalogMain extends Base
             ));
 
             if($state !== false){
-                return $this->success('提交成功', (string)url('index'));
+                return success('提交成功' );
             }
-            return $this->error('提交出错');
-
+            return error('提交出错');
         }
 
         $id = Request::param('id', 0);
@@ -202,13 +208,11 @@ class CatalogMain extends Base
 
             //return json(['code'=>0,'msg'=>'成功']);
             if($state != false){
-                $this->success('成功', (string)url('CatalogMain/index'));
+                return success('编辑成功');
             }else{
-                $this->success('失败');
+                return error('编辑失败');
             }
-
         }
-
 
         $id = Request::param('id');
         $channelid = 1;
@@ -405,10 +409,7 @@ class CatalogMain extends Base
 
             exit();
         }
-
     }
-
-
 
     /**
      * [模板管理器]
@@ -423,7 +424,6 @@ class CatalogMain extends Base
         // 根目录
         $cfg_basedir = app()->getRootPath().'view/Admin';
         $host = Config::get('app.app_host');
-        //$basehost = 'http://'.$_SERVER['HTTP_HOST'];
         //$cfg_templets_dir = '/templets';
         $cfg_templets_dir = '/';
         View::assign('cfg_templets_dir', $cfg_templets_dir);
@@ -431,7 +431,6 @@ class CatalogMain extends Base
         View::assign('activepath', $activepath);
         View::assign('f', $f);
         return View::fetch('');
-
     }
 
 

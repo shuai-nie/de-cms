@@ -23,8 +23,6 @@ use app\Admin\model\Member;
  */
 class SysAdminUser extends Base
 {
-
-
     public function initialize()
     {
         parent::initialize();
@@ -79,7 +77,7 @@ class SysAdminUser extends Base
            $state = Admin::update($set, array('id'=>$param['id']));
            $state2 = Member::update($member, array('mid'=>$param['id']));
 
-           return $this->success('修改成功', (string)url('index'));
+           return success('修改成功');
        }
 
        $request = $this->request;
@@ -147,7 +145,7 @@ class SysAdminUser extends Base
                'typeid' => $typeid,
            ), true);
 
-           return $this->success('成功', 'index');
+           return success('成功');
        }
 
        $ut = AdmintypeModel::where("")->order('rank asc')->select();

@@ -65,17 +65,22 @@ class ContentList extends Base
         if(!empty($mid)){
             $map['A.mid'] = $mid;
         }
-        $data = Archives::alias('A')
-            ->leftjoin(Arctype::getTable() . " B ", "B.id=A.typeid")
-            ->leftjoin(Admin::getTable() . " C ", "C.id=A.mid")
-            ->field('A.*,B.typename as ctypename,C.userid,B.typedir')
-            ->where($map)
-            ->order('A.id desc')->paginate($length);
-//        var_dump($data[0]);exit();
-//        $typedir = $arctypeInfo['typedir'];
-
-
-        View::assign('_data', $data);
+        if(\request()->isPost()) {
+            $page = \request()->post('page', 1);
+            $limit = (int)\request()->post('limit', 10);
+            $offset = ($page - 1) * $limit;
+            $data = Archives::alias('A')
+                ->leftjoin(Arctype::getTable() . " B ", "B.id=A.typeid")
+                ->leftjoin(Admin::getTable() . " C ", "C.id=A.mid")
+                ->field('A.*,B.typename as ctypename,C.userid,B.typedir')
+                ->where($map)
+                ->order('A.id desc')->limit($offset, $limit)->select();
+            $count = Archives::alias('A')
+                ->leftjoin(Arctype::getTable() . " B ", "B.id=A.typeid")
+                ->leftjoin(Admin::getTable() . " C ", "C.id=A.mid")
+                ->where($map)->count();
+            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+        }
         View::assign('arcrank', $arcrank);
         return View::fetch();
     }

@@ -10,6 +10,9 @@ use think\Model;
  */
 class Archives extends Model
 {
+    protected $autoWriteTimestamp = true;
+    protected $createTime = 'senddate';
+
     // $query = "SELECT ch.typename AS channelname,ar.membername AS rankname,arc.*
     //            FROM `#@__archives` arc
     //            LEFT JOIN `#@__channeltype` ch ON ch.id=arc.channel
