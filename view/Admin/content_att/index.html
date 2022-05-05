@@ -1,9 +1,8 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<form action="{:url('index')}" method="post">
+<form class="layui-form" >
 <table lay-filter="demoCatalogMain">
-
     <thead>
     <tr>
         <th lay-data="{field:'f1'}">ID</th>
@@ -27,6 +26,27 @@
 
 </table>
 
-    <div><button type="submit" class="layui-btn">提交</button></div>
+
+    <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
 </form>
+{/block}
+
+{block name="script"}
+<script type="application/javascript">
+    layui.use(['form','upload','jquery'], function() {
+        var form = layui.form,
+            $ = layui.jquery;
+    })
+
+    form.on('submit(submit)', function(data){
+        $.post("{:url('')}", data.field, function(obj){
+            if(obj.code == 200){
+                layer.msg(obj.msg , function(){
+                    window.location.href = "{:url('index')}"
+                })
+            }
+        }, 'json')
+        return false;
+    });
+</script>
 {/block}

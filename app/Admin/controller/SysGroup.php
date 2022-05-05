@@ -38,6 +38,15 @@ class SysGroup extends Base
      */
     public function index()
     {
+        if(\request()->isPost()) {
+            $page = \request()->post('page', 1);
+            $limit = (int)\request()->post('limit', 10);
+            $offset = ($page - 1) * $limit;
+            $map = [];
+            $data = AdmintypeModel::where($map)->field('rank,typename,system')->limit($offset, $limit)->select();
+            $count = AdmintypeModel::where($map)->count();
+            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+        }
         $data = AdmintypeModel::where(array())->field('rank,typename,system')->select()->toArray();
         View::assign('_data', $data);
 

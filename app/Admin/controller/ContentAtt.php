@@ -48,9 +48,7 @@ class ContentAtt extends Base
                     'att' => $att
                 ));
             }
-
-            return $this->success("修改成功", (string)url('index'));
-
+            return success("修改成功");
         }
         $length = 20;
         $map = array();

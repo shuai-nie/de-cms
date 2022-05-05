@@ -3,39 +3,63 @@
 {block name="content"}
 <a href="{:url('sys_admin_user_add')}" class="layui-btn layui-btn-xs" lay-event="detail">新增帐号</a>
 <a href="{:url('/Admin/SysGroup')}" class="layui-btn layui-btn-xs" lay-event="detail">用户组管理</a>
-<table class="layui-table">
-    <thead>
-    <tr>
-        <th lay-data="{field:'u1'}">登录ID</th>
-        <th lay-data="{field:'u2'}">笔名</th>
-        <th lay-data="{field:'u3'}">级别</th>
-        <th lay-data="{field:'u4'}">频道</th>
-        <th lay-data="{field:'u5'}">管理项</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="_user" id="vo" empty="<p style='text-align: center;height: 75px;line-height: 75px;'>暂无数据！</p>" }
-    <tr>
-        <td>{$vo['userid']}</td>
-        <td>{$vo['uname']}</td>
-        <td>{$vo['usertype']|GetUserType}</td>
-        <td>{$vo['typename']|GetChannel}</td>
-        <td>
-            <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}' class="layui-btn layui-btn-xs layui-btn-normal">[更改]</a>
-            <a href='{:url("sys_admin_user_delete", ["id"=>$vo["id"],"userid"=>$vo["userid"],"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger">[删除]</a>
-            <a href='{:url("/Admin/content_list", ["mid"=>$vo["id"]])}' class="layui-btn layui-btn-xs" >[文档]</a>
-        </td>
 
-    </tr>
-    {/volist}
-    </tbody>
+<table id="demo" lay-filter="test"></table>
 
-</table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="content_list">文档</a>
+</script>
 {/block}
 
 
 {block name="script"}
 <script type="text/javascript">
+layui.use(['table', 'jquery'], function() {
+    var table = layui.table,
+        $ = layui.jquery;
 
+    table.render({
+        elem: '#demo'
+        ,url: "{:url('')}"
+        ,method: 'post'
+        ,request: {}
+        ,response: {}
+        ,page: true
+        ,cols: [[
+            {field: 'id', title: 'ID', width:80,fixed: 'left'}
+            ,{field: 'userid', title: '登录ID', width:80}
+            ,{field: 'uname', title: '笔名', width:180}
+            ,{field: 'usertype', title: '级别', width:90}
+            ,{field: 'typename', title: '频道', width:90}
+            ,{fixed: 'right', width:220, align:'center', toolbar: '#barDemo'}
+        ]]
+    });
+
+    table.on('tool(test)', function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+        if(layEvent === 'del'){
+            layer.confirm('真的删除行么', function(index) {
+                $.post("{:url('sys_admin_user_delete')}", {id:data.id}, function (objs) {
+                    if(objs.code == 200) {
+                        layer.msg(objs.msg, {icon: 1}, function () {
+                            obj.del();
+                            layer.close(index);
+                        })
+                    } else {
+                        layer.msg(objs.msg, {icon: 2});
+                    }
+                }, 'json');
+            })
+        }else if(layEvent === 'edit'){
+            window.location.href = "{:url('sys_admin_user_edit')}?id=" +data.id;
+        }
+
+    })
+
+})
 </script>
 {/block}

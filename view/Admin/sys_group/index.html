@@ -1,43 +1,69 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<a href='{:url("sys_group_add")}' class="layui-btn layui-btn-xs" lay-event="">[增加用户组]</a>
-<a href='{:url("/Admin/sys_admin_user")}' class="layui-btn layui-btn-xs" lay-event="" >[管理系统用户]</a>
-<table lay-filter="demoSysAdminUser">
-    <thead>
-    <tr>
-        <th lay-data="{field:'u1'}">Rank</th>
-        <th lay-data="{field:'u2'}">组名称</th>
-        <th lay-data="{field:'u3'}">管理</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="_data" id="vo"}
-    <tr>
-        <td>{$vo['rank']}</td>
-        <td>{$vo['typename']}</td>
-        <td>
-            <a href='{:url("sys_group_edit", ["rank"=>$vo["rank"]])}'>[权限设定]</a>
-            <a href='{:url("/Admin/sys_admin_user", ["rank"=>$vo["rank"]])}'>[组用户]</a>
-            {if condition="$vo['system'] eq 0"}
-            <a href='{:url("sys_group_delete", ["dopost"=>"del","rank"=>$vo["rank"] ])}'>[删除组]</a>
-            {/if}
-        </td>
-    </tr>
-    {/volist}
+<a href='{:url("sys_group_add")}' class="layui-btn layui-btn-ms" lay-event="">[增加用户组]</a>
+<a href='{:url("/Admin/sys_admin_user")}' class="layui-btn layui-btn-ms" lay-event="" >[管理系统用户]</a>
 
-    </tbody>
+<table id="demo" lay-filter="test"></table>
 
-
-
-</table>
-
-
+<script type="text/html" id="barDemo">
+    <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="rank">权限设定</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="admin_user">组用户</a>
+    {{# if(d.system == 0){ }}
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    {{# } }}
+</script>
 {/block}
 
 
 {block name="script"}
 <script type="text/javascript">
+layui.use(['table', 'jquery'], function() {
+    var table = layui.table,
+        $ = layui.jquery;
 
+    table.render({
+        elem: '#demo'
+        ,url: "{:url('')}"
+        ,method: 'post'
+        ,request: {}
+        ,response: {}
+        ,page: true
+        ,cols: [[
+            {field: 'rank', title: 'Rank', width:80,fixed: 'left'}
+            ,{field: 'typename', title: '组名称'}
+            ,{fixed: 'right', width:220, align:'center', toolbar: '#barDemo'}
+        ]]
+    });
+
+    table.on('tool(test)', function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+        if(layEvent === 'del'){
+            layer.confirm('真的删除行么', function(index) {
+                $.post("{:url('sys_admin_user_delete')}", {id:data.id}, function (objs) {
+                    if(objs.code == 200) {
+                        layer.msg(objs.msg, {icon: 1}, function () {
+                            obj.del();
+                            layer.close(index);
+                        })
+                    } else {
+                        layer.msg(objs.msg, {icon: 2});
+                    }
+                }, 'json');
+            })
+        }else if(layEvent === 'edit'){
+            window.location.href = "{:url('sys_admin_user_edit')}?id=" + data.id;
+        }else if(layEvent == 'rank') {
+            window.location.href = "{:url('sys_group_edit')}?rank=" + data.rank;
+        }else if(layEvent == 'admin_user') {
+            window.location.href = "{:url('sys_admin_user')}?rank=" + data.rank;
+        }
+
+    })
+
+})
 </script>
 {/block}

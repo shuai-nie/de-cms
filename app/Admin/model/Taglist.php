@@ -10,6 +10,5 @@ use think\Model;
  */
 class Taglist extends Model
 {
-/*    protected $autoWriteTimestamp = true;
-    protected $createTime = 'dtime';*/
+
 }

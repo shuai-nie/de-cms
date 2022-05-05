@@ -10,6 +10,19 @@ use think\Model;
  */
 class Admin extends Model
 {
+    protected $autoWriteTimestamp = true;
+    protected $createTime = 'logintime';
+
+    public static function onBeforeInsert($data)
+    {
+        $data['login'] = request()->ip();
+    }
+
+    public static function onBeforeUpdate($data)
+    {
+        $data['login'] = request()->ip();
+    }
+
     public function profile()
     {
         return $this->has(Admintype::class, 'rank', 'usertype');

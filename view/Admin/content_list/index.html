@@ -124,10 +124,6 @@ layui.use(['table', 'jquery'], function(){
                 }, 'json');
             })
         }else if(layEvent === 'edit'){
-            // obj.update({
-            //     username: '123'
-            //     ,title: 'xxx'
-            // });
             window.location.href = "{:url('catalog_edit')}?id=" +data.id;
         }
 

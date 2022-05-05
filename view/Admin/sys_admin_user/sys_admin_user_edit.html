@@ -2,7 +2,7 @@
 
 {block name="content"}
 
-<form class="layui-form layui-form-pane1" action="{:url('')}" method="post" lay-filter="first">
+<form class="layui-form layui-form-pane" lay-filter="first">
     <input type="hidden" name="dopost" value="saveedit" />
     <input type="hidden" name="id" value="{$adminInfo['id']}" />
 
@@ -78,8 +78,8 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <!--<button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>-->
-            <button type="submit" class="layui-btn layui-btn-xs">提交</button>
+            <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
+            <!--<button type="submit" class="layui-btn layui-btn-xs">提交</button>-->
         </div>
     </div>
 </form>
@@ -115,7 +115,7 @@
         });
 
         form.on('submit(submit)', function(data){
-            $.post(":url('')", data.field, function(obj){
+            $.post("{:url('')}", data.field, function(obj){
                 if(obj.code == 200){
                     layer.msg(obj.msg , function(){
                         window.location.href = "{:url('index')}"

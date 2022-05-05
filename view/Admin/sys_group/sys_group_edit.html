@@ -1,28 +1,30 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table width="98%" border="1" cellpadding="2" cellspacing="1" bgcolor="#D6D6D6" align="center">
-    <form name='form1' action="{:url('sys_group_edit')}" method="post">
+    <form class="layui-form layui-form-pane" >
         <input type='hidden' name="dopost" value="save">
-        <tr>
-            <td height="23" align="left" style="padding-left:10px;"><b><a href='sys_group.php'>系统用户组管理</a>&gt;&gt;更改用户组：</b></td>
-        </tr>
-        <tr>
-            <td valign="top" bgcolor="#FFFFFF" align="center">
-                <table width="98%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="9%" height="30">组名称：</td>
-                        <td width="91%" style="text-align:left;"> <input name="typename" type="text" id="typename" value="{$_groupSet['typename']}">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="9%" height="30">级别值：</td>
-                        <td width="91%" style="text-align:left;">
-                            <input name="rank" type="hidden" id="rank" value="{$_groupSet['rank']}">
-                            {$_groupSet['rank']}
-                        </td>
-                    </tr>
-                    <?php
+<!--        <tr>-->
+<!--            <td height="23" align="left" style="padding-left:10px;"><b><a href='sys_group.php'>系统用户组管理</a>&gt;&gt;更改用户组：</b></td>-->
+<!--        </tr>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">组名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="typename" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['typename']}" >
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">级别值</label>
+            <div class="layui-input-inline">
+                <input type="text" name="rank" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['rank']}" disabled >
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+        <?php
         $start = 0;
         $k = 0;
         $gouplists = file('inc/grouplist.txt');
@@ -30,92 +32,78 @@
         {
         	$line = trim($line);
         	if($line=="") continue;
-        	if(preg_match("#^>>#", $line))
-                    {
+        	    if(preg_match("#^>>#", $line)) {
                     if($start>0) echo "        	 </td></tr>\r\n";
                     $start++;
                     $lhead = "
-                    <tr>
-                        <td height='25' colspan='2' bgcolor='#F9FAF3' style='text-align:left;'>".$start."、".str_replace('>>','',$line)."</td></tr>
-                    <tr><td height='25' colspan='2' style='text-align:left;'>
-                        ";
-                        echo $lhead;
-                        }
-                        else if(preg_match("#^>#", $line))
-                        {
-                        $ls = explode('>',$line);
-                        $tag = $ls[1];
-                        $tagname = str_replace('[br]','<br>',$ls[2]);
-                        if(!preg_match("#<br \/>#", $tagname) ) $tagname .= "<font color='#888888'>($tag)</font>";
-                        else $tagname = str_replace('<br />', "<font color='#888888'>($tag)</font><br />", $tagname);
-                        echo "          	<input name='purviews[]' type='checkbox' class='np' id='purviews".$k."' value='".$tag."' ".CRank($tag, $rank)." >$tagname\r\n";
-                        $k++;
-                        }
-                        }
-                        $start++;
+                    <tr><td height='25' colspan='2' bgcolor='#F9FAF3' style='text-align:left;'>".$start."、".str_replace('>>','',$line)."</td></tr>
+                    <tr><td height='25' colspan='2' style='text-align:left;'>";
                         ?>
-                    </td>
-                    </tr>
-                    <tr>
-                        <td height='25' colspan='2' bgcolor='#F9FAF3' style="text-align:left;"><?php echo $start?>、插件权限</td>
-                    </tr>
-                    <tr>
-                        <td height='25' colspan='2' style="text-align:left;">
-                            {volist name="_PlusAll" id="vo" key="k"}
-                            <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}' {$vo['plusname']|CRank='plus_'.###,$rank} >{$vo->plusname}
-                            {/volist}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="50" align="center">&nbsp;</td>
-                        <td height="50"><button class="layui-btn layui-btn-xs" lay-submit="" lay-filter="*">立即提交</button></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </form>
-</table>
+
+                            <label class="layui-form-label" style=""><?php echo $start."、".str_replace('>>','',$line); ?></label>
+<!--                            <div class="layui-input-inline">-->
+<!--                                <input type="text" name="typename" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['typename']}" >-->
+<!--                                <div class="layui-form-mid layui-word-aux"></div>-->
+<!--                            </div>-->
+
+                        <?php
+                    //echo $lhead;
+                }else if(preg_match("#^>#", $line)){
+                    $ls = explode('>',$line);
+                    $tag = $ls[1];
+                    $tagname = str_replace('[br]','<br>',$ls[2]);
+                    if(!preg_match("#<br \/>#", $tagname) ){
+                        $tagname .= "<font color='#888888'>($tag)</font>";
+                    }else{
+                        $tagname = str_replace('<br />', "<font color='#888888'>($tag)</font><br />", $tagname);
+                    }
+                    ?>
+                    <input name='purviews[]' type='checkbox' class='np' id='purviews".$k."' value='".$tag."' ".CRank($tag, $rank)." title="{$tagname}" >
+                    <?php
+                    $k++;
+                }
+            }
+            $start++;
+            ?>
+        </div>
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label"><?php echo $start?>、插件权限</label>
+    </div>
+
+    <div class="layui-form-item">
+        {volist name="_PlusAll" id="vo" key="k"}
+        <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}' {$vo['plusname']|CRank='plus_'.###,$rank} title="{$vo->plusname}"  >
+        {/volist}
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
+        </div>
+    </div>
+</form>
+
 {/block}
 
 {block name="script"}
 <script type="application/javascript">
-    layui.use(['form','upload','jquery'], function() {
-        var form = layui.form,
-            upload = layui.upload,
-            $ = layui.jquery;
+layui.use(['form','upload','jquery'], function() {
+    var form = layui.form,
+        $ = layui.jquery;
 
-        var upload_url= "{:url('Upload/upload')}";
-        var upload_accept='images';
-        var upload_acceptMime='image/*';
-        var upload_size=3145728;
-        var uploadInst = upload.render({
-            elem: '#test1'
-            ,url: upload_url
-            ,accept: upload_accept
-            ,acceptMime:upload_acceptMime
-            ,size: upload_size
-            ,done: function(res){
-                $("#logoimgImg").show();
-                $("#logoimgImg img").attr('src', res.data.src);
-                $("input[name='logoimg']").val(res.data.src);
-                $("input[name='logo']").val(res.data.src);
+    form.on('submit(submit)', function(data){
+        $.post("{:url('')}", data.field, function(obj){
+            if(obj.code == 200){
+                layer.msg(obj.msg , function(){
+                    window.location.href = "{:url('index')}"
+                })
             }
-            ,error: function(){
-                //请求异常回调
-            }
-        });
+        }, 'json')
+        return false;
+    });
 
-        form.on('submit(submit)', function(data){
-            $.post(":url('')", data.field, function(obj){
-                if(obj.code == 200){
-                    layer.msg(obj.msg , function(){
-                        window.location.href = "{:url('index')}"
-                    })
-                }
-            }, 'json')
-            return false;
-        });
-
-    })
+})
 </script>
 {/block}
