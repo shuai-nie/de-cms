@@ -71,15 +71,15 @@
                     <label class="layui-form-label">TAG标签：</label>
                     <div class="layui-input-inline" style="width:300px">
                         <input name="tags" type="text" id="tags" value="<?php echo $tags; ?>"  class="layui-input" />
-                        (','号分开，单个标签小于12字节)
                     </div>
+                    <div class="layui-form-mid layui-word-aux">(','号分开，单个标签小于12字节)</div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">权重：</label>
-                    <div class="layui-input-inline">
+                    <div class="layui-input-inline" style="width:60px;">
                         <input name="weight" type="text" id="weight" style="width:50px" value="<?php echo $arcRow['weight'];?>" class="layui-input" />
-                        (越小越靠前)
                     </div>
+                    <div class="layui-form-mid layui-word-aux">(越小越靠前)</div>
                 </div>
             </div>
 
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label>作　者：</label>
+                    <label class="layui-form-label">作　者：</label>
                     <div class="layui-input-inline">
                         <input name="writer" type="text" id="writer" style="width:120px" value="{$arcRow['writer']}" class="layui-input">
                     </div>
@@ -225,7 +225,6 @@
                     </div>
                 </div>
 
-
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">&nbsp;阅读权限：</label>
@@ -277,13 +276,13 @@
                 </div>
 
                 <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">&nbsp;自定义文件名：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="filename" id="filename" value="<?php echo $arcRow["filename"]?>" class='layui-input' />
-                                （不包括后缀名如.html等）
-                            </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="width:90px;">自定义文件名：</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="filename" id="filename" value="<?php echo $arcRow["filename"]?>" class='layui-input' />
                         </div>
+                        <div class="layui-form-mid layui-word-aux">（不包括后缀名如.html等）</div>
+                    </div>
                     <?php if(isset($cfg_tamplate_rand) && $cfg_tamplate_rand==1){ ?>
                     <div class="layui-inline">
                         <label class="layui-form-label">模板选择</label>
@@ -303,21 +302,23 @@
                     <?php } ?>
                 </div>
 
-
-
-            <table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="voteset" style="display:none;">
-                <tr>
-                    <td height="30"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="90" height="22">&nbsp;投票：</td>
-                            <td><input type="text" name="voteid" id="voteid" value="{$arcRow['voteid']}" />
-                                <input name="selvote" type="button" id="selvote" value="选择投票" onClick="selectVote()" />
-                                <input name="addvote" type="button" id="addvote" value="新增投票" onclick="addVote()" />
-                                <input type="button" name="viewvote" id="viewvote" value="查看投票" onclick="viewVote()" /></td>
-                        </tr>
-                    </table></td>
-                </tr>
-            </table>
+            <div width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="voteset" style="display:none;">
+                <div>
+                    <div height="30">
+                        <table width="800" border="0" cellspacing="0" cellpadding="0">
+                            <div>
+                                <div width="90" height="22">&nbsp;投票：</div>
+                                <div>
+                                    <input type="text" name="voteid" id="voteid" value="{$arcRow['voteid']}" />
+                                    <input name="selvote" type="button" id="selvote" value="选择投票" onClick="selectVote()" />
+                                    <input name="addvote" type="button" id="addvote" value="新增投票" onclick="addVote()" />
+                                    <input type="button" name="viewvote" id="viewvote" value="查看投票" onclick="viewVote()" />
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <!--<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#F9FCEF" style="border:1px solid #cfcfcf;border-top:none;">
                 <tr>
@@ -339,18 +340,23 @@
 
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
+        </div>
+    </div>
+
 </div>
 
-<div>
-    <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
-</div>
 </form>
 {/block}
 
 {block name="script"}
 <script type="application/javascript">
 var ue = UE.getEditor('container', {
-    autoHeightEnabled:false,
+    autoHeightEnabled: false,
+    zIndex: 0,
     toolbars: [
         [
             'anchor','undo','redo','bold','indent','snapscreen',
@@ -380,9 +386,9 @@ layui.use(['form','upload','jquery'], function() {
         $ = layui.jquery;
 
     var upload_url= "{:url('Upload/upload')}";
-    var upload_accept='images';
-    var upload_acceptMime='image/*';
-    var upload_size=3145728;
+    var upload_accept = 'images';
+    var upload_acceptMime = 'image/*';
+    var upload_size = 3145728;
     var uploadInst = upload.render({
         elem: '#test1'
         ,url: upload_url
@@ -400,7 +406,7 @@ layui.use(['form','upload','jquery'], function() {
     });
 
     form.on('submit(submit)', function(data){
-        $.post(":url('')", data.field, function(obj){
+        $.post("{:url('')}", data.field, function(obj){
             if(obj.code == 200){
                 layer.msg(obj.msg , function(){
                     window.location.href = "{:url('index')}"
