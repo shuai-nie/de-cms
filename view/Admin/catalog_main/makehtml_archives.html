@@ -1,66 +1,79 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table width="98%" border="1" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" align="center">
+
     <form name='form2' action="{:url('/Admin/content_list')}" method="get" target='stafrm'>
         <input type='hidden' name='nullfield' value='ok'>
     </form>
-    <form name="form1" action="{:url('/Admin/CatalogMain/makehtml_archives_action')}" method="get" target='stafrm'>
-        <tr>
-            <td height="28" colspan="2" >
-                <table width="98%" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td width="30%" height="18" style="padding-left:10px;"><strong>更新文档HTML：</strong></td>
-                        <td width="70%" align="right">
-                            <a href="{:url('/Admin/CatalogMain/makehtml_list')}?typeid=<?php echo (isset($typeid) ? $typeid : 0); ?>" class="np coolbg">更新栏目HTML</a>
-                        </td>
-                    </tr>
-                </table></td>
-        </tr>
-        <tr>
-            <td width="108" valign="top" bgcolor="#FFFFFF">选择栏目：</td>
-            <td width="377" valign="top" bgcolor="#FFFFFF">
+    <form name="form1" action="{:url('/Admin/CatalogMain/makehtml_archives_action')}" class="layui-form" method="get" target='stafrm'>
+        <div class="layui-form-item">
+            <div height="28" colspan="2" >
+                <div style="padding-left:10px;float:left;width: 100px"><strong>更新文档HTML：</strong></div>
+                <div style="float: right;width: 200px;text-align:right;margin-right:20px;">
+                    <a href="{:url('/Admin/CatalogMain/makehtml_list')}?typeid=<?php echo (isset($typeid) ? $typeid : 0); ?>" class="np coolbg">更新栏目HTML</a>
+                </div>
+                <div style="clear: none;"></div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:100px;">选择栏目：</label>
+            <div class="layui-input-inline">
                 <select name='typeid' style='width:300px'>
-<!--                    <option value='0' selected='1'>更新所有栏目...</option>-->
+                    <option value='0' selected='1'>更新所有栏目...</option>
                     {volist name="ArctypeAll" id="vo"}
                     <option value="{$vo->id}">{$vo->typename}</option>
                     {/volist}
                 </select>
-            </td>
-        </tr>
-        <tr>
-            <td height="20" valign="top" bgcolor="#FFFFFF">起始ID：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF"><input name="startid" type="text" id="startid" size="10" value="">（空或0表示从头开始）</td>
-        </tr>
-        <tr>
-            <td height="20" valign="top" bgcolor="#FFFFFF">结束ID：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF"><input name="endid" type="text" id="endid" size="10" value="">（空或0表示直到结束ID） </td>
-        </tr>
-        <tr>
-            <td height="20" valign="top" bgcolor="#FFFFFF">更新PC||移动：</td>
+            </div>
+        </div>
 
-            <td height="20" valign="top" bgcolor="#FFFFFF">
-                <input name="uptype" type="radio" value="0" class="mkpc" checked>PC
-                <input name="uptype" type="radio" class="np" value="mkmobile">移动
-            </td>
+        <div class="layui-form-item">
+            <div class="layui-inline" >
+                <label class="layui-form-label" style="width:100px;">起始ID：</label>
+                <div class="layui-input-inline">
+                    <input name="startid" type="text" id="startid" size="10" value="" class="layui-input">
+                    <div class="layui-form-mid layui-word-aux">（空或0表示从头开始）</div>
+                </div>
+            </div>
+            <div class="layui-inline" >
+                <label class="layui-form-label" >结束ID：</label>
+                <div class="layui-input-inline">
+                    <input name="endid" type="text" id="endid" size="10" value="" class="layui-input" />
+                    <div class="layui-form-mid layui-word-aux">（空或0表示直到结束ID）</div>
+                </div>
+            </div>
+        </div>
 
-        </tr>
-        <tr>
-            <td height="20" bgcolor="#FFFFFF">每页生成：</td>
-            <td height="20" bgcolor="#FFFFFF"> <input name="pagesize" type="text" id="pagesize" value="20" size="8">个文件</td>
-        </tr>
-        <tr>
-            <td height="20" colspan="2" bgcolor="#ffffff" align="center">
-                <input name="b112" type="button" class='layui-btn layui-btn-xs' value="开始生成HTML" onClick="document.form1.submit();" style="width:100">
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:100px;">更新PC||移动：</label>
+            <div class="layui-input-block">
+                <input name="uptype" type="radio" value="0" class="mkpc" checked title="PC" >
+                <input name="uptype" type="radio" class="np" value="mkmobile" title="移动">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:100px;">每页生成：</label>
+            <div class="layui-input-inline" style="width:auto;">
+                <input name="pagesize" type="text" id="pagesize" value="20" size="8" class="layui-input" style="width:50px;" >
+            </div>
+            <div class="layui-form-mid layui-word-aux">个文件</div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input name="b112" type="button" class='layui-btn layui-btn-sm' value="开始生成HTML" onClick="document.form1.submit();" >
                 <?php if($cfg_remote_site=='Y'){ ?>
                 <input name="isremote" type="checkbox" id="isremote" value="1">
                 是否同步远程发布到
                 <?php GetFtp();?>
                 <?php } ?>
-                &nbsp;
-                <input type="button" name="b113" value="查看所有文档"  class='layui-btn layui-btn-xs' onClick="document.form2.submit();" style="width:100"></td>
-        </tr>
+                <input type="button" name="b113" value="查看所有文档"  class='layui-btn layui-btn-sm' onClick="document.form2.submit();"></div>
+        </div>
     </form>
+
+<table width="98%" border="1" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" align="center">
     <tr bgcolor="#F9FCEF">
         <td height="20" colspan="2"> <table width="100%">
             <tr>

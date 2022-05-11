@@ -112,7 +112,7 @@ layui.use(['table', 'jquery'], function(){
         var tr = obj.tr;
         if(layEvent === 'del'){
             layer.confirm('真的删除行么', function(index) {
-                $.post("{:url('catalog_del')}", {id:data.id}, function (objs) {
+                $.post("{:url('article_del')}", {id:data.id}, function (objs) {
                     if(objs.code == 200) {
                         layer.msg(objs.msg, {icon: 1}, function () {
                             obj.del();
@@ -124,7 +124,7 @@ layui.use(['table', 'jquery'], function(){
                 }, 'json');
             })
         }else if(layEvent === 'edit'){
-            window.location.href = "{:url('catalog_edit')}?id=" +data.id;
+            window.location.href = "{:url('article_edit')}?aid=" +data.id;
         }
 
     })

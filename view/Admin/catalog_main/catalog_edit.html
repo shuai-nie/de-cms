@@ -55,8 +55,8 @@
                     <lable class='layui-form-label' style="width:100px;"> 排列顺序： </lable>
                     <div class='layui-input-inline'>
                         <input name="sortrank" size="6" type="text" value="<?php echo $myrow['sortrank']?>" class="layui-input" />
-                        （由低 -&gt; 高）
                     </div>
+                    <div class="layui-form-mid layui-word-aux">（由低 -&gt; 高）</div>
                 </div>
 
                 <div class="layui-form-item">
@@ -71,8 +71,8 @@
                         {/if}
                         {/volist}
                     </select>
-                        (仅限制栏目里的文档浏览权限)
                     </div>
+                    <div class="layui-form-mid layui-word-aux">(仅限制栏目里的文档浏览权限)</div>
                 </div>
 
                 <div class="layui-form-item">
@@ -109,7 +109,7 @@
 
                 <div class="layui-form-item">
                     <label class="layui-form-label" style="width: 100px;">栏目交叉说明： </label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-block layui-word-aux">
                         交叉栏目是指一个大栏目与另一个非下级的子栏目出现交叉的情况，相当于系统原来的副栏目功能，不过现在改在栏目里预先设置好。<br />例如：
                         网站上有大栏目——智能手机、音乐手机，另外又有栏目——诺基亚-&gt;智能手机、诺基亚-&gt;音乐手机，这样顶级的大栏目就和另一个大栏目的子栏目形成了交叉，这样只需要在大栏目中指定交叉的栏目即可。
                         <br />注：会自动索引交叉栏目的内容，但不会索引交叉栏目下级栏目的内容，这种应用也适用于按地区划分资讯的站点。
@@ -153,144 +153,150 @@
                 </tr>
             </table>
             <div class="layui-form-item">
-                <button class="layui-btn layui-btn-sm" lay-submit="submit" lay-filter="submit">提交</button>
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="submit" lay-filter="submit">提交</button>
+                </div>
             </div>
         </div>
 
         <div class="layui-tab-item">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align:left;" id="adset">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">多站点支持：</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="moresite" value="0" <?php if($myrow['moresite']==0) echo " checked ";?> title='不启用' />
-                        <input type="radio" name="moresite" value="1" <?php if($myrow['moresite']==1) echo " checked ";?> title='启用' />
-                    </div>
-                </div>
-
-                <div class="layui-form-item" style="display:none;">
-                    <label class="layui-form-label">说明：</label>
-                    <div class="layui-input-block">绑名绑定仅需要在顶级栏目设定，子级栏目更改无效。</div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">绑定域名：</label>
-                    <div class="layui-input-block">
-                        <input name="siteurl" type="text" id="siteurl" size="35" value="<?php echo $myrow['siteurl']?>" class="layui-input" />
-                        (需加 http://，一级或二级域名的根网址)
-                    </div>
-                </div>
-                <div>
-                    <label class="layui-form-label">站点根目录：</label>
-                    <div class="layui-input-block">
-                        为简化操作，站点根目录与当前栏目目录一致，请注意当前栏目文件保存目录的设置，域名需自行手工绑定到这个目录。
-                    </div>
-                </div>
-
-                <div style='display:none'>
-                    <label class="layui-form-label">支持变量： </label>
-                    <div class="layui-input-block">
-                        {tid}表示栏目ID，<br>
-                        {cid}表示频道模型的'名字ID' <font color='#888888'> （
-                            {volist name="channelArray" id="vo"}
-                                {$vo['typename']}({$vo['nid']})
-                            {/volist}
-                            ） </font> <br/>
-                        模板文件的默认位置是放在模板目录 "cms安装目录
-                        <?php echo $cfg_templets_dir ?>
-                        " 内。
-                        <input type='hidden' value='{style}' name='dfstyle' />
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">封面模板：</label>
-                    <div class="layui-input-block">
-                        <input name="tempindex" type="text" value="<?php echo $myrow['tempindex']?>" style="width:300px" class="layui-input" />
-                        <!--<input type="button" name="set1" value="浏览..." class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.tempindex');"/>-->
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">列表模板：</label>
-                    <div class="layui-input-inline">
-                        <input name="templist" type="text" value="<?php echo $myrow['templist']?>" class="layui-input" style="width:300px;" />
-                        <!--<input type="button" name="set3" value="浏览..." class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.templist');"/>-->
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">文章模板：</label>
-                    <div class="layui-input-inline">
-                        <input name="temparticle" type="text" value="<?php echo $myrow['temparticle']?>" class="layui-input" style="width:300px" />
-                        <!--<input type="button" name="set4" value="浏览..." class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.temparticle');"/>-->
-                    </div>
-                </div>
-
-                <div class="layui-form-item" id='helpvar2' style='display:none'>
-                    <label class="layui-form-label">支持变量： </label>
-                    <div class="layui-form-item"> {Y}、{M}、{D} 年月日<br/>
-                        {timestamp} INT类型的UNIX时间戳<br/>
-                        {aid} 文章ID<br/>
-                        {pinyin} 拼音+文章ID<br/>
-                        {py} 拼音部首+文章ID<br/>
-                        {typedir} 栏目目录 <br/>
-                        {cc} 日期+ID混编后用转换为适合的字母 <br/>
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">文章命名规则：</label>
-                    <div class="layui-input-inline">
-                        <input name="namerule" type="text" id="namerule" value="<?php echo $myrow['namerule']?>" size="40" class="layui-input" style="width:300px;" />
-                    </div>
-                </div>
-
-                <div class="layui-form-item" style='display:none'>
-                    <label class="layui-form-label">支持变量： </label>
-                    <div>{page} 列表的页码</div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">列表命名规则：</label>
-                    <div class="layui-input-inline">
-                        <input name="namerule2" type="text" id="namerule2" value="<?php echo $myrow['namerule2']?>" size="40" class="layui-input" />
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">SEO标题：</label>
-                    <div class="layui-input-inline">
-                        <input name="seotitle" type="text" style="width:250px" id="seotitle" class="layui-input" value="<?php echo $myrow['seotitle']?>" />
-                        (栏目模板里用调用)
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">关键字：</label>
-                    <div class="layui-input-block">
-                        <textarea name="keywords" cols="70" rows="4" id="keywords"  class="layui-textarea" ><?php echo $myrow['keywords']?></textarea>
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">栏目描述：</label>
-                    <div class="layui-input-block" >
-                        <textarea name="description" cols="70" style="height:50px" rows="4" id="description" class="layui-textarea" >
-                            <?php echo $myrow['description']?>
-                        </textarea>
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">继承选项：</label>
-                    <div class="layui-input-inline">
-                        <input name="upnext" type="checkbox" id="upnext" value="1" />
-                        同时更改下级栏目的浏览权限、内容类型、模板风格、命名规则等通用属性
-                    </div>
-                </div>
-            </table>
 
             <div class="layui-form-item">
-                <button lay-submit class="layui-btn layui-btn-sm" lay-filter="submit">提交</button>
+                <label class="layui-form-label">多站点支持：</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="moresite" value="0" <?php if($myrow['moresite']==0) echo " checked ";?> title='不启用' />
+                    <input type="radio" name="moresite" value="1" <?php if($myrow['moresite']==1) echo " checked ";?> title='启用' />
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="display:none;">
+                <label class="layui-form-label">说明：</label>
+                <div class="layui-input-block ">
+                    绑名绑定仅需要在顶级栏目设定，子级栏目更改无效。
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">绑定域名：</label>
+                <div class="layui-input-inline">
+                    <input name="siteurl" type="text" id="siteurl" size="35" value="<?php echo $myrow['siteurl']?>" class="layui-input" />
+                </div>
+                <div class="layui-form-mid layui-word-aux">(需加 http://，一级或二级域名的根网址)</div>
+            </div>
+            <div>
+                <label class="layui-form-label">站点根目录：</label>
+                <div class="layui-input-block ">
+                    <div class="layui-form-mid layui-word-aux">为简化操作，站点根目录与当前栏目目录一致，请注意当前栏目文件保存目录的设置，域名需自行手工绑定到这个目录。</div>
+                </div>
+            </div>
+
+            <div style='display:none'>
+                <label class="layui-form-label">支持变量： </label>
+                <div class="layui-input-block">
+                    {tid}表示栏目ID，<br>
+                    {cid}表示频道模型的'名字ID' <font color='#888888'> （
+                        {volist name="channelArray" id="vo"}
+                            {$vo['typename']}({$vo['nid']})
+                        {/volist}
+                        ） </font> <br/>
+                    模板文件的默认位置是放在模板目录 "cms安装目录
+                    <?php echo $cfg_templets_dir ?>
+                    " 内。
+                    <input type='hidden' value='{style}' name='dfstyle' />
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">封面模板：</label>
+                <div class="layui-input-block">
+                    <input name="tempindex" type="text" value="<?php echo $myrow['tempindex']?>" style="width:300px" class="layui-input" />
+                    <!--<input type="button" name="set1" value="浏览..." class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.tempindex');"/>-->
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">列表模板：</label>
+                <div class="layui-input-inline">
+                    <input name="templist" type="text" value="<?php echo $myrow['templist']?>" class="layui-input" style="width:300px;" />
+                    <!--<input type="button" name="set3" value="浏览..." class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.templist');"/>-->
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">文章模板：</label>
+                <div class="layui-input-inline">
+                    <input name="temparticle" type="text" value="<?php echo $myrow['temparticle']?>" class="layui-input" style="width:300px" />
+                    <!--<input type="button" name="set4" value="浏览..." class="layui-btn layui-btn-xs" style="width:60px" onClick="SelectTemplets('form1.temparticle');"/>-->
+                </div>
+            </div>
+
+            <div class="layui-form-item" id='helpvar2'  >
+                <label class="layui-form-label">支持变量： </label>
+                <div class="layui-input-block layui-word-aux">
+                    {Y}、{M}、{D} 年月日<br/>
+                    {timestamp} INT类型的UNIX时间戳<br/>
+                    {aid} 文章ID<br/>
+                    {pinyin} 拼音+文章ID<br/>
+                    {py} 拼音部首+文章ID<br/>
+                    {typedir} 栏目目录 <br/>
+                    {cc} 日期+ID混编后用转换为适合的字母 <br/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">文章命名规则：</label>
+                <div class="layui-input-block">
+                    <input name="namerule" type="text" id="namerule" value="<?php echo $myrow['namerule']?>" size="40" class="layui-input" style="width:300px;" />
+                </div>
+            </div>
+
+            <div class="layui-form-item" style='display:none'>
+                <label class="layui-form-label">支持变量： </label>
+                <div>{page} 列表的页码</div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">列表命名规则：</label>
+                <div class="layui-input-inline">
+                    <input name="namerule2" type="text" id="namerule2" value="<?php echo $myrow['namerule2']?>" size="40" class="layui-input" style="width:300px;" />
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">SEO标题：</label>
+                <div class="layui-input-inline">
+                    <input name="seotitle" type="text" id="seotitle" class="layui-input" value="<?php echo $myrow['seotitle']?>" style="width:300px;" />
+                    (栏目模板里用调用)
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">关键字：</label>
+                <div class="layui-input-block">
+                    <textarea name="keywords" cols="70" rows="4" id="keywords"  class="layui-textarea" ><?php echo $myrow['keywords']?></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">栏目描述：</label>
+                <div class="layui-input-block" >
+                    <textarea name="description" cols="70" style="height:50px" rows="4" id="description" class="layui-textarea" >
+                        <?php echo $myrow['description']?>
+                    </textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="display:none;">
+                <label class="layui-form-label">继承选项：</label>
+                <div class="layui-input-inline">
+                    <input name="upnext" type="checkbox" id="upnext" value="1"  />
+                </div>
+                <div class="layui-form-mid layui-word-aux">同时更改下级栏目的浏览权限、内容类型、模板风格、命名规则等通用属性</div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button lay-submit class="layui-btn layui-btn-sm" lay-filter="submit">提交</button>
+                </div>
             </div>
         </div>
     </div>

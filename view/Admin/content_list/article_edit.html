@@ -1,13 +1,13 @@
 {extend name="public:base" /}
 
 {block name="style"}
-<script type="text/javascript" src="/static/lib/ueditor1_4_3/ueditor.config.js"></script>
+<script type="text/javascript" src="/static/lib/ueditor1_4_3/ueditor.config.js" xmlns="http://www.w3.org/1999/html"></script>
 <script type="text/javascript" src="/static/lib/ueditor1_4_3/ueditor.all.js"></script>
 {/block}
 
 {block name="content"}
 
-<form action="{:url('')}" method="post" >
+<form action="{:url('')}" method="post" class="layui-form" >
 
 <div class="layui-tab" lay-filter="CatalogMain_catalog_add" >
     <ul class="layui-tab-title">
@@ -17,301 +17,294 @@
     <div class="layui-tab-content">
         <div class="layui-tab-item layui-show">
 
-                <input type="hidden" name="dopost" value="save" />
-                <input type="hidden" name="channelid" value="<?php echo $channelid?>" />
-                <input type="hidden" name="id" value="<?php echo $aid?>" />
-                <table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="needset" style="border:1px solid #cfcfcf;background:#ffffff;">
-                    <tr>
-                        <td height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;文章标题：</td>
-                                <td width='408'><input name="title" type="text" id="title" value="<?php echo $arcRow['title']; ?>" style="width:388px"></td>
-                                <td width="90">&nbsp;简略标题：</td>
-                                <td><input name="shorttitle" type="text" id="shorttitle" style="width:150px"  value="<?php echo $arcRow['shorttitle']; ?>"></td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                    <tr>
-                        <td width="400%" height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;自定义属性：</td>
-                                <td>
-                                    {volist name="ArcattAll" id="vo"}
-                                    <?php
-                                    if($vo->att == 'j'){
-                                        $jumpclick = " onclick='ShowUrlTr()'";
-                                    }else{
-                                        $jumpclick = '';
-                                    }
+            <input type="hidden" name="dopost" value="save" />
+            <input type="hidden" name="channelid" value="<?php echo $channelid?>" />
+            <input type="hidden" name="id" value="<?php echo $aid?>" />
+            <!--<table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="needset" style="border:1px solid #cfcfcf;background:#ffffff;">-->
 
-                                    if(preg_match("#".$vo->att."#", $arcRow['flag'])){
-                                        echo "<input class='np' type='checkbox' name='flags[]' id='flags{$vo->att}' value='{$vo->att}' ".$jumpclick." checked='checked' />".$vo->attname."[".$vo->att."]";
-                                    }else{
-                                        echo "<input class='np' type='checkbox' name='flags[]' id='flags".$vo->att."' value='".$vo->att."' ".$jumpclick." />".$vo->attname.'['.$vo->att.']';
-                                    }
-                                    ?>
-                                    {/volist}
-                                    </td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                    <tr>
-                        <td height="24" colspan="2" class="bline" id="redirecturltr" style="display:<?php echo (empty($addRow['redirecturl']) ? 'none' : 'block');?>"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;跳转网址：</td>
-                                <td><input name="redirecturl" type="text" id="redirecturl" style="width:300px" value="<?php echo $addRow["redirecturl"]?>" /></td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                    <tr>
-                        <td width="400%" height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;TAG标签：</td>
-                                <td><input name="tags" type="text" id="tags" value="<?php echo $tags; ?>" style="width:300px" />
-                                    (','号分开，单个标签小于12字节)</td>
-                                <td width="40">权重：</td>
-                                <td width="141"><input name="weight" type="text" id="weight" style="width:50px" value="<?php echo $arcRow['weight'];?>" />
-                                    (越小越靠前)</td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                    <tr id="pictable">
-                        <td height="24" colspan="2" class="bline">
-                            <table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90" height="81">&nbsp;缩 略 图：<br/></td>
-                                <td>
-                                    <div id="img">
-                                        <img src="{$arcRow['litpic']|default='/storage/pview.gif'}" width="100" height="100" />
-                                    </div>
-                                    <input name="picname" type="hidden" id="picname" style="width:300px" value="{$arcRow['litpic']}">
-                                    <div class="layui-input-block">
-                                        <button type="button" class="layui-btn layui-btn-xs" id="test1">
-                                            <i class="layui-icon">&#xe67c;</i>上传图片
-                                        </button>
-                                    </div>
+            <div class="layui-form-item">
 
-                                </td>
-                                <td align="center">
-                                    <input type='checkbox' class='np' name='ddisremote' value='1' />远程
-                                </td>
-                            </tr>
-                        </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;文章来源：</td>
-                                <td width="250">
-                                    <input name="source" type="text" id="source" style="width:160px" value="{$arcRow['source']}" size="16">
-                                </td>
-                                <td width="90">作　者：</td>
-                                <td>
-                                    <input name="writer" type="text" id="writer" style="width:120px" value="{$arcRow['writer']}">
-                                </td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                    <tr>
-                        <td height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;文章主栏目：</td>
-                                <td>
-                                    <select name='typeid' id='typeid' style='width:240px'>
-                                        <option value="0">请选择</option>
-                                        {volist name="ArctypeAll" id="vo"}
-                                            <option {if condition="$arcRow['typeid'] eq $vo['id'] "}selected{/if} value="{$vo->id}">{$vo->typename}</option>
-                                        {/volist}
-                                    </select>
-                                    {if condition="$cfg_remote_site eq 'Y'"}
-                                    <input name="isremote" type="checkbox" id="isremote" value="1" {if condition="$cfg_title_site eq 'Y'"}checked{/if} >是否同步远程发布
-                                    {/if}
+                <div class="layui-inline">
+                    <label class="layui-form-label">&nbsp;文章标题：</label>
+                    <div class="layui-input-inline">
+                        <input name="title" type="text" id="title" value="<?php echo $arcRow['title']; ?>" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">&nbsp;简略标题：</label>
+                    <div class="layui-input-inline">
+                        <input name="shorttitle" type="text" id="shorttitle" style="width:150px"  value="<?php echo $arcRow['shorttitle']; ?>" class="layui-input" />
+                    </div>
+                </div>
+            </div>
 
-                                </td>
-                            </tr>
-                        </table></td>
-                    </tr>
+            <div class="layui-form-item" style="display:none;">
+                <label class="layui-form-label">&nbsp;自定义属性：</label>
+                <div class="layui-input-block">
+                    {volist name="ArcattAll" id="vo"}
+                    <?php
+                    if($vo->att == 'j'){
+                        $jumpclick = " onclick='ShowUrlTr()'";
+                    }else{
+                        $jumpclick = '';
+                    }
 
-                    {if condition="$cfg_need_typeid2 eq 'Y'"}
-                    <tr>
-                        <td height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;文章副栏目：</td>
-                                <td><span id='typeid2ct'></span>
-                                    <input type='text' name='typeid2' id='typeid2' value='<?php echo ($arcRow['typeid2']=='0' ? '' : $arcRow['typeid2']); ?>' style='width:200px;' />
-                                    <img src='images/menusearch2.gif' style='cursor:pointer;' onClick="ShowCatMap(event, this, <?php echo $channelid; ?>, 'typeid2', '<?php echo $arcRow['typeid2']; ?>')" alt='选择副栏目' title='选择副栏目' /></td>
-                            </tr>
-                        </table></td>
-                    </tr>
+                    if(preg_match("#".$vo->att."#", $arcRow['flag'])){
+                        echo "<input class='np' type='checkbox' name='flags[]' id='flags{$vo->att}' value='{$vo->att}' ".$jumpclick." checked='checked' title=".$vo->attname."[".$vo->att."] />";
+                    }else{
+                        echo "<input class='np' type='checkbox' name='flags[]' id='flags".$vo->att."' value='".$vo->att."' ".$jumpclick." />".$vo->attname.'['.$vo->att.']';
+                    }
+                    ?>
+                    {/volist}
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">&nbsp;跳转网址：</label>
+                <div class="layui-input-block">
+                    <input name="redirecturl" type="text" id="redirecturl" class="layui-input" style="width:300px" value="<?php echo $addRow["redirecturl"]?>" />
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">TAG标签：</label>
+                    <div class="layui-input-inline" style="width:300px">
+                        <input name="tags" type="text" id="tags" value="<?php echo $tags; ?>"  class="layui-input" />
+                        (','号分开，单个标签小于12字节)
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">权重：</label>
+                    <div class="layui-input-inline">
+                        <input name="weight" type="text" id="weight" style="width:50px" value="<?php echo $arcRow['weight'];?>" class="layui-input" />
+                        (越小越靠前)
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">&nbsp;缩 略 图：</label>
+                <div class="layui-input-inline">
+                    <input name="picname" type="hidden" id="picname" style="width:300px" value="{$arcRow['litpic']}">
+                    <button type="button" class="layui-btn layui-btn-sm" id="test1">
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </button>
+                    <div id="img">
+                        <img src="{$arcRow['litpic']|default='/storage/pview.gif'}" width="100" height="100" />
+                    </div>
+                </div>
+                <input type='checkbox' class='np' name='ddisremote' value='1' title="远程" />
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">&nbsp;文章来源：</label>
+                    <div class="layui-input-inline">
+                        <input name="source" type="text" id="source" value="{$arcRow['source']}" size="16" class="layui-input" >
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label>作　者：</label>
+                    <div class="layui-input-inline">
+                        <input name="writer" type="text" id="writer" style="width:120px" value="{$arcRow['writer']}" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">&nbsp;文章主栏目：</label>
+                <div class="layui-input-inline">
+                    <select name='typeid' id='typeid' style='width:240px'>
+                        <option value="0">请选择</option>
+                        {volist name="ArctypeAll" id="vo"}
+                            <option {if condition="$arcRow['typeid'] eq $vo['id'] "}selected{/if} value="{$vo->id}">{$vo->typename}</option>
+                        {/volist}
+                    </select>
+                    {if condition="$cfg_remote_site eq 'Y'"}
+                    <input name="isremote" type="checkbox" id="isremote" value="1" {if condition="$cfg_title_site eq 'Y'"}checked{/if} title='是否同步远程发布' >
                     {/if}
+                </div>
+            </div>
 
-                    <tr>
-                        <td colspan="2"></td>
-                    </tr>
-                    <tr>
-                        <td height="24" colspan="2" bgcolor="#F9FCEF" class="bline2">&nbsp;文章内容：</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <script id="container" name="body" type="text/plain">{$addRow['body']|raw}</script>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="400%" height="24" colspan="2" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td width="90">&nbsp;附加选项：</td>
-                                <td><input name="remote" type="checkbox" class="np" id="remote" value="1" checked>
-                                    下载远程图片和资源
-                                    <input name="autolitpic" type="checkbox" class="np" id="autolitpic" value="1" checked>
-                                    提取第一个图片为缩略图 </td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                    <tr>
-                        <td width="100%"></td>
-                        <td width="255" align="center" valign="top" bgcolor="#FFFFCC" id="mPic" style="display:none"><div class="multipic">
-                            <div style="display: block;background-color:#E5F1CF; height:26px"> <span id="spanButtonPlaceholder"></span> </div>
-                            <div id="divFileProgressContainer"></div>
+            {if condition="$cfg_need_typeid2 eq 'Y'"}
+            <div class="layui-form-item">
+                <label class="layui-form-label">&nbsp;文章副栏目：</label>
+                <div class="layui-input-inline">
+                    <span id='typeid2ct'></span>
+                    <input type='text' name='typeid2' id='typeid2' value='<?php echo ($arcRow['typeid2']=='0' ? '' : $arcRow['typeid2']); ?>' style='width:200px;' />
+                    <img src='images/menusearch2.gif' style='cursor:pointer;' onClick="ShowCatMap(event, this, <?php echo $channelid; ?>, 'typeid2', '<?php echo $arcRow['typeid2']; ?>')" alt='选择副栏目' title='选择副栏目' />
+                </div>
+            </div>
+            {/if}
+
+            <div class="layui-form-item">
+                <lable class="layui-form-label">&nbsp;文章内容：</lable>
+                <div class="layui-input-block">
+                    <script id="container" name="body" type="text/plain">{$addRow['body']|raw}</script>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">&nbsp;附加选项：</label>
+                <div class="layui-input-block">
+                    <input name="remote" type="checkbox" class="np" id="remote" value="1" checked title="下载远程图片和资源">
+                    <input name="autolitpic" type="checkbox" class="np" id="autolitpic" value="1" checked title="提取第一个图片为缩略图">
+                </div>
+            </div>
 
 
-                            <div id="thumbnailsEdit" style="width: 254px; height: 535px; background-color: rgb(255, 255, 255); overflow-y: scroll;">
-                                {volist name="trow" id="vo"}
-                                <div class="albCt" id="albold{$vo['aid']}">
-                                    <img width="120" onclick="addtoEditOld('<?php echo $trow['url'];?>',<?php echo $trow['aid'];?>)" src="<?php echo $trow['url'];?>" style="cursor:pointer">
-                                    <a href="javascript:delAlbPicOld('<?php echo $trow['url'];?>', <?php echo $trow['aid'];?>)">[删除]</a>
-                                    <div style="margin-top:10px">注释：
-                                        <input type="text" style="width:100px;" value="<?php echo $trow['title'];?>" name="picinfook<?php echo $trow['aid'];?>">
-                                    </div>
-                                </div>
-                                {/volist}
-                                <div id="thumbnails"></div>
+
+            <div>
+                <div width="100%"></div>
+                <div width="255" align="center" valign="top" bgcolor="#FFFFCC" id="mPic" style="display:none">
+                    <div class="multipic">
+                    <div style="display: block;background-color:#E5F1CF; height:26px"> <span id="spanButtonPlaceholder"></span> </div>
+                    <div id="divFileProgressContainer"></div>
+
+
+                    <div id="thumbnailsEdit" style="width: 254px; height: 535px; background-color: rgb(255, 255, 255); overflow-y: scroll;">
+                        {volist name="trow" id="vo"}
+                        <div class="albCt" id="albold{$vo['aid']}">
+                            <img width="120" onclick="addtoEditOld('<?php echo $trow['url'];?>',<?php echo $trow['aid'];?>)" src="<?php echo $trow['url'];?>" style="cursor:pointer">
+                            <a href="javascript:delAlbPicOld('<?php echo $trow['url'];?>', <?php echo $trow['aid'];?>)">[删除]</a>
+                            <div style="margin-top:10px">注释：
+                                <input type="text" style="width:100px;" value="<?php echo $trow['title'];?>" name="picinfook<?php echo $trow['aid'];?>">
                             </div>
-
-                        </div></td>
-                    </tr>
-                </table>
+                        </div>
+                        {/volist}
+                        <div id="thumbnails"></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+                <!--</table>-->
 
 
         </div>
 
         <div class="layui-tab-item ">
             <!-- //高级参数 -->
-            <table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="adset" style="border:1px solid #cfcfcf;background:#ffffff;">
-                <tr>
-                    <td height="24" colspan="4" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td  width="110" height="22">&nbsp;评论选项：</td>
-                            <td width="250"><input type='radio' name='notpost' class='np' value='0'<?php if($arcRow['notpost']==0) echo " checked='1' "; ?>/>
-                                允许评论
-                                &nbsp;
-                                <input type='radio' name='notpost' class='np' value='1'<?php if($arcRow['notpost']==1) echo " checked='1' "; ?>/>
-                                禁止评论 </td>
-                            <td width="90">浏览次数：</td>
-                            <td><input type='text' name='click' value='{$arcRow["click"]}' style='width:100px;' /></td>
-                        </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td height="24" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="110">&nbsp;文章排序：</td>
-                            <td width="250">
-                                <select name="sortup" id="sortup" style="width:150px;">
-                                    <option value='0'>正常排序</option>
-                                    <option value="7">置顶一周</option>
-                                    <option value="30">置顶一个月</option>
-                                    <option value="90">置顶三个月</option>
-                                    <option value="180">置顶半年</option>
-                                    <option value="360">置顶一年</option>
-                                </select>
-                            </td>
-                            <td width="90">标题颜色：</td>
-                            <td><input name="color" type="text" id="color" style="width:120" value="<?php echo $arcRow["color"]?>">
-                                <input name="modcolor" type="button" id="modcolor" value="选取" onClick="ShowColor(event,this)"></td>
-                        </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td height="24" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="110">&nbsp;阅读权限：</td>
-                            <td width="250">
-                                <select name="arcrank" id="arcrank" style="width:150">
-                                    <option value='<?php echo $arcRow["arcrank"]?>'> <?php echo $arcRow["rankname"]?> </option>
-                                    {volist name="ArcattAll" id="vo"}
-                                    <option value='{$vo->rank}'>{$vo->membername}</option>
-                                    {/volist}
-                                </select>
-                            </td>
-                            <td width="90">发布选项：</td>
-                            <td><input name="ishtml" type="radio" class="np" value="1"<?php if($arcRow["ismake"]!=-1) echo " checked";?>>
-                                生成HTML
-                                <input type="radio" name="ishtml" class="np" value="0"<?php if($arcRow["ismake"]==-1) echo " checked";?>>
-                                仅动态浏览 </td>
-                        </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td height="75" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="110">&nbsp;更新时间：</td>
-                            <td width="250">
-                                    <input name="pubdate" value="{$nowtime|date='Y-m-d H:i:s'}" type="text" id="pubdate" style="width:120px;">
-                            </td>
-                            <td width="92">消费金币：</td>
-                            <td width="368"><input name="money" type="text" id="money" value="<?php echo $arcRow["money"]?>" size="10"></td>
-                        </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td height="24" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="110" height="51">&nbsp;关键字：</td>
-                            <td><input type="text"  name="keywords"  id="keywords" style="width:60%" value="<?php echo $arcRow["keywords"]?>" /></td>
-                        </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td height="24" class="bline"><table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="110" height="51">&nbsp;文章摘要：</td>
-                            <td><textarea name="description" rows="5" id="description" style="width:80%">{$arcRow["description"]}</textarea></td>
-                        </tr>
-                    </table></td>
-                </tr>
-                <tr>
-                    <td height="24" colspan="4">
-                        <table width="800" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="110">&nbsp;自定义文件名：</td>
-                            <td>
-                                <input type="text" name="filename" id="filename" value="<?php echo $arcRow["filename"]?>" />
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">&nbsp;评论选项：</label>
+                        <div class="layui-input-inline" style="width:350px;">
+                            <input type='radio' name='notpost' class='np' value='0'<?php if($arcRow['notpost']==0) echo " checked='1' "; ?> title='允许评论' />
+                            <input type='radio' name='notpost' class='np' value='1'<?php if($arcRow['notpost']==1) echo " checked='1' "; ?> title='禁止评论 ' />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">浏览次数：</label>
+                        <div class="layui-input-inline">
+                            <input type='text' name='click' value='{$arcRow["click"]}' style='width:100px;' class="layui-input" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">&nbsp;文章排序：</label>
+                        <div class="layui-input-inline">
+                            <select name="sortup" id="sortup" style="width:150px;">
+                                <option value='0'>正常排序</option>
+                                <option value="7">置顶一周</option>
+                                <option value="30">置顶一个月</option>
+                                <option value="90">置顶三个月</option>
+                                <option value="180">置顶半年</option>
+                                <option value="360">置顶一年</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">标题颜色：</label>
+                        <div class="layui-input-inline">
+                            <input name="color" type="text" id="color" value="{$arcRow['color']}" class="layui-input" >
+                        </div>
+                        <input name="modcolor" type="button" id="modcolor" value="选取" onClick="ShowColor(event,this)" class="layui-btn" />
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">&nbsp;阅读权限：</label>
+                        <div class="layui-input-inline">
+                            <select name="arcrank" id="arcrank" >
+                                <option value='<?php echo $arcRow["arcrank"]?>'> <?php echo $arcRow["rankname"]?> </option>
+                                {volist name="ArcattAll" id="vo"}
+                                <option value='{$vo->rank}'>{$vo->membername}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">发布选项：</label>
+                        <div class="layui-input-block">
+                            <input name="ishtml" type="radio" class="np" value="1"<?php if($arcRow["ismake"]!=-1) echo " checked";?> title='生成HTML' />
+                            <input type="radio" name="ishtml" class="np" value="0"<?php if($arcRow["ismake"]==-1) echo " checked";?> title='仅动态浏览' >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">&nbsp;更新时间：</label>
+                        <div class="layui-input-inline">
+                            <input name="pubdate" value="{$nowtime|date='Y-m-d H:i:s'}" type="text" id="pubdate" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">消费金币：</label>
+                        <div class="layui-input-inline">
+                            <input name="money" type="text" id="money" value="<?php echo $arcRow["money"]?>" size="10" class='layui-input' />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">&nbsp;关键字：</label>
+                    <div class="layui-input-block">
+                        <input type="text"  name="keywords"  id="keywords" style="width:60%" value="<?php echo $arcRow["keywords"]?>" class='layui-input' />
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">&nbsp;文章摘要：</label>
+                    <div class="layui-input-block">
+                        <textarea name="description" rows="5" id="description" class="layui-textarea">{$arcRow["description"]}</textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">&nbsp;自定义文件名：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="filename" id="filename" value="<?php echo $arcRow["filename"]?>" class='layui-input' />
                                 （不包括后缀名如.html等）
-                            </td>
-                            <td><?php
-                                      if(isset($cfg_tamplate_rand) && $cfg_tamplate_rand==1){
-                                      ?>
-                                模板选择：
-                                <select name='templet' id='templet' style='width:200px' size='1'>
-                                    <?php
-                                            foreach($cfg_tamplate_arr as $k=>$v){
-                                    $v = trim($v);
-                                    echo ($v==$addRow['templet'] ? "<option value='$v' selected>$v</option>\r\n" : "<option value='$v'>$v</option>\r\n");
-                                    }
-                                    ?>
-                                </select>
-                                <?php
-	                                }else{
-	                                ?>
-                                <input type='hidden' name='templet' value='{$addRow['templet']}' />
-                                <?php
-                                    }
-                                    ?></td>
-                        </tr>
-                    </table></td>
-                </tr>
-            </table>
+                            </div>
+                        </div>
+                    <?php if(isset($cfg_tamplate_rand) && $cfg_tamplate_rand==1){ ?>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">模板选择</label>
+                        <div class="layui-input-inline">
+                        <select name='templet' id='templet' style='width:200px' size='1'>
+                            <?php
+                            foreach($cfg_tamplate_arr as $k=>$v){
+                                $v = trim($v);
+                                echo ($v==$addRow['templet'] ? "<option value='$v' selected>$v</option>\r\n" : "<option value='$v'>$v</option>\r\n");
+                            }
+                            ?>
+                        </select>
+                        <?php }else{ ?>
+                        <input type='hidden' name='templet' value='{$addRow['templet']}' />
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
+
+
+
             <table width="98%"  border="0" align="center" cellpadding="2" cellspacing="2" id="voteset" style="display:none;">
                 <tr>
                     <td height="30"><table width="800" border="0" cellspacing="0" cellpadding="0">

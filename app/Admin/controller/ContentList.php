@@ -299,9 +299,9 @@ class ContentList extends Base
         $cid       = empty($cid) ? 0 : intval($cid);
         if (empty($geturl)) $geturl = '';
 
-        $ArcattAll = Arcatt::where("")->order('sortid asc')->select();
+        $ArcattAll = Arcatt::where([])->order('sortid asc')->select();
 
-        $ArchivesCount = Archives::where("")->count();
+        $ArchivesCount = Archives::where([])->count();
 
         $arcRow = Archives::alias('A')
             ->leftJoin(Channeltype::getTable() . " B", "B.id=A.channel")
