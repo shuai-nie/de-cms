@@ -1,60 +1,64 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table width="98%" border="1" cellpadding="3" cellspacing="1" bgcolor="#D6D6D6" align="center" class="layui-table">
+
     <form name="form1" action="{:url('Admin/CatalogMain/makehtml_list_action')}" method="get" target='stafrm' class="layui-form">
-        <tr>
-            <td >更新栏目HTML：</td>
-            <td>
-                <a href="{:url('/Admin/CatalogMain/makehtml_archives', ['typeid'=>0])}" class="layui-btn layui-btn-xs">更新文档HTML</a>
-                <a href="{:url('/Admin/catalog_main')}" class="layui-btn layui-btn-xs">栏目管理</a>
-            </td>
-        </tr>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:120px;" >更新栏目HTML：</label>
+            <div class="layui-input-block" style="text-align: right;">
+                <a href="{:url('/Admin/CatalogMain/makehtml_archives', ['typeid'=>0])}" class="layui-btn layui-btn-sm">更新文档HTML</a>
+                <a href="{:url('/Admin/catalog_main')}" class="layui-btn layui-btn-sm">栏目管理</a>
+            </div>
+        </div>
 
-        <tr>
-            <td height="20" valign="top" bgcolor="#FFFFFF">更新PC||移动：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF">
-                <input name="uptype" type="radio" value="0" class="mkpc" checked>PC
-                <input name="uptype" type="radio" class="np" value="mkmobile">移动
-            </td>
-        </tr>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 120px;">更新PC||移动：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="uptype" value="0" checked title="PC" >
+                <input type="radio" name="uptype" value="mkmobile" title="移动">
+            </div>
+        </div>
 
-        <tr>
-            <td width="108" valign="top" bgcolor="#FFFFFF">选择栏目：</td>
-            <td width="377" valign="top" bgcolor="#FFFFFF">
-                <select name='typeid' style='width:300px'>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:120px;">选择栏目：</label>
+            <div class="layui-input-inline">
+                <select name='typeid' >
                     <option value='0' selected='1'>更新所有栏目...</option>
                     {volist name="ArctypeAll" id="vo"}
                     <option value="{$vo->id}">{$vo->typename}</option>
                     {/volist}
                 </select>
-            </td>
-        </tr>
-        <tr>
-            <td height="20" valign="top" >每次最大创建页数：</td>
-            <td height="20" valign="top" >
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:120px;">每次最大创建页数：</label>
+            <div class="layui-input-inline" >
                 <input name="maxpagesize" type="text" id="maxpagesize" value="50" size="10" class="layui-input" style="width:120px;" >个文件
-            </td>
-        </tr>
-        <tr>
-            <td height="20" valign="top" bgcolor="#FFFFFF">是否更新子栏目：</td>
-            <td height="20" valign="top" bgcolor="#FFFFFF">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:120px;">是否更新子栏目：</label>
+            <div class="layui-input-block" >
                 <input type="radio" name="upnext" value="1" checked='1' />更新子级栏目
                 <input type="radio" name="upnext" value="0" />仅更新所选栏目
-            </td>
-        </tr>
+            </div>
+        </div>
 
-        <tr>
-            <td height="20" colspan="2" bgcolor="#ffffff" align="center">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
                 <input name="b112" type="button" value="开始生成HTML" onClick="document.form1.submit();" class="layui-btn">
                 <?php if($cfg_remote_site=='Y'){ ?> 　
                 <input name="isremote" type="checkbox" id="isremote" value="1">是否同步远程发布
                 <?php GetFtp();?>
                 <?php } ?>
-            </td>
-        </tr>
+            </div>
+        </div>
 
     </form>
+
+<table>
     <tr>
         <td height="20" colspan="2">
             <table width="100%">
