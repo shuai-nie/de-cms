@@ -2,8 +2,11 @@
 /.idea
 /public/newszone/*.html
 /public/storage/*.html
+/public/storage/*.png
+/public/storage/tplcache/*.inc
 /public/games/*.html
 /public/gamenews/*.html
+/public/Uploads
 /.env
 /public/sitemap.xml
 /public/storage/mark/inc_photowatermark_config.php
