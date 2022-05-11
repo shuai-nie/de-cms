@@ -57,9 +57,11 @@ layui.use(['form','upload','jquery','layer'], function() {
     form.on('submit(submit)', function(data){
         $.post("{:url('')}", data.field, function(obj){
             if(obj.code == 200){
-                layer.msg(obj.msg , function(){
+                layer.msg(obj.msg , {icon:1}, function(){
                     window.location.href = "{:url('index')}"
                 })
+            }else {
+                layer.msg(obj.msg , {icon:2});
             }
         }, 'json')
         return false;

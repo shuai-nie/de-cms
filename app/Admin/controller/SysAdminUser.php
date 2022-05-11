@@ -108,7 +108,7 @@ class SysAdminUser extends Base
         $this->typeOptions();
         View::assign('nav', array(
             array('title'=>'系统', 'url'=>''),
-            array('title'=>'系统用户管理', 'url'=>''),
+            array('title'=>'系统用户管理', 'url'=>'index'),
             array('title'=>'新增账号', 'url'=>''),
         ));
         return View::fetch();
@@ -167,7 +167,7 @@ class SysAdminUser extends Base
 
         View::assign('nav', array(
             array('title'=>'系统', 'url'=>''),
-            array('title'=>'系统用户管理', 'url'=>''),
+            array('title'=>'系统用户管理', 'url'=>'index'),
             array('title'=>'编辑用户管理', 'url'=>''),
         ));
         return View::fetch();
