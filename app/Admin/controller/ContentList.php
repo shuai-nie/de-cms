@@ -102,65 +102,71 @@ class ContentList extends Base
             $flag     = isset($param['flags']) ? join(',', $param['flags']) : '';
             $ismake   = $ishtml == 0 ? -1 : 0;
 
+            $state = \think\Db::startTrans();
+            try {
 
-            $state = Archives::insert(array(
-                'id'          => $arcID,
-                'typeid'      => $typeid,
-                'typeid2'     => $param['typeid2'],
-                'sortrank'    => $sortrank,
-                'flag'        => $flag,
-                'ismake'      => $ismake,
-                'channel'     => $param['channelid'],
-                'arcrank'     => $param['arcrank'],
-                'click'       => $param['click'],
-                'money'       => $param['money'],
-                'title'       => $param['title'],
-                'shorttitle'  => $param['shorttitle'],
-                'color'       => $color,
-                'writer'      => $writer,
-                'source'      => $source,
-                'mid'         => 1,
-                'voteid'      => 0,//投票
-                'notpost'     => $param['notpost'],
-                'description' => $param['description'],
-                'keywords'    => $param['keywords'],
-                'filename'    => $param['filename'],
-                'dutyadmin'   => 1,
-                'weight'      => $weight,
-                'senddate'    => $senddate,
-            ));
+                Archives::insert(array(
+                    'id'          => $arcID,
+                    'typeid'      => $typeid,
+                    'typeid2'     => $param['typeid2'],
+                    'sortrank'    => $sortrank,
+                    'flag'        => $flag,
+                    'ismake'      => $ismake,
+                    'channel'     => $param['channelid'],
+                    'arcrank'     => $param['arcrank'],
+                    'click'       => $param['click'],
+                    'money'       => $param['money'],
+                    'title'       => $param['title'],
+                    'shorttitle'  => $param['shorttitle'],
+                    'color'       => $color,
+                    'writer'      => $writer,
+                    'source'      => $source,
+                    'mid'         => 1,
+                    'voteid'      => 0,//投票
+                    'notpost'     => $param['notpost'],
+                    'description' => $param['description'],
+                    'keywords'    => $param['keywords'],
+                    'filename'    => $param['filename'],
+                    'dutyadmin'   => 1,
+                    'weight'      => $weight,
+                    'senddate'    => $senddate,
+                ));
 
-            if($ishtml == 1){
-                $ArchivesInfo = Archives::where(['id' => $arcID])->find();
-                $arctypeInfo = Arctype::where("id=" . $typeid)->find();
-                $typedir = $arctypeInfo['typedir'];
-                $temparticle = str_replace('.html', '', $arctypeInfo['temparticle']);
-                View::assign('arctypeInfo', $arctypeInfo);
-                View::assign('archivesInfo', $ArchivesInfo);
-                $this->ViewAll();
-                $this->buildHtml($arcID, '.' . $typedir . '/', $temparticle);
-                Archives::where(['id' => $arcID])->save(['ismake' => 1]);
+                if($ishtml == 1){
+                    $ArchivesInfo = Archives::where(['id' => $arcID])->find();
+                    $arctypeInfo = Arctype::where("id=" . $typeid)->find();
+                    $typedir = $arctypeInfo['typedir'];
+                    $temparticle = str_replace('.html', '', $arctypeInfo['temparticle']);
+                    View::assign('arctypeInfo', $arctypeInfo);
+                    View::assign('archivesInfo', $ArchivesInfo);
+                    $this->ViewAll();
+                    $this->buildHtml($arcID, '.' . $typedir . '/', $temparticle);
+                    Archives::where(['id' => $arcID])->save(['ismake' => 1]);
+                }
+
+                $cts      = Channeltype::where("id=" . $param['channelid'])->find();
+                $addTable = trim($cts['addtable']);
+                if (empty($addTable)) {
+                    Archives::where("id=" . $arcID)->delete();
+                    Arctiny::where("id=" . $arcID)->delete();
+                }
+                $inadd_f = $inadd_v = '';
+
+                $userip  = Request::ip();
+                $templet = empty($param['templet']) ? '' : $param['templet'];
+                $query   = "INSERT INTO `{$addTable}`(aid,typeid,redirecturl,templet,userip,body{$inadd_f}) Values('$arcID','{$param['typeid']}','{$param['redirecturl']}','$templet','{$userip}','{$param['body']}'{$inadd_v})";
+                Db::query($query);
+
+                \think\Db::commit();
+            } catch (\Exception $e) {
+                $state = false;
+                \think\Db::rollback();
             }
-
-            $cts      = Channeltype::where("id=" . $param['channelid'])->find();
-            $addTable = trim($cts['addtable']);
-            if (empty($addTable)) {
-                Archives::where("id=" . $arcID)->delete();
-                Arctiny::where("id=" . $arcID)->delete();
-            }
-            $inadd_f = $inadd_v = '';
-
-            $userid  = Request::ip();
-            $templet = empty($param['templet']) ? '' : $param['templet'];
-            $query   = "INSERT INTO `{$addTable}`(aid,typeid,redirecturl,templet,userip,body{$inadd_f}) Values('$arcID','{$param['typeid']}','{$param['redirecturl']}','$templet','{$userid}','{$param['body']}'{$inadd_v})";
-            Db::query($query);
 
             if ($state !== false) {
-                return $this->success("提交成功", (string)url('index'));
+                return success("提交成功");
             }
-            return $this->error("提交失败");
-
-            exit();
+            return error("提交失败");
         }
         $channelid = Request::get('channelid');
         $cid       = Request::get('cid');
@@ -227,7 +233,7 @@ class ContentList extends Base
             array('title' => '所有档案列表', 'url' => (string)url('ContentList/index')),
             array('title' => '添加文档'),
         ));
-        return view();
+        return view('');
     }
 
     public function article_edit()
@@ -422,7 +428,7 @@ class ContentList extends Base
                 $okaids[$aid] = 1;
             }
         }
-        return $this->success('删除成功');
+        return success('删除成功');
 
     }
 
@@ -563,9 +569,7 @@ class ContentList extends Base
             //$dsql->ExecuteNoneQuery();
             //$dsql->ExecuteNoneQuery();
             Db::query("UPDATE ".Arctiny::getTable()." SET `arcrank` = '-2' WHERE id = '$aid'; ");
-        }
-        else
-        {
+        }else{
             //删除数据库记录
             if(!$onlyfile)
             {
@@ -695,18 +699,23 @@ class ContentList extends Base
         $fieldset = json_decode($cInfos['fieldset'], true);
         $html = "";
         foreach ($fieldset as $key => $value){
-            $html .= "<div class=\"layui-form-item\">";
-            $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
-
             switch ($value['type']) {
-                case 'text' || 'textchar':
+                case 'text':
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= "<div class=\"layui-input-block\">";
                     $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    $html .= "</div>";
+                    $html .= "</div>";
                     // 单行文本
                     break;
                 case 'multitext':
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= "<div class=\"layui-input-block\">";
                     $html .= "<textarea placeholder=\"请输入内容\" class=\"layui-textarea\"></textarea>";
+                    $html .= "</div>";
+                    $html .= "</div>";
                     // 多行文本
                     break;
                 case 'htmltext':
@@ -716,21 +725,35 @@ class ContentList extends Base
                     // 文本保存html数据
                     break;
                 case 'int':
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= "<div class=\"layui-input-block\">";
                     $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    $html .= "</div>";
+                    $html .= "</div>";
                     // 整数类型
                     break;
                 case 'float':
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= "<div class=\"layui-input-block\">";
                     $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    $html .= "</div>";
+                    $html .= "</div>";
                     // 小数类型
                     break;
                 case 'datetime':
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= "<div class=\"layui-input-block\">";
                     $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    $html .= "</div>";
+                    $html .= "</div>";
                     // 时间类型
                     break;
                 case 'img':
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= '<button type="button" class="layui-btn" id="test1">上传图片</button>' .
                         '<div class="layui-upload-list">' .
                         '<img class="layui-upload-img" id="demo1">' .
@@ -739,17 +762,23 @@ class ContentList extends Base
                         '<div style="width: 95px;">' .
                         '<div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="demo">' .
                         '<div class="layui-progress-bar" lay-percent=""></div>' .
-                        '</div>' .
-                        '</div>';
+                        '</div>' .'</div>';
+                    $html .= "</div>";
                     // 图片
                     break;
                 case 'imgfile':
                     // 图片(仅网址)
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= "<div class=\"layui-input-block\">";
                     $html .= "<input type=\"text\" name=\"title\" lay-verify=\"title\" autocomplete=\"off\" placeholder=\"请输入\" class=\"layui-input\" />";
+                    $html .= "</div>";
+                    $html .= "</div>";
                     break;
                 case 'media':
                     // 多媒体文件
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= '<button type="button" class="layui-btn" id="test1">上传图片</button>' .
                         '<div class="layui-upload-list">' .
                         '<img class="layui-upload-img" id="demo1">' .
@@ -758,11 +787,13 @@ class ContentList extends Base
                         '<div style="width: 95px;">' .
                         '<div class="layui-progress layui-progress-big" lay-showpercent="yes" lay-filter="demo">' .
                         '<div class="layui-progress-bar" lay-percent=""></div>' .
-                        '</div>' .
-                        '</div>';
+                        '</div>' . '</div>';
+                    $html .= "</div>";
                     break;
                 case 'addon':
                     // 附件类型
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= '<button type="button" class="layui-btn" id="test1">上传图片</button>' .
                         '<div class="layui-upload-list">' .
                         '<img class="layui-upload-img" id="demo1">' .
@@ -773,35 +804,45 @@ class ContentList extends Base
                         '<div class="layui-progress-bar" lay-percent=""></div>' .
                         '</div>' .
                         '</div>';
+                    $html .= "</div>";
                     break;
                 case 'select':
                     // 使用
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= '<div class="layui-input-block">'.
                         '<select name="interest" lay-filter="aihao">' .
                         '<option value=""></option>        ' .
                         '</select>' .
                         '</div>';
+                    $html .= "</div>";
                     break;
                 case 'radio':
                     // 使用radio选项卡
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= '<div class="layui-input-block">' .
                         '<input type="radio" name="sex" value="男" title="男" checked="">' .
                         '</div>';
+                    $html .= "</div>";
                     break;
                 case 'checkbox':
                     // Checkbox多选框
+                    $html .= "<div class=\"layui-form-item\">";
+                    $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
                     $html .= '<div class="layui-input-block">' .
                         '<input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">' .
                         '</div>';
+                    $html .= "</div>";
                     break;
                 case 'stepselect':
                     // 联动类型
                     break;
             }
-            $html .= "   <div>";
-            $html .= "<div>";
-        }
 
+//            $html .= "<div>";
+        }
+        return array('code' => 0, 'data' => array('html' => $html));
     }
 
 

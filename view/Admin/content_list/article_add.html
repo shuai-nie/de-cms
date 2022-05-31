@@ -55,7 +55,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">文章主栏目</label>
         <div class="layui-input-inline">
-            <select name='typeid' style="width: 50%;" >
+            <select name='typeid' lay-filter="typeid" >
                 <option value="0">请选择</option>
                 {volist name="ArctypeAll" id="vo"}
                 <option value="{$vo->id}">{$vo->typename}</option>
@@ -285,6 +285,17 @@
             ,error: function(){
                 //请求异常回调
             }
+        });
+
+        form.on('select(typeid)', function(data){
+            var _val = data.value;
+
+            $.post("{:url('html')}", {channelid:_val}, function(obj){
+                if(obj.code == 0) {
+                    $("#fieldset").html(obj.data.html);
+                } else {
+                }
+            }, 'json')
         });
 
         $("#snoopy").on('click', function () {

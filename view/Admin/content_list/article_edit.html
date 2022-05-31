@@ -3,6 +3,9 @@
 {block name="style"}
 <script type="text/javascript" src="/static/lib/ueditor1_4_3/ueditor.config.js" xmlns="http://www.w3.org/1999/html"></script>
 <script type="text/javascript" src="/static/lib/ueditor1_4_3/ueditor.all.js"></script>
+<style type="text/css">
+.layui-upload-img{width: 92px; height: 92px;}
+</style>
 {/block}
 
 {block name="content"}
@@ -84,17 +87,23 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">&nbsp;缩 略 图：</label>
+                <label class="layui-form-label">缩 略 图：</label>
                 <div class="layui-input-inline">
+                    <div class="layui-upload">
                     <input name="picname" type="hidden" id="picname" style="width:300px" value="{$arcRow['litpic']}">
                     <button type="button" class="layui-btn layui-btn-sm" id="test1">
                         <i class="layui-icon">&#xe67c;</i>上传图片
                     </button>
-                    <div id="img">
+                    <!--<div id="img">
                         <img src="{$arcRow['litpic']|default='/storage/pview.gif'}" width="100" height="100" />
+                    </div>-->
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="demo1">
+                        <p id="demoText"></p>
+                    </div>
                     </div>
                 </div>
-                <input type='checkbox' class='np' name='ddisremote' value='1' title="远程" />
+                <!--<input type='checkbox' class='np' name='ddisremote' value='1' title="远程" />-->
             </div>
 
             <div class="layui-form-item">
@@ -145,15 +154,13 @@
                 </div>
             </div>
 
-            <div class="layui-form-item">
+            <div class="layui-form-item" style="display:none;">
                 <label class="layui-form-label">&nbsp;附加选项：</label>
                 <div class="layui-input-block">
                     <input name="remote" type="checkbox" class="np" id="remote" value="1" checked title="下载远程图片和资源">
                     <input name="autolitpic" type="checkbox" class="np" id="autolitpic" value="1" checked title="提取第一个图片为缩略图">
                 </div>
             </div>
-
-
 
             <div>
                 <div width="100%"></div>
@@ -319,25 +326,6 @@
                     </div>
                 </div>
             </div>
-
-            <!--<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#F9FCEF" style="border:1px solid #cfcfcf;border-top:none;">
-                <tr>
-                    <td height="35"><table width="100%" border="0" cellspacing="1" cellpadding="1">
-                        <tr>
-                            <td width="17%">&nbsp;</td>
-                            <td width="83%">
-                                <table width="214" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td width="115"><button type="submit" style="cursor:pointer" >提交</button></td>
-                                    <td width="99"><button type="button" style="cursor: pointer;" onclick="location.reload();">重置</button></td>
-                                </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table></td>
-                </tr>
-            </table>-->
-
         </div>
     </div>
 
