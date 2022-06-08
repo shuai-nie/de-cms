@@ -8,7 +8,7 @@
 {block name="content"}
 <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" id="snoopy">抓取</button>
 
-<form name="form1" action="{:url('article_add')}" style="padding: 20px 20px;" class="layui-form layui-form-pane">
+<form name="form1" action="{:url('article_add')}" style="padding: 20px 20px;" class="layui-form layui-form-pane" lay-filter="form">
     <input type="hidden" name="channelid" value="{$channelid}" />
     <input name="money" type="hidden" id="money" value="0" size="10" class="layui-input" />
     <input type="hidden" name="dopost" value="save" />
@@ -293,6 +293,7 @@
             $.post("{:url('html')}", {channelid:_val}, function(obj){
                 if(obj.code == 0) {
                     $("#fieldset").html(obj.data.html);
+                    form.render();
                 } else {
                 }
             }, 'json')
@@ -315,6 +316,7 @@
                                 UE.getEditor('container').execCommand('insertHtml', obj.data.info);
                                 $("input[name='title']").val(obj.data.name);
                                 layer.close(index);
+
                             })
                         }
                     }, 'json');

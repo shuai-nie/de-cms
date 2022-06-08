@@ -699,6 +699,7 @@ class ContentList extends Base
         $fieldset = json_decode($cInfos['fieldset'], true);
         $html = "";
         foreach ($fieldset as $key => $value){
+            $value['itemname'] = $value['itemname'] . $value['type'];
             switch ($value['type']) {
                 case 'text':
                     $html .= "<div class=\"layui-form-item\">";
@@ -810,9 +811,9 @@ class ContentList extends Base
                     // 使用
                     $html .= "<div class=\"layui-form-item\">";
                     $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
-                    $html .= '<div class="layui-input-block">'.
-                        '<select name="interest" lay-filter="aihao">' .
-                        '<option value=""></option>        ' .
+                    $html .= '<div class="layui-input-inline">'.
+                        '<select name="interest_' . $key . '" lay-filter="select">' .
+                        '<option value="111">111</option>' .
                         '</select>' .
                         '</div>';
                     $html .= "</div>";
@@ -830,9 +831,9 @@ class ContentList extends Base
                     // Checkbox多选框
                     $html .= "<div class=\"layui-form-item\">";
                     $html .= "<label class=\"layui-form-label\">" . $value['itemname'] . "</label>";
-                    $html .= '<div class="layui-input-block">' .
-                        '<input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">' .
-                        '</div>';
+                    $html .= '<div class="layui-input-block">'
+                            . '<input type="checkbox" name="like1[write]" lay-skin="primary" title="写作" checked="">'
+                            . '</div>';
                     $html .= "</div>";
                     break;
                 case 'stepselect':
