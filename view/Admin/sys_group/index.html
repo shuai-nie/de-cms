@@ -1,9 +1,6 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<a href='{:url("sys_group_add")}' class="layui-btn layui-btn-ms" lay-event="">[增加用户组]</a>
-<a href='{:url("/Admin/sys_admin_user")}' class="layui-btn layui-btn-ms" lay-event="" >[管理系统用户]</a>
-
 <table id="demo" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
@@ -13,6 +10,13 @@
     {{# if(d.system == 0){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     {{# } }}
+</script>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <a href='{:url("sys_group_add")}' class="layui-btn layui-btn-sm" lay-event="">[增加用户组]</a>
+        <a href='{:url("/Admin/sys_admin_user")}' class="layui-btn layui-btn-sm" lay-event="" >[管理系统用户]</a>
+    </div>
 </script>
 {/block}
 
@@ -30,6 +34,7 @@ layui.use(['table', 'jquery'], function() {
         ,request: {}
         ,response: {}
         ,page: true
+        ,toolbar: '#toolbarDemo'
         ,cols: [[
             {field: 'rank', title: 'Rank', width:80,fixed: 'left'}
             ,{field: 'typename', title: '组名称'}

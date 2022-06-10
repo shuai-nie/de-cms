@@ -32,28 +32,11 @@ class ContentAtt extends Base
     public function index()
     {
         if(Request::isPost()){
-            $param = Request::param('');
-
-            $startID = 1;
-            $endID = $param['idend'];
-            for(; $startID<=$endID; $startID++)
-            {
-                $att = $param['att_'.$startID];
-                $attname = $param['attname_'.$startID];
-                $sortid = $param['sortid_'.$startID];
-                ArcattModel::update(array(
-                    'attname' => $attname,
-                    'sortid' => $sortid,
-                ), array(
-                    'att' => $att
-                ));
-            }
-            return success("修改成功");
+            $map = array();
+            $length = 20;
+            $data = ArcattModel::where($map)->order('sortid asc')->select();
+            return json(['code'=>0, 'count'=>$length, 'data'=>$data]);
         }
-        $length = 20;
-        $map = array();
-        $data = ArcattModel::where($map)->order('sortid asc')->paginate($length);
-        View::assign('_data', $data);
         return View::fetch();
     }
 

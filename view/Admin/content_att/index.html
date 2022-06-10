@@ -1,42 +1,32 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<form class="layui-form" >
-<table lay-filter="demoCatalogMain">
-    <thead>
-    <tr>
-        <th lay-data="{field:'f1'}">ID</th>
-        <th lay-data="{field:'f2'}">排序</th>
-        <th lay-data="{field:'f3'}">属性</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="_data" id="vo" key="k"}
-    <tr>
-        <input type="hidden" name="att_{$k}" value="{$vo->att}" />
-        <td>{$vo['att']}</td>
-        <td><input type="text " name="sortid_{$k}" value="{$vo['sortid']}" class="layui-input" id="sortid_{$k}" /></td>
-        <td><input type="text" name="attname_{$k}" value="{$vo['attname']}" class="layui-input" id="attname_{$k}" ></td>
-        <input type="hidden" name="idend" value="{$k}" />
-    </tr>
-    {/volist}
-
-    </tbody>
-
-
-</table>
-
-
-    <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
-</form>
+<table id="demo" lay-filter="test"></table>
 {/block}
 
 {block name="script"}
 <script type="application/javascript">
-    layui.use(['form','upload','jquery'], function() {
-        var form = layui.form,
-            $ = layui.jquery;
-    })
+layui.use(['form', 'upload', 'jquery', 'table'], function () {
+    var form = layui.form,
+        $ = layui.jquery,
+        table = layui.table;
+
+
+    table.render({
+        elem: '#demo'
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: false
+        , toolbar: '#toolbarDemo'
+        , defaultToolbar: ['filter', 'exports']
+        , cols: [[
+            {field: 'att', title: 'ID', width: 80, fixed: 'left'}
+            , {field: 'sortid', title: '排序', width:120,}
+            , {field: 'attname', title: '属性',width: 120,}
+        ]]
+    });
 
     form.on('submit(submit)', function(data){
         $.post("{:url('')}", data.field, function(obj){
@@ -48,5 +38,6 @@
         }, 'json')
         return false;
     });
+})
 </script>
 {/block}

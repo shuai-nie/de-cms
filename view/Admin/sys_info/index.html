@@ -1,47 +1,13 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<form class="layui-form" >
-<table class="layui-table">
-    <thead>
-    <tr>
-        <th lay-data="{field:'username'}" >变量名称</th>
-        <th lay-data="{field:'exper'}" >变量值</th>
-        <th lay-data="{field:'sign'}" >签名</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="_sysconfig" id="vo"}
-    <tr {if condition="$vo['type'] eq 'bstring'"}style="height:100px;"{/if} >
-        <td>{$vo['info']}</td>
-        <td>
-            {switch name="$vo['type']"}
-                {case value="string"}
-                <input type="text" name="{$vo['varname']}" value="{$vo['value']}" name="" class="layui-input" />
-                {/case}
-                {case value="bool"}
-                <input type="radio" class="np" name="{$vo['varname']}" value="Y"  {if condition="$vo['value'] eq 'Y'"} checked{/if}  >是
-                <input type="radio" class="np" name="{$vo['varname']}" value="N" {if condition="$vo['value'] eq 'N'"} checked{/if} >否
-                {/case}
-                {case value="bstring"}
-                <textarea cols="100" rows="10" name="{$vo['varname']}" class="layui-textarea" >{$vo['value']}</textarea>
-                {/case}
-                {default}
-            {/switch}
 
-        </td>
-        <td>{$vo['varname']}</td>
-    </tr>
-    {/volist}
+<table id="demo" lay-filter="test"></table>
 
-    </tbody>
-
-
-
-</table>
-    <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
-</form>
-
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">编辑</a>
+</script>
 
 {/block}
 
@@ -52,20 +18,64 @@
 layui.use(['form','upload','jquery','layer'], function() {
     var form = layui.form,
         $ = layui.jquery,
-        layer = layui.layer;
+        layer = layui.layer,
+        table = layui.table;
 
-    form.on('submit(submit)', function(data){
-        $.post("{:url('')}", data.field, function(obj){
-            if(obj.code == 200){
-                layer.msg(obj.msg , {icon:1}, function(){
-                    window.location.href = "{:url('index')}"
-                })
-            }else {
-                layer.msg(obj.msg , {icon:2});
-            }
-        }, 'json')
-        return false;
+    table.render({
+        elem: '#demo'
+        ,url: "{:url('')}"
+        ,page: false
+        ,limit : 20
+        ,method:'post'
+        ,cols: [[ //表头
+            {field: 'aid', title: 'ID', width:80, sort: true, fixed: 'left'}
+            ,{field: 'info', title: '标题', width:280}
+            ,{field: 'varname', title: '键值', width:160}
+            ,{fixed: 'right', title:'操作', width:150, align:'center', toolbar: '#barDemo'}
+        ]]
     });
+
+    table.on('tool(test)', function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+
+        if(layEvent === 'detail'){
+            layer.open({
+                type : 2,
+                title : '详情',
+                area : ['600px', '420px'],
+                content: "{:url('detail')}?aid=" + data.aid
+            })
+
+        } else if(layEvent === 'edit'){
+
+            layer.open({
+                type : 2,
+                title : '编辑',
+                area : ['600px', '420px'],
+                content: "{:url('edit')}?aid=" + data.aid
+            })
+
+        } else if(layEvent === 'LAYTABLE_TIPS'){
+            layer.alert('Hi，头部工具栏扩展的右侧图标。');
+
+        }
+
+    })
+
+        // form.on('submit(submit)', function(data){
+    //     $.post("{:url('')}", data.field, function(obj){
+    //         if(obj.code == 200){
+    //             layer.msg(obj.msg , {icon:1}, function(){
+    //                 window.location.href = "{:url('index')}"
+    //             })
+    //         }else {
+    //             layer.msg(obj.msg , {icon:2});
+    //         }
+    //     }, 'json')
+    //     return false;
+    // });
 
 })
 

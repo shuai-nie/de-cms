@@ -92,22 +92,27 @@ class SysGroup extends Base
         return View::fetch();
     }
 
-    public function sys_admin_user($rank)
+    public function sys_admin_user()
     {
-        $data = AdminModel::where(['usertype'=>$rank])->select()->toArray();
-        foreach ($data as $k=>$v){
-            if(!empty($v['typeid'])){
-                $ArctypeInfo = ArctypeModel::where(['id'=>$v['typeid']])->find()->toArray();
-                $v['typename'] = $ArctypeInfo['typename'];
-            }else{
-                $v['typename'] = "";
+        $rank = \request()->param('rank');
+        if(\request()->isPost()) {
+            $data = AdminModel::where(['usertype'=>$rank])->select()->toArray();
+            $count = AdminModel::where(['usertype'=>$rank])->count();
+            foreach ($data as $k=>$v){
+                if(!empty($v['typeid'])){
+                    $ArctypeInfo = ArctypeModel::where(['id'=>$v['typeid']])->find()->toArray();
+                    $v['typename'] = $ArctypeInfo['typename'];
+                }else{
+                    $v['typename'] = "";
+                }
+                $data[$k] = $v;
             }
-            $data[$k] = $v;
+            return json(['code' => 0, 'count'=>$count, 'data'=> $data]);
+
         }
-
-
-        View::assign('_data', $data);
-        return View::fetch();
+        return view('', [
+            'rank' => $rank
+        ]);
     }
 
     public function sys_group_add()

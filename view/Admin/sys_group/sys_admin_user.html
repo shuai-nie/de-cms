@@ -1,31 +1,40 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table lay-filter="demoSysAdminUser2">
-    <thead>
-    <tr>
-        <th lay-data="{field:'u1'}">登录ID</th>
-        <th lay-data="{field:'u2'}">笔名</th>
-        <th lay-data="{field:'u3'}">级别</th>
-        <th lay-data="{field:'u4'}">频道</th>
-        <th lay-data="{field:'u5'}">管理项</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="_data" id="vo"}
-    <tr>
-        <td>{$vo['userid']}</td>
-        <td>{$vo['uname']}</td>
-        <td>{$vo['usertype']}9999999999999</td>
-        <td>{$vo['typename']}333</td>
-        <td>
-            <a href='{:url("sys_admin_user_edit", ["id"=>$vo["id"],"dopost"=>"edit"])}'>[更改]</a>
-            <a href='{:url("sys_admin_user_edit", ["userid"=>$vo["userid"],"dopost"=>"delete"])}'>[删除]</a>
-            <a href='{:url("content_list", ["id"=>$vo["id"]])}'>[文档]</a>
-        </td>
-    </tr>
-    {/volist}
-    </tbody>
+<table id="demo" lay-filter="test"></table>
 
-</table>
+<script type="text/html" id="barDemo">
+    <div class="layui-btn-container">
+        <a href='{:url("sys_admin_user_edit", ["id"=>1,"dopost"=>"edit"])}' class="layui-btn layui-btn-xs layui-btn-warm">[更改]</a>
+        <a href='{:url("sys_admin_user_edit", ["userid"=>1,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger" >[删除]</a>
+        <a href='{:url("content_list", ["id"=>1])}' class="layui-btn layui-btn-xs layui-btn-primary" >[文档]</a>
+    </div>
+</script>
+{/block}
+
+{block name="script"}
+<script type="text/javascript">
+layui.use(['table', 'jquery'], function() {
+    var table = layui.table,
+        $ = layui.jquery;
+
+    table.render({
+        elem: '#demo'
+        , url: "{:url('')}?rank={$rank}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: true
+        , toolbar: '#toolbarDemo'
+        , cols: [[
+            {field: 'userid', title: '登录ID', width: 80, fixed: 'left'}
+            , {field: 'uname', title: '笔名', width:120,}
+            , {field: 'usertype', title: '级别',width: 120,}
+            , {field: 'typename', title: '频道',width: 120}
+            , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
+        ]]
+    });
+})
+
+</script>
 {/block}

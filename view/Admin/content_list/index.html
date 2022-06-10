@@ -5,20 +5,24 @@
 {/block}
 
 {block name="content"}
-{if condition="$arcrank neq -1"}
-    <a href='{:url("article_add")}' class="layui-btn layui-btn-sm layui-btn-normal" lay-event="">[添加文档]</a>
-    <a href='{:url("/Admin/CatalogMain")}' class="layui-btn layui-btn-sm" lay-event="">[栏目管理]</a>
-    <!--<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>-->
-    <!--<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>-->
-    <a href='{:url("recycling", ["cid"=>0])}' class="layui-btn layui-btn-sm" lay-event="">[文档回收站]</a>
-    <a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="" onclick="table_delete()">[删除文档]</a>
-{/if}
-
 <table id="demo" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        {if condition="$arcrank neq -1"}
+        <a href='{:url("article_add")}' class="layui-btn layui-btn-sm layui-btn-normal" lay-event="">[添加文档]</a>
+        <a href='{:url("/Admin/CatalogMain")}' class="layui-btn layui-btn-sm" lay-event="">[栏目管理]</a>
+        <!--<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>-->
+        <!--<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>-->
+        <a href='{:url("recycling", ["cid"=>0])}' class="layui-btn layui-btn-sm" lay-event="">[文档回收站]</a>
+        <a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="" onclick="table_delete()">[删除文档]</a>
+        {/if}
+    </div>
 </script>
 {/block}
 
@@ -93,6 +97,7 @@ layui.use(['table', 'jquery'], function(){
         ,method: 'post'
         ,request: {}
         ,response: {}
+        , toolbar: '#toolbarDemo'
         ,page: true
         ,cols: [[
             {field: 'id', title: 'ID', width:80,fixed: 'left'}

@@ -36,28 +36,42 @@ class SysInfo extends Base
     public function index()
     {
         if(Request::isPost()){
-            $param = Request::param();
-
-            Db::startTrans();
-            try {
-                foreach ($param as $k=>$v){
-                    SysconfigModel::update(array(
-                        'value'=>$v
-                    ), array(
-                        'varname' => $k
-                    ));
-                }
-                Db::commit();
-                return success('提交成功');
-            } catch (\Exception $e) {
-                Db::rollback();
-                return error('提交失败');
-            }
+            $data = SysconfigModel::where(['groupid'=>1])->select();
+            $count = SysconfigModel::where(['groupid'=>1])->count();
+            return json(['code'=>0, 'count'=>$count, 'data'=>$data]);
         }
 
-        $data = SysconfigModel::where(['groupid'=>1])->select();
-        View::assign('_sysconfig', $data);
         return View::fetch('index');
+    }
+
+    public function detail()
+    {
+        return view('', []);
+    }
+
+    public function edit()
+    {
+        return view('', []);
+    }
+
+    public function update()
+    {
+        $param = Request::param();
+        Db::startTrans();
+        try {
+            foreach ($param as $k=>$v){
+                SysconfigModel::update(array(
+                    'value'=>$v
+                ), array(
+                    'varname' => $k
+                ));
+            }
+            Db::commit();
+            return success('提交成功');
+        } catch (\Exception $e) {
+            Db::rollback();
+            return error('提交失败');
+        }
     }
 
 

@@ -59,4 +59,6 @@ return [
         'article_article2.htm',
     ],
     'uid_key'=> 'AdminUser',
+
+    'URL_CASE_INSENSITIVE' => true,
 ];
