@@ -3,16 +3,23 @@
 {block name="style"}{/block}
 
 {block name="content"}
-<form class="layui-form">
+<div class="layui-form">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">输入框</label>
+        <label class="layui-form-label">标题</label>
         <div class="layui-input-block">
-            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" value="{$info['info']}" disabled placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
 
-</form>
+    <div class="layui-form-item">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <input type="text" value="{$info['value']}" disabled placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+</div>
 {/block}
 
 {block name="script"}

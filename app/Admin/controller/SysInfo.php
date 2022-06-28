@@ -40,41 +40,29 @@ class SysInfo extends Base
             $count = SysconfigModel::where(['groupid'=>1])->count();
             return json(['code'=>0, 'count'=>$count, 'data'=>$data]);
         }
-
         return View::fetch('index');
     }
 
     public function detail()
     {
-        return view('', []);
+        $id = Request::param('aid');
+        $info = SysconfigModel::where(['aid' => $id])->find();
+        return view('', ['info' => $info]);
     }
 
     public function edit()
     {
-        return view('', []);
-    }
-
-    public function update()
-    {
-        $param = Request::param();
-        Db::startTrans();
-        try {
-            foreach ($param as $k=>$v){
-                SysconfigModel::update(array(
-                    'value'=>$v
-                ), array(
-                    'varname' => $k
-                ));
+        $id = Request::param('aid');
+        if(Request::isPost()){
+            $state = SysconfigModel::update([], []);
+            if($state !== false){
+                return success();
             }
-            Db::commit();
-            return success('提交成功');
-        } catch (\Exception $e) {
-            Db::rollback();
-            return error('提交失败');
+            return error();
         }
+        $info = SysconfigModel::where(['id' => $id])->find();
+        return view('', ['info'=>$info]);
     }
-
-
 
 
 }

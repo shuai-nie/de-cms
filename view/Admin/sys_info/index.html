@@ -28,7 +28,7 @@ layui.use(['form','upload','jquery','layer'], function() {
         ,limit : 20
         ,method:'post'
         ,cols: [[ //表头
-            {field: 'aid', title: 'ID', width:80, sort: true, fixed: 'left'}
+            {field: 'aid', title: 'ID', width:80,fixed: 'left'}
             ,{field: 'info', title: '标题', width:280}
             ,{field: 'varname', title: '键值', width:160}
             ,{fixed: 'right', title:'操作', width:150, align:'center', toolbar: '#barDemo'}
@@ -49,17 +49,12 @@ layui.use(['form','upload','jquery','layer'], function() {
             })
 
         } else if(layEvent === 'edit'){
-
             layer.open({
                 type : 2,
                 title : '编辑',
                 area : ['600px', '420px'],
                 content: "{:url('edit')}?aid=" + data.aid
             })
-
-        } else if(layEvent === 'LAYTABLE_TIPS'){
-            layer.alert('Hi，头部工具栏扩展的右侧图标。');
-
         }
 
     })

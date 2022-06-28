@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>管理后台</title>
     <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/lib/font-awesome/css/font-awesome.min.css">
     {block name="style"}{/block}
     <link rel="stylesheet" href="/static/admin/css/base.css">
 </head>
@@ -32,7 +33,7 @@
 <!--            </li>-->
         </ul>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item"><a href="/index.html" target="_blank" >前台首页</a></li>
+            <li class="layui-nav-item"><a href="/index.html" target="_blank" ><i class="fa fa-home" aria-hidden="true"></i>前台首页</a></li>
             <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                 <a href="javascript:;">
 <!--                    <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">-->
@@ -56,20 +57,20 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item {if condition="$_nav_this eq 'Index_index' "} layui-this {/if}"><a href="{:url('Index/index')}">首页</a></li>
+                <li class="layui-nav-item {if condition="$_nav_this eq 'Index_index' "} layui-this {/if}"><a href="{:url('Index/index')}"><i class="fa fa-home" aria-hidden="true"></i>首页</a></li>
                 <li class="layui-nav-item {if condition="$_nav_itemed eq 'xitong'"}layui-nav-itemed{/if}">
-                    <a class="" href="javascript:;">系统</a>
+                    <a class="" href="javascript:;"><i class="fa fa-wrench" aria-hidden="true"></i>系统</a>
                     <dl class="layui-nav-child">
-                        <dd {if condition="$_nav_this eq 'SysInfo_index' "} class="layui-this" {/if} ><a href="{:url('SysInfo/index')}">系统基本参数</a></dd>
-                        <dd {if condition="$_nav_this eq 'SysAdminUser_index' "} class="layui-this" {/if}><a href="{:url('SysAdminUser/index')}">系统用户管理</a></dd>
-                        <dd {if condition="$_nav_this eq 'SysGroup_index' "} class="layui-this" {/if}><a href="{:url('SysGroup/index')}">用户组设定</a></dd>
-                        <dd {if condition="$_nav_this eq 'SysInfoMrk_index' "} class="layui-this" {/if}><a href="{:url('SysInfoMrk/index')}">图片水印设置</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysInfo_index' "} class="layui-this" {/if} ><a href="{:url('sys_info/index')}">系统基本参数</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysAdminUser_index' "} class="layui-this" {/if}><a href="{:url('sys_admin_user/index')}">系统用户管理</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysGroup_index' "} class="layui-this" {/if}><a href="{:url('sys_group/index')}">用户组设定</a></dd>
+                        <dd {if condition="$_nav_this eq 'SysInfoMrk_index' "} class="layui-this" {/if}><a href="{:url('sys_info_mrk/index')}">图片水印设置</a></dd>
                         <dd {if condition="$_nav_this eq 'ContentAtt_index' "} class="layui-this" {/if}><a href="{:url('ContentAtt/index')}">自定义文档属性</a></dd>
                     </dl>
                 </li>
 
                 <li class="layui-nav-item {if condition="$_nav_itemed eq 'hexing'"}layui-nav-itemed{/if}">
-                    <a class=" " href="javascript:;">核心</a>
+                    <a class=" " href="javascript:;"><i class="fa fa-cogs" aria-hidden="true"></i> 核心</a>
                     <dl class="layui-nav-child">
                         <dd {if condition="$_nav_this eq 'CatalogMain_index' "} class="layui-this" {/if}><a href="{:url('CatalogMain/index')}">网站栏目管理</a> </dd>
                         <dd {if condition="$_nav_this eq 'ContentList_index' "} class="layui-this" {/if}><a href="{:url('ContentList/index')}">所有档案列表</a> </dd>
@@ -80,7 +81,7 @@
                 </li>
 
                 <li class="layui-nav-item {if condition="$_nav_itemed eq 'mokuai'"}layui-nav-itemed{/if}">
-                    <a href="javascript:;">模块</a>
+                    <a href="javascript:;"><i class="fa fa-sitemap" aria-hidden="true"></i>模块</a>
                     <dl class="layui-nav-child">
                         <dd {if condition="$_nav_this eq 'FriendlinkMain_index' "} class="layui-this" {/if}><a href="{:url('FriendlinkMain/index')}">友情链接</a></dd>
                         <dd {if condition="$_nav_this eq 'Sitemap_index' "} class="layui-this" {/if}><a href="{:url('Sitemap/index')}">生成网站地图</a></dd>
@@ -88,7 +89,7 @@
                 </li>
 
                 <li class="layui-nav-item {if condition="$_nav_itemed eq 'generateHtml'"}layui-nav-itemed{/if}">
-                    <a href="javascript:;">生成静态</a>
+                    <a href="javascript:;"><i class="fa fa-leaf" aria-hidden="true"></i>生成静态</a>
                     <dl class="layui-nav-child">
                         <dd {if condition="$_nav_this eq 'Generate_index' "} class="layui-this" {/if}><a href="{:url('Generate/index')}">首页生成</a></dd>
                         <dd {if condition="$_nav_this eq 'Generate_list' "} class="layui-this" {/if}><a href="{:url('Generate/list')}">栏目生成</a></dd>
@@ -97,7 +98,7 @@
                 </li>
 
                 <li class="layui-nav-item {if condition="$_nav_itemed eq 'Guestbook'"}layui-nav-itemed{/if}">
-                <a href="javascript:;">留言板</a>
+                <a href="javascript:;"><i class="fa fa-commenting" aria-hidden="true"></i>留言板</a>
                 <dl class="layui-nav-child">
                     <dd {if condition="$_nav_this eq 'Guestbook_index' "} class="layui-this" {/if}><a href="{:url('Guestbook/index')}">会员留言板</a></dd>
                 </dl>
