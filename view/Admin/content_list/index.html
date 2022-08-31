@@ -5,7 +5,15 @@
 {/block}
 
 {block name="content"}
-<table id="demo" lay-filter="test"></table>
+{if condition="$arcrank neq -1"}
+<a href='{:url("/Admin/CatalogMain")}' class="layui-btn layui-btn-sm" lay-event="">[栏目管理]</a>
+<!--<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>-->
+<!--<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>-->
+<a href='{:url("recycling", ["cid"=>0])}' class="layui-btn layui-btn-sm" lay-event="">[文档回收站]</a>
+<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="" onclick="table_delete()">[删除文档]</a>
+{/if}
+
+<table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -15,12 +23,9 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         {if condition="$arcrank neq -1"}
-        <a href='{:url("article_add")}' class="layui-btn layui-btn-sm layui-btn-normal" lay-event="">[添加文档]</a>
-        <a href='{:url("/Admin/CatalogMain")}' class="layui-btn layui-btn-sm" lay-event="">[栏目管理]</a>
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加</a>
         <!--<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>-->
         <!--<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>-->
-        <a href='{:url("recycling", ["cid"=>0])}' class="layui-btn layui-btn-sm" lay-event="">[文档回收站]</a>
-        <a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-danger" lay-event="" onclick="table_delete()">[删除文档]</a>
         {/if}
     </div>
 </script>
@@ -92,29 +97,29 @@ layui.use(['table', 'jquery'], function(){
 
     //第一个实例
     table.render({
-        elem: '#demo'
-        ,url: "{:url('')}"
-        ,method: 'post'
-        ,request: {}
-        ,response: {}
+        elem: '#table'
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
         , toolbar: '#toolbarDemo'
-        ,page: true
-        ,cols: [[
+        , page: true
+        , cols: [[
             {field: 'id', title: 'ID', width:80,fixed: 'left'}
-            ,{field: 'title', title: '文章标题', width:180}
-            ,{field: 'ctypename', title: '栏目', width:90}
-            ,{field: 'click', title: '点击', width:90}
-            ,{field: 'ismake', title: '选择', width:90}
-            ,{field: 'userid', title: '发布人', width:90}
-            ,{field: 'senddate', title: '更新时间', width:170}
-            ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+            , {field: 'title', title: '文章标题', width: 180}
+            , {field: 'ctypename', title: '栏目', width: 90}
+            , {field: 'click', title: '点击', width: 90}
+            , {field: 'ismake', title: '选择', width: 90}
+            , {field: 'userid', title: '发布人', width: 90}
+            , {field: 'senddate', title: '更新时间', width: 170}
+            , {fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}
         ]]
     });
 
-    table.on('tool(test)', function(obj){
-        var data = obj.data;
-        var layEvent = obj.event;
-        var tr = obj.tr;
+    table.on('tool(table)', function(obj){
+        var data = obj.data
+            , layEvent = obj.event;
+
         if(layEvent === 'del'){
             layer.confirm('真的删除行么', function(index) {
                 $.post("{:url('article_del')}", {id:data.id}, function (objs) {
@@ -129,7 +134,43 @@ layui.use(['table', 'jquery'], function(){
                 }, 'json');
             })
         }else if(layEvent === 'edit'){
-            window.location.href = "{:url('article_edit')}?aid=" +data.id;
+            layer.open({
+                type : 2
+                , title : '编辑'
+                , area : ['800px', '740px']
+                , btn: ["提交", "关闭"]
+                , content: "{:url('article_edit')}?aid=" +data.id
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
+        }
+
+    })
+
+    table.on("toolbar(table)", function(obj){
+        var data = obj.data
+            , layEvent = obj.event;
+
+        if(layEvent === 'add'){
+            layer.open({
+                type : 2
+                , title : '新建'
+                , area : ['800px', '740px']
+                , btn: ["提交", "关闭"]
+                , content: '{:url("article_add")}'
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
         }
 
     })
