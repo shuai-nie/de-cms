@@ -17,10 +17,8 @@ use think\Db;
  */
 class SysInfo extends Base
 {
-
     public function initialize()
     {
-
         parent::initialize();
         View::assign('nav', array(
             array('title'=>'系统', 'url'=>''),
@@ -52,15 +50,16 @@ class SysInfo extends Base
 
     public function edit()
     {
-        $id = Request::param('aid');
+        $aid = Request::param('aid');
         if(Request::isPost()){
-            $state = SysconfigModel::update([], []);
+            $_post = Request::post();
+            $state = SysconfigModel::update($_post, ['aid'=>$aid]);
             if($state !== false){
-                return success();
+                return success("提交成功");
             }
-            return error();
+            return error("提交失败");
         }
-        $info = SysconfigModel::where(['id' => $id])->find();
+        $info = SysconfigModel::where(['aid' => $aid])->find();
         return view('', ['info'=>$info]);
     }
 
