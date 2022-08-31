@@ -1,17 +1,21 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<a href='{:url("/Admin/FriendlinkMain/friendlink_add")}' class="layui-btn layui-btn-sm layui-btn-normal" lay-event="">[添加链接]</a>
+
 <a href='{:url("/Admin/FriendlinkMain/friendlink_type")}' class="layui-btn layui-btn-sm" lay-event="">[网站类型管理]</a>
 
 <!--<a href='("/Admin/FriendlinkMain/friendlink_edit", ["id"=>,"dopost"=>"getedit"])}' class="layui-btn layui-btn-xs layui-btn-normal" lay-event="">[更改]</a>
 <a href='("/Admin/FriendlinkMain/friendlink_delete", ["id"=>,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger" lay-event="">[删除]</a>-->
 
-<table id="demo" lay-filter="test"></table>
+<table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="toolbarDemo">
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">新建</a>
 </script>
 {/block}
 
@@ -24,13 +28,14 @@ layui.use(['table', 'jquery'], function(){
 
     //第一个实例
     table.render({
-        elem: '#demo'
-        ,url: "{:url('')}"
-        ,method: 'post'
-        ,request: {}
-        ,response: {}
-        ,page: true
-        ,cols: [[ //表头
+        elem: '#table'
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: true
+        , toolbar: '#toolbarDemo'
+        , cols: [[ //表头
             {field: 'id', title: 'ID', width:80,fixed: 'left'}
             ,{field: 'webname', title: '网站名称', width:180}
             ,{field: 'url', title: '地址', width:180}
@@ -50,10 +55,11 @@ layui.use(['table', 'jquery'], function(){
         ]]
     });
 
-    table.on('tool(test)', function(obj){
+    table.on('tool(table)', function(obj){
         var data = obj.data;
         var layEvent = obj.event;
         var tr = obj.tr;
+
         if(layEvent === 'del'){
             layer.confirm('真的删除行么', function(index) {
                 $.post("{:url('friendlink_delete')}", {id:data.id}, function (objs) {
@@ -68,13 +74,46 @@ layui.use(['table', 'jquery'], function(){
                 }, 'json');
             })
         }else if(layEvent === 'edit'){
-            // obj.update({
-            //     username: '123'
-            //     ,title: 'xxx'
-            // });
-            window.location.href = "{:url('friendlink_edit')}?id=" +data.id;
+            layer.open({
+                type : 2
+                , title : '编辑'
+                , area : ['800px', '740px']
+                , btn: ["提交", "关闭"]
+                , content: "{:url('friendlink_edit')}?id=" +data.id
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
         }
 
+    })
+
+    table.on("toolbar(table)", function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+
+        if(layEvent === 'add'){
+            layer.open({
+                type : 2
+                , title : '编辑'
+                , area : ['800px', '740px']
+                , btn: ["提交", "关闭"]
+                , content: '{:url("/Admin/FriendlinkMain/friendlink_add")}'
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
+
+        }
     })
 
 });
