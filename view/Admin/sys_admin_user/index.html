@@ -2,6 +2,11 @@
 
 {block name="content"}
 
+<div class="layui-btn-container">
+    <a href="{:url('sys_admin_user_add')}" class="layui-btn layui-btn-sm" lay-event="add">新增帐号</a>
+    <a href="{:url('/Admin/SysGroup')}" class="layui-btn layui-btn-sm" lay-event="detail">用户组管理</a>
+</div>
+
 <table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
@@ -11,11 +16,9 @@
 </script>
 
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-        <a href="{:url('sys_admin_user_add')}" class="layui-btn layui-btn-sm" lay-event="detail">新增帐号</a>
-        <a href="{:url('/Admin/SysGroup')}" class="layui-btn layui-btn-sm" lay-event="detail">用户组管理</a>
-    </div>
+    <a class="layui-btn layui-btn-xs" lay-event="add">新建</a>
 </script>
+
 {/block}
 
 
@@ -27,26 +30,48 @@ layui.use(['table', 'jquery'], function() {
 
     table.render({
         elem: '#table'
-        ,url: "{:url('')}"
-        ,method: 'post'
-        ,request: {}
-        ,response: {}
-        ,page: true
-        ,toolbar: '#toolbarDemo'
-        ,cols: [[
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: true
+        , toolbar: '#toolbarDemo'
+        , cols: [[
             {field: 'id', title: 'ID', width:80,fixed: 'left'}
-            ,{field: 'userid', title: '登录ID', width:80}
-            ,{field: 'uname', title: '笔名', width:180}
-            ,{field: 'usertype', title: '级别', width:90}
-            ,{field: 'typename', title: '频道', width:90}
-            ,{fixed: 'right', width:220, align:'center', toolbar: '#barDemo'}
+            , {field: 'userid', title: '登录ID', width: 80}
+            , {field: 'uname', title: '笔名', width: 180}
+            , {field: 'usertype', title: '级别', width: 90}
+            , {field: 'typename', title: '频道', width: 90}
+            , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
         ]]
     });
 
+    table.on("toolbar(table)", function(obj){
+        var data = obj.data
+            , layEvent = obj.event;
+        if(layEvent === 'add'){
+            layer.open({
+                type : 2
+                , title : '编辑'
+                , area : ['600px', '420px']
+                , btn: ["提交", "关闭"]
+                , content: "{:url('sys_admin_user_add')}"
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
+        }
+    })
+
     table.on('tool(table)', function(obj){
-        var data = obj.data;
-        var layEvent = obj.event;
-        var tr = obj.tr;
+        var data = obj.data
+            , layEvent = obj.event
+            , tr = obj.tr;
+
         if(layEvent === 'del'){
             layer.confirm('真的删除行么', function(index) {
                 $.post("{:url('sys_admin_user_delete')}", {id:data.id}, function (objs) {
@@ -76,9 +101,8 @@ layui.use(['table', 'jquery'], function() {
                 }
             })
         }
-        }
-
     })
+
 
 })
 </script>

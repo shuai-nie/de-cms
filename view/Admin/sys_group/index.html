@@ -1,10 +1,12 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table id="demo" lay-filter="test"></table>
+
+<a href='{:url("/Admin/sys_admin_user")}' class="layui-btn layui-btn-sm" lay-event="" >[管理系统用户]</a>
+
+<table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
-    <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="rank">权限设定</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="admin_user">组用户</a>
     {{# if(d.system == 0){ }}
@@ -15,11 +17,9 @@
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <a href='{:url("sys_group_add")}' class="layui-btn layui-btn-sm" lay-event="">[增加用户组]</a>
-        <a href='{:url("/Admin/sys_admin_user")}' class="layui-btn layui-btn-sm" lay-event="" >[管理系统用户]</a>
     </div>
 </script>
 {/block}
-
 
 {block name="script"}
 <script type="text/javascript">
@@ -28,21 +28,21 @@ layui.use(['table', 'jquery'], function() {
         $ = layui.jquery;
 
     table.render({
-        elem: '#demo'
-        ,url: "{:url('')}"
-        ,method: 'post'
-        ,request: {}
-        ,response: {}
-        ,page: true
-        ,toolbar: '#toolbarDemo'
-        ,cols: [[
-            {field: 'rank', title: 'Rank', width:80,fixed: 'left'}
-            ,{field: 'typename', title: '组名称'}
-            ,{fixed: 'right', width:220, align:'center', toolbar: '#barDemo'}
+        elem: '#table'
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: true
+        , toolbar: '#toolbarDemo'
+        , cols: [[
+            {field: 'rank', title: 'Rank', width: 80, fixed: 'left'}
+            , {field: 'typename', title: '组名称', width: 170}
+            , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
         ]]
     });
 
-    table.on('tool(test)', function(obj){
+    table.on('tool(table)', function(obj){
         var data = obj.data;
         var layEvent = obj.event;
         var tr = obj.tr;
@@ -59,10 +59,21 @@ layui.use(['table', 'jquery'], function() {
                     }
                 }, 'json');
             })
-        }else if(layEvent === 'edit'){
-            window.location.href = "{:url('sys_admin_user_edit')}?id=" + data.id;
         }else if(layEvent == 'rank') {
-            window.location.href = "{:url('sys_group_edit')}?rank=" + data.rank;
+            layer.open({
+                type : 2
+                , title : '权限设定'
+                , area : ['1000px', '750px']
+                , btn: ["提交", "关闭"]
+                , content: "{:url('sys_group_edit')}?rank=" + data.rank
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
         }else if(layEvent == 'admin_user') {
             window.location.href = "{:url('sys_admin_user')}?rank=" + data.rank;
         }

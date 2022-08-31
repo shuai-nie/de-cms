@@ -35,13 +35,14 @@ layui.use(['form', 'jquery'], function(){
     form.on('submit(*)', function(data){
         $.post("", data.field, function(obj){
             if(obj.code == 200){
-                layer.msg(obj.msg, function(){
+                layer.msg(obj.msg, {icon: 1}, function(){
                     var index = parent.layer.getFrameIndex(window.name);
                     parent.layui.table.reload("table");
                     parent.layer.close(index);
                 })
+            }else{
+                layer.msg(obj.msg, {icon: 2});
             }
-
         }, 'json')
         return false;
     });

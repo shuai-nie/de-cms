@@ -1,9 +1,8 @@
-{extend name="public:base" /}
+{extend name="public:base_layer" /}
 
 {block name="content"}
-<a href="{:url('/admin/SysAdminUser')}"><u>管理帐号</u></a>
 
-<form class="layui-form layui-form-pane" >
+<form class="layui-form" lay-filter="first" style="margin: 20px 20px 0px 0px;" >
     <input name="randcode" type="hidden" value="{$_randcode}" />
 
     <div class="layui-form-item">

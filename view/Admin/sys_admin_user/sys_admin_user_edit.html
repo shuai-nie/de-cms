@@ -1,8 +1,8 @@
-{extend name="public:base" /}
+{extend name="public:base_layer" /}
 
 {block name="content"}
+<form class="layui-form" lay-filter="first" style="margin: 20px 20px 0px 0px;" >
 
-<form class="layui-form layui-form-pane" lay-filter="first">
     <input type="hidden" name="dopost" value="saveedit" />
     <input type="hidden" name="id" value="{$adminInfo['id']}" />
 
@@ -37,7 +37,6 @@
                 {volist name="AdmintypeAll" id='vo'}
                 <option value="{$vo['rank']}">{$vo['typename']}</option>
                 {/volist}
-
             </select>
 
         </div>
@@ -76,12 +75,12 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-form-item layui-hide">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
-            <!--<button type="submit" class="layui-btn layui-btn-xs">提交</button>-->
         </div>
     </div>
+
 </form>
 
 {/block}

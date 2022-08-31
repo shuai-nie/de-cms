@@ -1,7 +1,7 @@
-{extend name="public:base" /}
+{extend name="public:base_layer" /}
 
 {block name="content"}
-    <form class="layui-form layui-form-pane" >
+    <form class="layui-form" lay-filter="first" style="margin: 20px 20px 0px 0px;" >
         <input type='hidden' name="dopost" value="save">
 <!--        <tr>-->
 <!--            <td height="23" align="left" style="padding-left:10px;"><b><a href='sys_group.php'>系统用户组管理</a>&gt;&gt;更改用户组：</b></td>-->
