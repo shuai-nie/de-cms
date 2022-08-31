@@ -1,4 +1,4 @@
-{extend name="public:base" /}
+{extend name="public:base_layer" /}
 
 {block name="style"}
 <style>
@@ -268,10 +268,13 @@
                     <td height="65"> <textarea name="description" cols="70" style="height:50px" rows="4" id="description" class="layui-input"></textarea></td>
                 </tr>
             </table>
-            <div>
+
+            <div class="layui-hide">
                 <button lay-submit class="layui-btn layui-in" lay-filter="submit">提交</button>
             </div>
+
         </div>
+
         <div class="layui-tab-item">3</div>
     </div>
 </div>
@@ -281,7 +284,6 @@
 
 {block name="script"}
 <script>
-
 function SelectTemplets(fname)
 {
     var posLeft = 200;
