@@ -43,24 +43,24 @@ class SysInfo extends Base
 
     public function detail()
     {
-        $id = Request::param('aid');
-        $info = SysconfigModel::where(['aid' => $id])->find();
+        $varname = Request::param('varname');
+        $info = SysconfigModel::where(['varname' => $varname])->find();
         return view('', ['info' => $info]);
     }
 
     public function edit()
     {
-        $aid = Request::param('aid');
+        $varname = Request::param('varname');
         if(Request::isPost()){
             $_post = Request::post();
-            $state = SysconfigModel::update($_post, ['aid'=>$aid]);
+            $state = SysconfigModel::update($_post, ['varname'=>$varname]);
             if($state !== false){
                 return success("提交成功");
             }
             return error("提交失败");
         }
-        $info = SysconfigModel::where(['aid' => $aid])->find();
-        return view('', ['info'=>$info]);
+        $info = SysconfigModel::where(['varname' => $varname])->find();
+        return view('', ['info' => $info]);
     }
 
 

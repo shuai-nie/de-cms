@@ -72,7 +72,7 @@
 >spec_List>列出专题
 >spec_Edit>修改专题
 
->>系统管理权限
+>>系统管理权限 23
 
 >sys_User>系统用户管理
 >sys_Group>系统组管理

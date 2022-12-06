@@ -8,7 +8,11 @@
     <div class="layui-form-item">
         <label class="layui-form-label">{$info['info']}</label>
         <div class="layui-input-block">
+            {if condition="$info['varname'] eq 'cfg_bd_tj' || $info['varname'] eq 'cfg_keywords'"}
+            <textarea name="value" placeholder="请输入" class="layui-textarea" >{$info['value']}</textarea>
+            {else}
             <input type="text" name="value" placeholder="请输入" autocomplete="off" class="layui-input">
+            {/if}
         </div>
     </div>
 

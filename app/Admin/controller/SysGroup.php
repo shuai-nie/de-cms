@@ -77,11 +77,11 @@ class SysGroup extends Base
 
             return $this->success('提交成功', (string)url('index'));
         }
-        $gouplists = file('inc/grouplist.txt');
+//        $gouplists = file('inc/grouplist.txt');
         $groupSet = AdmintypeModel::where(['rank'=>$rank])->find()->toArray();
         $PlusAll = Plus::where("")->select();
         View::assign('_groupSet', $groupSet);
-        View::assign('_gouplists', $gouplists);
+//        View::assign('_gouplists', $gouplists);
         View::assign('_PlusAll', $PlusAll);
         View::assign('nav', array(
             array('title'=>'系统', 'url'=>''),
@@ -89,7 +89,9 @@ class SysGroup extends Base
             array('title'=>'更改用户组', 'url'=>''),
         ));
         View::assign('rank', $rank);
-        return View::fetch();
+        return View::fetch('', [
+            'gouplists' => file('inc/grouplist.txt'),
+        ]);
     }
 
     public function sys_admin_user()

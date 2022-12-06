@@ -15,6 +15,7 @@
 {block name="script"}
 
 <script type="text/javascript">
+layer.config({ skin: 'demo-class'})
 layui.use(['form','upload','jquery','layer'], function() {
     var form = layui.form,
         $ = layui.jquery,
@@ -28,10 +29,10 @@ layui.use(['form','upload','jquery','layer'], function() {
         , limit: 20
         , method: 'post'
         , cols: [[
-            {field: 'aid', title: 'ID', width:80,fixed: 'left'}
-            ,{field: 'info', title: '标题', width:180}
-            ,{field: 'value', title: '键值', width:240}
-            ,{fixed: 'right', title:'操作', width:150, align:'center', toolbar: '#barDemo'}
+            // {field: 'aid', title: 'ID', width:60,fixed: 'left'}
+            {field: 'info', title: '标题', width:180}
+            ,{field: 'value', title: '键值', width:470}
+            ,{fixed: 'right', title:'操作', width:120, align:'center', toolbar: '#barDemo'}
         ]]
     });
 
@@ -46,7 +47,7 @@ layui.use(['form','upload','jquery','layer'], function() {
                 , title : '详情'
                 , area : ['600px', '240px']
                 , btn: ["关闭"]
-                , content: "{:url('detail')}?aid=" + data.aid
+                , content: "{:url('detail')}?varname=" + data.varname
                 , yes: function(index, layero){
                     layer.close(index)
                 }
@@ -57,7 +58,7 @@ layui.use(['form','upload','jquery','layer'], function() {
                 , title : '编辑'
                 , area : ['600px', '240px']
                 , btn: ["提交", "关闭"]
-                , content: "{:url('edit')}?aid=" + data.aid
+                , content: "{:url('edit')}?varname=" + data.varname
                 , yes: function(index, layero){
                     var submit = layero.find('iframe').contents().find("#submit");
                     submit.click();

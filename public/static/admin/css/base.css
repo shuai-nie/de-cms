@@ -20,3 +20,4 @@
 .pagination li{border:1px solid #e6e6e6;padding:3px 8px;display:inline-block;}
 .pagination .active{background-color:#46A3FF;color:#fff;}
 .pagination .disabled{color:#aaa;}
+.demo-class .layui-layer-btn{border-top:1px solid #E9E7E7}
