@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use app\Admin\model\Admintype;
+use app\Admin\model\MemberGroupList;
 use app\Admin\model\Plus;
 use think\facade\Log;
 use think\facade\View;
@@ -90,7 +91,7 @@ class SysGroup extends Base
         ));
         View::assign('rank', $rank);
         return View::fetch('', [
-            'gouplists' => file('inc/grouplist.txt'),
+            'gouplists' => MemberGroupList::tree(),
         ]);
     }
 
