@@ -10,9 +10,49 @@
     <div class="layui-form-item">
         <label class="layui-form-label">{$vo['title']}</label>
         <div class="layui-input-block">
-            <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-            <div class="layui-form-mid layui-word-aux">{$vo['describe']}</div>
+
+            {switch $vo['key']}
+                {case value='photo_markup|photo_markdown'}
+                    <input type="radio" name="" value="1" title="开启" checked />
+                    <input type="radio" name="" value="0" title="关闭" />
+                {/case}
+                {case value='photo_marktype'}
+                    <input type="radio" name="get_photo_marktype" value="0" title="gif" checked />
+                    <input type="radio" name="get_photo_marktype" value="1" title="png" />
+                    <input type="radio" name="get_photo_marktype" value="2" title="文字" />
+                {/case}
+                {case value='photo_wwidth|photo_wheight'}
+                    <input type="text" name="" value="" class="layui-input" />
+                {/case}
+                {case value='photo_waterpos'}
+                <table >
+                    <tbody>
+                    <tr>
+                        <td><input type="radio" name="get_photo_waterpos" value="1" title="顶部居左" ></td>
+                        <td><input type="radio" name="get_photo_waterpos" value="2" title="顶部居中" ></td>
+                        <td><input type="radio" name="get_photo_waterpos" value="3" title="顶部居右" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="get_photo_waterpos" value="4" title="左边居中" ></td>
+                        <td><input type="radio" name="get_photo_waterpos" value="5" title="图片中心" ></td>
+                        <td><input type="radio" name="get_photo_waterpos" value="6" title="右边居中" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="get_photo_waterpos" value="7" title="底部居左" ></td>
+                        <td><input type="radio" name="get_photo_waterpos" value="8" title="底部居中" ></td>
+                        <td><input type="radio" name="get_photo_waterpos" value="9" title="底部居右" ></td>
+                    </tr>
+                    </tbody>
+                </table>
+                {/case}
+                {case value='photo_watertext|photo_fontsize|photo_fontcolor|photo_marktrans|photo_diaphaneity'}
+                    <input type="text" name="" value="{$vo['value']}" class="layui-input" />
+                {/case}
+                {default /}
+            {/switch}
+
         </div>
+        <div class="layui-form-mid layui-word-aux">{$vo['describe']}</div>
 
     </div>
     {/volist}
