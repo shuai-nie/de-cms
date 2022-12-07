@@ -1,6 +1,9 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<style>
+.layui-upload-img{width:92px;height:92px;}
+</style>
 <form action="{:url('sys_info_mrk')}" class="layui-form" style="margin: 20px 20px 0 0;">
 
         <input type="hidden" name="action" value="save">
@@ -10,7 +13,6 @@
     <div class="layui-form-item">
         <label class="layui-form-label">{$vo['title']}</label>
         <div class="layui-input-block">
-
             {switch $vo['key']}
                 {case value='photo_markup|photo_markdown'}
                     <input type="radio" name="" value="1" title="开启" checked />
@@ -48,6 +50,13 @@
                 {case value='photo_watertext|photo_fontsize|photo_fontcolor|photo_marktrans|photo_diaphaneity'}
                     <input type="text" name="" value="{$vo['value']}" class="layui-input" />
                 {/case}
+                {case value='photo_markimg'}
+                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                    <div class="layui-upload-list" style="position:absolute;left: 130px;top: -15px;">
+                        <img class="layui-upload-img" id="demo1">
+                        <p id="demoText"></p>
+                    </div>
+                {/case}
                 {default /}
             {/switch}
 
@@ -56,6 +65,13 @@
 
     </div>
     {/volist}
+
+    <div class="layui-form-item layui-hide">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
 
 
         <!--<tbody style="display:none;">
