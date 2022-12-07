@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
+use app\Admin\model\PhotowatermarkConfig;
 use think\facade\Request;
 use think\facade\View;
 
@@ -31,7 +32,6 @@ class SysInfoMrk extends Base
      */
     public function index()
     {
-        $ImageWaterConfigFile = "storage/mark/inc_photowatermark_config.php";
         if(Request::isPost()){
             $param = Request::param('');
 
@@ -60,8 +60,9 @@ class SysInfoMrk extends Base
             fclose($fp);
             $this->success('修改成功', (string)url('index'));
         }
-        View::assign('ImageWaterConfigFile', $ImageWaterConfigFile);
-        return View::fetch();
+
+        $data = PhotowatermarkConfig::where([])->select();
+        return View::fetch('', ['data'=>$data]);
     }
 
 
