@@ -1,58 +1,12 @@
 {extend name="public:base" /}
 
 {block name="style"}
-<!--<script src="/static/admin/js/jquery-3.6.0.min.js" type="application/javascript"></script>-->
+<style>
+thead tr th .laytable-cell-1-0-1{text-align: center;}
+</style>
 {/block}
 
 {block name="content"}
-<!--
-<div>
-    <form name='form1' action="{:url('tags_main', ['action'=>'fetch'])}" method="post" style="margin-bottom:6px;">
-        <table width="98%" border="0" cellspacing="1" align="center" class="layui-table" >
-            <tr>
-                <td height="20" align="left" bgcolor="#F0FBBD" style="padding-left:10px;"><strong>提取TAG</strong></td>
-            </tr>
-            <tr>
-                <td height="30" align="center" bgcolor="#Ffffff">
-                    开始id:<input type="text" name="startaid" />
-                    结束id:<input type="text" name="endaid" />
-                    <input name="submit" type="submit" value="获取tags" class="layui-btn layui-btn-xs" />
-                    <small>(tag以文档关键词为准)</small>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
-
-<table lay-filter="" class="layui-table">
-    <thead>
-    <tr>
-        <th lay-data="{field:'f1',width:'80'}">删</th>
-        <th lay-data="{field:'f2',width:'280'}">标签</th>
-        <th lay-data="{field:'f3',width:'180'}">点击</th>
-        <th lay-data="{field:'f4',width:'80'}">文档数</th>
-        <th lay-data="{field:'f5',width:'180'}">添加时间</th>
-        <th lay-data="{field:'f6',width:'180'}">操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="_data" id="vo"}
-    <tr>
-        <td><input type="checkbox" name="ids[]" value="{$vo['aid']}" lay-skin="primary" /></td>
-        <td>{$vo['tag']}</td>
-        <td><input type='text' value="{$vo['count']}" id="count{$vo['id']}" size='5' /></td>
-        <td>{$vo['total']}</td>
-        <td>{$vo['addtime']|date='Y-m-d H:i:s'}</td>
-        <td>
-            <a href="javascript:UpdateOne({$vo->id})" class="layui-btn layui-btn-xs" lay-event="">[更新]</a>
-            <a href="javascript:DeleteOne({$vo->id})" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="">[删除]</a>
-        </td>
-    </tr>
-    {/volist}
-    </tbody>
-</table>
-
--->
 <div>
     <form class="layui-form" action="">
         <div class="layui-form-item">
@@ -85,16 +39,6 @@
 
 {block name="script"}
 <script>
-// function UpdateOne(tid){
-//     location = "{:url('tags_main_update')}?count="+document.getElementById('count'+tid).value+"&tid="+tid;
-// }
-//
-// function DeleteOne(tid){
-//     location = "{:url('tags_main_delete')}?action=delete&ids="+tid;
-// }
-</script>
-
-<script>
 layui.use(['table', 'jquery'], function(){
     var table = layui.table,
         $ = layui.jquery;
@@ -108,11 +52,11 @@ layui.use(['table', 'jquery'], function(){
         ,response: {}
         ,page: true
         ,cols: [[ //表头
-            {field: 'id', title: 'ID', width:80,fixed: 'left'}
+            {field: 'id', title: 'ID', width:80,fixed: 'left', align: 'center'}
             ,{field: 'tag', title: '标签', width:180}
-            ,{field: 'count', title: '点击数', width:100}
-            ,{field: 'total', title: '文档数:', width:80}
-            ,{field: 'addtime', title: '时间', width:170}
+            ,{field: 'count', title: '点击数', width:100, align: 'center'}
+            ,{field: 'total', title: '文档数:', width:80, align: 'center'}
+            ,{field: 'addtime', title: '添加时间', width:170, align: 'center'}
             ,{fixed: 'right', width:70, align:'center', toolbar: '#barDemo'}
         ]]
     });
