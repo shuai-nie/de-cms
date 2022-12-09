@@ -8,14 +8,14 @@
 
 <script type="text/html" id="barDemo">
     <div class="layui-btn-container">
-        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">{:lang('edit')}</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">{:lang('delete')}</a>
     </div>
 </script>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <a class="layui-btn layui-btn-xs" lay-event="add">增加顶级栏目组</a>
+        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="create">{:lang('create')}</a>
     </div>
 </script>
 
@@ -39,7 +39,7 @@ layui.use(['table', 'jquery'], function(){
         ,cols: [[
             {field: 'id', title: 'ID', width:80,fixed: 'left'}
             , {field: 'typename', title: '网站名称', width: 180}
-            , {fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}
+            , {fixed: 'right',title: '操作', width: 150, align: 'center', toolbar: '#barDemo'}
         ]]
     });
 

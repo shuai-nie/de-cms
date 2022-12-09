@@ -1,7 +1,6 @@
 {extend name="public:base" /}
 
 {block name="content"}
-
 <a href='{:url("/Admin/FriendlinkMain/friendlink_type")}' class="layui-btn layui-btn-sm" lay-event="">[网站类型管理]</a>
 
 <!--<a href='("/Admin/FriendlinkMain/friendlink_edit", ["id"=>,"dopost"=>"getedit"])}' class="layui-btn layui-btn-xs layui-btn-normal" lay-event="">[更改]</a>
@@ -10,15 +9,18 @@
 <table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">{:lang('edit')}</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">{:lang('delete')}</a>
+    </div>
 </script>
 
 <script type="text/html" id="toolbarDemo">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">新建</a>
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="create">{:lang('create')}</a>
+    </div>
 </script>
 {/block}
-
 
 {block name="script"}
 <script>
@@ -26,7 +28,6 @@ layui.use(['table', 'jquery'], function(){
     var table = layui.table,
         $ = layui.jquery;
 
-    //第一个实例
     table.render({
         elem: '#table'
         , url: "{:url('')}"

@@ -7,8 +7,10 @@ thead tr th .laytable-cell-1-0-1{text-align: center;}
 {/block}
 
 {block name="content"}
-<div>
-    <form class="layui-form" action="">
+<fieldset class="layui-elem-field " style="margin:10px;">
+    <legend>&nbsp;</legend>
+    <div >
+        <form class="layui-form" action="">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">开始id:</label>
@@ -21,19 +23,19 @@ thead tr th .laytable-cell-1-0-1{text-align: center;}
                 </div>
             </div>
             <div class="layui-inline">
-            <button class="layui-btn" data-type="reload">获取tags</button>
+            <button class="layui-btn layui-btn-sm" data-type="reload">获取tags</button>
             </div>
         </div>
-
     </form>
-</div>
-
+    </div>
+</fieldset>
 
 <table id="demo" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
-    <!--<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">{:lang('delete')}</a>
+    </div>
 </script>
 {/block}
 

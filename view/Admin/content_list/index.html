@@ -16,14 +16,16 @@
 <table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">{:lang('edit')}</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">{:lang('delete')}</a>
+    </div>
 </script>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         {if condition="$arcrank neq -1"}
-        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">添加</a>
+        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="create">{:lang('create')}</a>
         <!--<a href='{:url("makehtml_list",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新列表]</a>-->
         <!--<a href='{:url("makehtml_archives",["cid"=>0])}' class="layui-btn layui-btn-xs" lay-event="">[更新文档]</a>-->
         {/if}
