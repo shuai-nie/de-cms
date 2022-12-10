@@ -1,38 +1,105 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table class="layui-table">
-    <tr>
-        <th>Id</th>
-        <th>留言者</th>
-        <th>留言内容</th>
-        <th>IP</th>
-        <th>时间</th>
-    </tr>
-    {volist name="_data" id='vo'}
-    <tr>
-        <td>{$vo['aid']}</td>
-        <td>{$vo['uname']}</td>
-        <td>{$vo['msg']}</td>
-        <td>{$vo['ip']}</td>
-        <td>{if condition="$vo['dtime'] gt 10000 " }
-            {$vo['dtime']|date='Y-m-d'}
-            {else}
-            -
-            {/if}
-        </td>
-    </tr>
-    {/volist}
-</table>
-<div>
-    {$_data|raw}
-</div>
+<table id="table" lay-filter="table"></table>
 {/block}
 
 
 {block name="script"}
-<script type="text/javascript">
+<script type="application/javascript">
+layui.use(['table', 'jquery'], function(){
+    var table = layui.table,
+        $ = layui.jquery;
 
+    table.render({
+        elem: '#table'
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: true
+        , toolbar: '#toolbarDemo'
+        , cols: [[
+            {field: 'id', title: 'ID', width:80,fixed: 'left'}
+            ,{field: 'webname', title: '网站名称', width:180}
+            ,{field: 'url', title: '地址', width:180}
+            ,{field: 'typename', title: '网站类型:', width:140}
+            ,{field: 'sortrank', title: '顺序', width:80}
+            ,{field: 'msg', title: '网站简况:', width:180}
+            ,{field: 'logo', title: '图片', width:70,templet:function(d){
+                    if(d.logo) {
+                        return '<img src="'+ d.logo+'" height="30" width="30" />';
+                    }
+                    return '-';
+                }}
+            ,{field: 'ischeck', title: '状态', width:90}
+            ,{field: 'email', title: '站长Email', width:180}
+            ,{field: 'dtime', title: '时间', width:170}
+            ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+        ]]
+    });
 
+    table.on('tool(table)', function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+
+        if(layEvent === 'del'){
+            layer.confirm('真的删除行么', function(index) {
+                $.post("{:url('friendlink_delete')}", {id:data.id}, function (objs) {
+                    if(objs.code == 200) {
+                        layer.msg(objs.msg, {icon: 1}, function () {
+                            obj.del();
+                            layer.close(index);
+                        })
+                    } else {
+                        layer.msg(objs.msg, {icon: 2});
+                    }
+                }, 'json');
+            })
+        }else if(layEvent === 'edit'){
+            layer.open({
+                type : 2
+                , title : '编辑'
+                , area : ['800px', '740px']
+                , btn: ["提交", "关闭"]
+                , content: "{:url('friendlink_edit')}?id=" +data.id
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
+        }
+
+    })
+
+    table.on("toolbar(table)", function(obj){
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+
+        if(layEvent === 'add'){
+            layer.open({
+                type : 2
+                , title : '编辑'
+                , area : ['800px', '740px']
+                , btn: ["提交", "关闭"]
+                , content: '{:url("/Admin/FriendlinkMain/friendlink_add")}'
+                , yes: function(index, layero){
+                    var submit = layero.find('iframe').contents().find("#submit");
+                    submit.click();
+                }
+                , btn2: function(index, layero){
+                    layer.close(index)
+                }
+            })
+
+        }
+    })
+
+});
 </script>
 {/block}

@@ -1,47 +1,47 @@
 {extend name="public:base_layer" /}
 
 {block name="content"}
-    <form class="layui-form" lay-filter="first" style="margin: 20px 20px 0px 0px;" >
-        <input type='hidden' name="dopost" value="save">
+<form class="layui-form" lay-filter="first" style="margin: 20px 20px 0px 0px;" >
+    <input type='hidden' name="dopost" value="save">
 <!--        <tr>-->
 <!--            <td height="23" align="left" style="padding-left:10px;"><b><a href='sys_group.php'>系统用户组管理</a>&gt;&gt;更改用户组：</b></td>-->
 <!--        </tr>-->
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">组名称</label>
-            <div class="layui-input-inline">
-                <input type="text" name="typename" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['typename']}" >
-                <div class="layui-form-mid layui-word-aux"></div>
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">级别值</label>
-            <div class="layui-input-inline">
-                <input type="text" name="rank" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['rank']}" disabled >
-            </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">组名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="typename" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['typename']}" >
             <div class="layui-form-mid layui-word-aux"></div>
         </div>
+    </div>
 
-        {volist name="gouplists" id="vo"}
-        <div class="layui-form-item">
-            <label class="layui-form-label">{$vo['title']}</label>
-            <div class="layui-input-block">
-                {volist name="vo['child']" id="vo2"}
-                <input type="checkbox" name="" value="{$vo2['key']}" title="{$vo2['title']}" >
-                {/volist}
-            </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">级别值</label>
+        <div class="layui-input-inline">
+            <input type="text" name="rank" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['rank']}" disabled >
         </div>
-        {/volist}
+        <div class="layui-form-mid layui-word-aux"></div>
+    </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">、插件权限</label>
-            <div class="layui-input-block">
-                {volist name="_PlusAll" id="vo" key="k"}
-                <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}' {$vo['plusname']|CRank='plus_'.###,$rank} title="{$vo->plusname}"  >
-                {/volist}
-            </div>
+    {volist name="gouplists" id="vo"}
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$vo['title']}</label>
+        <div class="layui-input-block">
+            {volist name="vo['child']" id="vo2"}
+            <input type="checkbox" name="" value="{$vo2['key']}" title="{$vo2['title']}" >
+            {/volist}
         </div>
+    </div>
+    {/volist}
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">、插件权限</label>
+        <div class="layui-input-block">
+            {volist name="_PlusAll" id="vo" key="k"}
+            <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}' {$vo['plusname']|CRank='plus_'.###,$rank} title="{$vo->plusname}"  >
+            {/volist}
+        </div>
+    </div>
 
     <div class="layui-form-item layui-hide">
         <div class="layui-input-block">

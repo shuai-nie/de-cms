@@ -155,7 +155,9 @@ class SysGroup extends Base
             array('title'=>'用户组设定', 'url'=>''),
             array('title'=>'增加用户组', 'url'=>''),
         ));
-        return View::fetch();
+        return View::fetch('', [
+            'gouplists' => MemberGroupList::tree(),
+        ]);
     }
 
     public function sys_group_delete()

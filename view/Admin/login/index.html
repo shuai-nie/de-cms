@@ -144,11 +144,11 @@
                 success:function (data) {
                     //layer.close(loginLoadIndex);
                     var jsonData = JSON.parse(data);
-                    // if (jsonData.code == '999'){
-                    //     window.location.href = './static/templates/main.html';
-                    // }
+
                     if(jsonData.code == 0){
-                        window.location.href = "{:url('index/index')}"
+                        layer.msg(jsonData.msg, function(){
+                            window.location.href = "{:url('index/index')}"
+                        });
                     }else{
                         layer.msg(jsonData.msg);
                     }

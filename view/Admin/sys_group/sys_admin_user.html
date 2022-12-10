@@ -1,12 +1,12 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table id="demo" lay-filter="test"></table>
+<table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
     <div class="layui-btn-container">
-        <a href='{:url("sys_admin_user_edit", ["id"=>1,"dopost"=>"edit"])}' class="layui-btn layui-btn-xs layui-btn-warm">[更改]</a>
-        <a href='{:url("sys_admin_user_edit", ["userid"=>1,"dopost"=>"delete"])}' class="layui-btn layui-btn-xs layui-btn-danger" >[删除]</a>
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">{:lang('edit')}</a>
+        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">{:lang('delete')}</a>
         <a href='{:url("content_list", ["id"=>1])}' class="layui-btn layui-btn-xs layui-btn-primary" >[文档]</a>
     </div>
 </script>
@@ -19,7 +19,7 @@ layui.use(['table', 'jquery'], function() {
         $ = layui.jquery;
 
     table.render({
-        elem: '#demo'
+        elem: '#table'
         , url: "{:url('')}?rank={$rank}"
         , method: 'post'
         , request: {}
@@ -34,6 +34,20 @@ layui.use(['table', 'jquery'], function() {
             , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
         ]]
     });
+
+    table.on('tool(table)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'edit'){
+            var src = '{:url("sys_admin_user_edit", ["dopost"=>"edit"])}';
+        }else if(obj.event === 'delete'){
+            var src = '{:url("sys_admin_user_edit", ["dopost"=>"delete"])}';
+        }else if(obj.event === '111'){
+
+        }
+
+    })
+
+
 })
 
 </script>

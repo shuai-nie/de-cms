@@ -17,13 +17,15 @@ class Guestbook extends Base {
         ));
         View::assign('_nav_itemed', 'Guestbook');
         View::assign('_nav_this', 'Guestbook_index');
-
     }
 
     public function index()
     {
-        $data = MemberGuestbook::guestbook_member();
-        View::assign('_data', $data);
+        if(request()->isPost()){
+            $data = MemberGuestbook::guestbook_member();
+            $count = 0;//MemberGuestbook::guestbook_member_count();
+            return json(['code'=>0, 'count'=>$count, 'data'=>$data]);
+        }
         return View::fetch('');
     }
 

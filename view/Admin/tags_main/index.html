@@ -45,7 +45,6 @@ layui.use(['table', 'jquery'], function(){
     var table = layui.table,
         $ = layui.jquery;
 
-    //第一个实例
     table.render({
         elem: '#demo'
         ,url: "{:url('')}"
@@ -64,9 +63,8 @@ layui.use(['table', 'jquery'], function(){
     });
 
     table.on('tool(test)', function(obj){
-        var data = obj.data;
-        var layEvent = obj.event;
-        var tr = obj.tr;
+        var data = obj.data,
+            layEvent = obj.event;
         if(layEvent === 'del'){
             layer.confirm('真的删除行么', function(index) {
                 $.post("{:url('friendlink_delete')}", {ids:data.id}, function (objs) {
@@ -89,7 +87,6 @@ layui.use(['table', 'jquery'], function(){
         }
 
     })
-
 });
 </script>
 {/block}
