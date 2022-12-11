@@ -21,87 +21,88 @@
 
 {block name="script"}
 <script>
-layui.use(['table', 'jquery'], function(){
-    var table = layui.table,
-        $ = layui.jquery;
+    layui.use(['table', 'jquery'], function(){
+        var table = layui.table,
+            $ = layui.jquery;
 
-    table.render({
-        elem: '#table'
-        , url: "{:url('')}"
-        , method: 'post'
-        , request: {}
-        , response: {}
-        , page: true
-        , toolbar: '#toolbarDemo'
-        ,cols: [[ //表头
-            {field: 'id', title: 'ID', width:80,fixed: 'left'}
-            ,{field: 'typename', title: '频道名称', width:180}
-            ,{field: 'nid', title: '识别ID', width:180}
-            ,{field: 'addtable', title: '附加表:', width:140}
-            ,{field: 'isshow', title: '状态', width:80}
-            ,{field: 'ischeck', title: '模型', width:90}
-            ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
-        ]]
-    });
+        //第一个实例
+        table.render({
+            elem: '#table'
+            , url: "{:url('')}"
+            , method: 'post'
+            , request: {}
+            , response: {}
+            , page: true
+            , toolbar: '#toolbarDemo'
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID', width:80,fixed: 'left'}
+                ,{field: 'typename', title: '频道名称', width:180}
+                ,{field: 'nid', title: '识别ID', width:180}
+                ,{field: 'addtable', title: '附加表:', width:140}
+                ,{field: 'isshow', title: '状态', width:80}
+                ,{field: 'ischeck', title: '模型', width:90}
+                ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+            ]]
+        });
 
-    table.on('tool(table)', function(obj){
-        var data = obj.data;
-        var layEvent = obj.event;
-        var tr = obj.tr;
-        if(layEvent === 'del'){
-            layer.confirm('真的删除行么', function(index) {
-                $.post("{:url('friendlink_delete')}", {id:data.id}, function (objs) {
-                    if(objs.code == 200) {
-                        layer.msg(objs.msg, {icon: 1}, function () {
-                            obj.del();
-                            layer.close(index);
-                        })
-                    } else {
-                        layer.msg(objs.msg, {icon: 2});
+        table.on('tool(table)', function(obj){
+            var data = obj.data;
+            var layEvent = obj.event;
+            var tr = obj.tr;
+            if(layEvent === 'del'){
+                layer.confirm('真的删除行么', function(index) {
+                    $.post("{:url('friendlink_delete')}", {id:data.id}, function (objs) {
+                        if(objs.code == 200) {
+                            layer.msg(objs.msg, {icon: 1}, function () {
+                                obj.del();
+                                layer.close(index);
+                            })
+                        } else {
+                            layer.msg(objs.msg, {icon: 2});
+                        }
+                    }, 'json');
+                })
+            }else if(layEvent === 'edit'){
+                layer.open({
+                    type : 2
+                    , title : '编辑'
+                    , area : ['800px', '740px']
+                    , btn: ["提交", "关闭"]
+                    , content: "{:url('friendlink_edit')}?id=" +data.id
+                    , yes: function(index, layero){
+                        var submit = layero.find('iframe').contents().find("#submit");
+                        submit.click();
                     }
-                }, 'json');
-            })
-        }else if(layEvent === 'edit'){
-            layer.open({
-                type : 2
-                , title : '编辑'
-                , area : ['800px', '740px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('friendlink_edit')}?id=" +data.id
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
-        }
+                    , btn2: function(index, layero){
+                        layer.close(index)
+                    }
+                })
+            }
 
-    })
+        })
 
-    table.on("toolbar(table)", function(obj){
-        var data = obj.data
-            , layEvent = obj.event;
+        table.on("toolbar(table)", function(obj){
+            var data = obj.data
+                , layEvent = obj.event;
 
-        if(layEvent === 'add'){
-            layer.open({
-                type : 2
-                , title : '新建'
-                , area : ['800px', '740px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('mychannel_add')}"
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
-        }
-    })
+            if(layEvent === 'add'){
+                layer.open({
+                    type : 2
+                    , title : '新建'
+                    , area : ['800px', '740px']
+                    , btn: ["提交", "关闭"]
+                    , content: "{:url('mychannel_add')}"
+                    , yes: function(index, layero){
+                        var submit = layero.find('iframe').contents().find("#submit");
+                        submit.click();
+                    }
+                    , btn2: function(index, layero){
+                        layer.close(index)
+                    }
+                })
+            }
+        })
 
-});
+    });
 </script>
 {/block}
