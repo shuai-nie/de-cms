@@ -1,8 +1,6 @@
 {extend name="public:base" /}
 
 {block name="content"}
-
-
 <table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
@@ -25,7 +23,6 @@
         var table = layui.table,
             $ = layui.jquery;
 
-        //第一个实例
         table.render({
             elem: '#table'
             , url: "{:url('')}"
