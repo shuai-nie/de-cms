@@ -1,38 +1,38 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table class="layui-table">
-    <tr>
-        <th>Id</th>
-        <th>留言者</th>
-        <th>留言内容</th>
-        <th>IP</th>
-        <th>时间</th>
-    </tr>
-    {volist name="_data" id='vo'}
-    <tr>
-        <td>{$vo['aid']}</td>
-        <td>{$vo['uname']}</td>
-        <td>{$vo['msg']}</td>
-        <td>{$vo['ip']}</td>
-        <td>{if condition="$vo['dtime'] gt 10000 " }
-            {$vo['dtime']|date='Y-m-d'}
-            {else}
-            -
-            {/if}
-        </td>
-    </tr>
-    {/volist}
-</table>
-<div>
-    {$_data|raw}
-</div>
-{/block}
 
+<table id="table" lay-filter="table"></table>
+
+<script type="text/html" id="toolbarDemo"></script>
+<script type="text/html" id="barDemo"></script>
+{/block}
 
 {block name="script"}
 <script type="text/javascript">
+layui.use(['table', 'jquery'], function() {
+    var table = layui.table,
+        $ = layui.jquery;
+
+    table.render({
+        elem: '#table'
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: true
+        , toolbar: '#toolbarDemo'
+        , cols: [[
+            {field: 'id', title: 'ID', width: 80, fixed: 'left'}
+            , {field: 'userid', title: '登录ID', width: 80}
+            , {field: 'uname', title: '笔名', width: 180}
+            , {field: 'usertype', title: '级别', width: 90}
+            , {field: 'typename', title: '频道', width: 90}
+            , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
+        ]]
+    });
 
 
+})
 </script>
 {/block}
