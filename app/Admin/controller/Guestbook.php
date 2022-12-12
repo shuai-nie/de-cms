@@ -22,8 +22,13 @@ class Guestbook extends Base {
 
     public function index()
     {
-        $data = MemberGuestbook::guestbook_member();
-        View::assign('_data', $data);
+        if(request()->isPost()){
+            return json([
+                'code' => 0,
+                'msg' => '',
+                'data' => MemberGuestbook::guestbook_member(),
+            ]);
+        }
         return View::fetch('');
     }
 
