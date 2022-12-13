@@ -47,7 +47,7 @@ class MyChannelMain extends Base
             $offset = ($page - 1) * $limit;
             $data = ChanneltypeModel::where($map)->limit($offset, $limit)->select();
             $count = ChanneltypeModel::where($map)->count();
-            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+            return json(['code' => 0, 'msg'=>'', 'data'=>['count' => $count, 'list' => $data]], 200);
         }
         View::assign('_data', []);
         return View::fetch();

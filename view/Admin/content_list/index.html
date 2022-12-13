@@ -77,6 +77,7 @@ function delArc(){
 }
 layui.use('table', function(){
     var table = layui.table;
+    layer.config({skin: 'demo-class'})
 
     table.on('tool(demoCatalogMain)', function(obj){
         var data = obj.data,
@@ -94,19 +95,9 @@ layui.use('table', function(){
 })
 
 layui.use(['table', 'jquery'], function(){
-    var table = layui.table,
-        $ = layui.jquery;
-
-    //第一个实例
-    table.render({
-        elem: '#table'
-        , url: "{:url('')}"
-        , method: 'post'
-        , request: {}
-        , response: {}
-        , toolbar: '#toolbarDemo'
-        , page: true
-        , cols: [[
+    var table = layui.table
+        , $ = layui.jquery
+        , cols = [[
             {field: 'id', title: 'ID', width:80,fixed: 'left'}
             , {field: 'title', title: '文章标题', width: 180}
             , {field: 'ctypename', title: '栏目', width: 90}
@@ -116,7 +107,11 @@ layui.use(['table', 'jquery'], function(){
             , {field: 'senddate', title: '更新时间', width: 170}
             , {fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}
         ]]
-    });
+        , elem = 'table';
+
+    UI.getPageTable(table, "{:url('')}", _cols, "#"+elem, 'auth')
+
+
 
     table.on('tool(table)', function(obj){
         var data = obj.data
@@ -158,10 +153,10 @@ layui.use(['table', 'jquery'], function(){
         var data = obj.data
             , layEvent = obj.event;
 
-        if(layEvent === 'add'){
+        if(layEvent === 'create'){
             layer.open({
                 type : 2
-                , title : '新建'
+                , title : "{:lang('create')}"
                 , area : ['800px', '740px']
                 , btn: ["提交", "关闭"]
                 , content: '{:url("article_add")}'
