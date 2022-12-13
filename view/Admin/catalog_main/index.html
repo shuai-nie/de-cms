@@ -27,6 +27,10 @@ layui.use(['table', 'jquery'], function(){
     var table = layui.table,
         $ = layui.jquery;
 
+    layer.config({
+        skin: 'demo-class'
+    })
+
     //第一个实例
     table.render({
         elem: '#table'
@@ -82,10 +86,10 @@ layui.use(['table', 'jquery'], function(){
         var data = obj.data
             , layEvent = obj.event;
 
-        if(layEvent === 'add'){
+        if(layEvent === 'create'){
             layer.open({
                 type : 2
-                , title : '新建'
+                , title : "{:lang('create')}"
                 , area : ['800px', '750px']
                 , btn: ["提交", "关闭"]
                 , content: "{:url('catalog_add', ['listtype'=>'all'])}"
