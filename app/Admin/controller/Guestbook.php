@@ -17,7 +17,6 @@ class Guestbook extends Base {
         ));
         View::assign('_nav_itemed', 'Guestbook');
         View::assign('_nav_this', 'Guestbook_index');
-
     }
 
     public function index()
