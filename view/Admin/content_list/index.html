@@ -109,7 +109,7 @@ layui.use(['table', 'jquery'], function(){
         ]]
         , elem = 'table';
 
-    UI.getPageTable(table, "{:url('')}", _cols, "#"+elem, 'auth')
+    UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth')
 
 
 
@@ -118,35 +118,14 @@ layui.use(['table', 'jquery'], function(){
             , layEvent = obj.event;
 
         if(layEvent === 'del'){
-            layer.confirm('真的删除行么', function(index) {
-                $.post("{:url('article_del')}", {id:data.id}, function (objs) {
-                    if(objs.code == 200) {
-                        layer.msg(objs.msg, {icon: 1}, function () {
-                            obj.del();
-                            layer.close(index);
-                        })
-                    } else {
-                        layer.msg(objs.msg, {icon: 2});
-                    }
-                }, 'json');
-            })
+            UI.delete(data['id'], function(res){
+                if(res.code==200){
+                    table.reload("table");
+                }
+            }, obj, "{:url('article_del')}");
         }else if(layEvent === 'edit'){
-            layer.open({
-                type : 2
-                , title : '编辑'
-                , area : ['800px', '740px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('article_edit')}?aid=" +data.id
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+            UI.openLayer("{:url('article_edit')}?id=" +data.id, 800, 750, "#submit", "{:lang('edit')}")
         }
-
     })
 
     table.on("toolbar(table)", function(obj){
@@ -154,22 +133,8 @@ layui.use(['table', 'jquery'], function(){
             , layEvent = obj.event;
 
         if(layEvent === 'create'){
-            layer.open({
-                type : 2
-                , title : "{:lang('create')}"
-                , area : ['800px', '740px']
-                , btn: ["提交", "关闭"]
-                , content: '{:url("article_add")}'
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+            UI.openLayer("{:url('article_add')}", 800, 750, "#submit", "{:lang('create')}")
         }
-
     })
 
 });

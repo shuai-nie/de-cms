@@ -3,10 +3,7 @@ declare (strict_types = 1);
 
 namespace app\Admin\controller;
 
-
 use app\Admin\model\Archives;
-use app\Admin\model\Flink;
-use app\Admin\model\Sysconfig;
 use think\facade\Request;
 use think\facade\View;
 use think\facade\Config;
@@ -53,7 +50,7 @@ class CatalogMain extends Base
             $offset = ($page - 1) * $limit;
             $data = ArctypeModel::where($map)->limit($offset, $limit)->select();
             $count = ArctypeModel::where($map)->count();
-            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+            return json(['code' => 0, 'data'=>['count' => $count, 'list' => $data], 'msg'=>''], 200);
         }
         return View::fetch();
     }
