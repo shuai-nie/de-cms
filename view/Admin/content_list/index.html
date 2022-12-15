@@ -75,24 +75,6 @@ function delArc(){
     document.form2.titles.value = qstr;
     document.form2.submit();
 }
-layui.use('table', function(){
-    var table = layui.table;
-    layer.config({skin: 'demo-class'})
-
-    table.on('tool(demoCatalogMain)', function(obj){
-        var data = obj.data,
-            layEvent = obj.event,
-            tr = obj.tr;
-
-        if(layEvent === 'detail'){
-            var _url = $(this).attr('data-url');
-            window.open(_url);
-        }
-
-    });
-
-
-})
 
 layui.use(['table', 'jquery'], function(){
     var table = layui.table
@@ -110,6 +92,18 @@ layui.use(['table', 'jquery'], function(){
         , elem = 'table';
 
     UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth')
+
+    table.on('tool(demoCatalogMain)', function(obj){
+        var data = obj.data,
+            layEvent = obj.event,
+            tr = obj.tr;
+
+        if(layEvent === 'detail'){
+            var _url = $(this).attr('data-url');
+            window.open(_url);
+        }
+
+    });
 
 
 
