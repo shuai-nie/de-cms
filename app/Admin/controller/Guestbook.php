@@ -22,9 +22,17 @@ class Guestbook extends Base {
     public function index()
     {
         if(request()->isPost()){
+<<<<<<< HEAD
             $data = MemberGuestbook::guestbook_member();
             $count = 0;//MemberGuestbook::guestbook_member_count();
             return json(['code'=>0, 'count'=>$count, 'data'=>$data]);
+=======
+            return json([
+                'code' => 0,
+                'msg' => '',
+                'data' => MemberGuestbook::guestbook_member(),
+            ]);
+>>>>>>> develop
         }
         return View::fetch('');
     }

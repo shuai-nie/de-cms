@@ -1,15 +1,48 @@
 {extend name="public:base" /}
 
 {block name="content"}
+<<<<<<< HEAD
 <table id="table" lay-filter="table"></table>
 {/block}
+=======
+>>>>>>> develop
 
+<table id="table" lay-filter="table"></table>
+
+<script type="text/html" id="toolbarDemo"></script>
+<script type="text/html" id="barDemo"></script>
+{/block}
 
 {block name="script"}
+<<<<<<< HEAD
 <script type="application/javascript">
 layui.use(['table', 'jquery'], function(){
     var table = layui.table,
         $ = layui.jquery;
+=======
+<script type="text/javascript">
+layui.use(['table', 'jquery'], function() {
+    var table = layui.table,
+        $ = layui.jquery;
+
+    table.render({
+        elem: '#table'
+        , url: "{:url('')}"
+        , method: 'post'
+        , request: {}
+        , response: {}
+        , page: true
+        , toolbar: '#toolbarDemo'
+        , cols: [[
+            {field: 'id', title: 'ID', width: 80, fixed: 'left'}
+            , {field: 'userid', title: '登录ID', width: 80}
+            , {field: 'uname', title: '笔名', width: 180}
+            , {field: 'usertype', title: '级别', width: 90}
+            , {field: 'typename', title: '频道', width: 90}
+            , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
+        ]]
+    });
+>>>>>>> develop
 
     table.render({
         elem: '#table'
@@ -39,6 +72,7 @@ layui.use(['table', 'jquery'], function(){
         ]]
     });
 
+<<<<<<< HEAD
     table.on('tool(table)', function(obj){
         var data = obj.data;
         var layEvent = obj.event;
@@ -101,5 +135,8 @@ layui.use(['table', 'jquery'], function(){
     })
 
 });
+=======
+})
+>>>>>>> develop
 </script>
 {/block}

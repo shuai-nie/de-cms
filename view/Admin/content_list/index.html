@@ -75,8 +75,23 @@ function delArc(){
     document.form2.titles.value = qstr;
     document.form2.submit();
 }
-layui.use('table', function(){
-    var table = layui.table;
+
+layui.use(['table', 'jquery'], function(){
+    var table = layui.table
+        , $ = layui.jquery
+        , cols = [[
+            {field: 'id', title: 'ID', width:80,fixed: 'left'}
+            , {field: 'title', title: '文章标题', width: 180}
+            , {field: 'ctypename', title: '栏目', width: 90}
+            , {field: 'click', title: '点击', width: 90}
+            , {field: 'ismake', title: '选择', width: 90}
+            , {field: 'userid', title: '发布人', width: 90}
+            , {field: 'senddate', title: '更新时间', width: 170}
+            , {fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}
+        ]]
+        , elem = 'table';
+
+    UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth')
 
     table.on('tool(demoCatalogMain)', function(obj){
         var data = obj.data,
@@ -91,6 +106,7 @@ layui.use('table', function(){
     });
 
 
+<<<<<<< HEAD
 })
 
 layui.use(['table', 'jquery'], function(){
@@ -116,64 +132,31 @@ layui.use(['table', 'jquery'], function(){
             , {fixed: 'right', width: 150, align: 'center', toolbar: '#barDemo'}
         ]]
     });
+=======
+>>>>>>> develop
 
     table.on('tool(table)', function(obj){
         var data = obj.data
             , layEvent = obj.event;
 
         if(layEvent === 'del'){
-            layer.confirm('真的删除行么', function(index) {
-                $.post("{:url('article_del')}", {id:data.id}, function (objs) {
-                    if(objs.code == 200) {
-                        layer.msg(objs.msg, {icon: 1}, function () {
-                            obj.del();
-                            layer.close(index);
-                        })
-                    } else {
-                        layer.msg(objs.msg, {icon: 2});
-                    }
-                }, 'json');
-            })
+            UI.delete(data['id'], function(res){
+                if(res.code==200){
+                    table.reload("table");
+                }
+            }, obj, "{:url('article_del')}");
         }else if(layEvent === 'edit'){
-            layer.open({
-                type : 2
-                , title : '编辑'
-                , area : ['800px', '740px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('article_edit')}?aid=" +data.id
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+            UI.openLayer("{:url('article_edit')}?id=" +data.id, 800, 750, "#submit", "{:lang('edit')}")
         }
-
     })
 
     table.on("toolbar(table)", function(obj){
         var data = obj.data
             , layEvent = obj.event;
 
-        if(layEvent === 'add'){
-            layer.open({
-                type : 2
-                , title : '新建'
-                , area : ['800px', '740px']
-                , btn: ["提交", "关闭"]
-                , content: '{:url("article_add")}'
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+        if(layEvent === 'create'){
+            UI.openLayer("{:url('article_add')}", 800, 750, "#submit", "{:lang('create')}")
         }
-
     })
 
 });

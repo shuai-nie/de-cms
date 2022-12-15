@@ -79,7 +79,7 @@ class ContentList extends Base
                 ->leftjoin(Arctype::getTable() . " B ", "B.id=A.typeid")
                 ->leftjoin(Admin::getTable() . " C ", "C.id=A.mid")
                 ->where($map)->count();
-            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+            return json(['code' => 0, 'msg'=>'', 'data'=>['count' => $count, 'list' => $data]], 200);
         }
         View::assign('arcrank', $arcrank);
         return View::fetch();
