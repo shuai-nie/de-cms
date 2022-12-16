@@ -9,13 +9,17 @@
 <table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="content_list">文档</a>
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">{:lang('edit')}</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">{:lang('delete')}</a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="content_list">文档</a>
+    </div>
 </script>
 
 <script type="text/html" id="toolbarDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="add">新建</a>
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="create">{:lang('create')}</a>
+    </div>
 </script>
 
 {/block}
@@ -24,18 +28,9 @@
 {block name="script"}
 <script type="text/javascript">
 layui.use(['table', 'jquery'], function() {
-    var table = layui.table,
-        $ = layui.jquery;
-
-    table.render({
-        elem: '#table'
-        , url: "{:url('')}"
-        , method: 'post'
-        , request: {}
-        , response: {}
-        , page: true
-        , toolbar: '#toolbarDemo'
-        , cols: [[
+    var table = layui.table
+        , $ = layui.jquery
+        , cols = [[
             {field: 'id', title: 'ID', width:80,fixed: 'left'}
             , {field: 'userid', title: '登录ID', width: 80}
             , {field: 'uname', title: '笔名', width: 180}
@@ -43,65 +38,34 @@ layui.use(['table', 'jquery'], function() {
             , {field: 'typename', title: '频道', width: 90}
             , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
         ]]
-    });
+        , elem = 'table';
 
-    table.on("toolbar(table)", function(obj){
+    UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth')
+
+
+    table.on("toolbar("+elem+")", function(obj){
         var data = obj.data
             , layEvent = obj.event;
-        if(layEvent === 'add'){
-            layer.open({
-                type : 2
-                , title : '编辑'
-                , area : ['600px', '420px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('sys_admin_user_add')}"
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+        if(layEvent === 'create'){
+            UI.openLayer("{:url('sys_admin_user_add')}", 800, 740, "#submit", "{:lang('create')}")
         }
     })
 
-    table.on('tool(table)', function(obj){
+    table.on("tool("+elem+")", function(obj){
         var data = obj.data
             , layEvent = obj.event
             , tr = obj.tr;
 
         if(layEvent === 'del'){
-            layer.confirm('真的删除行么', function(index) {
-                $.post("{:url('sys_admin_user_delete')}", {id:data.id}, function (objs) {
-                    if(objs.code == 200) {
-                        layer.msg(objs.msg, {icon: 1}, function () {
-                            obj.del();
-                            layer.close(index);
-                        })
-                    } else {
-                        layer.msg(objs.msg, {icon: 2});
-                    }
-                }, 'json');
-            })
+            UI.delete(data['id'], function(res){
+                if(res.code==200){
+                    table.reload("table");
+                }
+            }, obj, "{:url('sys_admin_user_delete')}");
         }else if(layEvent === 'edit'){
-            layer.open({
-                type : 2
-                , title : '编辑'
-                , area : ['600px', '420px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('sys_admin_user_edit')}?id=" +data.id
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+            UI.openLayer("{:url('sys_admin_user_edit')}?id=" +data.id, 800, 740, "#submit", "{:lang('edit')}")
         }
     })
-
 
 })
 </script>
