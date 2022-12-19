@@ -44,6 +44,18 @@ var UI = {
             }
         });
     },
+    "detail": function(url, x = 750, y = 600, _title="信息") {
+        layer.open({
+            type : 2
+            , title : _title
+            , area : [x+'px', y+'px']
+            , btn: ["关闭"]
+            , content: url
+            , yes: function(index, layero){
+                layer.close(index)
+            }
+        })
+    },
     "delete": function (id, callback, obj, url='delete') {
         layer.confirm('是否确定删除？', {
 			btn: ['确认', '取消'],

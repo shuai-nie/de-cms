@@ -16,21 +16,15 @@ layui.use(['form','upload','jquery','layer'], function() {
     var form = layui.form,
         $ = layui.jquery,
         layer = layui.layer,
-        table = layui.table;
-
-    table.render({
-        elem: '#table'
-        , url: "{:url('')}"
-        , page: false
-        , limit: 20
-        , method: 'post'
-        , cols: [[
-            // {field: 'aid', title: 'ID', width:60,fixed: 'left'}
+        table = layui.table
+        , cols = [[
             {field: 'info', title: '标题', width:180}
             ,{field: 'value', title: '键值', width:470}
             ,{fixed: 'right', title:'操作', width:120, align:'center', toolbar: '#barDemo'}
         ]]
-    });
+        , elem = 'table';
+
+    UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth')
 
     table.on('tool(table)', function(obj){
         var data = obj.data;
@@ -38,31 +32,9 @@ layui.use(['form','upload','jquery','layer'], function() {
         var tr = obj.tr;
 
         if(layEvent === 'detail'){
-            layer.open({
-                type : 2
-                , title : '详情'
-                , area : ['600px', '240px']
-                , btn: ["关闭"]
-                , content: "{:url('detail')}?varname=" + data.varname
-                , yes: function(index, layero){
-                    layer.close(index)
-                }
-            })
+            UI.detail("{:url('detail')}?varname=" + data.varname, 600, 200, '详情')
         } else if(layEvent === 'edit'){
-            layer.open({
-                type : 2
-                , title : '编辑'
-                , area : ['600px', '240px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('edit')}?varname=" + data.varname
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+            UI.openLayer("{:url('sys_admin_user_edit')}?varname=" +data.varname, 800, 740, "#submit", "{:lang('edit')}")
         }
 
     })
