@@ -1,2 +1,0 @@
-# snoopy
-snoopy php class
