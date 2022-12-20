@@ -41,10 +41,8 @@ class TagsMain extends Base
             $map = [];
             $data = Tagindex::where($map)->order('id desc')->limit($offset, $limit)->select();
             $count = Tagindex::where($map)->count();
-            return json(['code'=>0, 'count'=>$count, 'data' => $data], 200);
+            return json(['code'=>0, 'data'=>['count'=>$count, 'list' => $data], 'msg'=>''], 200);
         }
-
-        View::assign('_data', []);
         return View::fetch();
     }
 

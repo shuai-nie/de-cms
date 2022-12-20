@@ -30,7 +30,7 @@ thead tr th .laytable-cell-1-0-1{text-align: center;}
     </div>
 </fieldset>
 
-<table id="demo" lay-filter="test"></table>
+<table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
     <div class="layui-btn-container">
@@ -43,17 +43,8 @@ thead tr th .laytable-cell-1-0-1{text-align: center;}
 <script>
 layui.use(['table', 'jquery'], function(){
     var table = layui.table,
-        $ = layui.jquery;
-
-    //第一个实例
-    table.render({
-        elem: '#demo'
-        ,url: "{:url('')}"
-        ,method: 'post'
-        ,request: {}
-        ,response: {}
-        ,page: true
-        ,cols: [[
+        $ = layui.jquery
+        , _cols = [[
             {field: 'id', title: 'ID', width:80,fixed: 'left', align: 'center'}
             ,{field: 'tag', title: '标签', width:180}
             ,{field: 'count', title: '点击数', width:100, align: 'center'}
@@ -61,33 +52,21 @@ layui.use(['table', 'jquery'], function(){
             ,{field: 'addtime', title: '添加时间', width:170, align: 'center'}
             ,{fixed: 'right', width:70, align:'center', toolbar: '#barDemo'}
         ]]
-    });
+        , elem = 'table';
 
-    table.on('tool(test)', function(obj){
+    UI.getPageTable(table, "{:url('')}", _cols, "#"+elem, 'auth')
+
+    table.on('tool('+elem+')', function(obj){
         var data = obj.data;
         var layEvent = obj.event;
         var tr = obj.tr;
         if(layEvent === 'del'){
-            layer.confirm('真的删除行么', function(index) {
-                $.post("{:url('friendlink_delete')}", {ids:data.id}, function (objs) {
-                    if(objs.code == 200) {
-                        layer.msg(objs.msg, {icon: 1}, function () {
-                            obj.del();
-                            layer.close(index);
-                        })
-                    } else {
-                        layer.msg(objs.msg, {icon: 2});
-                    }
-                }, 'json');
-            })
-        }else if(layEvent === 'edit'){
-            // obj.update({
-            //     username: '123'
-            //     ,title: 'xxx'
-            // });
-            window.location.href = "{:url('tags_main_update')}?id=" +data.id + "&count=" + data.count;
+            UI.delete(data['id'], function(res){
+                if(res.code==200){
+                    table.reload("table");
+                }
+            }, obj, "{:url('friendlink_delete')}");
         }
-
     })
 
 });
