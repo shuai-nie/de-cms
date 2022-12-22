@@ -44,7 +44,7 @@ class SysAdminUser extends Base
             }
             $data =  Admin::where($where)->select();
             $count =  Admin::where($where)->count();
-            return json(['code'=>0, 'count'=>$count, 'data'=>$data], 200);
+            return json(['code' => 0, 'data' => ['count' => $count, 'list' => $data], 'msg' => ''], 200);
         }
         return View::fetch();
     }

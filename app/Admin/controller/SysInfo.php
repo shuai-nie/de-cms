@@ -36,7 +36,7 @@ class SysInfo extends Base
         if(Request::isPost()){
             $data = SysconfigModel::where(['groupid'=>1])->select();
             $count = SysconfigModel::where(['groupid'=>1])->count();
-            return json(['code'=>0, 'count'=>$count, 'data'=>$data]);
+            return json(['code' => 0, 'data' => ['count' => $count, 'list' => $data], 'msg' => '']);
         }
         return View::fetch('index');
     }
