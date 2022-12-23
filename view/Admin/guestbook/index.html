@@ -12,17 +12,8 @@
 <script type="text/javascript">
 layui.use(['table', 'jquery'], function() {
     var table = layui.table,
-        $ = layui.jquery;
-
-    table.render({
-        elem: '#table'
-        , url: "{:url('')}"
-        , method: 'post'
-        , request: {}
-        , response: {}
-        , page: true
-        , toolbar: '#toolbarDemo'
-        , cols: [[
+        $ = layui.jquery
+        , cols = [[
             {field: 'id', title: 'ID', width: 80, fixed: 'left'}
             , {field: 'userid', title: '登录ID', width: 80}
             , {field: 'uname', title: '笔名', width: 180}
@@ -30,8 +21,9 @@ layui.use(['table', 'jquery'], function() {
             , {field: 'typename', title: '频道', width: 90}
             , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
         ]]
-    });
+        , elem = 'table';
 
+    UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth');
 
 })
 </script>

@@ -25,7 +25,11 @@ class Guestbook extends Base {
             return json([
                 'code' => 0,
                 'msg' => '',
-                'data' => MemberGuestbook::guestbook_member(),
+                'data' => [
+                    'count' => 0,
+                    'list' => []
+                ]
+                //'data' => MemberGuestbook::guestbook_member(),
             ]);
         }
         return View::fetch('');
