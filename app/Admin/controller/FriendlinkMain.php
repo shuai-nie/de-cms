@@ -53,7 +53,7 @@ class FriendlinkMain extends Base
                 $data[$key] = $value;
             }
 
-            return json(['code'=>0, 'count'=>$count, 'data'=>$data], 200);
+            return json(['code' => 0, 'msg' => '', 'data' => ['count' => $count, 'list' => $data]], 200);
         }
         return View::fetch();
     }

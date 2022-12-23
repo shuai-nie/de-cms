@@ -102,7 +102,7 @@ class SysAdminUser extends Base
         View::assign('_ut', $ut);
         $randcode = mt_rand(10000, 99999);
         $cfg_cookie_encode = Config::get('app.cfg_cookie_encode');
-         $safecode = substr(md5($cfg_cookie_encode.$randcode), 0, 24);
+        $safecode = substr(md5($cfg_cookie_encode.$randcode), 0, 24);
         View::assign('_randcode', $randcode);
         View::assign('_safecode', $safecode);
         $this->typeOptions();
