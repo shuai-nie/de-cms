@@ -1,85 +1,88 @@
-{extend name="public:base" /}
+{extend name="public:base_layer" /}
 
 {block name="content"}
-<table width="98%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D6D6D6" align="center">
-    <form name='form1' action="{:url('sys_group_add')}" method='post'>
-        <input type='hidden' name='dopost' value='save'>
-        <tr>
-            <td height="23" background="images/tbg.gif" align="left" style="padding-left:10px;"><b>
-                <a href='sys_group.php'>系统用户组管理</a>&gt;&gt;增加用户组：</b>
-            </td>
-        </tr>
-        <tr>
-            <td valign="top" bgcolor="#FFFFFF" align="center">
-                <table width="98%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="9%" height="30">组名称：</td>
-                        <td width="91%" style="text-align:left;"> <input name="groupname" type="text" id="groupname">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="9%" height="30">级别值：</td>
-                        <td width="91%" style="text-align:left;"> <input name="rankid" type="text" id="rankid" size="6">
-                            （数字，系统已占用的级别值：
-                            {volist name="_row" id="vo"}
-                            <font color="red">{$vo->rank}</font>
-                            {/volist}
-                            ，级别值必须小于10，超过或等于10所有权限设置将无效(超级管理员)，如果10个组不能完全满足你的要求，允许使用小数） </td>
-                    </tr>
-                    <?php
-                    $start = 0;
-                    $k = 0;
-                    $gouplists = file('inc/grouplist.txt');
-                    foreach($gouplists as $line)
-                    {
-                        $line = trim($line);
-                        if($line=="") continue;
-                        if(preg_match("#^>>#", $line)){
-                            if($start>0) echo "</td></tr>\r\n";
-                                $start++;
-                                $lhead = "
-                    <tr>
-                        <td height='25' colspan='2' bgcolor='#F9FAF3' style='text-align:left;'>".$start."、".str_replace('>>','',$line)."</td>
-                    </tr>
-                    <tr><td height='25' colspan='2' style='text-align:left;'>
-                        ";
-                        echo $lhead;
-                        }else if(preg_match("#^>#", $line)){
-                            $ls = explode('>',$line);
-                            $tag = $ls[1];
-                            $tagname = str_replace('[br]', '<br />', $ls[2]);
-                        if(!preg_match("#<br \/>#", $tagname) ) $tagname .= "<font color='#888888'>($tag)</font>";
-                            else $tagname = str_replace('<br />', "<font color='#888888'>($tag)</font><br />", $tagname);
-                            echo "          	<input name='purviews[]' type='checkbox' class='np' id='purviews$k' value='$tag'>$tagname\r\n";
-                            $k++;
-                            }
-                        }
-                        $start++;
-                        ?>
-                    </td>
-                    </tr>
-                    <tr>
-                        <td height='25' colspan='2' bgcolor='#F9FAF3' style="text-align:left;">{$start}、插件权限</td>
-                    </tr>
-                    <tr>
-                        <td height='25' colspan='2' style='text-align:left;'>
-                            {volist name="_PlusAll" id="vo" key="k"}
-                            <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}'>{$vo->plusname}
-                            {if $k%6 eq 0}<br/>{/if}
-                            {/volist}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="50" align="center">&nbsp;</td>
-                        <td height="50"  style="text-align:left;">
-                            <button class="layui-btn layui-btn-xs" lay-submit="" lay-filter="*">立即提交</button>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </form>
-</table>
+<form class="layui-form" lay-filter="first" style="margin: 20px 20px 0px 0px;" >
+
+    <input type="hidden" name="dopost" value="saveedit" />
+    <input type="hidden" name="id" value="" />
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户登录ID</label>
+
+        <div class="layui-input-block">
+            <input type="text" name="price_max" value="" disabled placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户笔名</label>
+        <div class="layui-input-block">
+            <input type="text" name="uname"  value=""  placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="text" name="pwd"  placeholder="￥" autocomplete="off" class="layui-input">
+            <div class="layui-form-mid layui-word-aux">（留空则不修改，只能用'0-9a-zA-Z.@_-!'以内范围的字符）</div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户类型</label>
+        <div class="layui-input-block">
+            <select name="usertype" lay-filter="usertype" lay-search>
+                <option value="">请搜索</option>
+                {volist name="AdmintypeAll" id='vo'}
+                <option value="{$vo['rank']}">{$vo['typename']}</option>
+                {/volist}
+            </select>
+
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户负责频道</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="typeids[0]" value="0" lay-skin="primary" title="所有频道" checked />
+            {volist name="arctypeAll" id="vo"}
+            <input type="checkbox" name="typeids[{$vo['id']}]" value="{$vo['id']}" lay-skin="primary" title="{$vo['typename']}" />
+            {/volist}
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="tname" value="{$adminInfo['tname']}" placeholder="" autocomplete="off" class="layui-input" />
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">电子邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="email" value="{$adminInfo['email']}" placeholder="" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">安全验证串</label>
+        <div class="layui-input-block">
+            <input type="text" name="safecode" value="" autocomplete="off" class="layui-input">
+            <input type="hidden" name="randcode" value="{$randcode}" />
+            <div class="layui-form-mid layui-word-aux">(复制本代码： <font color='red'>{$safecode}</font> )</div>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
+        </div>
+    </div>
+
+</form>
+
 {/block}
 
 {block name="script"}
@@ -111,7 +114,7 @@
         });
 
         form.on('submit(submit)', function(data){
-            $.post(":url('')", data.field, function(obj){
+            $.post("{:url('')}", data.field, function(obj){
                 if(obj.code == 200){
                     layer.msg(obj.msg , function(){
                         window.location.href = "{:url('index')}"

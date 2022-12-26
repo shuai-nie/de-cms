@@ -46,7 +46,7 @@ class SysGroup extends Base
             $map = [];
             $data = AdmintypeModel::where($map)->field('rank,typename,system')->limit($offset, $limit)->select();
             $count = AdmintypeModel::where($map)->count();
-            return json(['code' => 0, 'count' => $count, 'data' => $data], 200);
+            return json(['code' => 0, 'msg' => '', 'data'=> ['count' => $count, 'list' => $data]], 200);
         }
         $data = AdmintypeModel::where(array())->field('rank,typename,system')->select()->toArray();
         View::assign('_data', $data);

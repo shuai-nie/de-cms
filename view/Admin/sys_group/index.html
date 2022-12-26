@@ -6,7 +6,7 @@
 <table id="table" lay-filter="table"></table>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="rank">权限设定</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="rank">权限设定</a>
     <a class="layui-btn layui-btn-xs" lay-event="admin_user">组用户</a>
     {{# if(d.system == 0){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -15,7 +15,7 @@
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <a href='{:url("sys_group_add")}' class="layui-btn layui-btn-sm" lay-event="">[增加用户组]</a>
+        <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="create">{:lang('create')}</a>
     </div>
 </script>
 {/block}
@@ -24,55 +24,36 @@
 <script type="text/javascript">
 layui.use(['table', 'jquery'], function() {
     var table = layui.table,
-        $ = layui.jquery;
-
-    table.render({
-        elem: '#table'
-        , url: "{:url('')}"
-        , method: 'post'
-        , request: {}
-        , response: {}
-        , page: true
-        , toolbar: '#toolbarDemo'
-        , cols: [[
+        $ = layui.jquery
+        , cols = [[
             {field: 'rank', title: 'Rank', width: 80, fixed: 'left'}
             , {field: 'typename', title: '组名称', width: 170}
             , {fixed: 'right', width: 220, align: 'center', toolbar: '#barDemo'}
         ]]
-    });
+        , elem = 'table';
+
+    UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth')
+
+    table.on("toolbar("+elem+")", function(obj){
+        var data = obj.data
+            , layEvent = obj.event;
+        if(layEvent === 'create'){
+            UI.openLayer("{:url('sys_group_add')}", 800, 740, "#submit", "{:lang('create')}")
+        }
+    })
 
     table.on('tool(table)', function(obj){
         var data = obj.data;
         var layEvent = obj.event;
         var tr = obj.tr;
         if(layEvent === 'del'){
-            layer.confirm('真的删除行么', function(index) {
-                $.post("{:url('sys_admin_user_delete')}", {id:data.id}, function (objs) {
-                    if(objs.code == 200) {
-                        layer.msg(objs.msg, {icon: 1}, function () {
-                            obj.del();
-                            layer.close(index);
-                        })
-                    } else {
-                        layer.msg(objs.msg, {icon: 2});
-                    }
-                }, 'json');
-            })
+            UI.delete(data['id'], function(res){
+                if(res.code==200){
+                    table.reload("table");
+                }
+            }, obj, "{:url('sys_group_delete')}");
         }else if(layEvent == 'rank') {
-            layer.open({
-                type : 2
-                , title : '权限设定'
-                , area : ['1000px', '750px']
-                , btn: ["提交", "关闭"]
-                , content: "{:url('sys_group_edit')}?rank=" + data.rank
-                , yes: function(index, layero){
-                    var submit = layero.find('iframe').contents().find("#submit");
-                    submit.click();
-                }
-                , btn2: function(index, layero){
-                    layer.close(index)
-                }
-            })
+            UI.openLayer("{:url('sys_group_edit')}?rank=" + data.rank, 800, 740, "#submit", "权限设定")
         }else if(layEvent == 'admin_user') {
             window.location.href = "{:url('sys_admin_user')}?rank=" + data.rank;
         }
