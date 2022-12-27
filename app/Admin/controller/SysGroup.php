@@ -4,12 +4,12 @@ declare (strict_types = 1);
 namespace app\Admin\controller;
 
 use app\Admin\model\Admintype;
+use app\Admin\model\Admintype as AdmintypeModel;
 use app\Admin\model\MemberGroupList;
 use app\Admin\model\Plus;
 use think\facade\Log;
 use think\facade\View;
 use think\facade\Request;
-use app\Admin\model\Admintype as AdmintypeModel;
 use app\Admin\model\Admin as AdminModel;
 use app\Admin\model\Arctype as ArctypeModel;
 
@@ -149,13 +149,19 @@ class SysGroup extends Base
         View::assign('_row', $row);
         $PlusAll = Plus::where("")->select();
         View::assign('_PlusAll', $PlusAll);
+        $groupSet = AdmintypeModel::where([])->find();
+        $PlusAll = Plus::where("")->select();
+        View::assign('_groupSet', $groupSet);
+        View::assign('_PlusAll', $PlusAll);
 
         View::assign('nav', array(
             array('title'=>'系统', 'url'=>''),
             array('title'=>'用户组设定', 'url'=>''),
             array('title'=>'增加用户组', 'url'=>''),
         ));
-        return View::fetch();
+        return View::fetch('', [
+            'gouplists' => MemberGroupList::tree(),
+        ]);
     }
 
     public function sys_group_delete()

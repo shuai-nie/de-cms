@@ -2,85 +2,52 @@
 
 {block name="content"}
 <form class="layui-form" lay-filter="first" style="margin: 20px 20px 0px 0px;" >
-
-    <input type="hidden" name="dopost" value="saveedit" />
-    <input type="hidden" name="id" value="" />
+    <input type='hidden' name="dopost" value="save">
+    <!--        <tr>-->
+    <!--            <td height="23" align="left" style="padding-left:10px;"><b><a href='sys_group.php'>系统用户组管理</a>&gt;&gt;更改用户组：</b></td>-->
+    <!--        </tr>-->
 
     <div class="layui-form-item">
-        <label class="layui-form-label">用户登录ID</label>
-
-        <div class="layui-input-block">
-            <input type="text" name="price_max" value="" disabled placeholder="" autocomplete="off" class="layui-input">
+        <label class="layui-form-label">组名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="typename" placeholder="请输入" autocomplete="off" class="layui-input" value="{$_groupSet['typename']}" >
+            <div class="layui-form-mid layui-word-aux"></div>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">用户笔名</label>
-        <div class="layui-input-block">
-            <input type="text" name="uname"  value=""  placeholder="" autocomplete="off" class="layui-input">
+        <label class="layui-form-label">级别值</label>
+        <div class="layui-input-inline">
+            <input type="text" name="rank" placeholder="请输入" autocomplete="off" class="layui-input" value="" disabled >
         </div>
+        <div class="layui-form-mid layui-word-aux"></div>
     </div>
 
+    {volist name="gouplists" id="vo"}
     <div class="layui-form-item">
-        <label class="layui-form-label">密码</label>
+        <label class="layui-form-label">{$vo['title']}</label>
         <div class="layui-input-block">
-            <input type="text" name="pwd"  placeholder="￥" autocomplete="off" class="layui-input">
-            <div class="layui-form-mid layui-word-aux">（留空则不修改，只能用'0-9a-zA-Z.@_-!'以内范围的字符）</div>
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">用户类型</label>
-        <div class="layui-input-block">
-            <select name="usertype" lay-filter="usertype" lay-search>
-                <option value="">请搜索</option>
-                {volist name="AdmintypeAll" id='vo'}
-                <option value="{$vo['rank']}">{$vo['typename']}</option>
-                {/volist}
-            </select>
-
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">用户负责频道</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="typeids[0]" value="0" lay-skin="primary" title="所有频道" checked />
-            {volist name="arctypeAll" id="vo"}
-            <input type="checkbox" name="typeids[{$vo['id']}]" value="{$vo['id']}" lay-skin="primary" title="{$vo['typename']}" />
+            {volist name="vo['child']" id="vo2"}
+            <input type="checkbox" name="" value="{$vo2['key']}" title="{$vo2['title']}" >
             {/volist}
         </div>
     </div>
+    {/volist}
 
     <div class="layui-form-item">
-        <label class="layui-form-label">真实姓名</label>
+        <label class="layui-form-label">、插件权限</label>
         <div class="layui-input-block">
-            <input type="text" name="tname" value="{$adminInfo['tname']}" placeholder="" autocomplete="off" class="layui-input" />
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">电子邮箱</label>
-        <div class="layui-input-block">
-            <input type="text" name="email" value="{$adminInfo['email']}" placeholder="" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label">安全验证串</label>
-        <div class="layui-input-block">
-            <input type="text" name="safecode" value="" autocomplete="off" class="layui-input">
-            <input type="hidden" name="randcode" value="{$randcode}" />
-            <div class="layui-form-mid layui-word-aux">(复制本代码： <font color='red'>{$safecode}</font> )</div>
+            {volist name="_PlusAll" id="vo" key="k"}
+            <input name='purviews[]' type='checkbox' class='np' id='purviews{$k}' value='plus_{$vo->plusname}'  title="{$vo->plusname}"  >
+            {/volist}
         </div>
     </div>
 
     <div class="layui-form-item layui-hide">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
+            <button lay-submit class="layui-btn" lay-filter="submit">提交</button>
         </div>
     </div>
-
 </form>
 
 {/block}
@@ -89,29 +56,7 @@
 <script type="application/javascript">
     layui.use(['form','upload','jquery'], function() {
         var form = layui.form,
-            upload = layui.upload,
             $ = layui.jquery;
-
-        var upload_url= "{:url('Upload/upload')}";
-        var upload_accept='images';
-        var upload_acceptMime='image/*';
-        var upload_size=3145728;
-        var uploadInst = upload.render({
-            elem: '#test1'
-            ,url: upload_url
-            ,accept: upload_accept
-            ,acceptMime:upload_acceptMime
-            ,size: upload_size
-            ,done: function(res){
-                $("#logoimgImg").show();
-                $("#logoimgImg img").attr('src', res.data.src);
-                $("input[name='logoimg']").val(res.data.src);
-                $("input[name='logo']").val(res.data.src);
-            }
-            ,error: function(){
-                //请求异常回调
-            }
-        });
 
         form.on('submit(submit)', function(data){
             $.post("{:url('')}", data.field, function(obj){
