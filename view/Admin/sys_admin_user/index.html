@@ -46,7 +46,7 @@ layui.use(['table', 'jquery'], function() {
         var data = obj.data
             , layEvent = obj.event;
         if(layEvent === 'create'){
-            UI.openLayer("{:url('sys_admin_user_add')}", 800, 740, "#submit", "{:lang('create')}")
+            UI.openLayer("{:url('sys_admin_user_add')}", 800, 640, "#submit", "{:lang('create')}")
         }
     })
 
@@ -62,7 +62,7 @@ layui.use(['table', 'jquery'], function() {
                 }
             }, obj, "{:url('sys_admin_user_delete')}");
         }else if(layEvent === 'edit'){
-            UI.openLayer("{:url('sys_admin_user_edit')}?id=" +data.id, 800, 740, "#submit", "{:lang('edit')}")
+            UI.openLayer("{:url('sys_admin_user_edit')}?id=" +data.id, 800, 640, "#submit", "{:lang('edit')}")
         }
     })
 
