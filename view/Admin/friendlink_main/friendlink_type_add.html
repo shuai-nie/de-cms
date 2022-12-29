@@ -15,8 +15,7 @@
 
     <div class="layui-form-item layui-hide">
         <div class="layui-input-block">
-            <input type="hidden" name="id" >
-            <button class="layui-btn" lay-submit lay-filter="first">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>
         </div>
     </div>
 
@@ -29,15 +28,9 @@ layui.use(['form','jquery'], function(){
     var form = layui.form,
         $ = layui.jquery;
 
-    form.on('submit(first)', function(data){
-        $.post("{:url('')}", data.field, function (obj) {
-            if(obj.code == 200){
-                layer.msg(obj.msg, {icon:1}, function () {
-                    window.location.href = "{:url('friendlink_type')}"
-                })
-            }else{
-                layer.msg(obj.msg);
-            }
+    form.on('submit(submit)', function(data){
+        Api.add(data.field, function(obj){
+
         })
         return false;
     });

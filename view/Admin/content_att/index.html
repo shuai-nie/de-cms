@@ -1,7 +1,7 @@
 {extend name="public:base" /}
 
 {block name="content"}
-<table id="demo" lay-filter="test"></table>
+<table id="table" lay-filter="table"></table>
 {/block}
 
 {block name="script"}
@@ -9,35 +9,17 @@
 layui.use(['form', 'upload', 'jquery', 'table'], function () {
     var form = layui.form,
         $ = layui.jquery,
-        table = layui.table;
-
-
-    table.render({
-        elem: '#demo'
-        , url: "{:url('')}"
-        , method: 'post'
-        , request: {}
-        , response: {}
-        , page: false
-        , toolbar: '#toolbarDemo'
-        , defaultToolbar: ['filter', 'exports']
-        , cols: [[
+        table = layui.table
+        , cols = [[
             {field: 'att', title: 'ID', width: 80, fixed: 'left'}
             , {field: 'sortid', title: '排序', width:120,}
             , {field: 'attname', title: '属性',width: 120,}
         ]]
-    });
+    , elem = 'table';
 
-    form.on('submit(submit)', function(data){
-        $.post("{:url('')}", data.field, function(obj){
-            if(obj.code == 200){
-                layer.msg(obj.msg , function(){
-                    window.location.href = "{:url('index')}"
-                })
-            }
-        }, 'json')
-        return false;
-    });
+    UI.getPageTable(table, "{:url('')}", cols, "#"+elem, 'auth')
+
+
 })
 </script>
 {/block}

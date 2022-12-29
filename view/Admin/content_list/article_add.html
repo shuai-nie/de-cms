@@ -328,13 +328,9 @@
         })
 
         form.on('submit(submit)', function(data){
-            $.post("{:url('')}", data.field, function(obj){
-                if(obj.code == 200){
-                    layer.msg(obj.msg , function(){
-                        window.location.href = "{:url('index')}"
-                    })
-                }
-            }, 'json')
+            Api.add(data.field, function(obj){
+
+            })
             return false;
         });
 
